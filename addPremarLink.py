@@ -130,6 +130,7 @@ def process_all_posts(directory):
 if __name__ == "__main__":
     posts_directory = "source/_posts"
     process_all_posts(posts_directory)
+
     # permalink = "/archives/%E5%A6%82%E4%BD%95%E5%9C%A8redis%E4%B8%AD%E7%AE%A1%E7%90%86%E5%89%AF%E6%9C%AC%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/"
     # print(permalink)
     # print(urllib.parse.unquote(permalink))
