@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://tushu.info/sitemap.xml
+Sitemap: https://tushu.info/baidusitemap.xml
