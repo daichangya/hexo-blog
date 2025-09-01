@@ -1,0 +1,102 @@
+---
+title: 单例模式中为什么用枚举更好
+id: 1054
+date: 2024-10-31 22:01:48
+author: daichangya
+excerpt: 枚举单例（Enum Singleton）是实现单例模式的一种新方式，尽管单例模式在java中已经存在很长时间了，但是枚举单例相对来说是一种比较新的概念，枚举这个特性是在Java5才出现的，这篇文章主要讲解关于为什么我们应该使用枚举来实现单例模式，它与传统方式实现的单例模式
+permalink: /archives/dan-li-mo-shi-zhong-wei-shen-me-yong/
+tags:
+- 设计模式
+---
+
+ 翻译自 [Javarevisited](http://javarevisited.blogspot.com/2012/07/why-enum-singleton-are-better-in-java.html)。如需转载本文，请先参见文章末尾处的转载要求。  
+
+枚举单例（Enum Singleton）是实现单例模式的一种新方式，尽管单例模式在java中已经存在很长时间了，但是枚举单例相对来说是一种比较新的概念，枚举这个特性是在Java5才出现的，这篇文章主要讲解关于为什么我们应该使用枚举来实现单例模式，它与传统方式实现的单例模式相比较又有哪些优势？
+
+1\. 枚举写法简单
+
+写法简单这是它最大的优点，如果你先前写过单例模式，你应该知道即使有DCL（double checked locking） 也可能会创建不止一个实例，尽管在Java5这个问题修复了（jdk1.5在内存模型上做了大量的改善，提供了volatile关键字来修饰变量），但是仍然对新手来说还是比较棘手。对比通过double checked locking 实现同步，枚举单例那实在是太简单了。如果你不相信那么对比下面代码，分别为传统的用double checked locking实现的单例和枚举单例。
+
+枚举实现：
+
+下面这段代码就是声明枚举实例的通常做法，它可能还包含实例变量和实例方法，但是为了简单起见，我并没有使用这些东西，仅仅需要小心的是如果你正在使用实例方法，那么你需要确保线程安全（如果它影响到其他对象的状态的话）。默认枚举实例的创建是线程安全的，但是在枚举中的其他任何方法由程序员自己负责。
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:570px;border-spacing:1px;border:0px !important;font-size:12px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><tbody style="margin-left:0px !important;border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><tr style="margin-left:0px !important;border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><td class="gutter" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;font-family:Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important;min-height: !important;color:rgb(175,175,175) !important;"><div class="line number1 index0 alt2" style="border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">1</div><div class="line number2 index1 alt1" style="border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">2</div><div class="line number3 index2 alt2" style="border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">3</div><div class="line number4 index3 alt1" style="border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">4</div><div class="line number5 index4 alt2" style="border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">5</div><div class="line number6 index5 alt1" style="margin-left:0px !important;border-width:0px 3px 0px 0px !important;border-right-style:solid !important;border-right-color:rgb(108,226,108) !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;text-align:right !important;min-height: !important;">6</div></td><td class="code" style="width:539px;margin-left:0px !important;border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;font-family:Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important;min-height: !important;"><div style="margin-left:0px !important;border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><div class="line number1 index0 alt2" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java preprocessor" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;color:#808080 !important;">/**</code></div><div class="line number2 index1 alt1" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java preprocessor" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;color:#808080 !important;">* Singleton pattern example using Java Enumj</code></div><div class="line number3 index2 alt2" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java preprocessor" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;color:#808080 !important;">*/</code></div><div class="line number4 index3 alt1" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java keyword" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;color:rgb(0,102,153) !important;">public</code> <code class="java keyword" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;color:rgb(0,102,153) !important;">enum</code> <code class="java plain" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;">EasySingleton{</code></div><div class="line number5 index4 alt2" style="border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java spaces" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;">INSTANCE;</code></div><div class="line number6 index5 alt1" style="margin-left:0px !important;border:0px !important;vertical-align:baseline !important;line-height:1.1em !important;overflow:visible !important;min-height: !important;"><code class="java plain" style="line-height:24px;font-family:'Lucida console';border:0px !important;vertical-align:baseline !important;overflow:visible !important;min-height: !important;">}</code></div></div></td></tr></tbody></table>
+
+你可以通过EasySingleton.INSTANCE来访问，这比调用getInstance()方法简单多了。
+
+double checked locking 实现法：
+
+下面代码就是用double checked locking 方法实现的单例，这里的getInstance()方法要检查两次，确保是否实例INSTANCE是否为null或者已经实例化了，这也是为什么叫double checked locking 模式。
+
+```
+/**
+* Singleton pattern example using Java Enumj
+*/
+public enum EasySingleton{
+    INSTANCE;
+}
+```
+
+你可以使用 DoubleCheckedLockingSingleton.getInstance()来获取实例。
+
+从创建一个lazy loaded thread-safe单例来看，它的代码行数与枚举相比，后者可以全部在一行内完成，因为枚举创建的单例在JVM层面上也能保证实例是thread-safe的。
+
+人们可能会争论有更好的方式去写单例用来替换duoble checked locking 方法，但是每种方法有他自己的优点和缺点，象我很多时候更愿初始化通过类加载静态字段，如下所示，但是记住他不是lazy loaded形式的单例。
+
+静态工厂实现法：
+
+这是我最喜欢的一种方式来实现单例模式，因为单例是静态的final变量，当类第一次加载到内存中的时候就初始化了，所以创建的实例固然是thread-safe。
+```
+/**
+* Singleton pattern example with Double checked Locking
+*/
+public class DoubleCheckedLockingSingleton{
+     private volatile DoubleCheckedLockingSingleton INSTANCE;
+ 
+     private DoubleCheckedLockingSingleton(){}
+ 
+     public DoubleCheckedLockingSingleton getInstance(){
+         if(INSTANCE == null){
+            synchronized(DoubleCheckedLockingSingleton.class){
+                //double checking Singleton instance
+                if(INSTANCE == null){
+                    INSTANCE = new DoubleCheckedLockingSingleton();
+                }
+            }
+         }
+         return INSTANCE;
+     }
+}
+```
+你可以调用Singleton.getSingleton()获取实例。
+
+2\. 枚举自己处理序列化
+
+传统单例存在的另外一个问题是一旦你实现了序列化接口，那么它们不再保持单例了，因为readObject()方法一直返回一个新的对象就像java的构造方法一样，你可以通过使用readResolve()方法来避免此事发生，看下面的例子：
+
+```
+/**
+* Singleton pattern example with static factory method
+*/
+ 
+public class Singleton{
+    //initailzed during class loading
+    private static final Singleton INSTANCE = new Singleton();
+ 
+    //to prevent creating another instance of Singleton
+    private Singleton(){}
+ 
+    public static Singleton getSingleton(){
+        return INSTANCE;
+    }
+}
+```
+
+这样甚至还可以更复杂，如果你的单例类维持了其他对象的状态的话，因此你需要使他们成为transient的对象。但是枚举单例，JVM对序列化有保证。
+
+3\. 枚举实例创建是thread-safe
+
+正如在第一条中所说的，因为创建枚举默认就是线程安全的，你不需要担心double checked locking。
+
+总结：枚举单例有序列化和线程安全的保证，而且只要几行代码就能实现是单例最好的的实现方式，不过你仍然可以使用其它的方式来实现单例，但是我仍然得不到一个更有信服力的原因不去使用枚举。如果你有的话，不妨告诉我。
