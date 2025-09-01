@@ -27,10 +27,7 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.0.0"
   },
-  "devDependencies": {
-    "fsevents": "^2.3.3"
-  },
   "optionalDependencies": {
-    "fsevents": "*"
+    "fsevents": "^2.3.3"
   }
 }
