@@ -3,7 +3,7 @@ title: Socket编程（C语言实现）——基于TCP协议，基于UDP协议(�
 id: 1491
 date: 2024-10-31 22:01:57
 author: daichangya
-permalink: /archives/socket%E7%BC%96%E7%A8%8Bc%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8Etcp%E5%8D%8F%E8%AE%AE%E5%9F%BA%E4%BA%8Eudp%E5%8D%8F%E8%AE%AE%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BE%AA%E7%8E%AF%E7%9B%91%E5%90%AC%E7%BD%91%E7%BB%9C%E9%97%B4%E9%80%9A%E4%BF%A1afinet%E5%85%B8%E5%9E%8B%E7%9A%84tcpip%E5%9B%9B%E5%9E%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B/
+permalink: /archives/socketbian-cheng-cyu-yan-shi-xian/
 tags: 
  - c
 ---
