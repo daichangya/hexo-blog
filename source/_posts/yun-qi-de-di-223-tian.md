@@ -3,7 +3,7 @@ title: 孕期的第223天
 id: 1458
 date: 2024-10-31 22:01:56
 author: daichangya
-cover: https://images.jsdiff.com/22d5ef89f1486f6a0f12bcb31c34564b_1596094859965.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/22d5ef89f1486f6a0f12bcb31c34564b_1596094859965.jpg
 excerpt: 离预产期还有57天，我彻底陷入了焦虑的怪圈。不知道是不是因为二胎的原因，孕肚异常的大，体重飙升很快，由原来的98斤，到现在127足足重了30斤，走路也开始喘的越来越重，随着胎儿的增大，压迫内脏，晚上睡眠质量超级差，每天过了凌晨才能睡着，清楚记得昨晚最后一次看时间是凌晨1点20，接下来几点睡着就不得而
 permalink: /archives/yun-qi-de-di-223-tian/
 categories:

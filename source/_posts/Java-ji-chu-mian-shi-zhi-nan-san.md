@@ -9,18 +9,18 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
 
 #### [1. Java是否使用指针?](#collapse-beginner-1904)
 
@@ -126,7 +126,7 @@ The number is : 50
 
 Java中的集合层次结构如下:
 
-![Java中的Collections API](https://images.jsdiff.com/1557222801155-Image28_1589984093338.jpg)
+![Java中的Collections API]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557222801155-Image28_1589984093338.jpg)
 
 Java中的Collections API的一些特征如下:
 
@@ -270,7 +270,7 @@ New thread priority of thread3: 6
 
 内存管理是Java的重要组成部分,理解它非常重要. Java中的内存分为两个主要部分,堆栈和堆. 演示此过程的图如下所示:
 
-![Java中的内存管理](https://images.jsdiff.com/1557224829200-Image26_1589984140787.jpg)
+![Java中的内存管理]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557224829200-Image26_1589984140787.jpg)
 
 Java中有关堆栈和堆内存的详细信息如下:
 

@@ -3,7 +3,7 @@ title: HTTP 协议基础-MiniTomcat系列课程准备
 id: cfe2e093-07ec-404d-ba7d-80f94448952c
 date: 2024-11-19 09:53:18
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat314.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat314.jpg
 excerpt: 在开始实现 MiniTomcat 的核心功能之前，我们需要深入理解 HTTP 协议。HTTP（超文本传输协议）是互联网通信的基础协议，也是 Web
   服务器（例如 Tomcat）与客户端（如浏览器）进行交互的主要协议。理解 HTTP 的工作原理将帮助我们在后续步骤中处理请求、响应和数据传输。 1. H
 permalink: /archives/HTTP-xie-yi-ji-chu-MiniTomcat-xi-lie-ke/

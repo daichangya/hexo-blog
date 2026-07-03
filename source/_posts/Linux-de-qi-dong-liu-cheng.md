@@ -9,7 +9,7 @@ tags:
 ---
 
 
-半年前，我写了[《计算机是如何启动的？》](https://blog.jsdiff.com/archives/booting)，探讨BIOS和主引导记录的作用。
+半年前，我写了[《计算机是如何启动的？》](https://www.tushu.info/archives/Linux-de-qi-dong-liu-cheng)，探讨BIOS和主引导记录的作用。
 
 那篇文章不涉及操作系统，只与主板的板载程序有关。今天，我想接着往下写，探讨操作系统接管硬件以后发生的事情，也就是操作系统的启动流程。
 

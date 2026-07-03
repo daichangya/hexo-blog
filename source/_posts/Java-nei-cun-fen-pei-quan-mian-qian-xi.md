@@ -33,7 +33,7 @@ categories:
 
 **下面是内存表示图：**
 
-![1339378152_2914.jpg](https://images.jsdiff.com/1339378152_2914_1609401805185.jpg)
+![1339378152_2914.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378152_2914_1609401805185.jpg)
   
 
          上图中大致描述了Java内存分配，接下来通过实例详细讲解Java程序是如何在内存中运行的（注：以下图片引用自尚学堂马士兵老师的J2SE课件，图右侧是程序代码，左侧是内存分配示意图，我会一一加上注释）。
@@ -46,7 +46,7 @@ categories:
 
 **示例：**
 
-![1339378314_1846.jpg](https://images.jsdiff.com/1339378314_1846_1609401917669.jpg)
+![1339378314_1846.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378314_1846_1609401917669.jpg)
 
 **1.** JVM自动寻找main方法，执行第一句代码，创建一个Test类的实例，在栈中分配一块内存，存放一个指向堆区对象的指针110925。
 
@@ -54,47 +54,47 @@ categories:
 
 **3.** 创建两个BirthDate类的实例d1、d2，在栈中分别存放了对应的指针指向各自的对象。他们在实例化时调用了有参数的构造方法，因此对象中有自定义初始值。
 
-![1339378409_9491.jpg](https://images.jsdiff.com/1339378409_9491_1609401985927.jpg)
+![1339378409_9491.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378409_9491_1609401985927.jpg)
 
  调用test对象的change1方法，并且以date为参数。JVM读到这段代码时，检测到i是局部变量，因此会把i放在栈中，并且把date的值赋给i。
 
   
-![1339378462_9012.jpg](https://images.jsdiff.com/1339378462_9012_1609402006065.jpg)
+![1339378462_9012.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378462_9012_1609402006065.jpg)
 
  把1234赋给i。很简单的一步。
 
   
-![1339378502_6545.jpg](https://images.jsdiff.com/1339378502_6545_1609402020466.jpg)
+![1339378502_6545.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378502_6545_1609402020466.jpg)
 
  change1方法执行完毕，立即释放局部变量i所占用的栈空间。
 
   
-![1339378627_1360.jpg](https://images.jsdiff.com/1339378627_1360_1609402031788.jpg)
+![1339378627_1360.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378627_1360_1609402031788.jpg)
 
  调用test对象的change2方法，以实例d1为参数。JVM检测到change2方法中的b参数为局部变量，立即加入到栈中，由于是引用类型的变量，所以b中保存的是d1中的指针，此时b和d1指向同一个堆中的对象。在b和d1之间传递是指针。
 
   
-![1339378675_6765.jpg](https://images.jsdiff.com/1339378675_6765_1609402042614.jpg)
+![1339378675_6765.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378675_6765_1609402042614.jpg)
 
  change2方法中又实例化了一个BirthDate对象，并且赋给b。在内部执行过程是：在堆区new了一个对象，并且把该对象的指针保存在栈中的b对应空间，此时实例b不再指向实例d1所指向的对象，但是实例d1所指向的对象并无变化，这样无法对d1造成任何影响。
 
   
-![1339378718_6002.jpg](https://images.jsdiff.com/1339378718_6002_1609402061876.jpg)
+![1339378718_6002.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378718_6002_1609402061876.jpg)
 
  change2方法执行完毕，立即释放局部引用变量b所占的栈空间，注意只是释放了栈空间，堆空间要等待自动回收。
 
   
-![1339378841_8802.jpg](https://images.jsdiff.com/1339378841_8802_1609402071543.jpg)
+![1339378841_8802.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378841_8802_1609402071543.jpg)
 
  调用test实例的change3方法，以实例d2为参数。同理，JVM会在栈中为局部引用变量b分配空间，并且把d2中的指针存放在b中，此时d2和b指向同一个对象。再调用实例b的setDay方法，其实就是调用d2指向的对象的setDay方法。
 
   
-![1339378904_1300.jpg](https://images.jsdiff.com/1339378904_1300_1609402082082.jpg)
+![1339378904_1300.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378904_1300_1609402082082.jpg)
 
  调用实例b的setDay方法会影响d2，因为二者指向的是同一个对象。
 
   
-![1339378953_4690.jpg](https://images.jsdiff.com/1339378953_4690_1609402092383.jpg)
+![1339378953_4690.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1339378953_4690_1609402092383.jpg)
 
  change3方法执行完毕，立即释放局部引用变量b。
 

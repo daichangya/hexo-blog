@@ -3,7 +3,7 @@ title: 第十章：实现 Valve 和 Pipeline 机制-MiniTomcat
 id: 2fc992df-4790-499d-9748-607983d25057
 date: 2024-11-22 21:20:26
 author: daichangya
-cover: https://images.jsdiff.com/tomcat194.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat194.jpg
 excerpt: 功能目标： 实现 Valve 和 Pipeline 机制，允许在请求处理流程中插入额外的控制和功能扩展。 Valve：是一种过滤器链机制，可以在请求和响应过程中插入额外的处理逻辑。例如，可以实现权限控制、日志记录和请求过滤等功能。
   Pipeline：负责管理多个 Valve 的执行顺序，每个请求都会
 permalink: /archives/di-shi-zhang-shi-xian-Valve-he-Pipeline/

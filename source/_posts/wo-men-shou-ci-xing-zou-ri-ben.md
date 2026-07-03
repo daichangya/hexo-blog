@@ -3,7 +3,7 @@ title: 我们首次行走日本
 id: 3
 date: 2024-10-31 22:01:38
 author: daichangya
-cover: https://images.jsdiff.com/upload/2020/04/IMG_0501-6ada76af507548f9959235f5ab12b118.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2020/04/IMG_0501-6ada76af507548f9959235f5ab12b118.jpg
 excerpt: 此次出行日本，我们选择了邮轮。出发点在上海吴淞口，身在北京的我们选择提前1天抵达上海。2017年9月12日我们高铁到达上海火车站，被扑面而来的香味所吸引，早就听说上海到处都是桂花树，但是没成想会这么的馥郁，再加上天空中蒙蒙细雨，让上海的空气格外的沁人心脾。酒店选的离火车站有2公里的车程，但是我们选择
 permalink: /archives/wo-men-shou-ci-xing-zou-ri-ben/
 ---

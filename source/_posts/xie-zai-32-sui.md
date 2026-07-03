@@ -3,7 +3,7 @@ title: 写在32岁
 id: 1459
 date: 2024-10-31 22:01:56
 author: daichangya
-cover: https://images.jsdiff.com/1743688712_1597054393566.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1743688712_1597054393566.jpg
 excerpt: 2020.08.10农历六月二十一总希望平淡的生活，能有一丝波澜，于是对每一年的生日都会给予厚望，然而往往也都是在无限期待中失望。小时候自从对生日有了概念，每年的生日都会期待有不一样的事情发生，也许是每个小女孩都会编织的梦。按以往经验，生日当天和之前之后的每一天都没什么两样，普普通通，平平常常。早上
 permalink: /archives/xie-zai-32-sui/
 ---

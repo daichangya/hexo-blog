@@ -3,7 +3,7 @@ title: 宝贝，对不起
 id: 1473
 date: 2024-10-31 22:01:57
 author: daichangya
-cover: https://images.jsdiff.com/bd23764b381e1d0667d8c009531edded_1599718089349.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/bd23764b381e1d0667d8c009531edded_1599718089349.jpeg
 permalink: /archives/bao-bei-dui-bu-qi/
 categories:
 - 生活

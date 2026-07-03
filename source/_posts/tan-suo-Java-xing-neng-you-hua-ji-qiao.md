@@ -3,7 +3,7 @@ title: 探索Java性能优化：技巧与实例全解析-深入篇
 id: d1f6004b-9189-4b51-9971-6d9a216faede
 date: 2024-12-12 18:24:14
 author: daichangya
-cover: https://images.jsdiff.com/Java%20Performance.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Java%20Performance.jpg
 excerpt: 2. 深入优化技巧篇 2.1 方法内联优化 现代 Java 编译器和 JVM 会尝试进行方法内联优化。对于一些简单的、被频繁调用的小方法，将其代码直接嵌入到调用处，可减少方法调用的开销。例如：
   public class MethodInlineExample {    private static
 permalink: /archives/tan-suo-Java-xing-neng-you-hua-ji-qiao/

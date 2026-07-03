@@ -11,7 +11,7 @@ categories:
 
 俄罗斯科技公司 Yandex 前雇员近日在一个流行的黑客论坛上以 Torrent 磁链的形式**[发布](https://breached.vc/Thread-yandex-git-sources)**了总容量为 44.7GB 的源代码仓库。
 
-![Yandex.png](https://images.jsdiff.com/Yandex_1675048762885.png)
+![Yandex.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Yandex_1675048762885.png)
 
 泄露者称这是 'Yandex git sources'，于 2022 年 7 月从公司窃取，包含了除反垃圾邮件规则之外的所有源代码。
 

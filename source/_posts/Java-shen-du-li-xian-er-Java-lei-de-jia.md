@@ -10,7 +10,7 @@ categories:
 ---
 
 
-在[上一篇文章](https://blog.jsdiff.com/archives/cf-java-byte-code)中介绍了Java 字节代码的操纵，其中提到了利用Java 类加载器来加载修改过后的字节代码并在JVM 上执行。本文接着上一篇的话题，讨论Java 类的加载、链接和初始化。Java 字节代码的表现形式是字节数组（byte[]），而Java 类在JVM 中的表现形式是 [java.lang.Class](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html) 类的对象。一个 Java 类从字节代码到能够在 JVM 中被使用，需要经过加载、链接和初始化这三个步骤。这三个步骤中，对开发人员直接可见的是 Java 类的加载，通过使用 Java 类加载器（class loader）可以在运行时刻动态的加载一个 Java 类；而链接和初始化则是在使用 Java 类之前会发生的动作。本文会详细介绍 Java 类的加载、链接和初始化的过程。
+在[上一篇文章](https://www.tushu.info/archives/Java-shen-du-li-xian-er-Java-lei-de-jia)中介绍了Java 字节代码的操纵，其中提到了利用Java 类加载器来加载修改过后的字节代码并在JVM 上执行。本文接着上一篇的话题，讨论Java 类的加载、链接和初始化。Java 字节代码的表现形式是字节数组（byte[]），而Java 类在JVM 中的表现形式是 [java.lang.Class](http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html) 类的对象。一个 Java 类从字节代码到能够在 JVM 中被使用，需要经过加载、链接和初始化这三个步骤。这三个步骤中，对开发人员直接可见的是 Java 类的加载，通过使用 Java 类加载器（class loader）可以在运行时刻动态的加载一个 Java 类；而链接和初始化则是在使用 Java 类之前会发生的动作。本文会详细介绍 Java 类的加载、链接和初始化的过程。
 
 ## Java 类的加载
 

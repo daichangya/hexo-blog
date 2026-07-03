@@ -3,7 +3,7 @@ title: Java设计模式——适配器模式：解锁接口兼容的神奇“魔
 id: 710b9eae-34b6-4ce5-b5a3-8d0b60c42a4a
 date: 2024-11-29 12:14:45
 author: daichangya
-cover: https://images.jsdiff.com/design05.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design05.jpg
 excerpt: 在编程这片充满奇幻与挑战的领域中，我们时常会遭遇棘手难题，就像不同国度的人操着各自独特的语言，彼此难以顺畅沟通一样。软件世界里，诸多类本身功能完备、实力强劲，却因接口的“语言不通”，在协作之路上举步维艰。而今天要揭秘的适配器模式（Adapter
   Pattern），宛如一位神通广大的“翻译官”，凭借神
 permalink: /archives/Java-she-ji-mo-shi-shi-pei-qi-mo-shi/

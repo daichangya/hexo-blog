@@ -10,7 +10,7 @@ categories:
 ---
 
 
-        在[上一篇文章](https://blog.jsdiff.com/archives/spring-mvc-3-2-preview-introducing-servlet-3-async-support)中，我介绍了新的Servlet 3，这是Spring MVC 3.2的新特性——异步支持——的运行环境。第二种使用异步处理的非常主要的原因是使浏览器接受信息的实时更新。例如网页聊天室、股票报价、状态更新、体育赛事直播等。虽然这些应用对于信息延迟的敏感度不同，但是它们的功能需求是类似的。
+        在[上一篇文章](https://www.tushu.info/archives/Spring-MVC-3-2-ji-shu-yu-lan-yi-Servlet)中，我介绍了新的Servlet 3，这是Spring MVC 3.2的新特性——异步支持——的运行环境。第二种使用异步处理的非常主要的原因是使浏览器接受信息的实时更新。例如网页聊天室、股票报价、状态更新、体育赛事直播等。虽然这些应用对于信息延迟的敏感度不同，但是它们的功能需求是类似的。
 
         在标准的HTTP的“请求—响应”语义中，浏览器发出一个请求，服务器端响应一个请求，这就意味着直到浏览器发送请求，服务器才能够返回更新信息。要想实时获取服务器的更新信息，当前有很多种方法可以实现，例如传统轮询、长轮询、HTTP流和最近兴起的WebSocket协议。
 
@@ -54,7 +54,7 @@ categories:
 
         尽管挑选出一个最优秀的方式很诱人，但是——和其他问题一样——最简单最符合实际面对的问题的解决方式才是最好的解决方式。WebSocket协议给了我们很好的解决方案，而且也将适用于越来越多的情况下。浏览器的支持情况和网络问题先放在一边，双向信息的传输和RESTful的HTTP架构是两种完全不同的方式。在REST中你为资源建模并应用HTTP动词来获取资源。而在双向信息传输中，你将按规定路线发送、过滤、处理信息。记住这点不同非常的重要。
 
-        回到我[上一篇文章](https://blog.jsdiff.com/archives/spring-mvc-3-2-preview-introducing-servlet-3-async-support)中介绍的Spring MVC 3.2新特性中，我们可以使用长请求来实现实时更新功能，这种方式建立于标准的HTTP“请求—响应”架构中，就像常轮询和一些扩展自HTTP流的技术类似。[Filip Hanik](http://www.tomcatexpert.com/blog/2012/04/24/websockets-tomcat-7)将这称为“客户端可以调用的服务器端AJAX”（the server version of client AJAX calls）。虽然Spring MVC 3.2 M1版本中没有包含WebSocket的支持，但在最终版本中仍然可能会包含。
+        回到我[上一篇文章](https://www.tushu.info/archives/Spring-MVC-3-2-ji-shu-yu-lan-yi-Servlet)中介绍的Spring MVC 3.2新特性中，我们可以使用长请求来实现实时更新功能，这种方式建立于标准的HTTP“请求—响应”架构中，就像常轮询和一些扩展自HTTP流的技术类似。[Filip Hanik](http://www.tomcatexpert.com/blog/2012/04/24/websockets-tomcat-7)将这称为“客户端可以调用的服务器端AJAX”（the server version of client AJAX calls）。虽然Spring MVC 3.2 M1版本中没有包含WebSocket的支持，但在最终版本中仍然可能会包含。
 
         在下一篇文章中，我将出示一个源码示例，并对Spring MVC 3.2的一些技术细节进行分析。
 原文地址：[http://blog.springsource.org/2012/05/08/spring-mvc-3-2-preview-techniques-for-real-time-updates/](http://blog.springsource.org/2012/05/08/spring-mvc-3-2-preview-techniques-for-real-time-updates/)

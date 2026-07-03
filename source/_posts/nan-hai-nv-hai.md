@@ -3,7 +3,7 @@ title: 男孩女孩
 id: 1515
 date: 2024-10-31 22:01:59
 author: daichangya
-cover: https://images.jsdiff.com/627027e1e901590fef2750e0d89c976d_1605856374836.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/627027e1e901590fef2750e0d89c976d_1605856374836.jpg
 permalink: /archives/nan-hai-nv-hai/
 categories:
 - 生活
@@ -32,4 +32,4 @@ categories:
 之前由于过了预产期还没有动静，天天在公园遛弯，有一个奶奶抱着孙子，一直看我，奶奶指着我的肚子说，是弟弟是妹妹。孙子说是弟弟，奶奶接着问，为什么不是妹妹。孙子奶声奶气的说弟弟。看来老话也是有道理的，小孩子的预言能力也是超强。
 其实不管男孩女孩都是天上的小天使，奋进全力才找到的爸爸妈妈，幸运如我们，同样奋力去爱娃就好啦😝。
 不知道从症状大家能不能猜出老大和老二的性别呢？
-![4abd607e35f89fd579de17b000147bb4.jpg](https://images.jsdiff.com/4abd607e35f89fd579de17b000147bb4_1605855480960.jpg)
+![4abd607e35f89fd579de17b000147bb4.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/4abd607e35f89fd579de17b000147bb4_1605855480960.jpg)

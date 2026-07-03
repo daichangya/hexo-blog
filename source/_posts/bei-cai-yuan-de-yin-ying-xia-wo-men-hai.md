@@ -3,7 +3,7 @@ title: “被裁员”的阴影下，我们还能熬多久？
 id: 95cb869c-4433-41b7-b41f-aaa4de2bcc20
 date: 2024-12-15 21:55:44
 author: daichangya
-cover: https://images.jsdiff.com/shiye1.webp
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shiye1.webp
 excerpt: 2024年，抖音裁员的消息一度登上热搜。根据媒体报道，抖音此次裁员波及多个部门，裁员比例达到10%-15%，而这仅仅是科技行业裁员潮中的一个缩影。同年，一家知名互联网公司宣布计划全球裁员2000人，理由是“应对经济下行压力”。
   失业，正在从个人困境变成社会常态。在不确定性成为关键词的当下，每个人都在
 permalink: /archives/bei-cai-yuan-de-yin-ying-xia-wo-men-hai/
@@ -14,7 +14,7 @@ categories:
 2024年，抖音裁员的消息一度登上热搜。根据媒体报道，**抖音此次裁员波及多个部门，裁员比例达到10%-15%**，而这仅仅是科技行业裁员潮中的一个缩影。同年，一家知名互联网公司宣布计划全球裁员2000人，理由是“应对经济下行压力”。  
 
 失业，正在从个人困境变成社会常态。在不确定性成为关键词的当下，每个人都在问：**如果轮到我失业，该怎么办？**  
-![shiye1.jpeg](https://images.jsdiff.com/shiye1.jpeg)
+![shiye1.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shiye1.jpeg)
 
 #### **当“铁饭碗”变成“纸饭碗”**  
 曾经，许多人相信，只要有一纸文凭或一身技能，就能在职场上安身立命。但现实却是：不同行业都在经历寒冬，稳定变得稀缺。  
@@ -22,13 +22,13 @@ categories:
 - **传统行业**：受国际经济环境影响，制造业出口订单锐减，一些工厂不得不裁员甚至倒闭。  
 
 即使是职场中的“顶梁柱”——中年人，也难以幸免。一份调查显示，**45岁以上失业者再就业率不足30%**，而这些人往往背负着家庭的经济重担。  
-![shiye2.jpeg](https://images.jsdiff.com/shiye2.jpeg)
+![shiye2.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shiye2.jpeg)
 
 #### **失业者，不是“失败者”**  
 在某些人的眼中，失业被等同于失败，甚至被贴上“能力不足”的标签。但这是一种狭隘的偏见。  
 - **经济大环境**：通货膨胀和全球供应链的不稳定，让不少企业不得不“断臂求生”。  
 - **行业变革**：新技术的快速普及正在淘汰大量传统岗位。例如，人工智能的兴起让部分基础岗位失去了存在的意义。  
-![shiye3.jpeg](https://images.jsdiff.com/shiye3.jpeg)
+![shiye3.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shiye3.jpeg)
 
 每一个失业者背后，都可能是一段不为人知的故事。有人因为公司裁员而被迫离职，也有人因行业萎缩不得不重新开始。这不是个人的失败，而是时代的剧变。  
 

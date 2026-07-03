@@ -189,7 +189,7 @@ TODO.txt (size in bytes: 998)
 
 在Java 8和更高版本中，我们可以使用`java.nio.file.Files`类填充a `Stream`并使用它遍历文件和目录，同时递归遍历所有子目录。
 
-请注意，在此示例中，我们将使用[Lambda表达式](https://blog.jsdiff.com/archives/lambda-expressions-in-java)：
+请注意，在此示例中，我们将使用[Lambda表达式](https://www.tushu.info/archives/Java-zhong-de-Lambda-biao-da-shi)：
 
 ```java
 public class FilesWalk {

@@ -118,7 +118,7 @@ note that the InvocationHandler argument above is the JdkDynamicAopProxy instanc
 
 The implement code for invoke method is too long, and I am not going to paste the code here. See the source code directly if you are interested. Just remember that it’s nothing but the proxy pattern. The proxy implements the interfaces of the target object, and has a reference to the target.
 
-![proxypattern.png](https://images.jsdiff.com/proxy-pattern_1591315173452.png)
+![proxypattern.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/proxy-pattern_1591315173452.png)
 
 The `CglibAopProxy` use the [CGLIB](http://cglib.sourceforge.net/) library to generate the proxy object.
 

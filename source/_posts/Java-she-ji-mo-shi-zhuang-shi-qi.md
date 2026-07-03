@@ -3,7 +3,7 @@ title: Java设计模式——装饰器(Decorator)模式
 id: 1087
 date: 2024-10-31 22:01:49
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: '一、装饰器模式概述 Decorator设计模式属于典型的结构型模式（在GOF的模式分类中，模式分为创建型模式、结构型模式、行为模式三种）。其核心目的在于动态地为对象添加额外功能，这也是理解装饰器模式的关键所在。正如GOF在《Element
   of reusable Object - Oriented '
 permalink: /archives/Java-she-ji-mo-shi-zhuang-shi-qi/

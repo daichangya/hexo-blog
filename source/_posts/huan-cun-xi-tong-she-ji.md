@@ -11,7 +11,7 @@ categories:
 
 与我们[以前的帖子](http://blog.gainlo.co/index.php/category/system-design-interview-questions/)类似，我们希望选择流行且实用的系统设计面试问题，这样您不仅可以获得关于如何分析面试问题的想法，而且还可以同时学习一些有趣的东西。
 
-如果您对系统设计面试一无所知，建议您先阅读[本教程](https://blog.jsdiff.com/archives/8-things-you-need-to-know-before-system-design-interviews/)。在本文中，我们正在解决问题-如何设计缓存系统。这篇文章涵盖的主题包括：
+如果您对系统设计面试一无所知，建议您先阅读[本教程](https://www.tushu.info/archives/xi-tong-she-ji-mian-shi-zhi-nan-yi/)。在本文中，我们正在解决问题-如何设计缓存系统。这篇文章涵盖的主题包括：
 
 *   LRU缓存
 *   驱逐政策，

@@ -10,19 +10,19 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
-13. [系统设计面试指南一](https://blog.jsdiff.com/archives/8-things-you-need-to-know-before-system-design-interviews)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
+13. [系统设计面试指南一](https://www.tushu.info/archives/xi-tong-she-ji-mian-shi-zhi-nan-yi)
 
 
 关于面试准备最常见的问题是什么?我可以立即告诉:如何准备系统设计面试?
@@ -33,7 +33,7 @@ categories:
 
 **1.在系统设计面试中要评估什么?**
 --------------------
-![ruler1030968_640.jpg](https://images.jsdiff.com/ruler-1030968_640_1590587636462.jpg)
+![ruler1030968_640.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/ruler-1030968_640_1590587636462.jpg)
 
 众所周知,编码面试的重点是候选人的基本知识,因此测试了他的一般技术技能,分析能力。
 
@@ -51,7 +51,7 @@ categories:
 
 **2.提前练习**
 -----------
-![womantypingwritingwindows.jpg](https://images.jsdiff.com/woman-typing-writing-windows_1590587675326.jpg)
+![womantypingwritingwindows.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/woman-typing-writing-windows_1590587675326.jpg)
 
 准备系统设计面试的最佳方法始终是通过实际的项目和实践。许多人很早就开始准备过程,例如提前6个月或1年,这绝对是您的最佳实践。
 
@@ -71,7 +71,7 @@ categories:
 
 **3.熟悉基础知识**
 ------------
-![7OGUGR4HKJ.jpg](https://images.jsdiff.com/7OGUGR4HKJ_1590587772387.jpg)
+![7OGUGR4HKJ.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/7OGUGR4HKJ_1590587772387.jpg)
 我不记得我曾强调过多少次,但这对于系统设计面试非常重要。由于系统设计问题是开放式的,并且可能涉及许多技术领域,因此这里的基本知识不仅仅是数据结构和算法。
 
 首先,毫无疑问,您应该非常擅长数据结构和算法。以URL缩短服务为例,如果您不清楚哈希,时间/空间复杂度分析,将无法提出一个好的解决方案。
@@ -82,7 +82,7 @@ categories:
 
 *   抽象。对于系统设计面试来说,这是一个非常重要的话题。您应该清楚如何抽象一个系统,在其他组件中可见和不可见的内容以及其背后的逻辑是什么。面向对象的编程也很重要。
 *   数据库。您应该清楚那些基本概念,例如关系数据库。对No-SQL的了解可能取决于您的水平(新毕业生或经验丰富的工程师)。
-*   网络。您应该能够清楚地解释在浏览器中键入“blog.jsdiff.com”时发生的情况,例如DNS查找,HTTP请求之类的内容应该清楚。
+*   网络。您应该能够清楚地解释在浏览器中键入“shi-ci.cn”时发生的情况,例如DNS查找,HTTP请求之类的内容应该清楚。
 *   并发。如果您可以识别系统中的并发问题并告诉访问者如何解决它,那将是很好的。有时,这个主题可能很难,但是了解诸如竞态条件,死锁之类的基本概念是最重要的。
 *   操作系统。有时,您与面试官的讨论可能会进行得很深入,此时最好了解底层操作系统的工作方式。
 *   机器学习(可选)。您不需要成为专家,但是再次熟悉一些基本概念,例如特征选择,ML算法的总体工作方式。
@@ -92,7 +92,7 @@ categories:
 **4.自顶向下+模块化**
 --------------
 
-![view768429_1280.jpg](https://images.jsdiff.com/view-768429_1280_1590587826040.jpg)
+![view768429_1280.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/view-768429_1280_1590587826040.jpg)
 
 这是解决系统设计问题和向面试官解释的一般策略。最坏的情况总是总是立即跳入细节,这只会使事情变得一团糟。
 
@@ -109,7 +109,7 @@ categories:
 **5.利与弊**
 ---------
 
-![vintagecars336674_1280.jpg](https://images.jsdiff.com/vintage-cars-336674_1280_1590587857305.jpg)
+![vintagecars336674_1280.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/vintage-cars-336674_1280_1590587857305.jpg)
 
 系统设计问题通常没有太多限制。结果,好的解决方案和坏的解决方案之间没有明确的界限。在这种情况下,您有责任了解不同情况下的最佳方法。
 
@@ -120,7 +120,7 @@ categories:
 **6.估算**
 --------
 
-![smartwatch828786_1280.jpg](https://images.jsdiff.com/smartwatch-828786_1280_1590587886401.jpg)
+![smartwatch828786_1280.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/smartwatch-828786_1280_1590587886401.jpg)
 在进行估算时,最好具有良好的数字意识,这在实际项目中尤为重要。更具体地说,您应该对系统或程序将导致多少内存,其运行速度以及基于估计的设计调整方式有一个清晰的估计。
 
 当然,如果我们使用驾驶执照示例,您可以说我们假设内存足以在美国存储所有驾照。但是,首先估计要存储它们的内存量会给人留下深刻的印象。
@@ -143,7 +143,7 @@ categories:
 **8.向现有系统学习**
 -------------
 
-![2O4DGFJ1Y5.jpg](https://images.jsdiff.com/2O4DGFJ1Y5_1590588042430.jpg)
+![2O4DGFJ1Y5.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/2O4DGFJ1Y5_1590588042430.jpg)
 
 我通常建议人们这样做。每当您对某个系统感到好奇时,请尝试弄清楚该系统是如何设计的。您可以先尝试自己设计,然后再与实际设计进行比较。最重要的是,尝试了解为什么以这种方式设计它。某些约束很可能迫使系统像这样,例如数据大小,速度要求等。
 

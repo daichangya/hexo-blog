@@ -3,7 +3,7 @@ title: Java设计模式概述
 id: bc65558b-bbf3-428b-822b-7639c0573d1b
 date: 2024-11-25 10:49:18
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: Java的设计模式概述 一、设计模式的重要性 在软件开发领域，变化是永恒的主题。从项目的启动到维护，需求的变更、技术的演进以及环境的变化无处不在。而我们面临的关键挑战，就是要以最小的延迟和最大的灵活性来适应这些变化。幸运的是，前人在应对各种设计问题时积累了丰富的经验，并形成了被广泛认可的最佳实践，这
 permalink: /archives/Java-she-ji-mo-shi-gai-shu/
 categories:

@@ -3,7 +3,7 @@ title: 第十五章：支持配置热加载和自动部署-MiniTomcat
 id: feed602b-4dce-4083-87e0-57f87e83c31a
 date: 2024-11-23 16:24:12
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat.jpg
 excerpt: 功能目标： 支持热部署（Hot Deployment）功能，能够在不重启服务器的情况下加载新的 Web 应用。 监控应用目录的变化，当检测到新的
   Web 应用时，自动加载该应用的 Servlet 和资源。 支持 web.xml 的重新加载和应用更新。 实现内容： 实现一个 目录监控机制，当检测到应用
 permalink: /archives/di-shi-wu-zhang-zhi-chi-pei-zhi-re-jia/

@@ -3,7 +3,7 @@ title: Java设计模式——Reactor模式
 id: 1506
 date: 2024-10-31 22:01:59
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: Reactor模式 一、Web请求处理架构概述 在处理Web请求时，主要存在两种体系结构：thread - based architecture（基于线程）和event
   - driven architecture（事件驱动）。 （一）Thread - based Architecture（基于线程）
 permalink: /archives/Java-she-ji-mo-shi-Reactor-mo-shi/
@@ -20,7 +20,7 @@ tags:
 
 ### （一）Thread - based Architecture（基于线程）
 
-![10345180faaebf9335592620.jpg](https://images.jsdiff.com/10345180-faaebf9335592620_1604030736144.jpg)
+![10345180faaebf9335592620.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/10345180-faaebf9335592620_1604030736144.jpg)
 
 基于线程的体系结构通常采用多线程方式来处理客户端请求。每当接收到一个请求，就会开启一个独立的线程进行处理。这种方式在直观上易于理解，但存在一定局限性。每个线程都需要占用一定的内存资源，并且操作系统在线程之间切换时会产生开销。当并发访问量不大时，这种开销可能不明显，但随着线程数量增多，会显著降低Web服务器的性能。此外，当线程处理I/O操作并处于等待输入状态时，线程处于空闲状态，这期间会造成CPU资源的浪费。以下是其典型设计流程：
 1. 客户端发起请求。
@@ -65,7 +65,7 @@ public class ThreadBasedWebServer {
 
 ### （二）Event - driven Architecture（事件驱动）
 
-![10345180fdaf4d307916cd8f.jpg](https://images.jsdiff.com/10345180-fdaf4d307916cd8f_1604030755918.jpg)
+![10345180fdaf4d307916cd8f.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/10345180-fdaf4d307916cd8f_1604030755918.jpg)
 
 事件驱动体系结构是目前广泛使用的一种方式。它通过定义一系列事件处理器来响应事件的发生，并且将服务端接受连接与对事件的处理分离开来。这里的事件可以理解为一种状态的改变，例如在TCP中，socket的新连接到来（new incoming connection）、准备好读取（ready for read）、准备好写入（ready for write）等都属于事件。
 

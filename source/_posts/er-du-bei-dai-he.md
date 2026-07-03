@@ -3,7 +3,7 @@ title: 二度北戴河
 id: 5
 date: 2024-10-31 22:01:38
 author: daichangya
-cover: https://images.jsdiff.com/timg_1587797361744.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/timg_1587797361744.jpg
 excerpt: 这次北戴河之行，时间比较充裕，带上老人和孩子，没有安排太多的项目，也许是年龄大了，体力上有些倦怠，不像第一次来的时候那么打鸡血，骑车沿着海岸一直走，很少的时间回到宾馆休息。这次我们依然选的是第一次来北戴河居住的民宿。环境不是太好，胜在价格便宜，也相对安静。早上730的火车，930抵达北戴河站，出
 permalink: /archives/er-du-bei-dai-he/
 ---

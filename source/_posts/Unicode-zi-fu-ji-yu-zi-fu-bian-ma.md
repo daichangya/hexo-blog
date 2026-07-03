@@ -34,14 +34,14 @@ ASCII 字符集是一种简单字符集, 而 Unicode 字符集则非常的复杂
 
 **文本元素** (text element) 是用于创建单词和句子的基本文字表示, 如英语字母, 日语平假名, 汉语中的方块字等等. 如何将**文本** (text) 分割为文本元素取决于具体的语言和文字处理程序, 英语中的 “A” 和 “a” 在渲染时是不同的文字元素, 但对于搜索程序来说有时却是相同的; 传统西班牙语排序程序中, “ll” 是一个文本元素, 位于 “l” 和 “m” 之间, 但在打字时则是两个分离的 “l”. 正因如此, 文本分段 (text segmentation) 非常的复杂, Unicode 规范避免对不同程序下的文本元素作出严格的定义, 取而代之定义的是更加底层的编码字, 一个文本元素可能由一或多个编码字组成.
 
-![unicode1.png](https://images.jsdiff.com/unicode1_1665722102390.png)
+![unicode1.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode1_1665722102390.png)
 
 
 **编码字** (encoded character) 是 Unicode 规范的的核心概念, 一般来说字符 (character) 就是编码字的缩写, 它指的是抽象字和码点之间的映射关系. 其中, **抽象字** (abstract character) 是用于组织, 控制或表示文本数据的基本单位, 而**码点** (code point) 或**码位** (code position) 则是用于表示数据的整数, 编码字在二者之间建立的映射关系表正是 “字符集” 一词最原始的含义, 也是贯穿 Unicode 规范的核心.
 
 但是, 和 ASCII 字符集不同, 编码字并非是双射 (bijection) 关系, 一个抽象字可能对应多种编码方式, 以 `'Å'` 为例, 码点 U+00C5 和 U+212B 都表示该字符, 而且它还拥有一个使用组合字 (combining character) 表示的形式, 由 U+0041 和 U+030A 两个码点表示.
 
-![unicode2.png](https://images.jsdiff.com/unicode2_1665722115769.png)
+![unicode2.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode2_1665722115769.png)
 ## 码点
 
 **码点** (code point) 是编码字之下的抽象层, 对于 Unicode 规范来说, 码点就是 0 ~ 10FFFF16 区间上的整数, 这个区间提供了 1,114,112 个码点, 被称为编码空间 (codespace).
@@ -63,7 +63,7 @@ ASCII 字符集是一种简单字符集, 而 Unicode 字符集则非常的复杂
 
 **Unicode 标量值** (Unicode scalar value) 是指非 Surrogate 的码点, 后文会更详细的讨论这些概念.
 
-![unicode3.png](https://images.jsdiff.com/unicode3_1665722131997.png)
+![unicode3.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode3_1665722131997.png)
 
 ## 组合字
 
@@ -73,7 +73,7 @@ ASCII 字符集是一种简单字符集, 而 Unicode 字符集则非常的复杂
 
 一个基本字符可被不止一个组合字附着, 诸如 `'ạ̭̈̃'` (`"\u{0061}\u{0308}\u{0303}\u{0323}\u{032D}"`) 这样的情况都是被允许的行为.
 
-![unicode4.png](https://images.jsdiff.com/unicode4_1665722143362.png)
+![unicode4.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode4_1665722143362.png)
 ## 字素簇
 
 接着我们接触一个附加概念, 一个在编码字抽象层次之上的概念: 字素簇. **字素簇** (grapheme cluster) 指人直觉和认知上所认为是单个字符的文本元素. 一个字位簇可能就是一个抽象字, 也可能由多个抽象字组成. 字素簇应当是文本操作的基本单位, 高级文本元素在分割时, 通常不会从一个字素簇中间拆分. 比如一个排版程序在自动换行时将 `'Å'` 的 `'A'` 和 `'◌̊'` 拆到了两行中, 这显然是不可容忍的行为. 再比如反转字符串 `'ÅB'` (`"\u0041\u030A\u0042"`) 的时候, `"\u0041\u030A"` (`'Å'`) 应整体和 `'B'` 交换位置, 得到 `'BÅ'` (`"\u0042\u0041\u030A"`), 而不该是简单的反转码位的排列, 得到 `'B̊A'` (`"\u0041\u030A\u0042"`).
@@ -114,7 +114,7 @@ var cluster = str.split("\\b{g}"); // String[2] { "Å", "B" }
 
 Unicode 规范包含三种不同的**编码形式** (encode form): UTF-8, UTF-16 和 UTF-32 (UTF, Unicode/UCS transformation format), 分别使用 8-bit, 16-bit 和 32-bit 的**码元** (code unit) 序列来存储码点 (code point) 信息. 这三种编码形式都能够表示 Unicode 规范中的所有编码字, 它们之间可以无损转换, 不会造成数据丢失.
 
-![unicode6.png](https://images.jsdiff.com/unicode6_1665722176126.png)
+![unicode6.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode6_1665722176126.png)
 
 在上图中可以看到, 由于 Unicode 码点 (code point) 对应 0 ~ 10FFFF16 区间上的整数 (共 1,114,111 个), 8-bit 和 16-bit 的码元无法直接容纳整个码点, 因此 UTF-8 和 UTF-16 采用的是不定长编码形式, 使用多个码元来表示一个码点.
 
@@ -132,7 +132,7 @@ Unicode 规范包含三种不同的**编码形式** (encode form): UTF-8, UTF-16
 
 后续的 16 个平面被称为**增补平面** (supplementary planes, SP), 这些码点超过了 U+FFFF, 超过了 UTF-16 码元的存储上限, UTF-16 使用两个码元来存储它们.
 
-![unicode7.png](https://images.jsdiff.com/unicode7_1665722229284.png)
+![unicode7.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode7_1665722229284.png)
 
 ## UTF-16
 
@@ -164,7 +164,7 @@ UTF-8 和 UTF-16 一样, 也是一种不定长编码形式, 它的码元更短, 
 
 UTF-8 的具体编码算法十分简单, 按照下表将其比特序列顺次填入 X 所代表的空位即可.
 
-![unicode8.png](https://images.jsdiff.com/unicode8_1665722249541.png)
+![unicode8.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/unicode8_1665722249541.png)
 
 ASCII 是 UTF-8 的一个子集, ASCII 字符串也同时是 UTF-8 字符串, 不需要转换.
 

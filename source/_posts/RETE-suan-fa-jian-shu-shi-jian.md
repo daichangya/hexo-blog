@@ -33,7 +33,7 @@ RETE网络示意图
 
   
 
-![13416824241499e42e8e218c.png](https://images.jsdiff.com/13416824-241499e42e8e218c_1625123501525.png)
+![13416824241499e42e8e218c.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/13416824-241499e42e8e218c_1625123501525.png)
 
 image.png
 
@@ -45,7 +45,7 @@ image.png
 > Object Type Node：事实从根节点进入Rete网络后，会立即进入Object Type Node节点。Object Type Node提供了按对象类型过滤对象的能力，通过此类节点可使规则引擎不做额外的工作。Cheese类型的事实进入网络后，只需经过类型为Cheese的Object Type Node之后的节点。如下图
 
 
-![13416824520f19a1d3b1abbc.png](https://images.jsdiff.com/13416824-520f19a1d3b1abbc_1625123517071.png)
+![13416824520f19a1d3b1abbc.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/13416824-520f19a1d3b1abbc_1625123517071.png)
 
 RootNode.png
 
@@ -54,7 +54,7 @@ RootNode.png
 >   
 > 
 
-![1341682440b8f67eb6f193a0.png](https://images.jsdiff.com/13416824-40b8f67eb6f193a0_1625123530248.png)
+![1341682440b8f67eb6f193a0.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/13416824-40b8f67eb6f193a0_1625123530248.png)
 > 
 > image.png
 
@@ -91,7 +91,7 @@ Rete网络：
 
   
 
-![134168244573bbcc0037a1cd.png](https://images.jsdiff.com/13416824-4573bbcc0037a1cd_1625123554624.png)
+![134168244573bbcc0037a1cd.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/13416824-4573bbcc0037a1cd_1625123554624.png)
 
 image.png
 
@@ -140,7 +140,7 @@ RETE算法通过构建一个网络进行匹配，具体过程如下：
 下图展示了打包规则所构成的RETE网络。
 
   
-![1341682465b456a664322229.png](https://images.jsdiff.com/13416824-65b456a664322229_1625123575924.png)
+![1341682465b456a664322229.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/13416824-65b456a664322229_1625123575924.png)
 
 机加酒，机加酒加贵宾休息室.png
 

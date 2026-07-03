@@ -3,7 +3,7 @@ title: 深入理解Java内存管理：原理、优化与最佳实践
 id: a265c4f5-f770-44f2-bd50-2782e0eabd1e
 date: 2024-12-10 15:27:24
 author: daichangya
-cover: https://images.jsdiff.com/jvm2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm2.jpg
 excerpt: 一、引言 在Java编程中，内存管理是一个至关重要的方面，它直接影响着程序的性能、稳定性和可扩展性。Java的内存管理机制由Java虚拟机（JVM）负责，包括内存分配和回收等关键任务。理解Java内存管理的工作原理对于编写高效、可靠的Java程序至关重要。
   本文将深入探讨Java内存管理的各个方面，
 permalink: /archives/shen-ru-li-jie-Java-nei-cun-guan-li/

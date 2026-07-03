@@ -3,7 +3,7 @@ title: Java设计模式——装饰模式与代理模式：深度剖析差异与
 id: 13a5fa03-0bb5-4730-bf57-22dcd35a5d7c
 date: 2024-11-29 11:14:02
 author: daichangya
-cover: https://images.jsdiff.com/design04.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design04.jpg
 excerpt: 嘿，各位技术达人、编程爱好者们！在我们探索设计模式的奇妙旅程中，是不是经常会遇到一些容易混淆的概念呢🧐？就像装饰模式和代理模式，它们就像两个神秘的“双胞胎”，乍一看似乎很相似，但实际上却有着本质的区别。今天，就让我们一同深入探究这两种模式，揭开它们神秘的面纱，看看它们究竟有何不同，以及在实际编程中
 permalink: /archives/Java-she-ji-mo-shi-zhuang-shi-mo-shi-yu/
 categories:

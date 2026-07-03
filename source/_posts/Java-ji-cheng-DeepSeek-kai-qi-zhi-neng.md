@@ -3,7 +3,7 @@ title: Java 集成 DeepSeek：开启智能应用新时代
 id: 590b3894-1a4d-4706-8e04-1cd062a881d8
 date: 2025-02-16 08:13:48
 author: daichangya
-cover: https://images.jsdiff.com/deepseek.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/deepseek.jpg
 excerpt: 在当今数字化浪潮中，人工智能（AI）无疑是最耀眼的明星。从智能语音助手到图像识别系统，从推荐算法到智能医疗诊断，AI 正以前所未有的速度改变着我们的生活和工作方式。而在
   AI 的技术栈中，编程语言扮演着至关重要的角色。Java，作为一门具有广泛应用基础和强大生态系统的编程语言，在 AI 领域也展现出
 permalink: /archives/Java-ji-cheng-DeepSeek-kai-qi-zhi-neng/

@@ -12,9 +12,9 @@ categories:
 
 这篇文章是系列文章的一部分，如果还没有浏览过文章的其它部分请参考：
 
-1.  [持久化数据结构简介](https://blog.jsdiff.com/archives/persist-datastructure-intro/)
-2.  [Vector Trie 的实现](https://blog.jsdiff.com/archives/implement-vector-trie/) (本文)
-3.  [Transient 及持久化](https://blog.jsdiff.com/archives/Transient-and-Persistent/)
+1.  [持久化数据结构简介](https://www.tushu.info/archives/HAMT-jian-jie/)
+2.  [Vector Trie 的实现](https://www.tushu.info/archives/Vector-Trie-de-shi-xian/) (本文)
+3.  [Transient 及持久化](https://www.tushu.info/archives/Transient-ji-chi-jiu-hua/)
 
 首先我们来回顾一下 Vector Trie 的设计思路，为了代替 ArrayList 这种数据结构以及兼顾高性能的随机访问和内存使用， Vector Trie 主要采用了以下几种设计：
 

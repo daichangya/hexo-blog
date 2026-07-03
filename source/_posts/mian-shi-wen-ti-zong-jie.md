@@ -3,7 +3,7 @@ title: 面试问题总结
 id: 6c31bbd2-63c6-477b-a0ee-afce474a606a
 date: 2024-11-22 12:12:20
 author: daichangya
-cover: https://images.jsdiff.com/javaguide0.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide0.jpg
 excerpt: 请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。
 permalink: /archives/mian-shi-wen-ti-zong-jie/
 categories:

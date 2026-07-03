@@ -46,7 +46,7 @@ https://central.sonatype.com/repository/maven-snapshots/com/jsdiff/xlsql/2.0-SNA
     - **URL Template**: `jdbc:jsdiff:excel:{path}`
     - **Port**: (留空)
 
-   ![dbeaver1.png](https://images.jsdiff.com/dbeaver1.png)
+   ![dbeaver1.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/dbeaver1.png)
 
 
 ### 3.3 添加驱动文件
@@ -105,7 +105,7 @@ SELECT COUNT(*) FROM "test.Sheet1";
 -- 排序查询
 SELECT * FROM "test.Sheet1" ORDER BY "column1";
 ```
-![dbeaver2.png](https://images.jsdiff.com/dbeaver2.png)
+![dbeaver2.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/dbeaver2.png)
 
 
 ## 6. Excel 文件要求

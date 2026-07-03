@@ -48,7 +48,7 @@ is seriously misconfigured.
 
   上张图，用dmesg或者在系统的syslog里能够查看有关SYN flooding的报错信息：  
 
-![image.png](https://images.jsdiff.com/image_1594805837732.png)
+![image.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/image_1594805837732.png)
 
 **内核调优**
 

@@ -11,12 +11,12 @@ permalink: /archives/dian-zi-shang-wu-wang-zhan-she-ji-di-yi/
 
 在深入探讨此主题之前，最好先了解为什么设计电子商务网站在系统设计面试中很受欢迎。首先，建立一个电子商务网站需要诸如数据库设计，系统可用性，并发考虑之类的东西。所有这些在当今的分布式系统中都极为重要。此外，每个人都使用过一些电子商务网站，例如亚马逊。如果您通常对周围环境感到好奇，则应该已经考虑过该主题。  
 
-![macbook692573_640.jpg](https://images.jsdiff.com/macbook-692573_640_1591057703066.jpg)
+![macbook692573_640.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/macbook-692573_640_1591057703066.jpg)
 
 电子商务模式
 ------
 
-在我们的指南[8系统设计面试之前您需要知道的事情中](https://blog.jsdiff.com/8-things-you-need-to-know-before-system-design-interviews/)，我们说过[系统设计面试](https://blog.jsdiff.com/8-things-you-need-to-know-before-system-design-interviews/)的常见策略是从简单的基础知识开始，而不是直接跳入细节。那么，您将如何设计电子商务网站的基本数据结构？那数据库模式呢？
+在我们的指南[8系统设计面试之前您需要知道的事情中](https://www.tushu.info/8-things-you-need-to-know-before-system-design-interviews/)，我们说过[系统设计面试](https://www.tushu.info/8-things-you-need-to-know-before-system-design-interviews/)的常见策略是从简单的基础知识开始，而不是直接跳入细节。那么，您将如何设计电子商务网站的基本数据结构？那数据库模式呢？
 
 我将跳过用户模型的数据结构，因为它应该与其他应用程序非常相似。让我们专注于产品。在最简单的情况下，我们需要三个主要对象：_Product_，_User_和_Order_。
 
@@ -37,7 +37,7 @@ _订单_存储有关用户所有订单的信息。因此，每一行都包含产
 
 但是，对于像[MongoDB](https://en.wikipedia.org/wiki/MongoDB)这样的NoSQL数据库，一个很大的优点是它支持这样的大量“列”。每行可以有大量列，但并非所有列都已设置。这就像将JSON对象存储为一行一样（实际上，MongoDB使用的是非常相似的[BSON](https://en.wikipedia.org/wiki/BSON)）。结果，我们可以将产品的所有这些属性（列）存储在一行中，这正是NoSQL数据库所擅长的。
 
-![movie918655_640.jpg](https://images.jsdiff.com/movie-918655_640_1591057738161.jpg)
+![movie918655_640.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/movie-918655_640_1591057738161.jpg)
 
 并发
 --

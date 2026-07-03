@@ -3,7 +3,7 @@ title: 深入理解 HTTP 协议：从基础到实践全解析
 id: c27bf53d-ea99-4639-9ecf-73aa67d8ff2f
 date: 2024-12-15 14:32:16
 author: daichangya
-cover: https://images.jsdiff.com/HttpServer.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/HttpServer.jpg
 excerpt: 在当今数字化时代，HTTP 协议如同互联网世界的“语言”，支撑着无数网页浏览、数据传输和在线交互。无论你是初涉编程的新手，还是经验丰富的开发者，深入掌握
   HTTP 协议都至关重要。今天，就让我们一起揭开 HTTP 协议的神秘面纱，从基础知识到实际应用，全面深入地理解这一互联网基石。 一、HTTP 协
 permalink: /archives/shen-ru-li-jie-HTTP-xie-yi-cong-ji-chu/

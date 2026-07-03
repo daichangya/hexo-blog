@@ -3,7 +3,7 @@ title: 超详细！SED流编辑器从入门到精通
 id: f89dcad0-4b81-4f27-880d-763feebdf90a
 date: 2024-12-02 11:26:05
 author: daichangya
-cover: https://images.jsdiff.com/Linux.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Linux.jpg
 excerpt: 在文本处理的世界里，SED流编辑器宛如一把瑞士军刀，功能强大且实用。无论是处理海量数据文件，还是批量修改配置文件，SED都能展现出其独特的魅力。今天，就让我们一同深入探索SED的奇妙世界，掌握其基础知识和实用技巧，让文本处理变得轻松自如。
   一、SED：文本处理的神器 （一）SED是什么 SED是一款
 permalink: /archives/chao-xiang-xi-SED-liu-bian-ji-qi-cong/

@@ -116,4 +116,4 @@ Future result is -  - 2; And Task done is true
 
 该Future接口提供了另外一个版本get()，即方法得到（longtimeout，TimeUnitunit） 。如果任务的结果不可用，则此版本的get方法将在指定的时间内等待它。如果经过指定的时间段并且结果尚不可用，则该方法返回一个null值。
 
-参考:http://images.jsdiff.com/archives/15507075
+参考:http://mdanimage.oss-cn-shenzhen.aliyuncs.com/archives/15507075

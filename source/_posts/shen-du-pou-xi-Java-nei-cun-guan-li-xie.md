@@ -3,7 +3,7 @@ title: 深度剖析Java内存管理：泄漏、溢出与优化
 id: 3d4bdada-8ba8-4220-8579-92381423def0
 date: 2024-12-10 15:05:18
 author: daichangya
-cover: https://images.jsdiff.com/jvm3.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm3.jpg
 excerpt: 一、引言 在Java编程的世界里，内存管理犹如大厦的基石，直接关系到应用程序的稳定性、性能和可扩展性。尽管Java拥有自动内存管理机制（垃圾回收器），但内存泄漏和溢出问题仍然如影随形，困扰着许多开发者，给应用程序带来诸多隐患。
   内存泄漏就像一个隐藏在程序深处的“黑洞”，悄无声息地吞噬着内存资源。它指
 permalink: /archives/shen-du-pou-xi-Java-nei-cun-guan-li-xie/
@@ -20,7 +20,7 @@ categories:
 
 ### （一）内存泄漏的概念
 内存泄漏的核心在于对象的生命周期管理失控。在Java中，对象通过引用被访问和操作。当一个对象不再被程序逻辑所需要，但仍然存在引用指向它时，垃圾回收器就无法将其回收，从而造成内存泄漏。这就好比一个房间里堆满了无用的杂物，但由于某些原因，这些杂物始终无法被清理出去，最终导致房间越来越拥挤，可用空间越来越小。
-![jvm3.jpg](https://images.jsdiff.com/jvm3.jpg)
+![jvm3.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm3.jpg)
 
 ### （二）引发内存泄漏的常见场景
 1. **静态集合类的陷阱**

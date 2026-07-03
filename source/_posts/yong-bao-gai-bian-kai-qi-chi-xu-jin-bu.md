@@ -3,7 +3,7 @@ title: 拥抱改变，开启持续进步之旅
 id: 82da4ebc-8711-459e-81dc-1c6cd5fe3746
 date: 2024-12-15 16:14:27
 author: daichangya
-cover: https://images.jsdiff.com/growprogress.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/growprogress.jpg
 excerpt: 在人生的长河中，我们常常渴望成长与进步，却往往陷入舒适区无法自拔。然而，真正的蜕变往往源于那些我们虽不喜欢但却极具意义的事情。今天，就让我们一同探讨如何通过日常的点滴改变，绘制出一条不断向上攀升的人生曲线。
   一、走出舒适区，挑战自我 （一）每日微行动，汇聚大能量 运动十分钟：活力之源 每天抽出十分钟
 permalink: /archives/yong-bao-gai-bian-kai-qi-chi-xu-jin-bu/
@@ -12,7 +12,7 @@ categories:
 ---
 
 在人生的长河中，我们常常渴望成长与进步，却往往陷入舒适区无法自拔。然而，真正的蜕变往往源于那些我们虽不喜欢但却极具意义的事情。今天，就让我们一同探讨如何通过日常的点滴改变，绘制出一条不断向上攀升的人生曲线。
-![growprogress.jpg](https://images.jsdiff.com/growprogress.jpg)
+![growprogress.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/growprogress.jpg)
 
 ## 一、走出舒适区，挑战自我
 ### （一）每日微行动，汇聚大能量

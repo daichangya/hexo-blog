@@ -3,7 +3,7 @@ title: Java 与 JSON 转换工具大对决：谁才是最强王者？
 id: f5e2e805-cefc-40d4-90f3-e17d5fd54cbf
 date: 2024-11-29 12:54:38
 author: daichangya
-cover: https://images.jsdiff.com/Java01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Java01.jpg
 excerpt: 在当今的 Java 开发世界中，JSON 数据格式无处不在，无论是前后端交互、数据存储还是配置文件处理，都少不了它的身影。而将 Java 对象与
   JSON 之间进行高效转换，就成为了每个 Java 开发者必须掌握的技能。今天，我们就像一群勇敢的探险家，深入 Java 与 JSON 转换的神秘领域，对
 permalink: /archives/Java-yu-JSON-zhuan-huan-gong-ju-da-dui/

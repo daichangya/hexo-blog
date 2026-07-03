@@ -3,7 +3,7 @@ title: 从“紧急戒严”到“线程同步”：如何避免Java多线程编
 id: 5b6e7f0b-7081-4ab8-988c-b9bcf1457ba4
 date: 2024-12-04 08:37:36
 author: daichangya
-cover: https://images.jsdiff.com/hanguo.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/hanguo.jpg
 excerpt: 近日，韩国发生了一场政治风波，尹锡悦总统在深夜宣布实施“紧急戒严”，引发了一系列冲突与不安。局势在短短数小时内急剧变化，几方力量相互对立，民众、军队与政府各方行为交织，最终导致局势失控。这个局面就像是一个复杂的多线程并发程序，多个线程（或者说政治力量）同时运行，缺乏适当的同步控制，结果是不可预测的冲
 permalink: /archives/cong-jin-ji-jie-yan-dao-xian-cheng-tong/
 categories:
@@ -13,7 +13,7 @@ categories:
 近日，韩国发生了一场政治风波，尹锡悦总统在深夜宣布实施“紧急戒严”，引发了一系列冲突与不安。局势在短短数小时内急剧变化，几方力量相互对立，民众、军队与政府各方行为交织，最终导致局势失控。这个局面就像是一个复杂的多线程并发程序，多个线程（或者说政治力量）同时运行，缺乏适当的同步控制，结果是不可预测的冲突和混乱。
 
 在Java中，我们也常常面临这样的挑战：多个线程同时操作共享资源，如果没有合适的同步机制，可能会引发竞争条件、数据不一致、甚至程序崩溃。那么，如何通过正确的线程同步机制避免“系统混乱”呢？本文将通过一个简单的示例，带你了解Java多线程中的同步控制技巧，避免程序中出现类似“戒严令”的不必要冲突。
-![hanguo.jpg](https://images.jsdiff.com/hanguo.jpg)
+![hanguo.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/hanguo.jpg)
 
 ---
 
@@ -44,7 +44,7 @@ categories:
 #### 3.1 **实现线程同步：使用`sychronized`**
 
 ```java
-//https://blog.jsdiff.com/archives/cong-jin-ji-jie-yan-dao-xian-cheng-tong-bu
+//https://www.tushu.info/archives/cong-jin-ji-jie-yan-dao-xian-cheng-tong
 public class EmergencyDeclaration {
 
     private boolean isEmergencyDeclared = false; // 共享资源：戒严令的状态

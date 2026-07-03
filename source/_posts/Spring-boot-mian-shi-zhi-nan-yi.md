@@ -9,19 +9,19 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
-13. [系统设计面试指南一](https://blog.jsdiff.com/archives/8-things-you-need-to-know-before-system-design-interviews)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
+13. [系统设计面试指南一](https://www.tushu.info/archives/xi-tong-she-ji-mian-shi-zhi-nan-yi)
 
 ##### [什么是Spring Boot?](#)
 

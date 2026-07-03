@@ -3,7 +3,7 @@ title: 第九章：实现过滤器（Filter）和监听器（Listener）-Minitom
 id: 81143f52-cd8c-435a-afe8-c73d20183317
 date: 2024-11-19 14:50:41
 author: daichangya
-cover: https://images.jsdiff.com/Leonardo_Phoenix_A_stylized_modern_illustration_of_a_miniature_2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Leonardo_Phoenix_A_stylized_modern_illustration_of_a_miniature_2.jpg
 excerpt: '功能目标： 增加 Filter 和 Listener 支持，用于在请求处理过程中插入额外的操作或监听事件。 实现 Filter 接口，支持请求过滤，例如日志记录、认证拦截等功能。
   实现 Listener 接口，支持监听 Servlet 上下文或会话的创建和销毁事件。 实现内容： 实现 Filter '
 permalink: /archives/di-jiu-zhang-shi-xian-guo-lv-qi-Filter/

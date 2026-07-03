@@ -30,7 +30,7 @@ tags:
 9.  第九个角度，从思维方式来看。“执行思维”到“规划思维”
 10.  第十个角度，从技术视角来看，看待技术的视角发生了变化。
 
-![zhi1.jpeg](https://images.jsdiff.com/zhi1_1695124642385.jpeg)
+![zhi1.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/zhi1_1695124642385.jpeg)
 
 ## 2\. 管理方法[](#2-管理方法)
 
@@ -38,7 +38,7 @@ tags:
 
 所谓的管理规划，其实就是要管理者说明白一个问题，即，你想要什么目标，以及你需要投入什么资源。由于目标取决于团队的职能，而团队又是管理者的核心资源。所以，一份合格的规划报告，至少需要体现职能、目标、团队、路径这四个要素。
 
-![zhi2.jpeg](https://images.jsdiff.com/zhi2_1695124655095.jpeg)
+![zhi2.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/zhi2_1695124655095.jpeg)
 
 **团队职能**
 
@@ -56,7 +56,7 @@ tags:
 2.  目标的相关性原则
 3.  时限性原则
 
-![zhi3.jpeg](https://images.jsdiff.com/zhi3_1695124668372.jpeg)
+![zhi3.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/zhi3_1695124668372.jpeg)
 
 **团队**
 
@@ -82,7 +82,7 @@ tags:
 *   针对员工个体之间的两个要素是：分工和协作；
 *   针对团队整体的两个要素是：梯队和文化。
 
-![zhi4.jpeg](https://images.jsdiff.com/zhi4_1695124680490.jpeg)
+![zhi4.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/zhi4_1695124680490.jpeg)
 
 **提升员工的个人能力**
 
@@ -109,7 +109,7 @@ tags:
 
 第一，提升员工工作的自主性。 第二，提升员工专精度，让员工持续有成长。 第三，给予员工意义和使命。
 
-![zhi5.jpeg](https://images.jsdiff.com/zhi5_1695124699544.jpeg)
+![zhi5.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/zhi5_1695124699544.jpeg)
 
 关于激发员工的自驱力，说到底还是要顺应员工对于“工作幸福感”的追求。
 

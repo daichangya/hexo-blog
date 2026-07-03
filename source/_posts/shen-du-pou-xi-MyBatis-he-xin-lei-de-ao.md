@@ -3,7 +3,7 @@ title: 深度剖析MyBatis：核心类的奥秘与强大功能
 id: 0c28c09a-e720-466e-b29a-c60318e2af68
 date: 2024-12-10 11:09:30
 author: daichangya
-cover: https://images.jsdiff.com/MyBatis.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MyBatis.jpg
 excerpt: 在Java持久层框架的世界里，MyBatis以其灵活、高效的特性备受开发者青睐。今天，让我们一同深入探究MyBatis中几个至关重要的类，揭开它们的神秘面纱，领略MyBatis的强大魅力。
   一、MappedStatement：SQL语句的映射使者 （一）功能概述 MappedStatement在My
 permalink: /archives/shen-du-pou-xi-MyBatis-he-xin-lei-de-ao/
@@ -16,7 +16,7 @@ categories:
 ## 一、MappedStatement：SQL语句的映射使者
 ### （一）功能概述
 MappedStatement在MyBatis框架中扮演着关键角色，它犹如一座桥梁，将XML文件中的SQL语句节点（如`<select>`、`<update>`、`<insert>`标签）与Java代码紧密相连。在MyBatis框架初始化阶段，会对XML配置文件进行深度扫描和解析，将其中的SQL语句节点逐一转化为一个个MappedStatement对象，从而构建起SQL语句与代码逻辑之间的映射关系。
-![MyBatis.jpg](https://images.jsdiff.com/MyBatis.jpg)
+![MyBatis.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MyBatis.jpg)
 
 ### （二）实例解析
 以一个简单的XML Mapper文件为例：

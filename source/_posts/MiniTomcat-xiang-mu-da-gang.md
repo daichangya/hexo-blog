@@ -3,7 +3,7 @@ title: MiniTomcat 项目大纲
 id: adbaf8f7-80a4-46ab-b8fc-2219696e0ace
 date: 2024-11-07 12:58:35
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat2.jpg
 excerpt: 上一章内容 打造属于你的 MiniTomcat：深入理解 Web 容器核心架构与实现之路 从零开始实现一个类似 Tomcat 的轻量级 Java
   Web 容器，可以将其分为几步，逐步实现核心功能。以下是一个实现路径，包含每一步的目标功能，帮助你从简单的 HTTP 服务器逐步深入，实现基本的 Serv
 permalink: /archives/MiniTomcat-xiang-mu-da-gang/
@@ -13,7 +13,7 @@ tags:
 - tomcat
 ---
 
-上一章内容 [打造属于你的 MiniTomcat：深入理解 Web 容器核心架构与实现之路](https://blog.jsdiff.com/archives/da-zao-shu-yu-ni-de-minitomcat-shen-ru-li-jie-web-rong-qi-he-xin-jia-gou-yu-shi-xian-zhi-lu)
+上一章内容 [打造属于你的 MiniTomcat：深入理解 Web 容器核心架构与实现之路](https://www.tushu.info/archives/da-zao-shu-yu-ni-de-MiniTomcat-shen-ru)
 
 从零开始实现一个类似 Tomcat 的轻量级 Java Web 容器，可以将其分为几步，逐步实现核心功能。以下是一个实现路径，包含每一步的目标功能，帮助你从简单的 HTTP 服务器逐步深入，实现基本的 Servlet 容器。
 

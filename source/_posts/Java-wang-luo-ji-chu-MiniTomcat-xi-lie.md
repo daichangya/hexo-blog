@@ -3,7 +3,7 @@ title: Java 网络基础-MiniTomcat系列课程准备
 id: 09453b64-056d-4a30-948d-c611c35fa8f6
 date: 2024-11-19 09:50:34
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat313.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat313.jpg
 excerpt: 在这个模块中，我们将深入学习 Java 网络编程的基础知识。这些技能是构建 MiniTomcat 必不可少的，因为 MiniTomcat 需要通过
   HTTP 协议与客户端（如浏览器）进行通信。掌握网络编程的基本概念将帮助我们更好地理解 HTTP 连接、请求和响应等重要组件的实现。 1. Java 网
 permalink: /archives/Java-wang-luo-ji-chu-MiniTomcat-xi-lie/

@@ -14,7 +14,7 @@ categories:
 
 TreeMap有Values、EntrySet、KeySet、PrivateEntryIterator、EntryIterator、ValueIterator、KeyIterator、DescendingKeyIterator、NavigableSubMap、AscendingSubMap、DescendingSubMap、SubMap、Entry共十三个内部类。Entry是在TreeMap中用于表示树的节点的内部类，已经在《TreeMap源码分析——基础分析》中分析过。下面逐一介绍上面的内部类以及TreeMap中提供的和内部类相关的方法。
 
-     TreeMap有Values、EntrySet、KeySet、PrivateEntryIterator、EntryIterator、ValueIterator、KeyIterator、DescendingKeyIterator、NavigableSubMap、AscendingSubMap、DescendingSubMap、SubMap、Entry共十三个内部类。Entry是在TreeMap中用于表示树的节点的内部类，已经在[《TreeMap源码分析——基础分析》](https://blog.jsdiff.com/archives/TreeMap-Base)中分析过。下面逐一介绍上面的内部类以及TreeMap中提供的和内部类相关的方法。
+     TreeMap有Values、EntrySet、KeySet、PrivateEntryIterator、EntryIterator、ValueIterator、KeyIterator、DescendingKeyIterator、NavigableSubMap、AscendingSubMap、DescendingSubMap、SubMap、Entry共十三个内部类。Entry是在TreeMap中用于表示树的节点的内部类，已经在[《TreeMap源码分析——基础分析》](https://www.tushu.info/archives/TreeMap-yuan-ma-fen-xi-shen-ru-fen-xi)中分析过。下面逐一介绍上面的内部类以及TreeMap中提供的和内部类相关的方法。
 
      先看Values。
 
@@ -756,7 +756,7 @@ TreeMap有Values、EntrySet、KeySet、PrivateEntryIterator、EntryIterator、Va
  }
 ```
 
-     NavigableSubMap类算是看了一遍，很复杂，自身是个内部类，它里面还包含了好几个类。理解它的代码需要部分TreeMap中的其他代码的深入理解，如涉及到的deleteEntry等方法（见[《TreeMap源码分析——基础分析》](https://blog.jsdiff.com/archives/TreeMap-Base.html)）。
+     NavigableSubMap类算是看了一遍，很复杂，自身是个内部类，它里面还包含了好几个类。理解它的代码需要部分TreeMap中的其他代码的深入理解，如涉及到的deleteEntry等方法（见[《TreeMap源码分析——基础分析》](https://www.tushu.info/archives/TreeMap-yuan-ma-fen-xi-shen-ru-fen-xi)）。
 
      下面看TreeMap的其他内部类，它们是NavigableSubMap的子类。
 

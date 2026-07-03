@@ -14,7 +14,7 @@ categories:
 
 *   内存分级从上到下主要分为：Arena，ChunkList，Chunk，Page，SubPage五级；
 
-![20171124195052572.png](https://images.jsdiff.com/20171124195052572_1726493215561.png)
+![20171124195052572.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171124195052572_1726493215561.png)
 
 *   PooledArena是一块连续的内存块，为了优化并发性能在Netty内存池中存在一个由多个Arena组成的数组，在多个线程进行内存分配时会按照轮询策略选择一个Arena进行内存分配；
     

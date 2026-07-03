@@ -31,7 +31,7 @@ categories:
 分为组成部分
 ------
 
-我们在[以前的文章](https://blog.jsdiff.com/8-things-you-need-to-know-before-system-design-interviews/)中多次强调，建议在问题很大时提供高级解决方案。抽象解决方案的一种方法是将大型系统划分为较小的组件。
+我们在[以前的文章](https://www.tushu.info/8-things-you-need-to-know-before-system-design-interviews/)中多次强调，建议在问题很大时提供高级解决方案。抽象解决方案的一种方法是将大型系统划分为较小的组件。
 
 显然，Google文档是一个庞大的系统，具有许多功能，包括文档存储，共享文档，格式设置，编辑等。实际上，如果不将其分解为不同的子问题，我几乎无法解决这个大问题。
 

@@ -9,12 +9,12 @@ categories:
 - 面试指南
 ---
 
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%971-%E5%85%B3%E4%BA%8E%E9%87%8D%E6%9E%84%E5%92%8C%E4%BC%98%E5%8C%96
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%972-%E5%85%B3%E4%BA%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%8F%8A%E6%89%A9%E5%B1%95%E6%80%A7
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%973-%E5%85%B3%E4%BA%8E%E5%9B%A2%E9%98%9F%E7%AE%A1%E7%90%86
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%974-netty%E6%9C%8D%E5%8A%A1%E5%99%A8
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%975-%E5%85%B3%E4%BA%8E%E5%BF%AB%E9%80%9F%E9%80%82%E5%BA%94%E4%B8%8D%E5%90%8C%E8%A1%8C%E4%B8%9A%E7%9A%84%E9%9C%80%E6%B1%82%E5%92%8C%E6%8A%80%E6%9C%AF%E6%8C%91%E6%88%98
-https://blog.jsdiff.com/archives/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%976-%E5%85%B3%E4%BA%8E%E6%9C%AA%E6%9D%A5%E5%AE%9A%E4%BD%8D
+https://www.tushu.info/archives/mian-shi-zhi-nan-1-guan-yu-zhong-gou-he
+https://www.tushu.info/archives/mian-shi-zhi-nan-2-guan-yu-wei-fu-wu-de
+https://www.tushu.info/archives/mian-shi-zhi-nan-3-guan-yu-tuan-dui-guan-li
+https://www.tushu.info/archives/mian-shi-zhi-nan-4-Netty-fu-wu-qi
+https://www.tushu.info/archives/mian-shi-zhi-nan-5-guan-yu-kuai-su-shi
+https://www.tushu.info/archives/mian-shi-zhi-nan-6-guan-yu-wei-lai-ding
 
 识别出需要重构的部分通常涉及对系统的性能、可维护性、可扩展性和安全性进行全面评估。我会密切关注以下几个方面：
 

@@ -3,7 +3,7 @@ title: Java 文件I/O 基础-MiniTomcat系列课程准备
 id: ead3b349-bd2e-4640-bbe8-1addd6554832
 date: 2024-11-19 09:43:13
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat311.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat311.jpg
 excerpt: 我们将从 Java I/O 的基础知识开始，为构建 MiniTomcat 打下坚实的文件处理和网络输入输出的基础。在这个模块中，你将了解 Java
   中的 I/O 系统，学会使用字节流和字符流进行数据传输，并掌握常见的文件处理操作。 1. Java I/O 概览 Java 中的 I/O（输入/输出）操
 permalink: /archives/Java-wen-jian-I-O-ji-chu-MiniTomcat-xi/

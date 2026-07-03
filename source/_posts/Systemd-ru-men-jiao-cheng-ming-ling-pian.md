@@ -9,15 +9,15 @@ tags:
 ---
 
 
-Systemd 是 Linux 系统工具，用来启动[守护进程](https://blog.jsdiff.com/archives/linux-daemon)，已成为大多数发行版的标准配置。
+Systemd 是 Linux 系统工具，用来启动[守护进程](https://www.tushu.info/archives/Systemd-ru-men-jiao-cheng-ming-ling-pian)，已成为大多数发行版的标准配置。
 
-本文介绍它的基本用法，分为上下两篇。今天介绍它的主要命令，[下一篇](https://blog.jsdiff.com/archives/systemd-tutorial-part-two)介绍如何用于实战。
+本文介绍它的基本用法，分为上下两篇。今天介绍它的主要命令，[下一篇](https://www.tushu.info/archives/Systemd-ru-men-jiao-cheng-ming-ling-pian)介绍如何用于实战。
 
 ![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016030701.gif)
 
 ## 一、由来
 
-历史上，[Linux 的启动](https://blog.jsdiff.com/archives/linux_boot_process)一直采用[`init`](https://en.wikipedia.org/wiki/Init)进程。
+历史上，[Linux 的启动](https://www.tushu.info/archives/Systemd-ru-men-jiao-cheng-ming-ling-pian)一直采用[`init`](https://en.wikipedia.org/wiki/Init)进程。
 
 下面的命令用来启动服务。
 

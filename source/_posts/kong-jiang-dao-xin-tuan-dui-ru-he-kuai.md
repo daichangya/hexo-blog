@@ -6,7 +6,7 @@ author: daichangya
 permalink: /archives/kong-jiang-dao-xin-tuan-dui-ru-he-kuai/
 ---
 
-![guanliqj.jpeg](https://images.jsdiff.com/guanliqj_1698754799932.jpeg)
+![guanliqj.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/guanliqj_1698754799932.jpeg)
 
 诊断
 
@@ -27,7 +27,7 @@ permalink: /archives/kong-jiang-dao-xin-tuan-dui-ru-he-kuai/
   
 
 然后我们再来问：「空降兵下属联合搞你咋办」是我的感受，还是真正的问题呢？它对于「我是谁」，「作为谁需要实现的目标」是否有影响呢？
-![guanlimx.png](https://images.jsdiff.com/guanlimx_1698754923069.png)
+![guanlimx.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/guanlimx_1698754923069.png)
 
 NLP 逻辑层次图
 
@@ -53,7 +53,7 @@ NLP 逻辑层次图
 
 如果你经过思考分析后，发现真的存在一些下属对抗你的客观事实行为，且真的给你的管理造成了影响。推荐你使用「 3F 倾听工具」来跟涉及的下属进行过沟通。  
 
-![qingting.png](https://images.jsdiff.com/qingting_1698754932483.png)
+![qingting.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qingting_1698754932483.png)
 
 此处我们不展开说明，作为空降兵要注意沟通过程中，注意将事实、感受、意图分开，并最终与对方达成一致。
 

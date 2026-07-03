@@ -3,7 +3,7 @@ title: 第十一章：实现 Wrapper 和 Context-MiniTomcat
 id: 189b79bc-39ed-4b7c-8799-042a71f962c2
 date: 2024-11-23 08:37:30
 author: daichangya
-cover: https://images.jsdiff.com/tomcat192.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat192.jpg
 excerpt: 功能目标： Wrapper：负责管理单个 Servlet 的生命周期，封装 Servlet 的创建、初始化、调用和销毁过程。 Context：用于管理
   Web 应用的上下文，一个 Context 可以包含多个 Wrapper，每个 Wrapper 代表一个 Servlet。Context 负责加载和
 permalink: /archives/di-shi-yi-zhang-shi-xian-Wrapper-he/

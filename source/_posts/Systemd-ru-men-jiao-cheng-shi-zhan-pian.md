@@ -11,7 +11,7 @@ tags:
 
 
 
-上一篇文章，我介绍了 Systemd 的[主要命令](https://blog.jsdiff.com/archives/systemd-tutorial-commands)，今天介绍如何使用它完成一些基本的任务。
+上一篇文章，我介绍了 Systemd 的[主要命令](https://www.tushu.info/archives/Systemd-ru-men-jiao-cheng-shi-zhan-pian)，今天介绍如何使用它完成一些基本的任务。
 
 ![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016030801.jpg)
 

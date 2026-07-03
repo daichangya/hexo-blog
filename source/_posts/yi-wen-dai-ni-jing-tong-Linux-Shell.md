@@ -3,7 +3,7 @@ title: 一文带你精通 Linux Shell 编程
 id: 218c8a93-6a25-449d-9d0e-8362aa59418b
 date: 2024-12-08 16:33:46
 author: daichangya
-cover: https://images.jsdiff.com/Linux.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Linux.jpg
 excerpt: 一、Shell编程简介 1.1 什么是Shell 从程序员角度看，Shell是用C语言编写的程序；从用户角度，它是与Linux操作系统沟通的桥梁。用户可输入命令执行，也能用Shell脚本编程完成复杂操作。在Linux系统管理领域，Shell编程至关重要，是每个Linux用户的必修课。
   1.2 She
 permalink: /archives/yi-wen-dai-ni-jing-tong-Linux-Shell/

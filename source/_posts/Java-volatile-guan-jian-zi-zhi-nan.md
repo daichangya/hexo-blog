@@ -23,7 +23,7 @@ categories:
 由于CPU每秒能够执行大量指令，因此从RAM中获取数据并不是理想的选择。为了改善这种情况，处理器使用了一些技巧，例如乱序执行，分支预测，推测执行，当然还有缓存。
 
 这是以下内存层次结构起作用的地方：
-![cpu.png](http://images.jsdiff.com/upload/2020/04/cpu-bf6cff4756114a75bce82511d18eb001.png)
+![cpu.png](http://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2020/04/cpu-bf6cff4756114a75bce82511d18eb001.png)
 
 当不同的内核执行更多的指令并处理更多的数据时，它们会用更多相关的数据和指令填充其缓存。这将以提高缓存一致性挑战为代价提高整体性能。
 
@@ -123,7 +123,7 @@ volatile是一个非常有用的关键字，因为它可以帮助确保数据更
 易失性变量的内存可见性影响超出了易失性变量本身。
 
 更具体地说，假设线程A写入一个  volatile变量，然后线程B读取相同的volatile变量。在这种情况下，写入volatile变量之前A可见的值将在读取volatile变量之后B可见：
-![happensbefore.png](http://images.jsdiff.com/upload/2020/04/happens-before-e3ddd6bf294746738d2871f8e4f8f36c.png)
+![happensbefore.png](http://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2020/04/happens-before-e3ddd6bf294746738d2871f8e4f8f36c.png)
 
 发生之前
 从技术上讲，对易失性字段的任何写入都发生在随后每次对该字段的读取之前。这是Java内存模型（JMM）的易变变量规则。

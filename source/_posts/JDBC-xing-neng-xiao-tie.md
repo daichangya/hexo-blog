@@ -28,7 +28,7 @@ tags:
 
 #### [](https://github.com/lzjun567/note/blob/master/java/JDBC%20Performance%20Tips.md#jdbc%E6%80%A7%E8%83%BD%E8%B4%B4%E5%A3%AB%E4%B8%89%E4%BD%BF%E7%94%A8preparedstatement)JDBC性能贴士三：使用PreparedStatement
 
-使用PreparedStatement或者存储过程（Stored Procedure）执行查询时PreparedStatement（预处理语句）比普通的Statement对象要快。因为数据库可以对查询语句做预处理何查询缓存计划。 因此总是使用 ** 参数化形式的预处理语句** 如`SELECT * FROM table WHERE id=?`,而不要使用`SELECT * FROM table WHERE id='"+id "'`,虽然后者仍是一个预处理语句但不是参数化的。使用第二种查询方式在性能上没有任何优势，更多参考可以查下看[JDBC为什么要使用PreparedStatement而不是Statement](https://blog.jsdiff.com/archives/18565315)
+使用PreparedStatement或者存储过程（Stored Procedure）执行查询时PreparedStatement（预处理语句）比普通的Statement对象要快。因为数据库可以对查询语句做预处理何查询缓存计划。 因此总是使用 ** 参数化形式的预处理语句** 如`SELECT * FROM table WHERE id=?`,而不要使用`SELECT * FROM table WHERE id='"+id "'`,虽然后者仍是一个预处理语句但不是参数化的。使用第二种查询方式在性能上没有任何优势，更多参考可以查下看[JDBC为什么要使用PreparedStatement而不是Statement](https://www.tushu.info/archives/JDBC-xing-neng-xiao-tie)
 
 #### [](https://github.com/lzjun567/note/blob/master/java/JDBC%20Performance%20Tips.md#jdbc%E6%80%A7%E8%83%BD%E8%B4%B4%E5%A3%AB%E5%9B%9B%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0)JDBC性能贴士四：使用数据库连接池
 

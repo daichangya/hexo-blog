@@ -9,7 +9,7 @@ categories:
 ---
 
 
-![guanliqj.jpeg](https://images.jsdiff.com/guanliqj_1698753342989.jpeg)
+![guanliqj.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/guanliqj_1698753342989.jpeg)
 诊断
 
 首先我们需要了解一下，为什么需要「让老板认可技术的价值？」。也就是我们真正的问题是什么？
@@ -50,7 +50,7 @@ categories:
 
 如果希望把我们的认知和期待输出给上级，比如「技术是有价值的」，那么依赖于我们在沟通中影响力的输出。当然这是一个长期的且需要不断累积信任的过程。
 
-![bingshan.png](https://images.jsdiff.com/bingshan_1698753369114.png)
+![bingshan.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/bingshan_1698753369114.png)
 
 那么如何提高影响力呢？
 

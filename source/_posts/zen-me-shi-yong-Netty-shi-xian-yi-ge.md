@@ -89,6 +89,6 @@ tags:
 * add http stream event chunked
 
 扫码关注微信公众号，Java码界探秘。
-![Java码界探秘](http://images.jsdiff.com/qrcode_for_gh_1e2587cc42b1_258_1587996055777.jpg)
+![Java码界探秘](http://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode_for_gh_1e2587cc42b1_258_1587996055777.jpg)
 
-[https://blog.jsdiff.com/](https://blog.jsdiff.com/)
+[https://www.tushu.info/](https://www.tushu.info/)

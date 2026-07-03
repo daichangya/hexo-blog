@@ -26,7 +26,7 @@ categories:
 
 *   Reactor单线程模型是指所有的IO操作包括acceptor操作和handler操作都由一个线程完成；
 
-![20171123185646647.png](https://images.jsdiff.com/20171123185646647_1726491378941.png)
+![20171123185646647.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171123185646647_1726491378941.png)
 
 *   Netty中Reactor单线程的实现
 
@@ -50,7 +50,7 @@ b.group(group);    //acceptor操作和handler操作共用group线程池中的一
 
 *   Reactor线程模型是指专门有一个线程处理acceptor操作(服务端的监听和客户端连接请求的处理)，而具体的handler操作(数据具体处理)则交由线程池处理；Reactor多线程模型中，服务端可以同时处理多条链路数据，但是一条链路也就是一个channel只对应一个线程，通道数据的整个处理流程全部由这个线程完成；
 
-![20171123185706442.png](https://images.jsdiff.com/20171123185706442_1726491461526.png)
+![20171123185706442.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171123185706442_1726491461526.png)
  
 \- Netty中Reactor多线程模型的实现
 
@@ -77,7 +77,7 @@ b.group(bossGroup,workGroup);
 ### Reactor主从多线程模型
 
 *   Reactor主从多线程模式是指不再由一个线程独立处理客户端的连接请求而是由一个线程池，Acceptor线程池仅仅用于客户端的登录，握手和验证等，一旦链路建立成功，就将链路的处理交由subReactor线程池，由线程池中的线程进行后续的IO操作；  
-![20171123185806756.png](https://images.jsdiff.com/20171123185806756_1726491522118.png)
+![20171123185806756.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171123185806756_1726491522118.png)
     
 *   Netty中Reactor主从多线程模型的实现
     

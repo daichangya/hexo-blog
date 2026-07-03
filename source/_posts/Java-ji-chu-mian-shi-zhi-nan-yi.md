@@ -9,18 +9,18 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
 
 当今世界上使用最广泛的编程语言之一是Java。Java是通用的高级编程语言。核心java是java编程技术概念的基础,该术语由sun Microsystems用来描述Java的标准版本(JSE)。核心Java只是Java的一部分,它代表J2SE,其中包含Java的所有基础知识,包括一些原理和软件包详细信息。Java核心概念涵盖了所有OOPS概念,特殊运算符,数据类型,包装类,异常处理,多态性,多线程,链接列表,队列,堆栈,数组列表。它最常用于开发桌面应用程序和服务器环境(开发独立应用程序)。
 

@@ -3,7 +3,7 @@ title: Java设计模式——策略、代理模式
 id: 1101
 date: 2024-10-31 22:01:49
 author: daichangya
-cover: https://images.jsdiff.com/design01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design01.jpg
 excerpt: 一、策略模式 （一）策略模式概述 定义与概念 策略模式属于对象行为模型，其核心思想是针对一组算法，将每个算法封装到具有共同接口的独立类中，从而实现它们之间的互相替换。该模式将算法的责任和算法本身分隔开，委派给不同的对象管理，把算法包装到一系列的策略类里面，作为一个抽象策略类的子类。简单来说，就是准备
 permalink: /archives/Java-she-ji-mo-shi-ce-lve-dai-li-mo-shi/
 categories:

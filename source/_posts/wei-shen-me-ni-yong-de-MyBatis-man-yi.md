@@ -3,7 +3,7 @@ title: 为什么你用的 MyBatis 慢？一行配置让它性能翻倍！
 id: 51b69e69-1c89-49ae-8701-017dc59d10f6
 date: 2024-12-02 21:20:08
 author: daichangya
-cover: https://images.jsdiff.com/MyBatis.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MyBatis.jpg
 excerpt: 在 Java 后端开发的江湖里，MyBatis 堪称一员大将，凭借着灵活的 SQL 编写、方便的数据库对接能力，深受广大开发者的喜爱。但不少小伙伴在实际项目中却暗暗叫苦：为啥自家的
   MyBatis 运行起来慢吞吞的，严重拖慢业务响应速度？别慌，今天这篇文章就是来给大家“对症下药”，只需一行配置，让你
 permalink: /archives/wei-shen-me-ni-yong-de-MyBatis-man-yi/

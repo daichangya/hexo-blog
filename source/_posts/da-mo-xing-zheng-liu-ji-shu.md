@@ -3,7 +3,7 @@ title: 大模型蒸馏技术
 id: 0f17aad8-367e-4e17-b919-3677eaef0fd3
 date: 2025-02-16 08:35:41
 author: daichangya
-cover: https://images.jsdiff.com/The_large_model_distillation_technique_is_2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/The_large_model_distillation_technique_is_2.jpg
 excerpt: 大模型蒸馏技术是一种将大型模型（教师模型）的知识迁移到更小型、高效模型（学生模型）的方法，旨在保持性能的同时降低计算和存储成本。以下是对该技术的系统介绍：
   1. 核心概念 目标：压缩大模型（如GPT-3、BERT等），使其适用于资源受限场景（如移动设备、实时系统）。 核心思想：通过模仿教师模型的输出
 permalink: /archives/da-mo-xing-zheng-liu-ji-shu/

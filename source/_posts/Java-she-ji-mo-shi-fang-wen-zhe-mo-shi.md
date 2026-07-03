@@ -3,7 +3,7 @@ title: Java设计模式——访问者模式：设计模式中的灵活扩展之
 id: 13bd2d11-2806-4e0b-88c6-9a04d77ebc72
 date: 2024-11-29 11:48:53
 author: daichangya
-cover: https://images.jsdiff.com/design04.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design04.jpg
 excerpt: 嘿，各位技术大神和编程爱好者们！今天，我们要一同深入探索一种超酷的设计模式——访问者模式（Visitor Pattern）。在编程的世界里，我们常常会遇到这样的情况：需要对一组不同类型的对象执行相似的操作，但又不想修改这些对象的类。这时候，访问者模式就像一位神奇的“魔法师”，挥舞着它的“魔法棒”，为
 permalink: /archives/Java-she-ji-mo-shi-fang-wen-zhe-mo-shi/
 categories:

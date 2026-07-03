@@ -34,8 +34,8 @@ nav:
     - title: 项目
       item:
         - name: 安知鱼图床
-          link: https://images.jsdiff.com/
-          icon: https://images.jsdiff.com/favicon.ico
+          link:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/
+          icon:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico
 
 # mourn （哀悼日，指定日期网站简单变灰，不包括滚动条）
 # 注意： 仅网站首页变灰，其他页面正常显示
@@ -246,10 +246,10 @@ post_copyright:
 reward:
   enable: true
   QR_code:
-    - img: https://images.jsdiff.com/qrcode-weichat.jpg
+    - img:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg
       link:
       text: 微信
-    - img: https://images.jsdiff.com/425237894_1588896897344.jpg
+    - img:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg
       link:
       text: 支付宝
 

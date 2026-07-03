@@ -3,7 +3,7 @@ title: MyBatis缓存机制深度剖析：原理、源码与最佳实践
 id: b8d9f999-159e-4d0d-8a05-76a28b98f947
 date: 2024-12-09 16:36:30
 author: daichangya
-cover: https://images.jsdiff.com/MyBatis.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MyBatis.jpg
 excerpt: 在当今的软件开发领域，数据访问效率一直是备受关注的焦点。随着应用程序的规模不断扩大，数据库操作的性能成为了影响系统整体性能的关键因素之一。MyBatis作为一款流行的Java持久层框架，其缓存机制在提升数据访问效率方面发挥着重要作用。本文将深入剖析MyBatis的缓存机制，包括一级缓存和二级缓存的原
 permalink: /archives/MyBatis-huan-cun-ji-zhi-shen-du-pou-xi/
 categories:

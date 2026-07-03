@@ -3,7 +3,7 @@ title: 第四章：实现 Servlet 容器的基本功能-MiniTomcat系列
 id: 82900bc1-709e-4ea9-9cae-852f9bc38acc
 date: 2024-11-11 14:21:25
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat2.jpg
 excerpt: 上一章内容：第三章：实现连接器（Connector）组件-MiniTomcat系列 各位技术大神、编程爱好者们！今天我们将一同深入探索 MiniTomcat
   的一个超级重要的进阶环节——实现 Servlet 容器的基本功能。这就像是给我们的 MiniTomcat 注入了强大的“智慧大脑”，使其能够处
 permalink: /archives/di-si-zhang-shi-xian-Servlet-rong-qi-de/
@@ -13,7 +13,7 @@ tags:
 - tomcat
 ---
 
-上一章内容：[第三章：实现连接器（Connector）组件-MiniTomcat系列](https://blog.jsdiff.com/archives/di-san-bu-shi-xian-lian-jie-qi-connector-zu-jian-minitomcat)
+上一章内容：[第三章：实现连接器（Connector）组件-MiniTomcat系列](https://www.tushu.info/archives/di-san-zhang-shi-xian-lian-jie-qi)
 
 各位技术大神、编程爱好者们！今天我们将一同深入探索 MiniTomcat 的一个超级重要的进阶环节——实现 Servlet 容器的基本功能。这就像是给我们的 MiniTomcat 注入了强大的“智慧大脑”，使其能够处理充满活力的动态请求，瞬间让我们的服务器变得更加智能和强大。准备好跟我一起揭开这背后的神秘面纱，看看如何通过巧妙的代码设计让 MiniTomcat 实现这一华丽蜕变吧！💥
 

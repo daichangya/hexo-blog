@@ -3,7 +3,7 @@ title: Java设计模式——享元模式
 id: 4d62cb46-4849-448e-94d2-1dc387716b42
 date: 2024-11-25 11:04:26
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: 一、引子 在Java中，String类型具有一些独特的特性。其一，String类型的对象一旦被创建就不可改变；其二，当两个String对象所包含的内容相同时，JVM只创建一个String对象对应这两个不同的对象引用。我们可以通过以下代码来验证这两个特性：
   public class TestPatte
 permalink: /archives/Java-she-ji-mo-shi-xiang-yuan-mo-shi/

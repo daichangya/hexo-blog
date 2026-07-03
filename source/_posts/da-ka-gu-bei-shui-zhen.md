@@ -23,44 +23,44 @@ tags:
 
 ## 三、抵达景区
 下午1：20顺利抵达目的地。导游先带大家进入景区内部，20分钟上洗手间，导游去买票。这期间大家看了周边景色，有南方柔美之感，搭上长城装饰又有北方豪情。拿到门票后，导游交代并强调几次集合地点后带领大家进入景区，大家散开。除购买日游长城、夜游长城和乌篷船票的人需在约定时间集合外，其他人20：00回到集合点即可。进入景区后，看到了司马小烧酒坊、染坊、青花瓷工艺品等小展览馆，穿过喧闹人群拍了风景图。
-![IMG_0655-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0655-300x200-e4c2baab0b7349b288319d163e579c0c.jpg)
+![IMG_0655-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0655-300x200-e4c2baab0b7349b288319d163e579c0c.jpg)
 
 拿到门票后，导游在交代并强调了几次大家集合地点后，带领大家进入景区。大家就四散开了。除了一些购买日游长城、夜游长城和乌篷船票的人，需要在约定的时间集合外，其他人只有20：00回到集合点就可以了。进入景区后，就看到一些小展览馆，司马小烧酒坊、染坊、青花瓷的工艺品。穿过喧闹的人群，终于可以拍张风景图。
-![IMG_0693-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0693-300x200-d8c58deace6d4955a1539b1a10ca68e9.jpg)
+![IMG_0693-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0693-300x200-d8c58deace6d4955a1539b1a10ca68e9.jpg)
 
 ## 四、景区游览
 1. **月老祠**：接着游览到了月老祠。
-![IMG_0696-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0696-300x200-c83c0803368b4a0eacc0c59ed3801a7e.jpg)
+![IMG_0696-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0696-300x200-c83c0803368b4a0eacc0c59ed3801a7e.jpg)
 
 2. **喊泉石**：还有有名的喊泉石，能随声音大小控制泉水喷涌高低。
-![IMG_0702-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0702-300x200-bd79dbf9ec654e68b7b0a2cd455b8196.jpg)
+![IMG_0702-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0702-300x200-bd79dbf9ec654e68b7b0a2cd455b8196.jpg)
 
 3. **龙凤温泉广场**：龙凤温泉广场，是个泡脚池，分龙、凤两个池，两个池子都是坐着满满当当的游客。
-![IMG_0765-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0765-300x200-2de3d31ed34140ab9371af1e6d8e1989.jpg)
+![IMG_0765-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0765-300x200-2de3d31ed34140ab9371af1e6d8e1989.jpg)
 
 4. **日月岛广场**：导游说此广场必行，但没发现特别新意之处，主要是小吃、西餐和一家回民餐厅，作者匆匆走马观花。
-![IMG_0755-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0755-300x200-fc35361e74de40adab8a4a4878e2a541.jpg)
+![IMG_0755-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0755-300x200-fc35361e74de40adab8a4a4878e2a541.jpg)
 
 5. **山顶教堂**：老公提议去高处，于是顺着石板台阶走上山顶教堂，上面装饰用于配合游人拍照，因拍照人群多，没拍下几张可留念的照片。
-![IMG_0764-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0764-300x200-d51f7db05a294f618440cb0cc5ff7c0d.jpg)
+![IMG_0764-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0764-300x200-d51f7db05a294f618440cb0cc5ff7c0d.jpg)
 
 6. **镇远镖局、八旗会馆**：看完正好赶上工作人员清馆，此时时间18：00。
-![IMG_0772-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0772-300x200-5465e5bdb6c8477fbf170663d439d825.jpg)
+![IMG_0772-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0772-300x200-5465e5bdb6c8477fbf170663d439d825.jpg)
 
 
 ## 五、美食与夜景
 螺蛳粉、萝卜丝和烤梨最受欢迎，至少排队半小时才能排上，作者没排，只是沿途欣赏夜景。最后还排了一场音乐喷泉，很壮观，让人看的心潮澎湃，是一个20分钟左右的主题片，音响和视听效果特别好。
-![IMG_0773-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0773-300x200-bd6e3213c70b4917a8baa00dc465ad59.jpg)
-![IMG_0806-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0806-300x200-27e202dba6c948978dd8d6ca2f92c934.jpg)
+![IMG_0773-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0773-300x200-bd6e3213c70b4917a8baa00dc465ad59.jpg)
+![IMG_0806-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0806-300x200-27e202dba6c948978dd8d6ca2f92c934.jpg)
 
 
 ## 六、返程
 7：20开始往回赶，20分钟后到达集合地。10：20到达芍药居，11：30抵达家中，结束一天行程。作者坐车时间长有些晕车，对坐长途大巴产生严重恐惧心理，思考如何平衡舟车劳顿和美景，觉得晕车的人最美的风景在路上反而成了最痛苦的，以后出行要尽量避开乘大巴车在高峰期出行。
 
-![IMG_0689-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0689-300x200-1c03dfd289f34c81bd4edbcdbb8cc21d.jpg)
+![IMG_0689-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0689-300x200-1c03dfd289f34c81bd4edbcdbb8cc21d.jpg)
 
-![IMG_0690-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0690-300x200-276eb105323541ec94ef4fd41acd828d.jpg)
+![IMG_0690-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0690-300x200-276eb105323541ec94ef4fd41acd828d.jpg)
 
-![IMG_0692-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0692-300x200-8def58ca79dd46db92b89983dc30511c.jpg)
+![IMG_0692-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0692-300x200-8def58ca79dd46db92b89983dc30511c.jpg)
 
-![IMG_0774-300x200](https://images.jsdiff.com/upload/2019/6/IMG_0774-300x200-fd05613365504087ad021b51db9d4e3e.jpg)
+![IMG_0774-300x200]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2019/6/IMG_0774-300x200-fd05613365504087ad021b51db9d4e3e.jpg)

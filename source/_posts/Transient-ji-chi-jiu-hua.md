@@ -12,9 +12,9 @@ categories:
 
 这篇文章是系列文章的一部分，如果还没有浏览过文章的其它部分请参考：
 
-1.  [持久化数据结构简介](https://blog.jsdiff.com/archives/persist-datastructure-intro/)
-2.  [Vector Trie 的实现](https://blog.jsdiff.com/archives/implement-vector-trie/)
-3.  [Transient 及持久化](https://blog.jsdiff.com/archives/Transient-and-Persistent/)(本文)
+1.  [持久化数据结构简介](https://www.tushu.info/archives/HAMT-jian-jie/)
+2.  [Vector Trie 的实现](https://www.tushu.info/archives/Vector-Trie-de-shi-xian/)
+3.  [Transient 及持久化](https://www.tushu.info/archives/Transient-ji-chi-jiu-hua/)(本文)
 
 在之前的文章中，我们已经看到了如何实现一个 Vector Trie，也知道如何使用 Vector Trie 来实现共享数据结构的持久化 List： 在每次修改时，我们复制从根节点到被修改节点路径上的所有节点，并使用得到的新的 Root 节点构造一个新的 List 的 HEAD 数据结构。这样通过新的 HEAD 我们就可以访问到新的数据，通过旧的 HEAD 我们可以得到旧的数据。
 

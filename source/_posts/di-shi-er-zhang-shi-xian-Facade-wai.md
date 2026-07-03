@@ -3,7 +3,7 @@ title: 第十二章：实现 Facade（外观模式）-MiniTomcat
 id: d4b4a2a7-c464-4d61-bb13-e2b1ddc1ae61
 date: 2024-11-23 16:18:56
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat314.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat314.jpg
 excerpt: 功能目标： 使用 Facade 模式简化外部对 Servlet API 的访问，隐藏内部复杂的实现细节，提供更简洁的接口供外部调用。 实现内容：
   Facade 模式：Facade 是一种设计模式，用于封装复杂的子系统。通过封装，Facade 提供了一个统一的接口，使得外部系统在不需要了解内部实现的情
 permalink: /archives/di-shi-er-zhang-shi-xian-Facade-wai/

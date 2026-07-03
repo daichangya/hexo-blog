@@ -3,7 +3,7 @@ title: 爆肝整理！超详细的Lucene学习教程
 id: e207b549-9755-4fe4-887f-2061a6633371
 date: 2024-12-09 16:17:25
 author: daichangya
-cover: https://images.jsdiff.com/Lucene.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Lucene.jpg
 excerpt: 一、Lucene简介 1.1 什么是Lucene Lucene是一个强大的全文搜索框架，并非拿来即用的应用产品，而是提供了实现如百度、谷歌桌面搜索等产品的工具。
   1.2 Lucene能做什么 Lucene功能看似单一，实则潜力无限。它允许输入若干字符串，提供全文搜索服务，能精准定位关键词位置。利用L
 permalink: /archives/bao-gan-zheng-li-chao-xiang-xi-de/

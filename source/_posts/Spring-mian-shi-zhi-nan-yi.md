@@ -9,18 +9,18 @@ categories:
 - 面试指南
 ---
 
-[Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-[Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-[Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-[Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-[Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-[Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-[Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-[Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-[Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-[Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-[SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-[微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
+[Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+[Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+[Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+[Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+[Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+[Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+[Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+[Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+[Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+[Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+[SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+[微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
 
 Spring Framework是一个开源Java平台。它为任何类型的部署平台上的基于Java的现代企业应用程序提供了全面的编程和配置模型。Spring框架最初由Rod Johnson编写,并于2003年6月根据Apache 2.0许可证首次发布。
 

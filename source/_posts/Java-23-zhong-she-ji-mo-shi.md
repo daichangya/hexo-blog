@@ -3,7 +3,7 @@ title: Java-23种设计模式
 id: 75d9e452-f75c-4801-b62c-253639bdb279
 date: 2024-11-25 10:02:32
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: '一、设计模式的分类与设计原则 设计模式总体分为三大类：创建型模式（5种）、结构型模式（7种）和行为模式（11种）。在深入了解各种设计模式之前，先明确一下设计所遵循的原则，主要包括单一职责、开放封闭原则
   - OCP（功能开放，代码闭合）、里氏替换原则（子类型能够替换掉父类型，松耦合）以及接口隔离原则 '
 permalink: /archives/Java-23-zhong-she-ji-mo-shi/

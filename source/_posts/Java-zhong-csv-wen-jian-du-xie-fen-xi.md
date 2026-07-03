@@ -112,7 +112,7 @@ xml
 
 #### 映射策略
 
-![image.png](https://images.jsdiff.com/image_1701422295884.png)
+![image.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/image_1701422295884.png)
 
 | 名称 | 描述 | 重要方法 | 方法描述 |
 | --- | --- | --- | --- |

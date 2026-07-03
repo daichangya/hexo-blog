@@ -3,7 +3,7 @@ title: 成都，成都
 id: 4
 date: 2024-10-31 22:01:38
 author: daichangya
-cover: https://images.jsdiff.com/%E8%A1%8C%E8%B5%B0%E6%88%90%E9%83%BD_1587823068483.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/%E8%A1%8C%E8%B5%B0%E6%88%90%E9%83%BD_1587823068483.jpg
 excerpt: 年近30的我第一次坐飞机。百感交集，有种说不出来的感觉，首先为坐飞机这件事情感到激动不已，再者为30年后自己才坐上飞机感到羞赧。于2018年6月10号抵达首都机场，自助换登机牌确实很便捷，行李托运。接着安检候机，机场的肯德基比外面的贵很多，但是机场的缘故，又饿，花了45块钱点了蔬菜沙拉、土豆泥和一杯
 permalink: /archives/cheng-dou-cheng-dou/
 categories:

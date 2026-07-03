@@ -50,4 +50,4 @@ categories:
 
 关于键值存储的话题太多了，我几乎无法将它们全部写成一篇文章。如您所见，在扩展系统时，要考虑的问题更多，这就是为什么许多人发现分布式系统很困难的原因。
 
-[在下一篇文章中](https://blog.jsdiff.com/archives/design-key-value-store-part-ii/)，我们将继续讨论，并将涵盖有关扩展系统的更多信息。将讨论诸如系统可用性，一致性之类的问题。
+[在下一篇文章中](https://www.tushu.info/archives/jian-zhi-cun-chu-xi-tong-she-ji-di-yi/)，我们将继续讨论，并将涵盖有关扩展系统的更多信息。将讨论诸如系统可用性，一致性之类的问题。

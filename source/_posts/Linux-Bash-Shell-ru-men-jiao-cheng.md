@@ -3,7 +3,7 @@ title: Linux Bash Shell入门教程：掌握命令行的强大力量
 id: bbf1c0f2-9300-4684-a454-5df145fc8a77
 date: 2024-12-09 16:03:50
 author: daichangya
-cover: https://images.jsdiff.com/Linux.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Linux.jpg
 excerpt: 在Linux操作系统中，Bash Shell扮演着至关重要的角色，它是用户与系统内核进行交互的桥梁。无论是系统管理、软件开发还是日常的文件操作，掌握Bash
   Shell都能极大地提升效率。本文将详细介绍Bash Shell的基础知识，包括其工作原理、常用命令、脚本编写等，通过丰富的实例和清晰的讲解，
 permalink: /archives/Linux-Bash-Shell-ru-men-jiao-cheng/

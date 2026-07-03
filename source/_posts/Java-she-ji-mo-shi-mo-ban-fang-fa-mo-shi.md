@@ -3,7 +3,7 @@ title: Java设计模式——模版方法模式
 id: 3d56360c-13f2-46f7-ab32-6f8da7fff4b1
 date: 2024-11-25 10:33:28
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: 一、模版方法模式概述 模版方法模式是极为常见的设计模式之一。在实际工作中，你可能已经在不经意间使用了该模式。此模式需要抽象类与具体子类协同工作，抽象类用于勾勒算法的轮廓和骨架，具体子类则负责填充算法中的各个逻辑步骤，不同子类的填充方式各异。汇总这些基本方法的方法被称为模版方法，它在抽象类中以具体方法
 permalink: /archives/Java-she-ji-mo-shi-mo-ban-fang-fa-mo-shi/
 categories:

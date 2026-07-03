@@ -3,7 +3,7 @@ title: Java技术经理面试指南-开放问题
 id: 16f931f8-6876-4113-9e6a-b14346b7a8e6
 date: 2024-11-21 10:51:10
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview.jpg
 excerpt: 问题一：介绍在项目中遇到过的比较复杂的问题以及如何解决 - 你的回答：很好地描述了在有限资源情况下进行项目开发的问题，并提出了具体的解决方案。 -
   改进点：可以更加详细地描述问题的背景、挑战和影响，以及解决方案的实施过程和效果。 - 参考回答（10 分）：在项目中，我们曾经遇到过一个非常复杂的问题。
 permalink: /archives/Java-ji-shu-jing-li-mian-shi-zhi-nan/

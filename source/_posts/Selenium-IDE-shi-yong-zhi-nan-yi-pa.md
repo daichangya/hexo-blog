@@ -9,13 +9,13 @@ categories:
 - selenium-ide
 ---
 
-1. [Selenium IDE使用指南一（爬虫脚本录制器）](https://blog.jsdiff.com/archives/seleniumide1)
-2. [Selenium IDE使用指南二（命令行运行器）](https://blog.jsdiff.com/archives/seleniumide2)
-3. [Selenium IDE使用指南三（控制流）](https://blog.jsdiff.com/archives/seleniumide3)
-4. [Selenium IDE使用指南四（代码导出）](https://blog.jsdiff.com/archives/selenium-ide-code-export)
-5. [Selenium IDE使用指南五（常见问题）](https://blog.jsdiff.com/archives/seleniumide5)
-6. [Selenium IDE使用指南六（指令列表）](https://blog.jsdiff.com/archives/selenium-ide-commands)
-7. [Selenium IDE使用指南七（参数定义）](https://blog.jsdiff.com/archives/selenium-ide-arguments)
+1. [Selenium IDE使用指南一（爬虫脚本录制器）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-yi-pa)
+2. [Selenium IDE使用指南二（命令行运行器）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-er-ming)
+3. [Selenium IDE使用指南三（控制流）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-san-kong)
+4. [Selenium IDE使用指南四（代码导出）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-si-dai-ma)
+5. [Selenium IDE使用指南五（常见问题）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang)
+6. [Selenium IDE使用指南六（指令列表）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang)
+7. [Selenium IDE使用指南七（参数定义）](https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang)
 
 [](#installation)安装
 -------------------

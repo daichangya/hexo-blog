@@ -3,7 +3,7 @@ title: 揭秘“山姆黄牛”背后的技术逻辑：用Java实现会员管理
 id: 0e870788-d6c6-4f0f-81e9-caefb6745185
 date: 2024-12-10 13:22:12
 author: daichangya
-cover: https://images.jsdiff.com/shanmu.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shanmu.jpeg
 excerpt: 在浙江绍兴的山姆超市外，“黄牛”现象引发了广泛关注。这些“黄牛”通过提供带入和结账服务，让未办理会员卡的消费者也能进入超市购物。这一行为不仅扰乱了市场秩序，也对山姆会员商店的会员管理系统提出了挑战。今天，我们就来探讨一下，如何用Java实现一个更为健壮的会员管理系统，有效防止“黄牛”现象的发生。
   一
 permalink: /archives/jie-mi-shan-mu-huang-niu-bei-hou-de-ji/

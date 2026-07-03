@@ -3,7 +3,7 @@ title: 第六章：支持 Session 和 Cookie-Minitomcat
 id: f90b244f-d2b5-4397-a998-4af9baaf12bd
 date: 2024-11-19 10:57:30
 author: daichangya
-cover: https://images.jsdiff.com/tomcat194.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat194.jpg
 excerpt: 本步骤将实现对 HTTP Session 和 Cookie 的支持，以便维护客户端的会话状态，使每次请求能够识别为同一客户端并跟踪状态。我们将实现一个计数器
   Servlet，用于记录每个客户端的访问次数。 6.1 功能目标 实现会话管理：通过 HttpSession 支持为每个客户端分配唯一的 Se
 permalink: /archives/di-liu-zhang-zhi-chi-Session-he-Cookie/

@@ -3,7 +3,7 @@ title: 深入理解Servlet：从基础概念到高级特性与实战应用
 id: 03c3a0a8-f99a-4948-952c-fb528ca7436e
 date: 2024-12-15 15:11:43
 author: daichangya
-cover: https://images.jsdiff.com/Servlet.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Servlet.jpg
 excerpt: 一、Servlet简介与工作原理 Servlet是Java Web开发中的重要组件，它运行在服务器端，用于处理客户端的请求并返回响应。其工作原理涉及多个组件和步骤，从客户端发起请求到服务器端的处理和响应，整个过程有条不紊地进行。
   （一）Servlet容器与Tomcat Servlet容器是Servl
 permalink: /archives/shen-ru-li-jie-Servlet-cong-ji-chu-gai/

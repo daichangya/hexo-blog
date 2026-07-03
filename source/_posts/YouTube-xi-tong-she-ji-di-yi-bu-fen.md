@@ -8,7 +8,7 @@ categories:
 - 系统架构
 ---
 
-系统设计面试问题中最常见的一种类型是设计现有的流行系统。例如，在过去，我们讨论了[如何设计Twitter](https://blog.jsdiff.com/archives/system-design-interview-question-how-to-design-twitter-part-1/)，[设计Facebook聊天功能](https://blog.jsdiff.com/archives/design-facebook-chat-function/)等等。
+系统设计面试问题中最常见的一种类型是设计现有的流行系统。例如，在过去，我们讨论了[如何设计Twitter](https://www.tushu.info/archives/YouTube-xi-tong-she-ji-di-yi-bu-fen/)，[设计Facebook聊天功能](https://www.tushu.info/archives/YouTube-xi-tong-she-ji-di-yi-bu-fen/)等等。
 
 部分原因是该问题通常足够笼统，因此有很多领域需要讨论。此外，如果候选人通常好奇，他们更有可能探索现有产品的设计方式。
 
@@ -19,14 +19,14 @@ categories:
 
 面对这个问题，大多数人的想法变得茫然，因为这个问题太广泛了，他们不知道从哪里开始。只是存储本身并不简单，因为向数十亿用户无缝提供视频/图像非常复杂。
 
-正如[在进行系统设计面试之前需要了解的8件事中](https://blog.jsdiff.com/archives/8-things-you-need-to-know-before-system-design-interviews/)所建议的那样，最好先深入了解设计，然后再深入研究所有细节。尤其是对于此类问题要考虑的事情太多，而您将永远无法澄清所有问题时，尤其如此。
+正如[在进行系统设计面试之前需要了解的8件事中](https://www.tushu.info/archives/xi-tong-she-ji-mian-shi-zhi-nan-yi/)所建议的那样，最好先深入了解设计，然后再深入研究所有细节。尤其是对于此类问题要考虑的事情太多，而您将永远无法澄清所有问题时，尤其如此。
 
 基本上，我们可以将系统简化为几个主要组件，如下所示：
 
 *   存储。您如何设计数据库架构？使用什么数据库？视频和图像可以作为一个子主题，因为它们非常特殊。
 *   可扩展性。当您获得数百万甚至数十亿用户时，如何扩展存储和整个系统？这可能是一个非常复杂的问题，但我们至少可以讨论一些高级想法。
 *   网络服务器。最常见的结构是前端（移动端和Web端）与Web服务器通信，后者处理诸如用户身份验证，会话，获取和更新用户数据等逻辑。然后服务器连接到多个后端，例如视频存储，推荐服务器等。
-*   缓存是另一个重要组成部分。[我们之前曾讨论过有关缓存的详细信息](https://blog.jsdiff.com/archives/design-a-cache-system/)，但此处仍然存在一些差异，例如，我们需要多层缓存，例如Web服务器，视频服务等。
+*   缓存是另一个重要组成部分。[我们之前曾讨论过有关缓存的详细信息](https://www.tushu.info/archives/jian-zhi-cun-chu-xi-tong-she-ji-di-er/)，但此处仍然存在一些差异，例如，我们需要多层缓存，例如Web服务器，视频服务等。
 *   还有几个其他重要的组件，例如推荐系统，安全系统等。如您所见，只有一个功能可以用作独立的采访问题。
 
 存储和数据模型

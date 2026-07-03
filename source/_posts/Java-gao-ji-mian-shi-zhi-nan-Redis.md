@@ -3,7 +3,7 @@ title: Java高级面试指南 - Redis
 id: 1382
 date: 2024-10-31 22:01:52
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg
 excerpt: 第七个问题：请简述 Redis 的数据类型有哪些？ “Redis 主要有五种数据类型： 字符串（String）：可以存储任何形式的字符串、数字或二进制数据。它是最基本的数据类型，常用于缓存单个值，比如存储用户的会话信息、计数器的值等。
   哈希（Hash）：类似于 Java 中的 Map 或者 Pyth
 permalink: /archives/Java-gao-ji-mian-shi-zhi-nan-Redis/

@@ -3,7 +3,7 @@ title: 探索Java代码重构：优化之道与实践经验
 id: daa0a4ad-9168-487f-9799-36de690b62cc
 date: 2024-12-25 08:51:49
 author: daichangya
-cover: https://images.jsdiff.com/refactor.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/refactor.jpg
 excerpt: 在软件开发领域，代码就如同建筑的基石，其质量直接影响着软件的可维护性、扩展性和性能。随着项目的不断演进，代码可能会逐渐变得复杂、冗余，甚至难以理解和维护。这时候，代码重构就成为了提升代码质量、保持软件健康发展的关键手段。本文将深入探讨Java代码重构的相关知识，包括其定义、重要性、常见方法、重构的阶
 permalink: /archives/tan-suo-Java-dai-ma-zhong-gou-you-hua/
 categories:

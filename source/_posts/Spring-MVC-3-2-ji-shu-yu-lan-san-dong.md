@@ -12,7 +12,7 @@ categories:
 
   
 
-        [前面的文章](https://blog.jsdiff.com/archives/spring-mvc-3-2-preview-techniques-for-real-time-updates)中我介绍了Servlet 3、Spring MVC 3.2中支持异步的新特性，并介绍了一些[实时更新的技术背景](https://www.iteye.com/blog/1534902)。在这篇文章中，我将展示一些Spring MVC 3.2新特性的技术细节，以及对Spring MVC request生命周期多方面的影响。
+        [前面的文章](https://www.tushu.info/archives/Spring-MVC-3-2-ji-shu-yu-lan-san-dong)中我介绍了Servlet 3、Spring MVC 3.2中支持异步的新特性，并介绍了一些[实时更新的技术背景](https://www.iteye.com/blog/1534902)。在这篇文章中，我将展示一些Spring MVC 3.2新特性的技术细节，以及对Spring MVC request生命周期多方面的影响。
 
         如果需要将Controller层的方法转变为异步方法，只要将方法的返回值类型改为Callable就可以了。例如，返回视图名String类型的方法，可以改为返回Callable<String>类型；返回ResponseEntity类型的方法，可以改为返回Callable<ResponseEntity>类型；其他的返回值类型都可以以此类推。
 

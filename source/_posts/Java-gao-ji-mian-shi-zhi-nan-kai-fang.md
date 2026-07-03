@@ -3,7 +3,7 @@ title: Java高级面试指南-开放问题
 id: b050ef12-c9d9-40e4-bea4-36a03570625e
 date: 2024-11-21 12:22:46
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview.jpg
 excerpt: 问题二：在高并发场景下，你会采取哪些措施来优化 Java 应用的性能？ 缓存优化： 使用缓存可以减少对数据库的访问次数，提高响应速度。 可以使用本地缓存如
   Ehcache，或者分布式缓存如 Redis。对于频繁读取的数据，可以将其缓存起来，下次请求直接从缓存中获取，避免重复查询数据库。 数据库优化：
 permalink: /archives/Java-gao-ji-mian-shi-zhi-nan-kai-fang/

@@ -15,7 +15,7 @@ categories:
 
 先来再回顾一下一个http请求处理流程：
 
-![image.png](https://images.jsdiff.com/image_1594349954312.png)
+![image.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/image_1594349954312.png)
 
 一个普通的http请求处理流程，如上图所示： A -> client端发起请求给nginx B -> nginx处理后，将请求转发到uwsgi，并等待结果 C -> uwsgi处理完请求后，返回数据给nginx D -> nginx将处理结果返回给客户端 每个阶段都会有一个预设的超时时间，由于网络、机器负载、代码异常等等各种原因，如果某个阶段没有在预期的时间内正常返回，就会导致这次请求异常，进而产生不同的状态码。
 

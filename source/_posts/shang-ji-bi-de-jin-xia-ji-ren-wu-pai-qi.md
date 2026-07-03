@@ -8,7 +8,7 @@ categories:
 - gl
 ---
 
-![guanliqj.jpeg](https://images.jsdiff.com/guanliqj_1698751932163.jpeg)
+![guanliqj.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/guanliqj_1698751932163.jpeg)
 关于案例中管理者的问题，我也只是给到个人的思路和看法，仅是一家之言：如果想有效地解决一个问题，首先要界定问题，也就是重新定义问题。
 
 所以我上来先和管理者确认是想排好期（做事的范畴）还是想提升员工主动性（带人的范畴），不同的问题对应着不同的应对手段。看上去目前是更倾向于后者的。

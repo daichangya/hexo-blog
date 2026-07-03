@@ -102,7 +102,7 @@ java.lang.AssertionError:
 
 vmlens报告显示出了什么问题：
 
-![incorectupdate.png](http://images.jsdiff.com/upload/2020/04/incorectupdate-591e36e4419d4d37b524b27c943bda69.png)
+![incorectupdate.png](http://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2020/04/incorectupdate-591e36e4419d4d37b524b27c943bda69.png)
 
 问题在于，对于特定线程而言，交织两个线程首先读取状态。因此，一个线程将覆盖另一个线程的结果。
 

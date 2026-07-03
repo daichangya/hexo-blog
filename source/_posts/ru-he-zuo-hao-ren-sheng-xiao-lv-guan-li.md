@@ -20,7 +20,7 @@ categories:
 
 努力之前一定要想明白，第一，朝着什么方向去努力。第二，可控时间到底是多少，可控预算是多少，我打算付出怎样的努力？第三点，有没有谁能教会你正确的方法如何能增强自己的效率？明白这些方能构建自己的人生效率体系，包含3大块：输入系统、自我管理系统以及输出系统。
 
-![xiaolv1.png](https://images.jsdiff.com/xiaolv-1_1721805808873.png)
+![xiaolv1.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-1_1721805808873.png)
 
 人生效率体系
 
@@ -30,7 +30,7 @@ categories:
 
   
 
-![xiaolv2.png](https://images.jsdiff.com/xiaolv-2_1721805886432.png)
+![xiaolv2.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-2_1721805886432.png)
 
 输入系统
 
@@ -78,7 +78,7 @@ categories:
 仅仅打造输入系统是没用的，还应该做好自我管理。有的时候我们太忽略了自我管理，更强调团队管理。实际上一个人如果不能管理好自己，不能更加自律的话，是不能实现效率人生的。构建自我管理需要注意四个方面：时间管理、目标管理、效率管理和健康管理。
 
   
-![xiaolv3.png](https://images.jsdiff.com/xiaolv-3_1721805906289.png)
+![xiaolv3.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-3_1721805906289.png)
 
 自我管理系统
 
@@ -88,7 +88,7 @@ categories:
 
   
 
-![xiaolv4.png](https://images.jsdiff.com/xiaolv-4_1721805919265.png)
+![xiaolv4.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-4_1721805919265.png)
 
 时间管理
 
@@ -120,7 +120,7 @@ categories:
 
 ## 2.2 目标管理
 
-![xiaolv5.png](https://images.jsdiff.com/xiaolv-5_1721805934987.png)
+![xiaolv5.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-5_1721805934987.png)
 
 目标管理
 
@@ -146,7 +146,7 @@ categories:
 高效是一种节约，有时候你早上起不来没关系，但是你做事要比别人快，而且质量要比别人好才可以。很多人不喜欢自己现在的工作，怎么办呢？那你就要考虑如果这份工作给了你不错的薪水，那么你不妨继续工作着，至少拿人钱财，要努力工作才行，但是你可以把工作当成你效率能力的训练。你过去完成一份工作报告需要三个小时，你接下来能不能两个小时完成？当你能够做到的时候，你自己的效率能力就提升了，实际上对每一个人来说都是完成人生进阶的非常重要的板块以及相应的部分。
 
   
-![xiaolv6.png](https://images.jsdiff.com/xiaolv-6_1721805947773.png)
+![xiaolv6.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-6_1721805947773.png)
 
 效率管理
 
@@ -169,7 +169,7 @@ categories:
 
 这就要求我们长期保持良好的作息时间、经常锻炼身体和科学的饮食管理。但是健康管理除了身体板块还有一个非常重要而且经常受人忽视的部分，就叫做情绪管理，情绪管理非常重要。成功事业和有意的人生基础： “正确的生活方式”、“对人类行为理解”、“处理人际关系的正确方式”；如果你遵循正确的营养、身体锻炼和心态放松这三件事情，那么你就离自己的梦想不远了。
 
-![xiaolv7.png](https://images.jsdiff.com/xiaolv-7_1721805965407.png)
+![xiaolv7.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-7_1721805965407.png)
 
 健康管理
 
@@ -196,7 +196,7 @@ categories:
 
 # 三、输出体系
 
-![xiaolv8.png](https://images.jsdiff.com/xiaolv-8_1721805982745.png)
+![xiaolv8.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xiaolv-8_1721805982745.png)
 
 输出体系
 

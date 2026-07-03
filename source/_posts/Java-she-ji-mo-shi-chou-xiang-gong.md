@@ -3,7 +3,7 @@ title: Java 设计模式 — 抽象工厂模式
 id: 588
 date: 2024-10-31 22:01:44
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: 简单工厂模式是类的创建模式，又叫静态工厂方法（static factory method）,负责将大量有共同接口的类实例化，可以动态的决定将哪个类实例化，不必事先知道要实例化哪个类。顾名思义，就像是工厂的功能，客户需要什么样的产品，工厂就能生产。但是产品之间应该有某种关联性，即有共同的接口，不能让一个工厂去生产火腿肠。工厂模式中创建是不同类的对象。工厂的老板可以根据客户不同的需要进
 permalink: /archives/Java-she-ji-mo-shi-chou-xiang-gong/
 categories:

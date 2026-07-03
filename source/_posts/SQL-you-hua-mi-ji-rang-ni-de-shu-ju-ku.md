@@ -3,7 +3,7 @@ title: SQL优化秘籍：让你的数据库查询飞起来
 id: 29c75895-4f94-4419-a8d9-f61dcdda62c9
 date: 2024-12-10 13:52:48
 author: daichangya
-cover: https://images.jsdiff.com/sql01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/sql01.jpg
 excerpt: 一、SQL优化：开启高效数据库之旅 在当今数据爆炸的时代，数据库的性能至关重要。而SQL作为与数据库交互的关键语言，其优化程度直接影响着数据处理的速度和效率。想象一下，在一个大型电商平台的促销活动中，数据库需要快速处理海量的订单查询、库存更新等操作。如果SQL语句没有经过优化，可能会导致页面加载缓慢
 permalink: /archives/SQL-you-hua-mi-ji-rang-ni-de-shu-ju-ku/
 categories:

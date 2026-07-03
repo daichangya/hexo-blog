@@ -3,7 +3,7 @@ title: 瑜伽生活
 id: 2
 date: 2024-10-31 22:01:39
 author: daichangya
-cover: https://images.jsdiff.com/upload/2020/04/dd721cf5e354758e23057ad299160804-2c5fa3bda7374c3798a9bd196cc2128a.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/upload/2020/04/dd721cf5e354758e23057ad299160804-2c5fa3bda7374c3798a9bd196cc2128a.jpeg
 excerpt: 自开始练习瑜伽已经半年多了，半年多来尽管体重没有减轻，但是感觉整个身体紧实了很多，隐约可见腹肌和肌肉了，尽管看上去有点壮，我也开始渐渐学会欣赏这种力量美。瑜伽带给我，更多的是心理上的慰藉。很幸运参加了瑜伽教练班的培训，让我有机会接触到瑜伽更深层次的理论，而不是简单的摆动作和做体式，而是在享受和体会瑜
 permalink: /archives/yu-ga-sheng-huo/
 ---

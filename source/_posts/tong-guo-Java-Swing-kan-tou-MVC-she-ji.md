@@ -3,7 +3,7 @@ title: 通过Java Swing看透MVC设计模式
 id: 1024
 date: 2024-10-31 22:01:48
 author: daichangya
-cover: https://images.jsdiff.com/design01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design01.jpg
 permalink: /archives/tong-guo-Java-Swing-kan-tou-MVC-she-ji/
 categories:
 - 设计模式

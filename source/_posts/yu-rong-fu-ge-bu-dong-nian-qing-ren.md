@@ -3,7 +3,7 @@ title: 羽绒服割不动年轻人？Java代码教你“穿”出新选择！
 id: 9fd9acd7-e6d4-4fa4-b008-d7e748cdd843
 date: 2024-12-15 20:55:05
 author: daichangya
-cover: https://images.jsdiff.com/yurongfu.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/yurongfu.jpeg
 excerpt: '在这个寒冷的冬天，羽绒服市场的变化如同编程语言的更新迭代一样引人注目。国产羽绒服价格飙升，让追求性价比的年轻人望而却步。就像羽绒服不再是年轻人的唯一保暖选择一样，在编程世界里，我们也有多种方式来实现功能，今天我们就用Java来探索如何让编程选择更加多样化，就像年轻人寻找羽绒服的“平替”一样。
   1. '
 permalink: /archives/yu-rong-fu-ge-bu-dong-nian-qing-ren/

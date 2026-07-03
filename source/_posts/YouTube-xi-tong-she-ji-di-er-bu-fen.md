@@ -9,9 +9,9 @@ categories:
 - 系统架构
 ---
 
-这是有关如何设计Youtube的第二篇文章。我们将从[第一个开始](https://blog.jsdiff.com/archives/design-youtube-part/)继续我们的讨论， 如果您还没有阅读，请检查一下。
+这是有关如何设计Youtube的第二篇文章。我们将从[第一个开始](https://www.tushu.info/archives/YouTube-xi-tong-she-ji-di-er-bu-fen/)继续我们的讨论， 如果您还没有阅读，请检查一下。
 
-在[上一篇文章中](https://blog.jsdiff.com/archives/design-youtube-part/)，我们主要讨论了数据库和存储。本周，我们将讨论更多主题，包括可伸缩性，Web服务器，缓存和安全性。  
+在[上一篇文章中](https://www.tushu.info/archives/YouTube-xi-tong-she-ji-di-er-bu-fen/)，我们主要讨论了数据库和存储。本周，我们将讨论更多主题，包括可伸缩性，Web服务器，缓存和安全性。  
 
 扩展数据库
 -----
@@ -27,7 +27,7 @@ categories:
 快取
 --
 
-我不会在此主题上谈论太多缓存，因为我们在上[一篇](https://blog.jsdiff.com/archives/design-a-cache-system/)文章“ [设计缓存系统”中](https://blog.jsdiff.com/archives/design-a-cache-system/)已对此进行了详细介绍。但是这里有几点值得一提。
+我不会在此主题上谈论太多缓存，因为我们在上[一篇](https://www.tushu.info/archives/jian-zhi-cun-chu-xi-tong-she-ji-di-er/)文章“ [设计缓存系统”中](https://www.tushu.info/archives/jian-zhi-cun-chu-xi-tong-she-ji-di-er/)已对此进行了详细介绍。但是这里有几点值得一提。
 
 首先，在谈到缓存时，大多数人的反应是关于服务器缓存。实际上，前端缓存同样重要。如果要使您的网站快速运行并具有低延迟，则无法避免为前端设置缓存。建立网站界面时，这是非常常见的技术。
 

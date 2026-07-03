@@ -3,7 +3,7 @@ title: 数据管道ChannelPipeline源码分析
 id: 1536
 date: 2024-10-31 22:02:00
 author: daichangya
-cover: https://images.jsdiff.com/Netty02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Netty02.jpg
 excerpt: (0) ChannelPipeline的实例 ChannelPipeline的使用实例 private void connect(String host,int
   port){    EventLoopGroup group = new NioEventLoopGroup();    try {
 permalink: /archives/shu-ju-guan-dao-ChannelPipeline-yuan-ma/
@@ -96,7 +96,7 @@ protected AbstractChannel(Channel parent) {
     *   TailContext和headContext都继承了AbstractChannelHandlerContext并是实现了ChannelHandler接口，AbstractChannelHandlerContext内部维护着next，pre链表指针和inbound，outbound节点方向等；TaileContext实现了ChannelInboundHandler，headContext实现了ChanneloutboundHandler;
         
 
-![20171122154052606.png](https://images.jsdiff.com/20171122154052606_1726491842107.png)
+![20171122154052606.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171122154052606_1726491842107.png)
 
 ```
 public DefaultChannelPipeline(AbstractChannel channel) {
@@ -143,7 +143,7 @@ void init(Channel channel) throws Exception {
 *   ChannelInitializer继承了ChannelInboundHandlerAdapter，它提供了一个 initChannel 方法供我们初始化自定义ChannelHandler；在调用addLast()方法时会创建一个DefaultChannelHandlerContext节点用来存放ChannelInitializer，因为ChannelInitializer继承了ChannelInboundHandlerAdapter所以节点的inbound属性为true，outbound属性为false；
     
 
-![20171122154207527.png](https://images.jsdiff.com/20171122154207527_1726491871485.png)
+![20171122154207527.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171122154207527_1726491871485.png)
 
 ```
 public final ChannelHandler handler() {
@@ -220,7 +220,7 @@ public final void channelRegistered(ChannelHandlerContext ctx) throws Exception 
 }
 ```
 
-![20171122154319469.jpeg](https://images.jsdiff.com/20171122154319469_1726491895465.jpeg)
+![20171122154319469.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171122154319469_1726491895465.jpeg)
 
 ## (3) ChannelPipeline事件传输机制
 

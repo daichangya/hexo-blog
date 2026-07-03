@@ -10,18 +10,18 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
 
 
 #### [1. 什么是微服务,为什么有人要考虑实现它. ](#collapse-beginner-1317)
@@ -80,7 +80,7 @@ categories:
 2.  带有边界上下文的松散耦合的面向服务的体系结构. 
 3.  微服务架构是在架构级别应用单责任原则的自然结果. 
 
-![微服务架构](https://images.jsdiff.com/1563516283327-Image-4_1589847729213.jpg)
+![微服务架构]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1563516283327-Image-4_1589847729213.jpg)
 
 #### [8. 微服务和SOA之间的区别](#collapse-beginner-3581)
 
@@ -176,7 +176,7 @@ _参考:_[https](https://martinfowler.com/bliki/PolyglotPersistence.html) _:_ [/
 
 十二要素应用程序是一种用于编写作为服务运行的Web应用程序的最新方法(和/或宣言). 
 
-![12因素应用](https://images.jsdiff.com/12top_1590020008133.png)
+![12因素应用]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/12top_1590020008133.png)
 
 *   **程式库**
 
@@ -246,7 +246,7 @@ _参考:_[https](https://martinfowler.com/bliki/PolyglotPersistence.html) _:_ [/
 3.  当我们需要缩放整体时,可以通过一次又一次地复制大war / ear文件,在多台机器上部署相同版本的整体. 一切都包含在一个可执行文件中. 
 4.  另一方面,微服务架构由小型的自治服务组成,这些服务由业务功能划分,业务功能主要通过异步方式在网络上相互通信.  
 
-![典型的整体应用](https://images.jsdiff.com/1563517219165-Image-5_1589847806236.jpg)
+![典型的整体应用]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1563517219165-Image-5_1589847806236.jpg)
 如上面的示例所示,典型的整体eShop应用程序通常是部署在单个JVM进程(tomcat / jboss / websphere等)中的大型war文件. 整体中的不同组件使用进程内通信(例如直接方法调用)相互通信. 一个或多个数据库在整体应用程序的不同组件之间共享. 
 
 #### [16. 如何将大型应用程序转换为微服务架构?](#collapse-beginner-3589)

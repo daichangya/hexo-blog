@@ -3,7 +3,7 @@ title: 第八章：实现异步请求支持（基于 Servlet 协议）-Minitomca
 id: 9b723349-275c-417a-a6f1-324e2866fd3f
 date: 2024-11-19 14:48:53
 author: daichangya
-cover: https://images.jsdiff.com/tomcat192.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat192.jpg
 excerpt: 在本章中，我们将进一步扩展 MiniTomcat，加入对 Servlet 协议的支持，特别是 异步请求处理。Servlet 3.0 引入了异步请求处理的机制，允许请求在后台异步处理，从而避免了阻塞主线程，提高服务器处理效率，特别是在处理长时间运行的请求（如文件上传、大数据处理等）时。
   8.1 功能目
 permalink: /archives/di-ba-zhang-shi-xian-yi-bu-qing-qiu-zhi/

@@ -895,5 +895,5 @@ categories:
 
      getFloorEntry和getHigherEntry方法遍历和寻找节点的方法类似，区别在于getFloorEntry寻找的是小于等于，优先返回小于的节点，而getHigherEntry寻找的是严格大于的节点，不包括等于的情况。
 
-     以上内容是TreeMap的基础方法，TreeMap的内部类及涉及到内部类的方法等都将在[《TreeMap源码分析——深入分析》](https://blog.jsdiff.com/archives/TreeMap-Deep)中给出。
+     以上内容是TreeMap的基础方法，TreeMap的内部类及涉及到内部类的方法等都将在[《TreeMap源码分析——深入分析》](https://www.tushu.info/archives/TreeMap-yuan-ma-fen-xi-ji-chu-fen-xi-ji)中给出。
 

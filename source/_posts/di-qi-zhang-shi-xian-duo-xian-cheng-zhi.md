@@ -3,7 +3,7 @@ title: 第七章：实现多线程支持-Minitomcat
 id: ce221da0-dac1-4f4e-9ce1-71be83ac991b
 date: 2024-11-19 10:58:36
 author: daichangya
-cover: https://images.jsdiff.com/tomcat192.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat192.jpg
 excerpt: 在这一阶段，我们将为 MiniTomcat 添加多线程支持，以提高服务器的并发处理能力。通过使用线程池，我们能够同时处理多个客户端请求，而不阻塞其他请求。这将使服务器在处理并发请求时更加高效，能够更好地支持多个用户同时访问。
   7.1 功能目标 多线程支持：使用线程池来管理线程，并为每个客户端请求分配
 permalink: /archives/di-qi-zhang-shi-xian-duo-xian-cheng-zhi/

@@ -25,7 +25,7 @@ https://github.com/daichangya/py-tools
 - **高清成像**：生成2000×3000像素高分辨率图像，细节清晰可辨。  
 - **正反面一体**：同时生成正反两面信息，布局精准还原真实身份证。  
 - **字体精确匹配**：使用专业字体，还原身份证文字样式。
-![shengfenzheng.jpg](https://images.jsdiff.com/shengfenzheng.jpg)
+![shengfenzheng.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/shengfenzheng.jpg)
 
 
 ### 智能抠图，专业呈现  

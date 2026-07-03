@@ -3,7 +3,7 @@ title: 琼瑶阿姨的遗世之作：用Java诠释“翩然离去”的编程哲
 id: 1d0f12a2-8ef0-4fbf-b780-5ec97f3326e3
 date: 2024-12-04 18:03:32
 author: daichangya
-cover: https://images.jsdiff.com/qiongyao.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qiongyao.jpeg
 excerpt: 在这个寒风凛冽的12月，我们不仅被一则关于文学巨匠琼瑶阿姨离世的消息深深震撼，更被她那份对生命终点的从容与洒脱所感动。在这个充满技术气息的世界里，让我们以另一种方式缅怀这位伟大的作家——通过Java编程语言，探讨如何在技术世界中实现“翩然离去”的优雅哲学。
   💡 琼瑶阿姨的编程启示录 琼瑶阿姨在遗书
 permalink: /archives/qiong-yao-a-yi-de-yi-shi-zhi-zuo-yong/
@@ -16,7 +16,7 @@ categories:
 #### 💡 琼瑶阿姨的编程启示录
 
 琼瑶阿姨在遗书中提到：“翩然是我最喜欢的两个字，代表着自由、自在、自主的飞翔。” 在编程的世界里，这种“翩然”的精神同样重要。它不仅仅是对代码质量的追求，更是对资源高效利用、系统优雅退出的深刻理解。
-![qiongyao.jpeg](https://images.jsdiff.com/qiongyao.jpeg)
+![qiongyao.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qiongyao.jpeg)
 
 #### 💻 Java中的“翩然离去”：优雅停机与资源释放
 

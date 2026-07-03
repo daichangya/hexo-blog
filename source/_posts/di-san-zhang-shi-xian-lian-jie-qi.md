@@ -3,7 +3,7 @@ title: 第三章：实现连接器（Connector）组件-MiniTomcat
 id: 15250a83-725d-4db0-a519-c99d937192a4
 date: 2024-11-09 23:46:27
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat3.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat3.jpg
 excerpt: 上一章内容：第二章：解析 HTTP 请求，支持静态文件-MiniTomcat 在本章节中，我们将引入连接器（Connector）组件，用于管理 HTTP
   连接和请求数据的解析。连接器的作用是负责客户端的网络连接，同时解耦网络传输和请求处理的逻辑。 3.1 功能目标 管理 HTTP 连接：连接器组件负
 permalink: /archives/di-san-zhang-shi-xian-lian-jie-qi/
@@ -13,7 +13,7 @@ tags:
 - tomcat
 ---
 
-上一章内容：[第二章：解析 HTTP 请求，支持静态文件-MiniTomcat](https://blog.jsdiff.com/archives/di-er-zhang-jie-xi-http-qing-qiu-zhi-chi-jing-tai-wen-jian)
+上一章内容：[第二章：解析 HTTP 请求，支持静态文件-MiniTomcat](https://www.tushu.info/archives/di-er-zhang-jie-xi-HTTP-qing-qiu-zhi)
 
 在本章节中，我们将引入连接器（Connector）组件，用于管理 HTTP 连接和请求数据的解析。连接器的作用是负责客户端的网络连接，同时解耦网络传输和请求处理的逻辑。
 

@@ -3,7 +3,7 @@ title: 数据库事务隔离级别与锁：深度解析与实战
 id: 596b6925-d947-4a64-bf4e-84fef4fd0f09
 date: 2024-12-10 13:13:28
 author: daichangya
-cover: https://images.jsdiff.com/sqllock.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/sqllock.jpg
 excerpt: 一、引言 在数据库操作中，事务的处理至关重要，它确保了数据的完整性和一致性。然而，当多个事务并发执行时，就可能出现各种问题。这篇文章将深入探讨数据库事务隔离级别与锁，帮助大家理解其原理，并掌握在实际应用中如何运用它们来确保数据的正确性。
   二、事务的四个基本特征 （一）原子性（Atomicity） 事
 permalink: /archives/shu-ju-ku-shi-wu-ge-li-ji-bie-yu-suo/

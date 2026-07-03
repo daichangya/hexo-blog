@@ -3,7 +3,7 @@ title: Java高级面试指南-技术问题整理
 id: 5e71bb74-9917-4055-b4c9-ffd6bc8a2364
 date: 2024-11-29 10:53:06
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg
 excerpt: 一、Java基础相关 （一）Java基本概念 Java的性质与应用领域 Java是一种通用的高级编程语言，其核心概念涵盖了面向对象编程（OOPS）的基本概念，包括抽象化、多态性、继承、封装等。Java常用于开发桌面应用程序和服务器环境（开发独立应用程序），是世界上使用最广泛的编程语言之一。
   JDK与
 permalink: /archives/Java-gao-ji-mian-shi-zhi-nan-ji-shu-wen/

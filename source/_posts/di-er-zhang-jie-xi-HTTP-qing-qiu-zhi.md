@@ -3,7 +3,7 @@ title: 第二章：解析 HTTP 请求，支持静态文件-MiniTomcat
 id: 7594e301-3106-46a7-a735-facb379d458d
 date: 2024-11-07 15:36:52
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat312.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat312.jpg
 excerpt: 上一章内容 第一章：实现基础 HTTP 服务器-MiniTomcat 在本章节中，我们将为 HTTP 服务器增加对请求路径、方法和头部信息的解析能力，并基于请求路径返回服务器上的静态文件内容。通过实现这一功能，我们将使服务器能够类似于静态资源服务器，为客户端提供
   HTML、CSS、JavaScrip
 permalink: /archives/di-er-zhang-jie-xi-HTTP-qing-qiu-zhi/
@@ -13,7 +13,7 @@ tags:
 - tomcat
 ---
 
-上一章内容 [第一章：实现基础 HTTP 服务器-MiniTomcat](https://blog.jsdiff.com/archives/di-1bu-shi-xian-ji-chu-http-fu-wu-qi)
+上一章内容 [第一章：实现基础 HTTP 服务器-MiniTomcat](https://www.tushu.info/archives/di-yi-zhang-shi-xian-ji-chu-HTTP-fu-wu)
 
 在本章节中，我们将为 HTTP 服务器增加对请求路径、方法和头部信息的解析能力，并基于请求路径返回服务器上的静态文件内容。通过实现这一功能，我们将使服务器能够类似于静态资源服务器，为客户端提供 HTML、CSS、JavaScript 等文件的访问。
 

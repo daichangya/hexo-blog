@@ -331,7 +331,7 @@ boolean scavengeSome() {
     return success;
 }
 ```
-![20171124194628835.png](https://images.jsdiff.com/20171124194628835_1726491737441.png)
+![20171124194628835.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171124194628835_1726491737441.png)
 
 ## 总结
 
@@ -342,4 +342,4 @@ boolean scavengeSome() {
 *   在对象回收时候如果对象不是当前线程创建的则不能放入Stack中回收，而是放入WeakOrderQueue中，所有的Queue组成一个链表作为对象回收的仓库，当Stack中无可用的对象时会遍历链表回收对象，实现了多线程之间对象回收的共享；
     
 
-![20171124194642988.png](https://images.jsdiff.com/20171124194642988_1726491746947.png)
+![20171124194642988.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20171124194642988_1726491746947.png)

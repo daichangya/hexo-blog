@@ -22,7 +22,7 @@ tags:
 
 我们假设你有一个旧系统，现在你需要让它适应新的三方库，但是这个库用的是完全不同的API。旧系统适用的接口是完全不同于新库的。当然，你若够勇敢的话，可以改掉旧的代码以适用新的接口。但是对于所有旧系统来说，千万不要这么做。
 
-![mismatch.jpg](https://images.jsdiff.com/mismatch_1610075974303.jpg)
+![mismatch.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/mismatch_1610075974303.jpg)
 
 适配器模式救了你的命！你可以简单的写一个适配器(新的封装类)
 
@@ -31,7 +31,7 @@ tags:
 适配器使用了接口，并且转换成客户端可以解析的接口，使不兼容的类联系在一起。
 
 
-![adapterWorks.jpg](https://images.jsdiff.com/adapterWorks_1610075988499.jpg)
+![adapterWorks.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/adapterWorks_1610075988499.jpg)
 
 实战适配器设计模式
 

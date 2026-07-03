@@ -11,7 +11,7 @@ categories:
 
 在之前的一个系列的文章里，我们从基本原理开始，一步步实现了基于 Vector Trie 的持久化 List 数据结构。 接下来将要研究的是使用 HAMT 这一数据结构实现持久化 Hash Table。
 
-[持久化数据结构简介](https://blog.jsdiff.com/archives/persist-datastructure-intro/) 这篇文章里， 我们对比各种可以用来实现持久化数据结构的方案，详细介绍了 Vector Trie 这种数据结构，说明了用它实现 List 优势。 HAMT 的全称是 Hash Array Mapped Trie，它和 Vector Trie 一样，都利用了前缀树(Trie)这种数据结构作为底层数据结构， 但是由于 Map 本身和 List 之间性质的差别，HAMT 在很多方面进行了特别的处理。接下来我们先从原始 Hash Table 数据结构谈起， 逐步引出 HAMT 的设计原理。
+[持久化数据结构简介](https://www.tushu.info/archives/HAMT-jian-jie/) 这篇文章里， 我们对比各种可以用来实现持久化数据结构的方案，详细介绍了 Vector Trie 这种数据结构，说明了用它实现 List 优势。 HAMT 的全称是 Hash Array Mapped Trie，它和 Vector Trie 一样，都利用了前缀树(Trie)这种数据结构作为底层数据结构， 但是由于 Map 本身和 List 之间性质的差别，HAMT 在很多方面进行了特别的处理。接下来我们先从原始 Hash Table 数据结构谈起， 逐步引出 HAMT 的设计原理。
 
 ## [](#Hash_Table "Hash Table")Hash Table
 

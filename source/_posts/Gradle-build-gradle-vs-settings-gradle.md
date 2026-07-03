@@ -12,7 +12,7 @@ categories:
 ## 1. Overview
 在本文中，我们将研究Gradle Java项目的不同配置文件。另外，我们将看到实际构建的细节。
 
-您可以查看  [Gradle简介](http://images.jsdiff.com/archives/%E4%BB%8B%E7%BB%8Dgradle)以获得Gradle的一般介绍。
+您可以查看  [Gradle简介](http://mdanimage.oss-cn-shenzhen.aliyuncs.com/archives/%E4%BB%8B%E7%BB%8Dgradle)以获得Gradle的一般介绍。
 
 
 ## 2. build.gradle

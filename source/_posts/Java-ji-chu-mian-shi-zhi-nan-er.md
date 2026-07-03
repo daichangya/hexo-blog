@@ -10,18 +10,18 @@ categories:
 - 面试指南
 ---
 
-1. [Java内存管理面试指南一](https://blog.jsdiff.com/archives/java-memory-interview-1)
-2. [Java基础面试指南一](https://blog.jsdiff.com/archives/java-basic-interview-1)
-3. [Java基础面试指南二](https://blog.jsdiff.com/archives/java-basic-interview-2)
-4. [Java基础面试指南三](https://blog.jsdiff.com/archives/java-basic-interview-3)
-5. [Java基础面试指南四](https://blog.jsdiff.com/archives/java-basic-interview-4)
-6. [Java线程面试指南一](https://blog.jsdiff.com/archives/java-thread-interview-1)
-7. [Java线程面试指南二](https://blog.jsdiff.com/archives/java-thread-interview-2)
-8. [Redis面试指南一](https://blog.jsdiff.com/archives/redis-interview-1)
-9. [Kafka面试指南一](https://blog.jsdiff.com/archives/kafka-interview-1)
-10. [Spring面试指南一](https://blog.jsdiff.com/archives/spring-interview-1)
-11. [SpringBoot面试指南一](https://blog.jsdiff.com/archives/springboot-interview-1)
-12. [微服务面试指南一](https://blog.jsdiff.com/archives/microservice-interview-1)
+1. [Java内存管理面试指南一](https://www.tushu.info/archives/Java-nei-cun-guan-li-mian-shi-zhi-nan-yi)
+2. [Java基础面试指南一](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-yi)
+3. [Java基础面试指南二](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-er)
+4. [Java基础面试指南三](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-san)
+5. [Java基础面试指南四](https://www.tushu.info/archives/Java-ji-chu-mian-shi-zhi-nan-si)
+6. [Java线程面试指南一](https://www.tushu.info/archives/Java-xian-cheng-mian-shi-zhi-nan-er)
+7. [Java线程面试指南二](https://www.tushu.info/archives/Java-xian-cheng-zhong-duan-de-ben-zhi)
+8. [Redis面试指南一](https://www.tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-Redis)
+9. [Kafka面试指南一](https://www.tushu.info/archives/Kafka-mian-shi-zhi-nan-yi)
+10. [Spring面试指南一](https://www.tushu.info/archives/Spring-mian-shi-zhi-nan-yi)
+11. [SpringBoot面试指南一](https://www.tushu.info/archives/Spring-boot-mian-shi-zhi-nan-yi)
+12. [微服务面试指南一](https://www.tushu.info/archives/wei-fu-wu-mian-shi-zhi-nan-yi)
 
 #### [1. Java是否完全面向对象?](#collapse-beginner-630)
 
@@ -1084,13 +1084,13 @@ Java中的所有Exception类都是java.lang.Exception类的从属. java.lang.Exc
 
 Throwable类的另一个子类是java.lang.Error类. 错误是由于许多失败而在Java程序中发生的异常情况. Java程序无法处理它们. 通常,程序无法从错误中恢复. 
 
-![Java中的异常Java异常类](https://images.jsdiff.com/1557206157504-Image19_1589931733738.jpg)
+![Java中的异常Java异常类]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557206157504-Image19_1589931733738.jpg)
 
 #### [37. Java中InputStream和OutputStream的层次结构](#collapse-beginner-1989)
 
 InputStream是java.io包的抽象类. 它是以字节序列的形式与输入有关的所有子类的父类. 
 
-![Java中InputStream和OutputStream的层次结构](https://images.jsdiff.com/1557207182056-Image21_1589931766488.jpg)
+![Java中InputStream和OutputStream的层次结构]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557207182056-Image21_1589931766488.jpg)
 *   FileInputStream包含来自文件的输入字节. 
 *   ByteArrayInputStream从输入流中读取下一个数据字节. 
 *   FilterInputStream返回可以从输入流读取的大约字节数. 它由DataInputStream,BufferedInputStream和PushBackInputStream类组成. 
@@ -1099,7 +1099,7 @@ InputStream是java.io包的抽象类. 它是以字节序列的形式与输入有
 
 OutputStream是java.io包的抽象类. 它是父级中与输入有关的所有子类的字节序列形式. 
 
-![Java中InputStream和OutputStream的层次结构](https://images.jsdiff.com/1557207318820-Image20_1589931819772.jpg)
+![Java中InputStream和OutputStream的层次结构]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557207318820-Image20_1589931819772.jpg)
 
 *   FileOutputStream是用于将数据写入文件的输出流. 
 *   ByteArrayOutputStream允许我们抓住写入数组中流的数据. 
@@ -1267,7 +1267,7 @@ false
 
 Java中的线程生命周期包含5个状态. 这意味着线程可以处于这5种状态中的任何一种. 下面给出了一个了解线程生命周期状态的图表:
 
-![Java中的线程生命周期](https://images.jsdiff.com/1557218921830-Image22_1589931999928.jpg)
+![Java中的线程生命周期]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/1557218921830-Image22_1589931999928.jpg)
 
 线程生命周期中的5个状态是:
 

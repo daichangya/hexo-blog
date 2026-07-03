@@ -3,7 +3,7 @@ title: 第一章：实现基础 HTTP 服务器-MiniTomcat
 id: 562071c9-c324-40bb-bec9-dc498038c568
 date: 2024-11-07 13:07:59
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat4.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat4.jpg
 excerpt: 在这一章中，我们将从零开始编写一个简单的 HTTP 服务器。这个服务器的基本功能是监听一个端口，接收来自客户端的 HTTP 请求，并返回一个 HTTP
   响应。我们将使用 Java 的 ServerSocket 类来实现网络监听，并通过简单的 InputStream 和 OutputStream 来处
 permalink: /archives/di-yi-zhang-shi-xian-ji-chu-HTTP-fu-wu/
@@ -146,7 +146,7 @@ public class SimpleHttpServer {
 
 文章出处：
 
-https://blog.jsdiff.com/archives/di-1bu-shi-xian-ji-chu-http-fu-wu-qi
+https://www.tushu.info/archives/di-yi-zhang-shi-xian-ji-chu-HTTP-fu-wu
 
 项目源代码地址：
 

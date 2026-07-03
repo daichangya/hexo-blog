@@ -3,7 +3,7 @@ title: Ubuntu系统中apt-cache命令：探寻软件包的得力助手
 id: 63bec3b6-1d26-4e30-94a4-7704a65f6448
 date: 2024-12-10 10:04:05
 author: daichangya
-cover: https://images.jsdiff.com/Linux.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Linux.jpg
 excerpt: 在Ubuntu及采用相同包管理系统的Linux世界里，你是否曾为寻找特定软件包而感到迷茫？今天，就让我们一同深入了解apt-cache命令，它将为我们开启一扇轻松查找软件包的大门。
   一、apt-cache命令简介 当我们在Ubuntu上想要安装软件时，apt-get是我们常用的工具。但要查找软件仓库
 permalink: /archives/Ubuntu-xi-tong-zhong-apt-cache-ming/

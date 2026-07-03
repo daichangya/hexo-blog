@@ -3,7 +3,7 @@ title: Servlet工作原理解析
 id: 554de9cc-e407-41ee-8c30-3b4178ac32ce
 date: 2024-11-11 14:58:50
 author: daichangya
-cover: https://images.jsdiff.com/servlet01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/servlet01.jpg
 excerpt: 从 Servlet 容器说起 要介绍 Servlet 必须要先把 Servlet 容器说清楚，Servlet 与 Servlet 容器的关系有点像枪和子弹的关系，枪是为子弹而生，而子弹又让枪有了杀伤力。虽然它们是彼此依存的，但是又相互独立发展，这一切都是为了适应工业化生产的结果。从技术角度来说是为了
 permalink: /archives/Servlet-gong-zuo-yuan-li-jie-xi/
 categories:

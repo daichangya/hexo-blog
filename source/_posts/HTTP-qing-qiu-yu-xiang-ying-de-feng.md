@@ -3,7 +3,7 @@ title: HTTP 请求与响应的封装 - HttpServletRequest 和 HttpServletRespons
 id: 0b2ca861-c04a-4e90-981c-25b4b68f8c6f
 date: 2024-11-19 10:01:45
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat313.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat313.jpg
 excerpt: 在 MiniTomcat 的开发过程中，我们需要将请求数据从低级的 Socket 输入输出流中抽象出来，以简化后续处理和响应的构建。通过创建 HttpServletRequest
   和 HttpServletResponse 接口，我们可以为开发者提供更易用的请求和响应操作接口，类似于标准的 Serv
 permalink: /archives/HTTP-qing-qiu-yu-xiang-ying-de-feng/

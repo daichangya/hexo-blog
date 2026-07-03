@@ -3,7 +3,7 @@ title: 面试问题总结02
 id: 6afee83d-b318-41b2-86b7-3b0ac38a1595
 date: 2024-11-22 13:01:29
 author: daichangya
-cover: https://images.jsdiff.com/javaguide1.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide1.jpg
 permalink: /archives/mian-shi-wen-ti-zong-jie-02/
 categories:
 - 面试

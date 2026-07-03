@@ -3,7 +3,7 @@ title: Linux Bash Shell中的单引号和双引号
 id: 90de71e7-ae99-4aaf-bdf4-1de8b676bed5
 date: 2024-12-09 15:38:32
 author: daichangya
-cover: https://images.jsdiff.com/Linux.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Linux.jpg
 excerpt: 在Linux的Bash Shell编程中，单引号和双引号的正确使用是非常重要的知识点。它们在处理变量、特殊字符以及命令执行等方面有着不同的规则和用途。合理运用它们可以避免许多常见的错误，提高脚本的稳定性和可读性。
   一、单引号和双引号的基本区别 （一）单引号（' '） 严格的字面引用 单引号内的所有字
 permalink: /archives/Linux-Bash-Shell-zhong-de-dan-yin-hao/

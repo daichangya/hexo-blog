@@ -3,7 +3,7 @@ title: Java 网络I/O 流基础
 id: e679f65d-4147-4e38-b749-8339413e7ede
 date: 2024-11-19 09:58:10
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat311.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat311.jpg
 excerpt: 在构建 MiniTomcat 的过程中，处理网络请求和数据传输是不可或缺的环节，而这正是 Java 的输入/输出（I/O）流可以帮助实现的。I/O
   流用于读取和写入数据，从而实现客户端和服务器之间的数据交互。因此，深入理解 Java I/O 流将有助于我们为 MiniTomcat 实现处理 HTTP
 permalink: /archives/Java-wang-luo-I-O-liu-ji-chu/

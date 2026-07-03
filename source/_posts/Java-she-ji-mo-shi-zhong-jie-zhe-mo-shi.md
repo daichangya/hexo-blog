@@ -3,7 +3,7 @@ title: Java设计模式——中介者模式：优化复杂对象交互的利器
 id: e9f58e15-94af-4643-a3fd-c731b378135b
 date: 2024-11-25 10:21:52
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: 一、中介者模式概述 （一）生活场景引出中介者模式 在大学班级场景中，如果没有类似QQ这样的通讯工具，班长或团支书传达消息以及同学之间交流就会呈现出一种复杂的网状结构。随着同学数量增多，这种网状结构会变得更加混乱，对象之间存在大量联系，耦合性极高，不利于复用和系统扩展。例如，新转来一个学生，可能需要改
 permalink: /archives/Java-she-ji-mo-shi-zhong-jie-zhe-mo-shi/
 categories:

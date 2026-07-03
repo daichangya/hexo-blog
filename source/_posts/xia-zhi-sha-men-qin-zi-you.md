@@ -3,7 +3,7 @@ title: 夏至厦门---亲子游
 id: 8
 date: 2024-10-31 22:01:39
 author: daichangya
-cover: https://blog.jsdiff.com/upload/2020/04/400*300-162659ee4eb94970bffdf24e8a908860.jpeg
+cover: /images/blog-jsdiff/400*300-162659ee4eb94970bffdf24e8a908860.jpeg
 excerpt: 20196.1  早上5点出发至天津机场。富余出两个小时，天津机场的儿童设施相当给力，解决了小朋友的无聊时间。小满同学3岁第一次飞，最喜欢的就是座椅前的屏幕，一直在研究，搞定后开始选自己喜欢的动画片。大约是在飞机减速时小满同学出现耳鸣现象开始哭闹，邻座的叔叔估计觉得小满的哭声太吵，找到空乘询问是否有
 permalink: /archives/xia-zhi-sha-men-qin-zi-you/
 categories:

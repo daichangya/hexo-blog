@@ -66,7 +66,7 @@ tags:
 
 其实这段代码已经很好的解释了双亲委派机制，为了大家更容易理解，我做了一张图来描述一下上面这段代码的流程：  
 
-![20201217213314510.png](https://images.jsdiff.com/20201217213314510_1609402821461.png)
+![20201217213314510.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20201217213314510_1609402821461.png)
 
    
 从上图中我们就更容易理解了，当一个Hello.class这样的文件要被加载时。不考虑我们自定义类加载器，首先会在AppClassLoader中**检查是否加载过**，如果有那就无需再加载了。如果没有，那么会拿到**父加载器**，然后调用父加载器的**loadClass**方法。父类中同理也会先检查自己是否已经加载过，如果没有再往上。注意这个类似递归的过程，直到到达**Bootstrap classLoader**之前，都是在检查是否加载过，并不会选择自己去加载。直到**BootstrapClassLoader，**已经没有父加载器了，这时候开始考虑自己是否能加载了，如果自己无法加载，会下沉到子加载器去加载，一直到最底层，如果没有任何加载器能加载，就会抛出**ClassNotFoundException**。那么有人就有下面这种疑问了？
@@ -76,5 +76,5 @@ tags:
 这种设计有个好处是，如果有人想替换系统级别的类：String.java。篡改它的实现，在这种机制下这些系统的类已经被Bootstrap classLoader加载过了（为什么？因为当一个类需要加载的时候，最先去尝试加载的就是BootstrapClassLoader），所以其他类加载器并没有机会再去加载，从一定程度上防止了危险代码的植入。
 
 参考文章:
-https://blog.jsdiff.com/archives/9426261
-https://blog.jsdiff.com/archives/7243328
+https://www.tushu.info/archives/shen-ru-tan-tao-Java-lei-jia-zai-qi
+https://www.tushu.info/archives/shuang-qin-wei-pai

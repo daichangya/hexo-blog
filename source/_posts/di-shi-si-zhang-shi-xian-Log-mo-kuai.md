@@ -3,7 +3,7 @@ title: 第十四章：实现 Log 模块-MiniTomcat
 id: 2579552d-b699-447a-8445-96f7df74997a
 date: 2024-11-23 16:23:17
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat2.jpg
 excerpt: 功能目标： 实现 Log 模块，支持日志记录和日志级别管理。 实现内容： Log 模块：实现一个日志组件，用于记录请求日志、错误日志和系统日志。
   日志级别：支持不同的日志级别（INFO、DEBUG、ERROR 等），以便控制日志的详细程度。 实现方式：设计一个简单的 Logger 类，提供不同级别的
 permalink: /archives/di-shi-si-zhang-shi-xian-Log-mo-kuai/

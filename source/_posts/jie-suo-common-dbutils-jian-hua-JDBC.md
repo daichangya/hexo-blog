@@ -3,7 +3,7 @@ title: 解锁common-dbutils：简化JDBC操作的神器
 id: 231638c1-b85a-4301-b412-bd6476730f46
 date: 2024-12-10 10:27:46
 author: daichangya
-cover: https://images.jsdiff.com/Java01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Java01.jpg
 excerpt: 在Java开发中，与数据库交互是常见且关键的任务，而JDBC作为Java连接数据库的标准方式，其原生操作有时显得繁琐复杂。今天，我们将深入探索Apache组织提供的开源JDBC工具类库——common-dbutils，它将为我们的数据库操作带来极大的便利，让你轻松上手，快速提升开发效率。
   一、com
 permalink: /archives/jie-suo-common-dbutils-jian-hua-JDBC/
@@ -108,7 +108,7 @@ INSERT INTO `employee` (`name`, `age`, `position`) VALUES ('王五', 28, '测试
 ### （二）Java项目搭建
 1. 创建Java工程，结构如下：
    -`src`：存放Java源文件。
-       -`org.blog.jsdiff.common`：包含工具类。
+       -`org.shi-ci.cnmon`：包含工具类。
            -`MyDbUtils.java`：用于获取数据库连接等操作。
        -`com.jsdiff.dao`：数据访问对象（DAO）层。
            -`DAOException.java`：自定义异常类。
@@ -191,7 +191,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.blog.jsdiff.common.MyDbUtils;
+import org.shi-ci.cnmon.MyDbUtils;
 import com.jsdiff.domain.Employee;
 
 public class EmployeeDao {
@@ -303,7 +303,7 @@ public class EmployeeDao {
 ```
 3. **MyDbUtils类（数据库连接工具类）**
 ```java
-package org.blog.jsdiff.common;
+package org.shi-ci.cnmon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

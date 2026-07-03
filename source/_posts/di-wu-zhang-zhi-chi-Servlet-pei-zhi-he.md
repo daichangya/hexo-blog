@@ -3,7 +3,7 @@ title: 第五章：支持 Servlet 配置和 URL 映射-MiniTomcat
 id: cd4ce4a1-c4d8-43f5-b6d7-74a3696cfaa6
 date: 2024-11-19 10:17:44
 author: daichangya
-cover: https://images.jsdiff.com/tomcat193.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/tomcat193.jpg
 excerpt: 本步骤将实现基于 web.xml 配置文件的 Servlet 路由映射和初始化参数支持，使得 MiniTomcat 能根据配置自动调用相应的 Servlet
   处理请求。 5.1 功能目标 配置文件管理路由和初始化参数：通过 web.xml 文件管理 Servlet 映射和初始化参数。 URL 路径映
 permalink: /archives/di-wu-zhang-zhi-chi-Servlet-pei-zhi-he/

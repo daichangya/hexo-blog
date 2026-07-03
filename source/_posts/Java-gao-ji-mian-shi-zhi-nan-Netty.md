@@ -3,7 +3,7 @@ title: Java高级面试指南 - Netty
 id: 406b6dff-85ef-4cd5-9bc9-6ffde9cd5ef3
 date: 2024-11-29 10:34:31
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg
 excerpt: 使用Netty替换Spring Boot中的Tomcat是基于几个考虑： 性能和并发性： Netty是一个基于事件驱动的异步网络框架，相比于传统的Servlet容器（如Tomcat），它在处理并发连接和高负载情况下有更好的性能表现。这是因为Netty的非阻塞IO模型允许在单个线程上处理多个并发连接，
 permalink: /archives/Java-gao-ji-mian-shi-zhi-nan-Netty/
 categories:

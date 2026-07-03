@@ -3,7 +3,7 @@ title: Java设计模式——职责链模式：解锁高效灵活的请求处理
 id: 6dd97f4b-5471-44ce-9364-2d9783d2a8f6
 date: 2024-11-25 10:42:02
 author: daichangya
-cover: https://images.jsdiff.com/design02.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg
 excerpt: 🔥《Java 设计模式之职责链模式：解锁高效灵活的请求处理之道》🚀 嘿，各位 Java 编程大神和爱好者们！今天咱们要一同深入探索一种超厉害的设计模式——职责链模式。它就像一条神奇的“处理链”，能让请求在多个对象之间有条不紊地传递，直到找到最合适的“处理者”。准备好跟我一起揭开它神秘的面纱，看看
 permalink: /archives/Java-she-ji-mo-shi-zhi-ze-lian-mo-shi/
 categories:
@@ -107,7 +107,7 @@ public class Client {
 }
 ```
 
-![Responsibility.jpg](https://images.jsdiff.com/Responsibility.jpg)
+![Responsibility.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Responsibility.jpg)
 
 
 ### （四）纯与不纯的职责链模式

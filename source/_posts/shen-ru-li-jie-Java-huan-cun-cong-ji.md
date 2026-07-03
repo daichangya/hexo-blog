@@ -3,7 +3,7 @@ title: 深入理解Java缓存：从基础原理到实践应用
 id: e1057f16-bc85-41d2-8442-33725c70af11
 date: 2024-12-09 16:58:59
 author: daichangya
-cover: https://images.jsdiff.com/Java%20Caching.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Java%20Caching.jpg
 excerpt: 在当今的软件开发领域，性能优化一直是备受关注的核心话题。而缓存作为一种关键技术手段，在提升系统性能方面发挥着不可或缺的作用。无论是在硬件层面的CPU缓存，还是软件层面的各种缓存库，其目的都是为了解决数据访问速度不匹配的问题，从而提高系统的响应速度和整体性能。本文将深入探讨Java中的缓存技术，包括缓
 permalink: /archives/shen-ru-li-jie-Java-huan-cun-cong-ji/
 categories:

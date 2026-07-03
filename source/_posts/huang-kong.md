@@ -3,7 +3,7 @@ title: 惶恐
 id: 1460
 date: 2024-10-31 22:01:56
 author: daichangya
-cover: https://images.jsdiff.com/0c488872f4cac63ff63663f2f7339cfa_1597318311151.jpeg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/0c488872f4cac63ff63663f2f7339cfa_1597318311151.jpeg
 permalink: /archives/huang-kong/
 categories:
 - 生活

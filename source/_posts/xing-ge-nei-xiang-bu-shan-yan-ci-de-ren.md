@@ -8,7 +8,7 @@ categories:
 - gl
 ---
 
-![guanliqj.jpeg](https://images.jsdiff.com/guanliqj_1698753775196.jpeg)
+![guanliqj.jpeg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/guanliqj_1698753775196.jpeg)
 
 诊断
 
@@ -61,7 +61,7 @@ categories:
 
 可以从知识、技能、才干这三个层次去梳理一下自己的能力。
 
-![nengli.png](https://images.jsdiff.com/nengli_1698753813146.png)
+![nengli.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/nengli_1698753813146.png)
 
 技能，是指你能操作和完成的技术，其掌握程度一般用熟练度来衡量。比如快速学习的能力、进度掌控的能力等。
 

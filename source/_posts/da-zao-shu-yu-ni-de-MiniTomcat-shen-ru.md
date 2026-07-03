@@ -3,7 +3,7 @@ title: 打造属于你的 MiniTomcat：深入理解 Web 容器核心架构与实
 id: 98d974ba-dc70-41a5-9fef-cc8eeb0d360e
 date: 2024-11-07 12:42:02
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat.jpg
 excerpt: 打造属于你的 MiniTomcat：深入理解 Web 容器核心架构与实现之路 MiniTomcat 项目序言 🔥《解锁 MiniTomcat 奥秘：从入门到精通的
   Web 容器构建之旅》🚀 各位 Java 技术大神和爱好者们！今天，咱们将一同踏上一场超级刺激、充满挑战的技术探险之旅——打造属于自
 permalink: /archives/da-zao-shu-yu-ni-de-MiniTomcat-shen-ru/
@@ -83,7 +83,7 @@ public class SimpleHttpServer {
 }
 ```
 
-![HttpServer.jpg](https://images.jsdiff.com/HttpServer.jpg)
+![HttpServer.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/HttpServer.jpg)
 
 #### 2\. 多线程支持：提升性能的“魔法棒”
 

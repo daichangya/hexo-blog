@@ -3,7 +3,7 @@ title: 使用IDEA查看及运行Tomcat源码指南 2025
 id: d634e14d-4379-43b1-bc36-107b956ccb82
 date: 2024-11-08 10:38:51
 author: daichangya
-cover: https://images.jsdiff.com/Leonardo_Phoenix_Mr_Days_programming_class_tomcat_seriesIm_wri_2.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Leonardo_Phoenix_Mr_Days_programming_class_tomcat_seriesIm_wri_2.jpg
 excerpt: 引言 在Java Web开发领域，Apache Tomcat作为一款开源的Web服务器和Servlet容器，其源码对于开发者来说具有极高的学习和参考价值。通过深入研究Tomcat的源码，我们可以更好地理解Java
   Web开发的核心技术和原理。本指南将详细介绍如何在IntelliJ IDEA（简称ID
 permalink: /archives/shi-yong-IDEA-cha-kan-ji-yun-xing/

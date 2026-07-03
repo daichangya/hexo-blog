@@ -16,7 +16,7 @@ categories:
 在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：**对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）**。下图是普通对象实例与数组对象实例的数据结构：
 
 
-![20170419212953720.png](https://images.jsdiff.com/20170419212953720_1609210802980.png)
+![20170419212953720.png]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/20170419212953720_1609210802980.png)
 
 ### 1 对象头
 
@@ -274,4 +274,4 @@ Space losses: 4 bytes internal + 0 bytes external = 4 bytes total
 
 有关Shallow Size和Retained Size请参考
 
- [使用MAT时的Shallow Size和 Retained Size的区别](https://blog.jsdiff.com/archives/%E4%BD%BF%E7%94%A8mat%E6%97%B6%E7%9A%84shallowsize%E5%92%8Cretainedsize%E7%9A%84%E5%8C%BA%E5%88%AB)
+ [使用MAT时的Shallow Size和 Retained Size的区别](https://www.tushu.info/archives/shi-yong-MAT-shi-de-Shallow-Size-he)

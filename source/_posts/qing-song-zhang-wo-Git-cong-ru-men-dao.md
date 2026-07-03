@@ -3,7 +3,7 @@ title: 轻松掌握Git：从入门到精通
 id: b13e2278-30f3-4e21-b410-8dee8235ca9b
 date: 2024-12-08 21:23:22
 author: daichangya
-cover: https://images.jsdiff.com/git.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/git.jpg
 excerpt: 一、Git是什么？为什么它如此重要？ 在当今的软件开发世界中，版本控制是团队协作和项目管理的基石。而Git，作为最流行的分布式版本控制系统之一，已经成为了无数开发者的得力助手。无论是个人开发者独自打造项目，还是大型团队协同开发复杂软件，Git都能帮助我们高效地管理代码版本、追踪变更历史、协同工作以及
 permalink: /archives/qing-song-zhang-wo-Git-cong-ru-men-dao/
 categories:
@@ -12,7 +12,7 @@ categories:
 
 ## 一、Git是什么？为什么它如此重要？
 在当今的软件开发世界中，版本控制是团队协作和项目管理的基石。而Git，作为最流行的分布式版本控制系统之一，已经成为了无数开发者的得力助手。无论是个人开发者独自打造项目，还是大型团队协同开发复杂软件，Git都能帮助我们高效地管理代码版本、追踪变更历史、协同工作以及实现代码的备份与恢复。掌握Git，就等于掌握了开启高效软件开发之旅的钥匙。
-![git.jpg](https://images.jsdiff.com/git.jpg)
+![git.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/git.jpg)
 
 ### 1.1 Git的核心概念
 - **分布式版本控制系统**：与传统的集中式版本控制系统不同，Git的仓库（repository）不仅仅存储在中央服务器上，每个开发者的本地机器上也都有完整的仓库副本。这意味着，即使离线，开发者也可以进行代码的提交、查看历史记录等操作，极大地提高了工作的灵活性和效率。

@@ -421,7 +421,7 @@ CustomErrorAttributes.java
 *   [Spring Boot错误处理参考](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-error-handling)
 *   [DefaultErrorAttributes文档](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/error/DefaultErrorAttributes.html)
 *   [ResponseEntityExceptionHandler](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/ResponseEntityExceptionHandler.html)
-*   [Spring REST验证示例](https://www.blog.jsdiff.com/spring-boot/spring-rest-validation-example/)
+*   [Spring REST验证示例](https://www.shi-ci.cn/spring-boot/spring-rest-validation-example/)
 *   [Spring Boot安全功能](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-security)
 *   [带有引导的Hello Spring Security](https://docs.spring.io/spring-security/site/docs/current/guides/html5/helloworld-boot.html)
 *   [维基百科– REST](https://en.wikipedia.org/wiki/Representational_state_transfer)

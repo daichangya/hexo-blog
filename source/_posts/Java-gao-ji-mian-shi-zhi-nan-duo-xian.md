@@ -3,7 +3,7 @@ title: Java高级面试指南 - 多线程
 id: 1384
 date: 2024-10-31 22:01:53
 author: daichangya
-cover: https://images.jsdiff.com/JavaInterview01.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg
 excerpt: 第一个问题：请解释一下 Java 中线程的生命周期有哪些阶段？ Java 中线程的生命周期可分为以下几个明确的阶段： 一、新建状态（New）：当通过
   new Thread() 等方式创建一个线程对象时，线程处于新建状态。此时线程仅仅是在 JVM 中被分配了内存空间，还未真正启动执行。 二、就绪状态（
 permalink: /archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/

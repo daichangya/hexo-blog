@@ -3,7 +3,7 @@ title: 年薪20+万美元，每周仅工作5小时？斯坦福研究发现：9.5
 id: 0821344d-3e86-462d-8f7f-05a33ac9adb1
 date: 2024-12-05 19:35:22
 author: daichangya
-cover: https://images.jsdiff.com/ghost1.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/ghost1.jpg
 excerpt: 最近，斯坦福大学的研究揭示了一项令人震惊的现象——科技行业约有9.5%的工程师几乎没有做出实质性的工作贡献，这被称为“幽灵工程师”现象。随着远程工作普及，这一现象变得更加普遍。作为技术经理或架构师，如何识别并解决这种问题，尤其是在Java项目中，成为了一个至关重要的议题。
   什么是“幽灵工程师”？ “
 permalink: /archives/nian-xin-20-wan-mei-yuan-mei-zhou-jin/
@@ -19,7 +19,7 @@ permalink: /archives/nian-xin-20-wan-mei-yuan-mei-zhou-jin/
 - 提交的代码质量差，缺乏深度和逻辑性；
 - 在开发过程中“拖延”项目进度，给出模糊的借口；
 - 不参与代码审查或缺乏对团队文化的贡献。
-![ghost1.jpg](https://images.jsdiff.com/ghost1.jpg)
+![ghost1.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/ghost1.jpg)
 
 
 那么，作为技术经理，如何避免“幽灵工程师”现象影响你的Java项目呢？
@@ -54,7 +54,7 @@ public class GhostEngineer {
 ## 2. 如何避免“幽灵工程师”影响项目进度？
 
 避免“幽灵工程师”对Java项目的影响，首先要确保团队内的每一位工程师都能真正做出有价值的贡献。以下是一些策略：
-![ghost2.jpg](https://images.jsdiff.com/ghost2.jpg)
+![ghost2.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/ghost2.jpg)
 
 ### 2.1 定期进行代码审查
 代码审查不仅仅是为了找出潜在的Bug，更是对工程师工作成果的一次全面评估。通过引入**自动化代码质量检查工具**，可以有效降低“幽灵工程师”带来的风险。工具如**SonarQube**、**Checkstyle**等，可以帮助评估代码质量，并在项目早期发现潜在问题。
@@ -87,7 +87,7 @@ public void updateJiraIssue(String issueKey) {
 
 ### 2.4 引入生产力评估机制
 通过引入更科学的生产力评估方法，可以客观评估每个工程师的贡献。例如，结合**Git提交频率**、**代码审查反馈**、**任务完成情况**等多维度的数据来进行综合评估，而非仅仅看代码提交的次数。
-![ghost3.jpg](https://images.jsdiff.com/ghost3.jpg)
+![ghost3.jpg]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/ghost3.jpg)
 
 
 ```bash

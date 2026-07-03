@@ -23,7 +23,7 @@ tags:
 
 截屏
 
-![](https://images.jsdiff.com/xfce4-screenshooter-dialog1_1588052445639.png)
+![]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xfce4-screenshooter-dialog1_1588052445639.png)
 
 ### 要捕获的区域
 
@@ -56,7 +56,7 @@ tags:
 
 行动
 
-![xfce4-screenshooter-dialog2](https://images.jsdiff.com/xfce4-screenshooter-dialog2_1588052445646.png)
+![xfce4-screenshooter-dialog2]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xfce4-screenshooter-dialog2_1588052445646.png)
 
 ### 预习
 
@@ -90,19 +90,19 @@ Xfce4 Screenshooter还能够将屏幕截图保存到GVfs支持的任何远程文
 
 图片链接
 
-![xfce4-screenshooter-imgur-link-dialog](https://images.jsdiff.com/xfce4-screenshooter-imgur-link-dialog_1588052443184.png)
+![xfce4-screenshooter-imgur-link-dialog]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xfce4-screenshooter-imgur-link-dialog_1588052443184.png)
 
 下面的对话框将为您提供全尺寸屏幕截图，大缩略图，小缩略图的链接，以及HTML，Markdown和BBcode的示例，以创建指向全尺寸屏幕截图的缩略图：
 
 Imgur嵌入代码对话框
 
-![xfce4-screenshooter-imgur-embed-dialog](https://images.jsdiff.com/xfce4-screenshooter-imgur-embed-dialog_1588052443183.png)
+![xfce4-screenshooter-imgur-embed-dialog]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xfce4-screenshooter-imgur-embed-dialog_1588052443183.png)
 
 下面的对话框将为您提供从Imgur网站删除图像的链接。该链接仅显示一次。如果您认为您可能要删除此图像，请确保将其保存：
 
 图删除对话框
 
-![xfce4-screenshooter-imgur-deletion-dialog](https://images.jsdiff.com/xfce4-screenshooter-imgur-deletion-dialog_1588052443183.png)
+![xfce4-screenshooter-imgur-deletion-dialog]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/xfce4-screenshooter-imgur-deletion-dialog_1588052443183.png)
 
 当前不支持链接Imgure帐户的图像。
 

@@ -3,7 +3,7 @@ title: 第十三章：实现生命周期管理（Lifecycle）-MiniTomcat
 id: 0fabe3ea-edfd-48e9-af66-f1aee15a677a
 date: 2024-11-23 16:20:06
 author: daichangya
-cover: https://images.jsdiff.com/MiniTomcat313.jpg
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/MiniTomcat313.jpg
 excerpt: 功能目标： 实现 Lifecycle 组件，用于统一管理各个组件的启动、停止等生命周期操作。 实现内容： 定义 Lifecycle 接口，提供 start
   和 stop 方法，供容器中的 Context、Wrapper 等组件使用，方便容器统一管理不同组件的生命周期。 背景： 在 Web 容器中，不
 permalink: /archives/di-shi-san-zhang-shi-xian-sheng-ming/

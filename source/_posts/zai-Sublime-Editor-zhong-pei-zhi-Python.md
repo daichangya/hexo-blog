@@ -9,25 +9,25 @@ categories:
 - python基础教程
 ---
 
-1. [Python基础教程](https://blog.jsdiff.com/archives/python基础教程)
-2. [在SublimeEditor中配置Python环境](https://blog.jsdiff.com/archives/在sublimeeditor中配置python环境)
-3. [Python代码中添加注释](https://blog.jsdiff.com/archives/python代码中添加注释)
-4. [Python中的变量的使用](https://blog.jsdiff.com/archives/python中的变量的使用)
-5. [Python中的数据类型](https://blog.jsdiff.com/archives/python中的数据类型)
-6. [Python中的关键字](https://blog.jsdiff.com/archives/python中的关键字)
-7. [Python字符串操作](https://blog.jsdiff.com/archives/python字符串操作)
-8. [Python中的list操作](https://blog.jsdiff.com/archives/python中的list操作)
-9. [Python中的Tuple操作](https://blog.jsdiff.com/archives/python中的tuple操作)
-10. [Pythonmax（）和min（）–在列表或数组中查找最大值和最小值](https://blog.jsdiff.com/archives/pythonmax和min在列表或数组中查找最大值和最小值)
-11. [Python找到最大的N个（前N个）或最小的N个项目](https://blog.jsdiff.com/archives/python找到最大的n个前n个或最小的n个项目)
-12. [Python读写CSV文件](https://blog.jsdiff.com/archives/python读写csv文件)
-13. [Python中使用httplib2–HTTPGET和POST示例](https://blog.jsdiff.com/archives/python中使用httplib2httpget和post示例)
-14. [Python将tuple开箱为变量或参数](https://blog.jsdiff.com/archives/python将tuple开箱为变量或参数)
-15. [Python开箱Tuple–太多值无法解压](https://blog.jsdiff.com/archives/python开箱tuple太多值无法解压)
-16. [Pythonmultidict示例–将单个键映射到字典中的多个值](https://blog.jsdiff.com/archives/pythonmultidict示例将单个键映射到字典中的多个值)
-17. [PythonOrderedDict–有序字典](https://blog.jsdiff.com/archives/pythonordereddict有序字典)
-18. [Python字典交集–比较两个字典](https://blog.jsdiff.com/archives/python字典交集比较两个字典)
-19. [Python优先级队列示例](https://blog.jsdiff.com/archives/python优先级队列示例)
+1. [Python基础教程](https://www.tushu.info/archives/Python-ji-chu-jiao-cheng)
+2. [在SublimeEditor中配置Python环境](https://www.tushu.info/archives/zai-Sublime-Editor-zhong-pei-zhi-Python)
+3. [Python代码中添加注释](https://www.tushu.info/archives/Python-dai-ma-zhong-tian-jia-zhu-shi)
+4. [Python中的变量的使用](https://www.tushu.info/archives/Python-zhong-de-bian-liang-de-shi-yong)
+5. [Python中的数据类型](https://www.tushu.info/archives/Python-zhong-de-shu-ju-lei-xing)
+6. [Python中的关键字](https://www.tushu.info/archives/Python-zhong-de-guan-jian-zi)
+7. [Python字符串操作](https://www.tushu.info/archives/Python-zi-fu-chuan-cao-zuo)
+8. [Python中的list操作](https://www.tushu.info/archives/Python-zhong-de-list-cao-zuo)
+9. [Python中的Tuple操作](https://www.tushu.info/archives/Python-zhong-de-Tuple-cao-zuo)
+10. [Pythonmax（）和min（）–在列表或数组中查找最大值和最小值](https://www.tushu.info/archives/Python-max-he-min-zai-lie-biao-huo-shu)
+11. [Python找到最大的N个（前N个）或最小的N个项目](https://www.tushu.info/archives/Python-zhao-dao-zui-da-de-N-ge-qian-N)
+12. [Python读写CSV文件](https://www.tushu.info/archives/Python-du-xie-CSV-wen-jian)
+13. [Python中使用httplib2–HTTPGET和POST示例](https://www.tushu.info/archives/Python-zhong-shi-yong-httplib2-HTTP-GET)
+14. [Python将tuple开箱为变量或参数](https://www.tushu.info/archives/Python-jiang-tuple-kai-xiang-wei-bian)
+15. [Python开箱Tuple–太多值无法解压](https://www.tushu.info/archives/Python-kai-xiang-Tuple-tai-duo-zhi-wu)
+16. [Pythonmultidict示例–将单个键映射到字典中的多个值](https://www.tushu.info/archives/Python-multidict-shi-li-jiang-dan-ge)
+17. [PythonOrderedDict–有序字典](https://www.tushu.info/archives/Python-OrderedDict-you-xu-zi-dian)
+18. [Python字典交集–比较两个字典](https://www.tushu.info/archives/Python-zi-dian-jiao-ji-bi-jiao-liang-ge)
+19. [Python优先级队列示例](https://www.tushu.info/archives/Python-you-xian-ji-dui-lie-shi-li)
 
 
 了解如何**在sublime编辑器中安装python软件包，以**实现自动完成等功能，并在sublime编辑器本身中运行build。
@@ -45,13 +45,13 @@ categories:
 
 1.  转到URL：[https](https://packagecontrol.io/installation#st3) : [//packagecontrol.io/installation#st3](https://packagecontrol.io/installation#st3)
     
-![Sublime-package-control](https://images.jsdiff.com/Sublime-package-control_1588339184724.png)
+![Sublime-package-control]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Sublime-package-control_1588339184724.png)
     
     崇高包装控制
     
 2.  现在记下Sublime Editor中安装软件包的文件夹的位置。您可以通过单击**首选项>浏览包**来找到位置。
     
-![Browse-Packages](https://images.jsdiff.com/Browse-Packages_1588339184654.png)
+![Browse-Packages]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Browse-Packages_1588339184654.png)
     
     浏览套餐
     
@@ -59,7 +59,7 @@ categories:
 4.  现在**，**通过关闭**升华编辑器**来**重新启动**它，然后再次将其打开。
 5.  要验证是否正确安装了程序包控件，请单击“ **首选项”>“程序包控件”**菜单项。它应该打开程序包控制窗口。
     
- ![Package-Control-Menu](https://images.jsdiff.com/Package-Control-Menu_1588339182318.png)
+ ![Package-Control-Menu]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Package-Control-Menu_1588339182318.png)
     
     包装控制菜单
     
@@ -69,13 +69,13 @@ categories:
 
 1.  现在要安装任何软件包支持，包括Python软件包，请转到**“偏好设置”>“软件包控制”，**然后选择“ **安装软件包”**。
     
-![Install-Package-Window](https://images.jsdiff.com/Install-Package-Window_1588339182317.png)
+![Install-Package-Window]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Install-Package-Window_1588339182317.png)
     
     安装软件包窗口
     
 2.  在打开的窗口中，**键入“ python”以仅过滤**与python相关**的软件包列表**。
     
-   ![Select-Python-Package-to-Install](https://images.jsdiff.com/Select-Python-Package-to-Install_1588339182451.png)
+   ![Select-Python-Package-to-Install]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Select-Python-Package-to-Install_1588339182451.png)
     
     选择要安装的Python软件包
     
@@ -90,7 +90,7 @@ categories:
 
 现在输入简单的hello world code，然后输入`CTRL + B`keyborad。它将在底部窗格中打开输出输出窗口，并将在文件中**显示命令**的生成**输出**`demo.py`。
 
-![Sublime-Build-Output](https://images.jsdiff.com/Sublime-Build-Output_1588339184651.png)
+![Sublime-Build-Output]( https://mdanimage.oss-cn-shenzhen.aliyuncs.com/Sublime-Build-Output_1588339184651.png)
 
 崇高的构建输出
 

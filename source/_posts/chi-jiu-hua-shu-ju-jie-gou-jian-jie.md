@@ -13,9 +13,9 @@ categories:
 
 这篇文章是系列文章的一部分，如果还没有浏览过文章的其它部分请参考：
 
-1.  [持久化数据结构简介](https://blog.jsdiff.com/archives/persist-datastructure-intro/)(本文)
-2.  [Vector Trie 的实现](https://blog.jsdiff.com/archives/implement-vector-trie/) 
-3.  [Transient 及持久化](https://blog.jsdiff.com/archives/Transient-and-Persistent/)
+1.  [持久化数据结构简介](https://www.tushu.info/archives/HAMT-jian-jie/)(本文)
+2.  [Vector Trie 的实现](https://www.tushu.info/archives/Vector-Trie-de-shi-xian/) 
+3.  [Transient 及持久化](https://www.tushu.info/archives/Transient-ji-chi-jiu-hua/)
 
 
 作为系列博客的第一篇，这篇博客将会先给出一些持久化数据结构的简介并以最简单的 List （列表）数据结构为例， 介绍一些常见的持久化数据结构实现方法。这一个系列的文章都主要参考了 [Understanding Persistent Vector](http://hypirion.com/musings/understanding-persistent-vector-pt-1) 这篇非常经典的文章，其中一些章节甚至可以看作是对它内容的翻译。建议有兴趣的读者浏览原文作为参考。

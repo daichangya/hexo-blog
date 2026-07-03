@@ -3,7 +3,7 @@ title: 如何在Python和lxml中使用XPath语法
 id: 1352
 date: 2024-10-31 22:01:51
 author: daichangya
-cover: https://images.jsdiff.com/python-xml-title_1588046761759.png
+cover:  https://mdanimage.oss-cn-shenzhen.aliyuncs.com/python-xml-title_1588046761759.png
 excerpt: 如何在Python和lxml中使用XPath语法示例XML和XML等方言成为各种文档的事实上的标准格式，例如Spring的框架配置文件，Struts，VisualStudio的IDE项目，Web服务的响应，Android的UI布局语言等的解析和处理。它们已成为任何编程基础结构的必备组件。因为格式无处
 permalink: /archives/ru-he-zai-Python-he-lxml-zhong-shi-yong/
 categories:
