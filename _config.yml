@@ -138,3 +138,10 @@ sitemap:
 # Baidu Sitemap
 baidusitemap:
   path: baidusitemap.xml
+
+# Search
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
