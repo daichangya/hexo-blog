@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1783308188241,
+  "projectRoot": "/Users/changyadai/IdeaProjects/hexo-blog",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {
+      "build": "hexo generate --debug",
+      "clean": "hexo clean",
+      "deploy": "hexo deploy",
+      "server": "hexo server"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "scaffolds": {
+      "path": "scaffolds",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1783308188197,
+      "keyFiles": [
+        "draft.md",
+        "page.md",
+        "post.md"
+      ]
+    },
+    "source": {
+      "path": "source",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1783308188198,
+      "keyFiles": [
+        "robots.txt"
+      ]
+    },
+    "themes": {
+      "path": "themes",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1783308188198,
+      "keyFiles": []
+    },
+    "zdoc": {
+      "path": "zdoc",
+      "purpose": null,
+      "fileCount": 7,
+      "lastAccessed": 1783308188234,
+      "keyFiles": [
+        "面试指南3-关于团队管理.md",
+        "面试问题总结03.md",
+        "项目开发全流程实战：经验、挑战与应对策略.md",
+        "项目开发经验.md",
+        "高效程序员的 7 个共同特征.md"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "source/_posts/hong-luo-si-yi-ri-you.md",
+      "accessCount": 11,
+      "lastAccessed": 1783063939425,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/ru-he-zai-Ubuntu-18-04-shang-an-zhuang.md",
+      "accessCount": 2,
+      "lastAccessed": 1783060980374,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/xia-zhi-sha-men-qin-zi-you.md",
+      "accessCount": 2,
+      "lastAccessed": 1783064114721,
+      "type": "file"
+    },
+    {
+      "path": "_config.anzhiyu.yml",
+      "accessCount": 1,
+      "lastAccessed": 1783060561116,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/dian-zi-shang-wu-wang-zhan-she-ji-di-yi.md",
+      "accessCount": 1,
+      "lastAccessed": 1783061004489,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/Selenium-IDE-shi-yong-zhi-nan-wu-chang.md",
+      "accessCount": 1,
+      "lastAccessed": 1783061004542,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/ru-he-guan-li-Redis-shu-ju-ku-he-Keys.md",
+      "accessCount": 1,
+      "lastAccessed": 1783061004667,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/cheng-xu-yuan-mian-shi-shen-me-zui.md",
+      "accessCount": 1,
+      "lastAccessed": 1783061004736,
+      "type": "file"
+    },
+    {
+      "path": "source/_posts/jian-zhi-cun-chu-xi-tong-she-ji-di-er.md",
+      "accessCount": 1,
+      "lastAccessed": 1783061004796,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

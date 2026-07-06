@@ -1,0 +1,117 @@
+python中的list操作 -> Python-zhong-de-list-cao-zuo
+python中的tuple操作 -> Python-zhong-de-Tuple-cao-zuo
+python中的关键字 -> Python-zhong-de-guan-jian-zi
+python中的变量的使用 -> Python-zhong-de-bian-liang-de-shi-yong
+python中的数据类型 -> Python-zhong-de-shu-ju-lei-xing
+python代码中添加注释 -> Python-dai-ma-zhong-tian-jia-zhu-shi
+python优先级队列示例 -> Python-you-xian-ji-dui-lie-shi-li
+python基础教程 -> Python-ji-chu-jiao-cheng
+python字符串操作 -> Python-zi-fu-chuan-cao-zuo
+python将tuple开箱为变量或参数 -> Python-jiang-tuple-kai-xiang-wei-bian
+python读写csv文件 -> Python-du-xie-CSV-wen-jian
+redis数据类型简介 -> Redis-shu-ju-lei-xing-jian-jie
+如何从命令行更改redis的配置 -> ru-he-cong-ming-ling-xing-geng-gai
+如何使redis中的keys失效 -> ru-he-shi-Redis-zhong-de-Keys-shi-xiao
+如何使用redis数据库 -> ru-he-shi-yong-Redis-shu-ju-ku
+如何在redis中管理hashes -> ru-he-zai-Redis-zhong-guan-li-Hashes
+如何在redis中管理sets -> ru-he-zai-Redis-zhong-guan-li-Sets
+如何在redis中管理副本和客户端 -> ru-he-zai-Redis-zhong-guan-li-fu-ben-he
+如何在redis中管理字符串 -> ru-he-zai-Redis-zhong-guan-li-zi-fu
+如何在redis中运行事务 -> ru-he-zai-Redis-zhong-yun-xing-shi-wu
+如何解决redis中的问题 -> ru-he-jie-jue-Redis-zhong-de-wen-ti
+面试指南1-关于重构和优化 -> mian-shi-zhi-nan-1-guan-yu-zhong-gou-he
+面试指南2-关于微服务的稳定性及扩展性 -> mian-shi-zhi-nan-2-guan-yu-wei-fu-wu-de
+面试指南4-netty服务器 -> mian-shi-zhi-nan-4-Netty-fu-wu-qi
+面试指南5-关于快速适应不同行业的需求和技术挑战 -> mian-shi-zhi-nan-5-guan-yu-kuai-su-shi
+面试指南6-关于未来定位 -> mian-shi-zhi-nan-6-guan-yu-wei-lai-ding
+
+# UNMATCHED SLUGS (need manual mapping)
+# 18565315
+# 30分钟python爬虫教程
+# 7243328
+# 8-things-you-need-to-know-before-system-design-interviews
+# 9426261
+# Array-Comparison
+# Arrays
+# Bash-trap-command
+# Basic-Operators
+# Basic-Sed-Operators
+# Basic-String-Operations
+# Decision-Making
+# File-Testing
+# Hello-World
+# Input-Parameter-Parsing
+# Loops
+# Passing-Arguments-to-the-Script
+# Pipelines
+# Process-Substitution
+# Regular-Expressions
+# Shell-Functions
+# Special-Variables
+# String-Operations
+# Transient-and-Persistent
+# TreeMap-Base
+# TreeMap-Base.html
+# TreeMap-Deep
+# Variables
+# booting
+# cf-java-byte-code
+# cong-jin-ji-jie-yan-dao-xian-cheng-tong-bu
+# da-zao-shu-yu-ni-de-minitomcat-shen-ru-li-jie-web-rong-qi-he-xin-jia-gou-yu-shi-xian-zhi-lu
+# design-a-cache-system
+# design-a-key-value-store-part-i
+# design-facebook-chat-function
+# design-key-value-store-part-ii
+# design-youtube-part
+# di-1bu-shi-xian-ji-chu-http-fu-wu-qi
+# di-er-zhang-jie-xi-http-qing-qiu-zhi-chi-jing-tai-wen-jian
+# di-san-bu-shi-xian-lian-jie-qi-connector-zu-jian-minitomcat
+# howtoconnecttoaredisdatabase
+# howtomanageredisdatabasesandkeys
+# howtomanagesortedsetsinredis
+# htmlvideoblob视频下载
+# implement-vector-trie
+# java-basic-interview-1
+# java-basic-interview-2
+# java-basic-interview-3
+# java-basic-interview-4
+# java-memory-interview-1
+# java-thread-interview-1
+# java-thread-interview-2
+# kafka-interview-1
+# lambda-expressions-in-java
+# linux-daemon
+# linux_boot_process
+# listsinredis
+# microservice-interview-1
+# persist-datastructure-intro
+# pythonmax和min在列表或数组中查找最大值和最小值
+# pythonmultidict示例将单个键映射到字典中的多个值
+# pythonordereddict有序字典
+# python中使用httplib2httpget和post示例
+# python中如何格式化日期
+# python字典交集比较两个字典
+# python开箱tuple太多值无法解压
+# python找到最大的n个前n个或最小的n个项目
+# redis-command
+# redis-interview-1
+# redis-lua
+# selenium-ide-arguments
+# selenium-ide-code-export
+# selenium-ide-commands
+# seleniumide1
+# seleniumide2
+# seleniumide3
+# seleniumide5
+# spring-interview-1
+# spring-mvc-3-2-preview-introducing-servlet-3-async-support
+# spring-mvc-3-2-preview-techniques-for-real-time-updates
+# springboot-interview-1
+# system-design-interview-question-how-to-design-twitter-part-1
+# systemd-tutorial-commands
+# systemd-tutorial-part-two
+# 使用mat时的shallowsize和retainedsize的区别
+# 在sublimeeditor中配置python环境
+# 如何在ubuntu1804上安装和保护redis
+# 如何在ubuntu1804上安装和保护redis#step-5-—-renaming-dangerous-commands
+# 面试指南3-关于团队管理

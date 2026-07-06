@@ -1,0 +1,633 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>在Redis中怎么使用Sorted Sets | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="在Redis中怎么使用Sorted Sets"><meta name="application-name" content="在Redis中怎么使用Sorted Sets"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="在Redis中怎么使用Sorted Sets"><meta property="og:url" content="https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="如何在ubuntu18.04上安装和保护redis 如何连接到Redis数据库 如何管理Redis数据库和Keys 如何在Redis中管理副本和客户端 如何在Redis中管理字符串 如何在Redis中管理list 如何在Redis中管理Hashes 如何在Redis中管理Sets 如何在Redis"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="如何在ubuntu18.04上安装和保护redis 如何连接到Redis数据库 如何管理Redis数据库和Keys 如何在Redis中管理副本和客户端 如何在Redis中管理字符串 如何在Redis中管理list 如何在Redis中管理Hashes 如何在Redis中管理Sets 如何在Redis"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '在Redis中怎么使用Sorted Sets',
+  postAI: '',
+  pageFillDescription: '介绍, 如何使用本指南, Creating Sorted Sets and Adding Members, Retrieving Members from Sorted Sets, Retrieving Information about Sorted Sets, Removing Members from Sorted Sets, Creating New Sorted Sets from Existing Ones, Conclusion如何在上安装和保护如何连接到数据库如何管理数据库和如何在中管理副本和客户端如何在中管理字符串如何在中管理如何在中管理如何在中管理如何在中管理如何在中运行事务如何使中的失效如何解决中的故障如何从命令行更改的配置数据类型简介介绍是一个开源的内存中键值数据存储在的排序集合类似于一个数据类型集在这两者都是串的非重复的组不同之处在于已排序集中的每个成员都与一个分数相关联从而可以从最小分数到最大分数进行排序与集合一样排序集合中的每个成员都必须是唯一的尽管多个成员可以共享同一分数本教程说明了如何创建排序集检索和删除其成员以及如何从现有集合中创建新的排序集如何使用本指南本指南以备有完整示例的备忘单形式编写我们鼓励您跳至与您要完成的任务相关的任何部分本指南中显示的命令已在运行版本的服务器上进行了测试要设置类似的环境您可以按照我们的指南如何在上安装和保护的步骤进行操作我们将通过使用命令行界面运行它们来演示这些命令的行为请注意如果您使用其他界面例如则某些命令的确切输出可能会有所不同另外您可以提供一个托管的数据库实例来测试这些命令但是请注意根据数据库提供者所允许的控制级别本指南中的某些命令可能无法按所述方式工作要配置托管数据库请遵循我们的托管数据库产品文档然后您必须安装或设置隧道才能通过连接到托管数据库要创建排序集请使用命令接受将保留排序后的键集的键的名称作为参数后跟要添加的成员的分数以及成员本身的值以下命令将创建一个排序的集合密钥其名称为一个成员得分为将返回一个整数该整数指示成功创建排序集后将添加到排序集中的成员数您可以使用将多个成员添加到排序集中请注意他们的分数不必是连续的分数之间可以有间隔并且同一排序集中的多个成员可以共享同一分数可以接受以下选项您必须在密钥名称之后和第一个成员评分之前输入以下选项或这些选项具有相反的效果因此您在任何操作中都只能包括其中之一告诉不更新现有成员使用此选项将仅添加新元素告诉给只更新现有的元素使用此选项将永远不会添加新成员通常仅返回添加到排序集中的新元素的数量但是如果包含此选项将返回已更改元素的数量这包括新添加的成员和分数已更改的成员这会使命令增加成员的得分值如果该成员还不存在则该命令会将其添加到已排序的集合中并将其增量作为分数就像其原始分数是一样如果包含则成功将返回成员的新分数请注意使用此选项时一次只能包含一个分数成员对无需将选项传递给您可以使用行为完全相同的命令而不是给排序后的集合成员像分数那样由得分值指示的值而是使该成员的得分增加该值例如下面的命令增量构件的分数这本来增长到与命令选项一样如果指定的成员不存在则将使用增量值作为其分数来创建它检索排序集中的成员的最基本方法是使用命令此命令接受要检索其成员的键的名称以及其中包含的成员范围作为参数范围由两个数字定义这些数字表示从零开始的索引表示代表排序集中的第一个成员或得分最低的成员代表下一个依此类推下面的示例将返回上一部分中创建的排序集中的前四个成员请注意如果传递给的排序集具有两个或多个共享相同分数的元素它将按照字典顺序或字母顺序对这些元素进行排序开始索引和停止索引也可以是负数代表最后一个成员代表倒数第二个依此类推可以接受参数当包含该参数时该参数还将返回成员的分数只能以数字升序返回一系列成员要反转它并以降序返回范围必须使用命令可以将此命令视为暂时反转给定排序集的顺序然后返回属于指定范围内的成员因此使用将代表密钥中持有的最后一个成员将代表倒数第二个等等也可以接受该选项您可以使用命令根据其分数返回一系列成员在下面的示例中该命令将返回键中分数为或的任何成员在此示例中范围是包含范围的这意味着它将返回分数为或的成员您可以在范围的任一末端加上一个开放的括号以排除该范围的任何一端以下示例将返回分数大于或等于但小于的每个成员与一样可以接受参数它还接受该选项您可以使用该选项仅从输出中检索元素的选择此选项接受一个偏移量和一个计数该偏移量标记该命令将返回的范围内的第一个成员该计数总共定义该命令将返回的成员数例如以下命令将查看已排序集合的前六个成员但仅从该集合中返回个成员从该范围内的第二个成员开始由表示该命令根据成员的得分返回相反的范围以下命令将返回分数在到之间的集合中的每个成员与一样可以接受和选项此外您可以在范围的两端加上开放括号来排除该范围的任何一端有时排序集中的所有成员都具有相同的分数在这种情况下您可以使用命令强制返回按字典顺序或字母顺序排序的元素范围要尝试此命令请运行以下命令以创建一个排序的集合其中每个成员具有相同的分数后面必须跟一个键的名称一个开始间隔和一个停止间隔开始和停止间隔必须以圆括号或方括号开头如下所示请注意即使该命令查找的范围是从到该示例也仅返回集合中八个成员中的四个这是因为值区分大小写因此以大写字母开头的成员将从其输出中排除要返回这些值可以运行以下命令还接受特殊字符它们代表负无穷大而代表正无穷大因此以下命令语法还将返回排序集中的每个成员请注意不能以相反的字典顺序字母升序返回排序的集合成员为此请使用因为它适用于每个成员都具有相同分数的排序集所以不接受该选项但是它确实接受该选项要查找给定排序集中有多少个成员或者换句话说确定其基数请使用命令以下示例显示了本指南第一部分中密钥中拥有多少成员可以告诉您在给定的排序集中有多少个元素落在分数范围内键后面的第一个数字是范围的开始第二个数字是范围的结束输出排序集中指定成员的分数如果指定的成员或密钥都不存在将返回与相似但不返回给定成员的分数而是返回其排名在中等级是排序集中成员的从零开始的索引按其得分排序例如得分为但是由于这是键中所有成员的最低得分因此其等级为调用了另一个命令该命令执行与相同的功能但取而代之的是反转集合中成员的等级在以下示例中该成员的得分最低因此其反向排名最高成员的分数与其等级之间的唯一关系是其分数相对于其他成员的分数所处的位置如果两个连续成员之间存在得分差距则该得分差距不会反映在他们的排名中请注意如果两个成员的分数相同则按字母顺序排在第一位的成员将具有较低的排名类似于如果键或成员不存在将返回可以告诉您在词典范围之间的排序集中有多少个成员下面的示例使用上一节中的排序集该命令的语法与命令相同因此请参见上一节以获取有关如何定义字符串范围的详细信息该命令可以从排序集中删除一个或多个成员将返回一个整数指示从排序集中删除了多少个成员有三个命令可让您根据范围删除排序集中的成员例如如果排序集中的每个成员都具有相同的分数则可以使用来根据词典范围删除成员此命令使用与相同的语法以下示例将从上一节中创建的密钥中删除所有以大写字母开头的成员将输出一个整数指示已删除的成员数您还可以使用命令使用与命令相同的语法根据分数范围删除成员以下示例将删除得分为或的每个成员您可以从基于一系列与队伍的一组删除成员的命令它使用相同的语法以下命令将删除排名最低的排序集中的三个成员这些成员由一系列从零开始的索引定义请注意传递给的数字也可以为负代表最高排名次高排名依此类推包含两个命令它们允许您比较多个排序集的成员并基于这些比较创建新的和要试验这些命令请运行以下命令以创建一些示例排序集查找两个或多个排序集它们的交集共享的成员并生成仅包含那些成员的新排序集此命令必须依次包括相交成员将以排序集存储的目标键的名称要传递给的键的数量以及要分析的键的名称将返回一个整数该整数显示存储到目标排序集中的元素数因为和仅共享一个成员所以该命令将返回请注意如果目标键已经存在将覆盖其内容将创建一个新的排序集其中包含传递给它的每个键成员此命令使用与相同的语法并且需要目标键的名称传递给该命令的键的数量以及键的名称像一样将返回一个整数显示存储在目标键中的元素数即使两个原始排序集都包含五个成员但由于排序集不能包含重复成员并且每个键都有一个名为的成员因此所得的整数将为与一样如果目标键已经存在它将覆盖目标键的内容为了在使用和创建新的排序集时更好地控制成员分数这两个命令都接受和选项对于该命令中包含的每个排序集此选项后均带有一个数字该数字加权或乘以每个成员的分数选项后的第一个数字对传递给命令的第一个键的分数加权第二个数字对第二个键的加权加权依此类推以下示例创建一个新的排序集其中包含来自和排序集的相交键它将密钥中的分数加权三倍并将密钥中的分数加权七倍如果选项未包括在内权重默认为两个和接受三个子选项其中的第一个通过添加组合集中匹配成员的得分来实现和的默认行为如果在共享一个成员的两个排序集合上运行或运算但是该成员在每个集合中具有不同的分数则可以使用子选项强制操作在新集合中分配两个分数中的较低者由于这两个排序的集合只有一个具有相同分数的匹配成员因此此命令将创建一个新集合其成员具有两个加权分数中的较低者同样可以使用以下选项强制或分配两个分数中的较高者此命令创建一个新集合其中有一个成员具有两个加权得分中的较高者将其视为在分析成员之前临时操纵其分数的一种方式可能会有所帮助同样将选项视为在将成员添加到新集中之前决定如何控制其分数的一种方式也很有帮助本指南详细介绍了用于在中创建和管理排序集的许多命令如果您想在本指南中概述其他相关的命令参数或过程请在下面的评论中提出疑问或提出建议有关命令的更多信息请参阅关于如何管理数据库的系列教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:52:01',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/redis/" itemprop="url">redis</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">在Redis中怎么使用Sorted Sets</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:51.000Z" title="发表于 2024-10-31 22:01:51">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.339Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/"><header><a class="post-meta-categories" href="/categories/redis/" itemprop="url">redis</a><h1 id="CrawlerTitle" itemprop="name headline">在Redis中怎么使用Sorted Sets</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:51.000Z" title="发表于 2024-10-31 22:01:51">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.339Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></header><ol>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Ubuntu-18-04-shang-an-zhuang">如何在ubuntu18.04上安装和保护redis</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/zen-me-lian-jie-Redis">如何连接到Redis数据库</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-guan-li-Redis-shu-ju-ku-he-Keys">如何管理Redis数据库和Keys</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Redis-zhong-guan-li-fu-ben-he">如何在Redis中管理副本和客户端</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Redis-zhong-guan-li-zi-fu">如何在Redis中管理字符串</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Lists">如何在Redis中管理list</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Redis-zhong-guan-li-Hashes">如何在Redis中管理Hashes</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Redis-zhong-guan-li-Sets">如何在Redis中管理Sets</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted">如何在Redis中管理Sorted Sets</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Redis-zhong-yun-xing-shi-wu">如何在Redis中运行事务</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-shi-Redis-zhong-de-Keys-shi-xiao">如何使Redis中的Key失效</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-jie-jue-Redis-zhong-de-wen-ti">如何解决Redis中的故障</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-cong-ming-ling-xing-geng-gai">如何从命令行更改Redis的配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Redis-shu-ju-lei-xing-jian-jie">Redis数据类型简介</a></li>
+</ol>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><a target="_blank" rel="noopener" href="https://redis.io/">Redis</a>是一个开源的内存中键值数据存储。在Redis的，<a target="_blank" rel="noopener" href="https://redis.io/topics/data-types#sorted-sets"><em>排序集合</em></a>类似于一个数据类型<a target="_blank" rel="noopener" href="https://redis.io/topics/data-types#sets">集</a>在这两者都是串的非重复的组。不同之处在于，已排序集中的每个成员都与一个分数相关联，从而可以从最小分数到最大分数进行排序。与集合一样，排序集合中的每个成员都必须是唯一的，尽管多个成员可以共享同一分数。</p>
+<p>本教程说明了如何创建排序集，检索和删除其成员以及如何从现有集合中创建新的排序集。</p>
+<h4 id="如何使用本指南"><a href="#如何使用本指南" class="headerlink" title="如何使用本指南"></a>如何使用本指南</h4><p>本指南以备有完整示例的备忘单形式编写。我们鼓励您跳至与您要完成的任务相关的任何部分。</p>
+<p>本指南中显示的命令已在运行Redis版本4.0.9的Ubuntu 18.04服务器上进行了测试。要设置类似的环境，您可以按照我们的指南<a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Ubuntu-18-04-shang-an-zhuang">如何在Ubuntu 18.04上安装和保护Redis的</a><strong>步骤1</strong>进行操作。我们将通过使用Redis命令行界面运行它们来演示这些命令的行为。请注意，如果您使用其他Redis界面（例如<a target="_blank" rel="noopener" href="https://github.com/IBM-Cloud/redli">Redli）</a>，则某些命令的确切输出可能会有所不同。<a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-zai-Ubuntu-18-04-shang-an-zhuang"></a><code>redis-cli</code><a target="_blank" rel="noopener" href="https://github.com/IBM-Cloud/redli"></a></p>
+<p>另外，您可以提供一个托管的Redis数据库实例来测试这些命令，但是请注意，根据数据库提供者所允许的控制级别，本指南中的某些命令可能无法按所述方式工作。要配置DigitalOcean托管数据库，请遵循我们的<a target="_blank" rel="noopener" href="https://www.digitalocean.com/docs/databases/redis/quickstart/">托管数据库产品文档</a>。然后，<strong>您必须</strong> <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-managed-database-ubuntu-18-04#connecting-to-a-managed-redis-database"><strong>安装Redli</strong></a> <strong>或</strong> <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-managed-redis-over-tls-with-stunnel-and-redis-cli"><strong>设置TLS隧道</strong></a>才能通过TLS连接到托管数据库。</p>
+<h2 id="Creating-Sorted-Sets-and-Adding-Members"><a href="#Creating-Sorted-Sets-and-Adding-Members" class="headerlink" title="Creating Sorted Sets and Adding Members"></a>Creating Sorted Sets and Adding Members</h2><p>要创建排序集，请使用<code>zadd</code>命令。<code>zadd</code>接受将保留排序后的键集的键的名称作为参数，后跟要添加的成员的分数以及成员本身的值。以下命令将创建一个排序的集合密钥，其名称<code>faveGuitarists</code>为一个成员，<code>&quot;Joe Pass&quot;</code>得分为<code>1</code>：</p>
+<pre><code>zadd faveGuitarists 1 &quot;Joe Pass&quot;
+</code></pre>
+<p><code>zadd</code> 将返回一个整数，该整数指示成功创建排序集后将添加到排序集中的成员数。</p>
+<pre><code>Output(integer) 1
+</code></pre>
+<p>您可以使用将多个成员添加到排序集中<code>zadd</code>。请注意，他们的分数不必是连续的，分数之间可以有间隔，并且同一排序集中的多个成员可以共享同一分数：</p>
+<pre><code>zadd faveGuitarists 4 &quot;Stephen Malkmus&quot; 2 &quot;Rosetta Tharpe&quot; 3 &quot;Bola Sete&quot; 3 &quot;Doug Martsch&quot; 8 &quot;Elizabeth Cotten&quot; 12 &quot;Nancy Wilson&quot; 4 &quot;Memphis Minnie&quot; 12 &quot;Michael Houser&quot;
+
+
+Output(integer) 8
+</code></pre>
+<p><code>zadd</code> 可以接受以下选项，您必须在密钥名称之后和第一个成员评分之前输入以下选项：</p>
+<ul>
+<li><code>NX</code>或<code>XX</code>：这些选项具有相反的效果，因此您在任何<code>zadd</code>操作中都只能包括其中之一：<ul>
+<li><code>NX</code>：告诉<code>zadd</code> <strong>不</strong>更新现有成员。使用此选项，<code>zadd</code>将仅添加新元素。</li>
+<li><code>XX</code>：告诉<code>zadd</code>给<strong>只</strong>更新现有的元素。使用此选项，<code>zadd</code>将永远不会添加新成员。</li>
+</ul>
+</li>
+<li><code>CH</code>：通常，<code>zadd</code>仅返回添加到排序集中的新元素的数量。但是，<code>zadd</code>如果包含此选项，将返回已_更改_元素的数量。这包括新添加的成员和分数已更改的成员。</li>
+<li><code>INCR</code>：这会使命令增加成员的得分值。如果该成员还不存在，则该命令会将其添加到已排序的集合中，并将其增量作为分数，就像其原始分数是一样<code>0</code>。如果<code>INCR</code>包含，则成功<code>zadd</code>将返回成员的新分数。请注意，使用此选项时，一次只能包含一个分数&#x2F;成员对。</li>
+</ul>
+<p>无需将<code>INCR</code>选项传递给<code>zadd</code>，您可以使用<code>zincrby</code>行为完全相同的命令。而不是给排序后的集合成员像分数那样由得分值指示的值<code>zadd</code>，而是使该成员的得分增加该值。例如，下面的命令增量构件的分数<code>&quot;Stephen Malkmus&quot;</code>，这本来<code>4</code>，增长<code>5</code>到<code>9</code>。</p>
+<pre><code>zincrby faveGuitarists 5 &quot;Stephen Malkmus&quot;
+
+
+Output&quot;9&quot;
+</code></pre>
+<p>与<code>zadd</code>命令<code>INCR</code>选项一样，如果指定的成员不存在，则将<code>zincrby</code>使用增量值作为其分数来创建它。</p>
+<h2 id="Retrieving-Members-from-Sorted-Sets"><a href="#Retrieving-Members-from-Sorted-Sets" class="headerlink" title="Retrieving Members from Sorted Sets"></a>Retrieving Members from Sorted Sets</h2><p>检索排序集中的成员的最基本方法是使用<code>zrange</code>命令。此命令接受要检索其成员的键的名称以及其中包含的成员范围作为参数。范围由两个数字定义，这些数字表示<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Zero-based_numbering">从零开始的</a>索引，<code>0</code>表示代表排序集中的第一个成员（或得分最低的成员），<code>1</code>代表下一个，依此类推。</p>
+<p>下面的示例将返回<code>faveGuitarists</code>上一部分中创建的排序集中的前四个成员：</p>
+<pre><code>zrange faveGuitarists 0 3
+
+
+Output1) &quot;Joe Pass&quot;
+2) &quot;Rosetta Tharpe&quot;
+3) &quot;Bola Sete&quot;
+4) &quot;Doug Martsch&quot;
+</code></pre>
+<p>请注意，如果传递给的排序集<code>zrange</code>具有两个或多个共享相同分数的元素，它将按照_字典顺序_或字母顺序对这些元素进行排序。</p>
+<p>开始索引和停止索引也可以是负数，<code>-1</code>代表最后一个成员，<code>-2</code>代表倒数第二个，依此类推：</p>
+<pre><code>zrange faveGuitarists -5 -2
+
+
+Output1) &quot;Memphis Minnie&quot;
+2) &quot;Elizabeth Cotten&quot;
+3) &quot;Stephen Malkmus&quot;
+4) &quot;Michael Houser&quot;
+</code></pre>
+<p><code>zrange</code>可以接受<code>WITHSCORES</code>参数，当包含该参数时，该参数还将返回成员的分数：</p>
+<pre><code>zrange faveGuitarists 5 6 WITHSCORES
+
+
+Output1) &quot;Elizabeth Cotten&quot;
+2) &quot;8&quot;
+3) &quot;Stephen Malkmus&quot;
+4) &quot;9&quot;
+</code></pre>
+<p><code>zrange</code>只能以数字升序返回一系列成员。要反转它并以降序返回范围，必须使用<code>zrevrange</code>命令。可以将此命令视为暂时反转给定排序集的顺序，然后返回属于指定范围内的成员。因此，使用<code>zrevrange</code>，<code>0</code>将代表密钥中持有的<strong>最后一个</strong>成员，<code>1</code>将代表<strong>倒数第二个</strong>，等等：</p>
+<pre><code>zrevrange faveGuitarists 0 5
+
+
+Output1) &quot;Nancy Wilson&quot;
+2) &quot;Michael Houser&quot;
+3) &quot;Stephen Malkmus&quot;
+4) &quot;Elizabeth Cotten&quot;
+5) &quot;Memphis Minnie&quot;
+6) &quot;Doug Martsch&quot;
+</code></pre>
+<p><code>zrevrange</code>也可以接受该<code>WITHSCORES</code>选项。</p>
+<p>您可以使用<code>zrangebyscore</code>命令根据其分数返回一系列成员。在下面的示例中，该命令将返回<code>faveGuitarists</code>键中分数为2、3或4的任何成员：</p>
+<pre><code>zrangebyscore faveGuitarists 2 4
+
+
+Output1) &quot;Rosetta Tharpe&quot;
+2) &quot;Bola Sete&quot;
+3) &quot;Doug Martsch&quot;
+4) &quot;Memphis Minnie&quot;
+</code></pre>
+<p>在此示例中，范围是包含范围的，这意味着它将返回分数为2或4的成员。您可以在范围的任一末端加上一个开放的括号（<code>(</code>），以排除该范围的任何一端。以下示例将返回分数大于或等于<code>2</code>，但小于的每个成员<code>4</code>：</p>
+<pre><code>zrangebyscore faveGuitarists 2 (4
+
+
+Output1) &quot;Rosetta Tharpe&quot;
+2) &quot;Bola Sete&quot;
+3) &quot;Doug Martsch&quot;
+</code></pre>
+<p>与一样<code>zrange</code>，<code>zrangebyscore</code>可以接受<code>WITHSCORES</code>参数。它还接受该<code>LIMIT</code>选项，您可以使用该选项仅从<code>zrangebyscore</code>输出中检索元素的选择。此选项接受一个<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Offset_(computer_science)"><em>offset（偏移量）</em></a>和一个count（计数），该<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Offset_(computer_science)"><em>偏移量</em></a>标记该命令将返回的范围内的第一个成员，该计数总共定义该命令将返回的成员数。例如，以下命令将查看已<code>faveGuitarists</code>排序集合的前六个成员，但仅从该集合中返回3个成员，从该范围内的第二个成员开始，由表示<code>1</code>：</p>
+<pre><code>zrangebyscore faveGuitarists 0 5 LIMIT 1 3
+
+
+Output1) &quot;Rosetta Tharpe&quot;
+2) &quot;Bola Sete&quot;
+3) &quot;Doug Martsch&quot;
+</code></pre>
+<p>该<code>zrevrangebyscore</code>命令根据成员的得分返回相反的范围。以下命令将返回分数在10到6之间的集合中的每个成员：</p>
+<pre><code>zrevrangebyscore faveGuitarists 10 6
+
+
+Output1) &quot;Stephen Malkmus&quot;
+2) &quot;Elizabeth Cotten&quot;
+</code></pre>
+<p>与一样<code>zrangebyscore</code>，<code>zrevrangebyscore</code>可以接受<code>WITHSCORES</code>和<code>LIMIT</code>选项。此外，您可以在范围的两端加上开放括号来排除该范围的任何一端。</p>
+<p>有时，排序集中的所有成员都具有相同的分数。在这种情况下，您可以使用命令强制redis返回按_字典顺序_或字母顺序排序的元素范围<code>zrangebylex</code>。要尝试此命令，请运行以下<code>zadd</code>命令以创建一个排序的集合，其中每个成员具有相同的分数：</p>
+<pre><code>zadd SomervilleSquares 0 Davis 0 Inman 0 Union 0 porter 0 magoun 0 ball 0 assembly
+</code></pre>
+<p><code>zrangebylex</code>后面必须跟一个键的名称，一个开始间隔和一个停止间隔。开始和停止间隔必须以圆括号（<code>(</code>）或方括号（）开头<code>[</code>，如下所示：</p>
+<pre><code>zrangebylex SomervilleSquares [a [z
+
+
+Output1) &quot;assembly&quot;
+2) &quot;ball&quot;
+3) &quot;magoun&quot;
+4) &quot;porter&quot;
+</code></pre>
+<p>请注意，即使该命令查找的范围是从<code>a</code>到，该示例也仅返回集合中八个成员中的四个<code>z</code>。这是因为Redis值区分大小写，因此以大写字母开头的成员将从其输出中排除。要返回这些值，可以运行以下命令：</p>
+<pre><code>zrangebylex SomervilleSquares [A [z
+
+
+Output1) &quot;Davis&quot;
+2) &quot;Inman&quot;
+3) &quot;Union&quot;
+4) &quot;assembly&quot;
+5) &quot;ball&quot;
+6) &quot;magoun&quot;
+7) &quot;porter&quot;
+</code></pre>
+<p><code>zrangebylex</code>还接受特殊字符<code>-</code>，它们代表负无穷大，而<code>+</code>代表正无穷大。因此，以下命令语法还将返回排序集中的每个成员：</p>
+<pre><code>zrangebylex SomervilleSquares - +
+</code></pre>
+<p>请注意，<code>zrangebylex</code>不能以相反的字典顺序（字母升序）返回排序的集合成员。为此，请使用<code>zrevrangebylex</code>：</p>
+<pre><code>zrevrangebylex SomervilleSquares + -
+
+
+Output1) &quot;porter&quot;
+2) &quot;magoun&quot;
+3) &quot;ball&quot;
+4) &quot;assembly&quot;
+5) &quot;Union&quot;
+6) &quot;Inman&quot;
+7) &quot;Davis&quot;
+</code></pre>
+<p>因为它适用于每个成员都具有相同分数的排序集，<code>zrangebylex</code>所以<strong>不</strong>接受该<code>WITHSCORES</code>选项。但是，它确实接受该<code>LIMIT</code>选项。</p>
+<h2 id="Retrieving-Information-about-Sorted-Sets"><a href="#Retrieving-Information-about-Sorted-Sets" class="headerlink" title="Retrieving Information about Sorted Sets"></a>Retrieving Information about Sorted Sets</h2><p>要查找给定排序集中有多少个成员（或者换句话说，确定其<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cardinality"><em>基数</em></a>），请使用<code>zcard</code>命令。以下示例显示了<code>faveGuitarists</code>本指南第一部分中密钥中拥有多少成员：</p>
+<pre><code>zcard faveGuitarists
+
+
+Output(integer) 9
+</code></pre>
+<p><code>zcount</code>可以告诉您在给定的排序集中有多少个元素落在分数范围内。键后面的第一个数字是范围的开始，第二个数字是范围的结束：</p>
+<pre><code>zcount faveGuitarists 3 8
+
+
+Output(integer) 4
+</code></pre>
+<p><code>zscore</code> 输出排序集中指定成员的分数：</p>
+<pre><code>zscore faveGuitarists &quot;Bola Sete&quot;
+
+
+Output&quot;3&quot;
+</code></pre>
+<p>如果指定的成员或密钥都不存在，<code>zscore</code>将返回<code>(nil)</code>。</p>
+<p><code>zrank</code>与相似<code>zscore</code>，但不返回给定成员的分数，而是返回其排名。在Redis中，_等级_是排序集中成员的从零开始的索引，按其得分排序。例如，<code>&quot;Joe Pass&quot;</code>得分为<code>1</code>，但是由于这是键中所有成员的最低得分，因此其等级为<code>0</code>：</p>
+<pre><code>zrank faveGuitarists &quot;Joe Pass&quot;
+
+
+Output(integer) 0
+</code></pre>
+<p>调用了另一个Redis命令<code>zrevrank</code>，该命令执行与相同的功能<code>zrank</code>，但取而代之的是反转集合中成员的等级。在以下示例中，该成员<code>&quot;Joe Pass&quot;</code>的得分最低，因此其反向排名最高：</p>
+<pre><code>zrevrank faveGuitarists &quot;Joe Pass&quot;
+
+
+Output(integer) 8
+</code></pre>
+<p>成员的分数与其等级之间的唯一关系是其分数相对于其他成员的分数所处的位置。如果两个连续成员之间存在得分差距，则该得分差距不会反映在他们的排名中。请注意，如果两个成员的分数相同，则按字母顺序排在第一位的成员将具有较低的排名。</p>
+<p>类似于<code>zscore</code>，如果键或成员不存在<code>zrank</code>，<code>zrevrank</code>将返回<code>(nil)</code>。</p>
+<p><code>zlexcount</code>可以告诉您在词典范围之间的排序集中有多少个成员。下面的示例使用<code>SomervilleSquares</code>上一节中的排序集：</p>
+<pre><code>zlexcount SomervilleSquares [M [t
+
+
+Output(integer) 5
+</code></pre>
+<p>该命令的语法与<code>zrangebylex</code>命令相同，因此，请参见上<a href="#retrieving-members-from-sorted-sets">一节</a>以获取有关如何定义字符串范围的详细信息。</p>
+<h2 id="Removing-Members-from-Sorted-Sets"><a href="#Removing-Members-from-Sorted-Sets" class="headerlink" title="Removing Members from Sorted Sets"></a>Removing Members from Sorted Sets</h2><p>该<code>zrem</code>命令可以从排序集中删除一个或多个成员：</p>
+<pre><code>zrem faveGuitarists &quot;Doug Martsch&quot; &quot;Bola Sete&quot;
+</code></pre>
+<p><code>zrem</code> 将返回一个整数，指示从排序集中删除了多少个成员：</p>
+<pre><code>Output(integer) 2
+</code></pre>
+<p>有三个Redis命令，可让您根据范围删除排序集中的成员。例如，如果排序集中的每个成员都具有相同的分数，则可以使用来根据词典范围删除成员<code>zremrangebylex</code>。此命令使用与相同的语法<code>zrangebylex</code>。以下示例将从<code>SomervilleSquares</code>上一节中创建的密钥中删除所有以大写字母开头的成员：</p>
+<pre><code>zremrangebylex SomervilleSquares [A [Z
+</code></pre>
+<p><code>zremrangebylex</code> 将输出一个整数，指示已删除的成员数：</p>
+<pre><code>Output(integer) 3
+</code></pre>
+<p>您还可以<code>zremrangebyscore</code>使用命令使用与命令相同的语法，根据分数范围删除成员<code>zrangebyscore</code>。以下示例将删除<code>faveGuitarists</code>得分为4、5或6的每个成员：</p>
+<pre><code>zremrangebyscore faveGuitarists 4 6
+
+
+Output(integer) 1
+</code></pre>
+<p>您可以从基于一系列与队伍的一组删除成员<code>zremrangebyrank</code>的命令，它使用相同的语法<code>zrangebyrank</code>。以下命令将删除排名最低的排序集中的三个成员，这些成员由一系列从零开始的索引定义：</p>
+<pre><code>zremrangebyrank faveGuitarists 0 2
+
+
+Output(integer) 3
+</code></pre>
+<p>请注意，传递给的数字<code>remrangebyrank</code>也可以为负，<code>-1</code>代表最高排名，次高排名，<code>-2</code>依此类推。</p>
+<h2 id="Creating-New-Sorted-Sets-from-Existing-Ones"><a href="#Creating-New-Sorted-Sets-from-Existing-Ones" class="headerlink" title="Creating New Sorted Sets from Existing Ones"></a>Creating New Sorted Sets from Existing Ones</h2><p>Redis包含两个命令，它们允许您比较多个排序集的成员并基于这些比较创建新的：<code>zinterstore</code>和<code>zunionstore</code>。要试验这些命令，请运行以下<code>zadd</code>命令以创建一些示例排序集。</p>
+<pre><code>zadd NewKids 1 &quot;Jonathan&quot; 2 &quot;Jordan&quot; 3 &quot;Joey&quot; 4 &quot;Donnie&quot; 5 &quot;Danny&quot;
+zadd Nsync 1 &quot;Justin&quot; 2 &quot;Chris&quot; 3 &quot;Joey&quot; 4 &quot;Lance&quot; 5 &quot;JC&quot;
+</code></pre>
+<p><code>zinterstore</code>查找两个或多个排序集（它们的交集）共享的成员，并生成仅包含那些成员的新排序集。此命令必须依次包括相交成员将以排序集存储的目标键的名称，要传递给的键的数量以及<code>zinterstore</code>要分析的键的名称：</p>
+<pre><code>zinterstore BoyBands 2 NewKids Nsync
+</code></pre>
+<p><code>zinterstore</code>将返回一个整数，该整数显示存储到目标排序集中的元素数。因为<code>NewKids</code>和<code>Nsync</code>仅共享一个成员<code>&quot;Joey&quot;</code>，所以该命令将返回<code>1</code>：</p>
+<pre><code>Output(integer) 1
+</code></pre>
+<p>请注意，如果目标键已经存在，<code>zinterstore</code>将覆盖其内容。</p>
+<p><code>zunionstore</code>将创建一个新的排序集，其中包含传递给它的<strong>每个</strong>键成员。此命令使用与相同的语法<code>zinterstore</code>，并且需要目标键的名称，传递给该命令的键的数量以及键的名称：</p>
+<pre><code>zunionstore SuperGroup 2 NewKids Nsync
+</code></pre>
+<p>像一样<code>zinterstore</code>，<code>zunionstore</code>将返回一个整数，显示存储在目标键中的元素数。即使两个原始排序集都包含五个成员，但由于排序集不能包含重复成员，并且每个键都有一个名为<code>&quot;Joey&quot;</code>的成员，因此所得的整数将为<code>9</code>：</p>
+<pre><code>Output(integer) 9
+</code></pre>
+<p>与一样<code>zinterstore</code>，<code>zunionstore</code>如果目标键已经存在，它将覆盖目标键的内容。</p>
+<p>为了在使用<code>zinterstore</code>和创建新的排序集时更好地控制成员分数<code>zunionstore</code>，这两个命令都接受<code>WEIGHTS</code>和<code>AGGREGATE</code>选项。</p>
+<p>对于<code>WEIGHTS</code>该命令中包含的每个排序集，此选项后均带有一个数字，该数字_加权_或乘以每个成员的分数。<code>WEIGHTS</code>选项后的第一个数字对传递给命令的第一个键的分数加权，第二个数字对第二个键的加权加权，依此类推。</p>
+<p>以下示例创建一个新的排序集，其中包含来自<code>NewKids</code>和<code>Nsync</code>排序集的相交键。它将<code>NewKids</code>密钥中的分数加权三倍，并将密钥中的分数加权<code>Nsync</code>七倍：</p>
+<pre><code>zinterstore BoyBandsWeighted 2 NewKids Nsync WEIGHTS 3 7
+</code></pre>
+<p>如果<code>WEIGHTS</code>选项未包括在内，权重默认为<code>1</code>两个<code>zinterstore</code>和<code>zunionstore</code>。</p>
+<p><code>AGGREGATE</code>接受三个子选项。其中的第一个，通过添加组合集中匹配成员的得分来<code>SUM</code>实现<code>zinterstore</code>和<code>zunionstore</code>的默认行为。</p>
+<p>如果在共享一个成员的两个排序集合上运行<code>zinterstore</code>或<code>zunionstore</code>运算，但是该成员在每个集合中具有不同的分数，则可以使用<code>MIN</code>子选项强制操作在新集合中分配两个分数中的较低者。</p>
+<pre><code>zinterstore BoyBandsWeightedMin 2 NewKids Nsync WEIGHTS 3 7 AGGREGATE MIN
+</code></pre>
+<p>由于这两个排序的集合只有一个具有相同分数（<code>3</code>）的匹配成员，因此此命令将创建一个新集合，其成员具有两个加权分数中的较低者：</p>
+<pre><code>zscore BoyBandsWeightedMin &quot;Joey&quot;
+
+
+Output&quot;9&quot;
+</code></pre>
+<p>同样，<code>AGGREGATE</code>可以使用以下选项强制<code>zinterstore</code>或<code>zunionstore</code>分配两个分数中的较高者<code>MAX</code>：</p>
+<pre><code>zinterstore BoyBandsWeightedMax 2 NewKids Nsync WEIGHTS 3 7 AGGREGATE MAX
+</code></pre>
+<p>此命令创建一个新集合，其中有一个成员，<code>&quot;Joey&quot;</code>具有两个加权得分中的较高者：</p>
+<pre><code>zscore BoyBandsWeightedMax &quot;Joey&quot;
+
+
+Output&quot;21&quot;
+</code></pre>
+<p>将其<code>WEIGHTS</code>视为在分析成员之前临时操纵其分数的一种方式可能会有所帮助。同样，将<code>AGGREGATE</code>选项视为在将成员添加到新集中之前决定如何控制其分数的一种方式也很有帮助。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>本指南详细介绍了用于在Redis中创建和管理排序集的许多命令。如果您想在本指南中概述其他相关的命令，参数或过程，请在下面的评论中提出疑问或提出建议。</p>
+<p>有关Redis命令的更多信息，请参阅关于<a target="_blank" rel="noopener" href="https://www.tushu.info/archives/ru-he-shi-yong-Redis-shu-ju-ku">如何管理Redis数据库的</a>系列教程。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/')">在Redis中怎么使用Sorted Sets</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=在Redis中怎么使用Sorted Sets&amp;url=https://tushu.info/archives/zai-Redis-zhong-zen-me-shi-yong-Sorted/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/zen-me-lian-jie-Redis/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">怎么链接Redis</div></div></a></div><div class="next-post pull-right"><a href="/archives/zai-Redis-zhong-zen-me-shi-yong-Sets/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在Redis中怎么使用Sets</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E6%9C%AC%E6%8C%87%E5%8D%97"><span class="toc-number">1.1.</span> <span class="toc-text">如何使用本指南</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-Sorted-Sets-and-Adding-Members"><span class="toc-number"></span> <span class="toc-text">Creating Sorted Sets and Adding Members</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrieving-Members-from-Sorted-Sets"><span class="toc-number"></span> <span class="toc-text">Retrieving Members from Sorted Sets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrieving-Information-about-Sorted-Sets"><span class="toc-number"></span> <span class="toc-text">Retrieving Information about Sorted Sets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Removing-Members-from-Sorted-Sets"><span class="toc-number"></span> <span class="toc-text">Removing Members from Sorted Sets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-New-Sorted-Sets-from-Existing-Ones"><span class="toc-number"></span> <span class="toc-text">Creating New Sorted Sets from Existing Ones</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number"></span> <span class="toc-text">Conclusion</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

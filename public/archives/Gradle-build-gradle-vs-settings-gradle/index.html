@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Gradle:build.gradle vs. settings.gradle vs. gradle.properties | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Gradle:build.gradle vs. settings.gradle vs. gradle.properties"><meta name="application-name" content="Gradle:build.gradle vs. settings.gradle vs. gradle.properties"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Gradle:build.gradle vs. settings.gradle vs. gradle.properties"><meta property="og:url" content="https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="1. Overview在本文中，我们将研究Gradle Java项目的不同配置文件。另外，我们将看到实际构建的细节。 您可以查看  Gradle简介以获得Gradle的一般介绍。 2. build.gradle假设我们只是通过运行gradle init –type java-application创"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="1. Overview在本文中，我们将研究Gradle Java项目的不同配置文件。另外，我们将看到实际构建的细节。 您可以查看  Gradle简介以获得Gradle的一般介绍。 2. build.gradle假设我们只是通过运行gradle init –type java-application创"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Gradle:build.gradle vs. settings.gradle vs. gradle.properties',
+  postAI: '',
+  pageFillDescription: '1. Overview, 2. build.gradle, 3. settings.gradle, 4. gradle.properties, 5.简而言之(The Build in a Nutshell), 6. Conclusion在本文中我们将研究项目的不同配置文件另外我们将看到实际构建的细节您可以查看简介以获得的一般介绍假设我们只是通过运行创建一个新的项目这将为我们提供一个具有以下目录和文件结构的新项目我们可以将文件视为项目的心脏或大脑本示例的结果文件如下所示它由代码或更准确地说由用于描述构建的基于的域特定语言组成我们可以在此处定义依赖关系还可以添加诸如存储库之类的用于依赖关系解析的内容的基本构建块是项目和任务在这种情况下由于应用了插件因此隐式定义了用于构建项目的所有必要任务其中一些任务是等这些任务的设置方式也是如此它们描述了项目的有用依赖关系图这意味着通常足以执行构建任务并且和插件将确保已执行所有必需的任务如果我们需要其他专门任务例如构建映像它也将放入文件中任务的最简单定义如下所示我们可以通过将任务指定为的参数来运行任务如下所示它不会做任何有用的事情而是打印出当然如果是多项目构建我们可能会有多个不同的文件每个项目一个该的文件针对执行项目实例一个项目实例每个子项目创建可以在文件中定义的上述任务作为对象集合的一部分驻留在实例中任务本身由多个操作组成作为有序列表在前面的示例中我们添加了一个闭包来打印通过在对象上调用可以将此列表移到此列表的末尾在执行期间通过调用方法按顺序执行其每个还会生成文件该文件是脚本也是如此与文件相比每个构建仅执行一个文件我们可以使用它来定义多项目构建的项目此外我们还可以将代码注册为构建的不同生命周期挂钩的一部分该框架要求在多项目构建中存在而对于单项目构建则是可选的在创建构建的实例之后通过对该文件执行文件并对其进行配置来使用该文件这意味着我们要在文件中定义子项目如下所示创建构建时在实例上调用方法默认情况下不会创建文件它可以位于不同的位置例如在项目根目录中内或命令行标志指定的位置中该文件由键值对组成我们可以使用它来配置框架本身的行为它是使用命令行标志进行配置的替代方法可能的键示例包括另外您可以使用此文件将属性直接添加到对象例如具有名称空间的属性另一个用例是指定参数如下所示请注意它需要启动进程来解析文件这意味着这些参数仅影响单独启动的进程简而言之假设我们不将其作为守护程序运行我们可以将构建的一般生命周期总结如下它作为新的进程启动它解析文件并相应地配置接下来它为构建创建一个实例然后它根据对象评估文件它根据配置的对象创建的层次结构最后它将针对其项目执行每个文件我们已经看到不同的配置文件如何实现各种开发目的我们可以根据项目的需要使用它们来配置构建以及本身',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:37:12',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/gradle%E6%95%99%E7%A8%8B/" itemprop="url">gradle教程</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">Gradle:build.gradle vs. settings.gradle vs. gradle.properties</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:37:12.290Z" title="更新于 2026-07-03 14:37:12">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/"><header><a class="post-meta-categories" href="/categories/gradle%E6%95%99%E7%A8%8B/" itemprop="url">gradle教程</a><h1 id="CrawlerTitle" itemprop="name headline">Gradle:build.gradle vs. settings.gradle vs. gradle.properties</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:37:12.290Z" title="更新于 2026-07-03 14:37:12">2026-07-03</time></header><h2 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h2><p>在本文中，我们将研究Gradle Java项目的不同配置文件。另外，我们将看到实际构建的细节。</p>
+<p>您可以查看  <a target="_blank" rel="noopener" href="http://mdanimage.oss-cn-shenzhen.aliyuncs.com/archives/%E4%BB%8B%E7%BB%8Dgradle">Gradle简介</a>以获得Gradle的一般介绍。</p>
+<h2 id="2-build-gradle"><a href="#2-build-gradle" class="headerlink" title="2. build.gradle"></a>2. build.gradle</h2><p>假设我们只是通过运行gradle init –type java-application创建一个新的Java项目。这将为我们提供一个具有以下目录和文件结构的新项目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">build.gradle</span><br><span class="line">gradle    </span><br><span class="line">    wrapper</span><br><span class="line">        gradle-wrapper.jar</span><br><span class="line">        gradle-wrapper.properties</span><br><span class="line">gradlew</span><br><span class="line">gradlew.bat</span><br><span class="line">settings.gradle</span><br><span class="line">src</span><br><span class="line">    main</span><br><span class="line">        java  </span><br><span class="line">            App.java</span><br><span class="line">    test      </span><br><span class="line">        java</span><br><span class="line">            AppTest.java</span><br></pre></td></tr></table></figure>
+<p>我们可以将build.gradle文件视为项目的心脏或大脑。本示例的结果文件如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id &#x27;java&#x27;</span><br><span class="line">    id &#x27;application&#x27;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">mainClassName = &#x27;App&#x27;</span><br><span class="line"> </span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile &#x27;com.google.guava:guava:23.0&#x27;</span><br><span class="line"> </span><br><span class="line">    testCompile &#x27;junit:junit:4.12&#x27;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">repositories &#123;</span><br><span class="line">    jcenter()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它由Groovy代码或更准确地说由用于描述构建的基于Groovy的DSL（域特定语言）组成。我们可以在此处定义依赖关系，还可以添加诸如Maven存储库之类的用于依赖关系解析的内容。</p>
+<p>Gradle的基本构建块是项目和任务。在这种情况下，由于应用了  Java插件，因此隐式定义了用于构建Java项目的所有必要任务。其中一些任务是assemble，check，build，jar，javadoc，clean等。</p>
+<p>这些任务的设置方式也是如此，它们描述了Java项目的有用依赖关系图，这意味着通常足以执行构建任务，并且Gradle（和Java插件）将确保已执行所有必需的任务。</p>
+<p>如果我们需要其他专门任务，例如构建Docker映像，它也将放入build.gradle文件中。任务的最简单定义如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task hello &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println &#x27;Hello Baeldung!&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以通过将任务指定为Gradle CLI的参数来运行任务，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -q hello</span><br><span class="line">Hello Baeldung!</span><br></pre></td></tr></table></figure>
+<p>它不会做任何有用的事情，而是打印出“ Hello Baeldung！”。当然。</p>
+<p>如果是多项目构建，我们可能会有多个不同的build.gradle文件，每个项目一个。</p>
+<p>该的build.gradle文件针对执行项目实例，一个项目实例每个子项目创建。可以在build.gradle文件中定义的上述任务作为Task对象集合的一部分驻留在Project实例中。任务本身由多个操作组成（作为有序列表）。</p>
+<p>在前面的示例中，我们添加了一个Groovy闭包来打印“ Hello Baeldung！”。通过在hello Task对象上调用doLast（Closure action），可以将此列表移到此列表的末尾  。在Task执行期间，Gradle  通过调用Action.execute（T）方法按顺序  执行其每个Action。</p>
+<h2 id="3-settings-gradle"><a href="#3-settings-gradle" class="headerlink" title="3. settings.gradle"></a>3. settings.gradle</h2><p>Gradle还会生成settings.gradle文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootProject.name = &#x27;gradle-example&#x27;</span><br></pre></td></tr></table></figure>
+<p>该settings.gradle文件是Groovy脚本也是如此。</p>
+<p>与build.gradle文件相比，每个Gradle构建仅执行一个settings.gradle文件。我们可以使用它来定义多项目构建的项目。</p>
+<p>此外，我们还可以将代码注册为构建的不同生命周期挂钩的一部分。</p>
+<p>该框架要求 在多项目构建中存在settings.gradle，而对于单项目构建则是可选的。</p>
+<p>在创建构建的Settings实例之后，通过对该文件执行文件并对其进行配置，来使用该文件。这意味着我们要在settings.gradle文件中定义子项目，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &#x27;foo&#x27;, &#x27;bar&#x27;</span><br></pre></td></tr></table></figure>
+<p>创建构建时，Gradle 在Settings实例上调用void include（String…projectPaths）方法。</p>
+<h2 id="4-gradle-properties"><a href="#4-gradle-properties" class="headerlink" title="4. gradle.properties"></a>4. gradle.properties</h2><p>Gradle 默认情况下不会创建gradle.properties文件。它可以位于不同的位置，例如在项目根目录中，GRADLE_USER_HOME内或-Dgradle.user.home命令行标志指定的位置中。</p>
+<p>该文件由键值对组成。我们可以使用它来配置框架本身的行为，它是使用命令行标志进行配置的替代方法。</p>
+<p>可能的键示例包括：</p>
+<ul>
+<li>org.gradle.caching&#x3D;(true,false)</li>
+<li>org.gradle.daemon&#x3D;(true,false)</li>
+<li>org.gradle.parallel&#x3D;(true,false)</li>
+<li>org.gradle.logging.level&#x3D;(quiet,warn,lifecycle,info,debug)<br>另外，您可以使用此文件将属性直接添加到Project对象，例如，具有名称空间的属性：  org.gradle.project.property_to_set</li>
+</ul>
+<p>另一个用例是指定JVM参数，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.gradle.jvmargs=-Xmx2g -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</span><br></pre></td></tr></table></figure>
+<p>请注意，它需要启动JVM进程来解析gradle.properties文件。这意味着这些JVM参数仅影响单独启动的JVM进程。</p>
+<h2 id="5-简而言之-The-Build-in-a-Nutshell"><a href="#5-简而言之-The-Build-in-a-Nutshell" class="headerlink" title="5.简而言之(The Build in a Nutshell)"></a>5.简而言之(The Build in a Nutshell)</h2><p>假设我们不将其作为守护程序运行，我们可以将Gradle构建的一般生命周期总结如下：</p>
+<p>它作为新的JVM进程启动<br>它解析  gradle.properties文件并相应地配置Gradle<br>接下来，它为构建创建一个  Settings实例<br>然后，它根据Settings对象评估  settings.gradle文件<br>它根据配置的Settings对象创建Projects的层次结构<br>最后，它将针对其项目执行每个build.gradle文件</p>
+<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a>6. Conclusion</h2><p>我们已经看到，不同的Gradle配置文件如何实现各种开发目的。我们可以根据项目的需要使用它们来配置Gradle构建以及Gradle本身。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/')">Gradle:build.gradle vs. settings.gradle vs. gradle.properties</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Gradle:build.gradle vs. settings.gradle vs. gradle.properties&amp;url=https://tushu.info/archives/Gradle-build-gradle-vs-settings-gradle/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Gradle-chang-yong-ming-ling/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Gradle常用命令</div></div></a></div><div class="next-post pull-right"><a href="/archives/Difference-between-lock-and-monitor/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Difference between lock and monitor – Java Concurrency</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Overview"><span class="toc-number">1.</span> <span class="toc-text">1. Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-build-gradle"><span class="toc-number">2.</span> <span class="toc-text">2. build.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-settings-gradle"><span class="toc-number">3.</span> <span class="toc-text">3. settings.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-gradle-properties"><span class="toc-number">4.</span> <span class="toc-text">4. gradle.properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%AE%80%E8%80%8C%E8%A8%80%E4%B9%8B-The-Build-in-a-Nutshell"><span class="toc-number">5.</span> <span class="toc-text">5.简而言之(The Build in a Nutshell)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Conclusion"><span class="toc-number">6.</span> <span class="toc-text">6. Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

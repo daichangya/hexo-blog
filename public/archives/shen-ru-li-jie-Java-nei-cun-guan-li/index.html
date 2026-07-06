@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>深入理解Java内存管理：原理、优化与最佳实践 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="深入理解Java内存管理：原理、优化与最佳实践"><meta name="application-name" content="深入理解Java内存管理：原理、优化与最佳实践"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="深入理解Java内存管理：原理、优化与最佳实践"><meta property="og:url" content="https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="一、引言在Java编程中，内存管理是一个至关重要的方面，它直接影响着程序的性能、稳定性和可扩展性。Java的内存管理机制由Java虚拟机（JVM）负责，包括内存分配和回收等关键任务。理解Java内存管理的工作原理对于编写高效、可靠的Java程序至关重要。 本文将深入探讨Java内存管理的各个方面，包"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm2.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm2.jpg"><meta name="description" content="一、引言在Java编程中，内存管理是一个至关重要的方面，它直接影响着程序的性能、稳定性和可扩展性。Java的内存管理机制由Java虚拟机（JVM）负责，包括内存分配和回收等关键任务。理解Java内存管理的工作原理对于编写高效、可靠的Java程序至关重要。 本文将深入探讨Java内存管理的各个方面，包"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '深入理解Java内存管理：原理、优化与最佳实践',
+  postAI: '',
+  pageFillDescription: '一、引言, 二、Java内存结构, （一）程序计数器（PC Register）, （二）Java虚拟机栈（JVM Stack）, （三）堆（Heap）, （四）方法区域（Method Area）, （五）运行时常量池（Runtime Constant Pool）, （六）本地方法堆栈（Native Method Stacks）, 三、Java对象的内存分配, （一）对象的创建过程, （二）对象在内存中的布局, （三）实例变量和类变量的内存分配, （四）对象的引用与指针, 四、Java内存回收机制, （一）垃圾回收的基本原理, （二）垃圾回收算法, （三）堆内存的分代回收, （四）垃圾回收器, 五、Java 内存优化技巧, （一）减少对象创建, （二）合理设置堆内存参数, （三）优化数据结构与算法, （四）监控与排查内存问题, 六、总结一引言在编程中内存管理是一个至关重要的方面它直接影响着程序的性能稳定性和可扩展性的内存管理机制由虚拟机负责包括内存分配和回收等关键任务理解内存管理的工作原理对于编写高效可靠的程序至关重要本文将深入探讨内存管理的各个方面包括内存结构对象的内存分配内存回收机制以及相关的优化技巧和最佳实践通过对这些内容的详细阐述读者将能够更好地理解程序在内存中的运行机制从而优化程序性能避免常见的内存问题二内存结构一程序计数器作用与特点程序计数器是一块较小的内存区域用于记录当前线程所执行的字节码的行号它就像是线程执行的导航仪指引着字节码解释器按顺序选取下一条字节码指令执行例如在执行循环分支方法调用等操作时程序计数器的值会相应改变以确保线程在正确的位置继续执行每个线程都有独立的程序计数器它们之间互不影响这使得多线程能够在同一时刻各自执行不同的字节码指令实现线程的并发执行示例代码在上述代码中当线程执行循环时程序计数器会不断更新以指示下一次循环中要执行的字节码指令的位置二虚拟机栈存储内容与功能栈用于存储当前线程中局部基本类型的变量如部分的返回结果以及栈帧栈帧包含了方法的局部变量表操作数栈动态链接方法出口等信息当一个方法被调用时一个新的栈帧会被创建并压入栈当方法执行完成后栈帧会从栈中弹出释放相应的内存空间例如在递归方法调用中每一次递归调用都会创建一个新的栈帧随着递归深度的增加栈帧会不断地压入栈中内存分配与回收栈是线程私有的其内存分配在物理内存上实现并且在内存分配上非常高效当线程运行完毕后栈占用的内存会自动回收无需程序员手动干预然而如果线程请求的栈深度大于虚拟机允许的深度将会抛出异常例如以下代码会导致栈溢出在上述代码中方法不断地递归调用自身导致栈帧不断地压入栈最终超出了栈的深度限制抛出异常三堆对象存储与管理堆是虚拟机管理的内存中最大的一块区域用于存储对象实例以及数组值几乎所有通过关键字创建的对象都会在堆中分配内存例如创建一个对象在上述代码中对象会在堆中分配内存来存储其成员变量和内存大小调整堆的大小可以通过初始堆大小和最大堆大小参数进行调整在位操作系统上堆的最大大小通常为在位操作系统上则没有限制但默认情况下会根据系统内存自动设置合适的堆大小例如可以使用以下命令启动程序并设置堆大小当堆中需要使用的内存超过其允许的大小时会抛出异常这可能发生在创建大量对象且这些对象无法及时被回收的情况下四方法区域存储信息类型方法区域存放了所加载的类的信息包括类的名称修饰符类中的静态变量类中定义为类型的常量类中的信息类中的方法信息等例如当使用反射机制获取类的信息时这些信息就来源于方法区域它还存储了编译器编译后的代码数据如字节码指令等内存管理特点方法区域是全局共享的在虚拟机启动时创建并且在一定条件下会被垃圾回收不过该区域的垃圾收集行为相对较少出现因为其中存储的很多数据在程序运行期间通常不会发生变化与堆类似方法区域的大小也可以通过参数进行调整如在虚拟机中可以使用初始永久代大小和最大永久代大小来设置方法区域的大小在及以后版本永久代被元空间取代相关参数也有所变化当方法区域无法满足内存分配需求时会抛出异常五运行时常量池常量存储与作用运行时常量池是方法区域的一部分用于存放类中的固定常量信息方法和的引用信息等它包含了编译器生成的各种字面量如字符串常量基本类型常量等和符号引用如类和接口的全限定名字段的名称和描述符方法的名称和描述符等例如字符串常量就会存储在运行时常量池中运行时常量池在类加载后分配内存并且其空间从方法区域中获取它的一个重要特性是具备动态性即在运行期间也可以将新的常量放入池中这使得语言在处理常量方面更加灵活例如通过类的方法可以将字符串常量放入运行时常量池中内存限制与异常由于运行时常量池是方法区域的一部分它自然会受到方法区域内存的限制当常量池无法再申请到内存时会抛出异常这可能发生在程序中大量使用字符串常量或动态生成大量常量的情况下六本地方法堆栈支持方法执行本地方法堆栈用于支持方法的执行它为每个方法调用存储相关的状态信息当程序调用方法时本地方法堆栈会为该方法的执行提供必要的支持包括保存方法的参数局部变量以及返回地址等信息与虚拟机栈类似本地方法栈也是线程私有的每个线程都有自己独立的本地方法栈异常情况本地方法堆栈抛出的异常与虚拟机栈类似如果线程请求的栈深度大于虚拟机允许的深度会抛出异常如果栈允许动态扩展但在尝试扩展时无法申请到足够的内存会抛出异常三对象的内存分配一对象的创建过程类加载与对象初始化当创建一个对象时首先要进行类加载类加载器负责将类的字节码文件加载到内存中并在方法区域中存储类的相关信息如类的结构静态变量方法等例如在启动一个应用程序时会加载主类及其依赖的其他类接着进行对象的初始化对象的初始化包括为对象的实例变量分配内存空间并赋予默认值如类型的变量默认值为对象引用类型的变量默认值为然后按照初始化顺序执行类中的初始化块和构造函数对实例变量进行初始化操作例如在上述代码中先执行初始化块将赋值为赋值为然后执行构造函数将重新赋值为重新赋值为内存分配位置对象的内存主要在堆中分配但对象的引用指针会存储在栈中或作为其他对象的实例变量存储在堆中例如在以下代码中对象本身在堆中分配内存而变量对象的引用存储在栈中数组对象在堆中分配内存其引用也存储在栈中二对象在内存中的布局对象头与实例数据在位中对象通常有两个机器字的头部第一个字包含对象的标示哈希码以及其他一些标识信息如锁状态等第二个字包含一个指向对象的类的引用例如对于一个简单的对象其对象在内存中的布局大致如下假设对象头部占用字节对象头字节引用字节字节实例数据部分存储对象的成员变量的值其存储顺序会根据变量的类型进行优化排列以提高内存访问效率例如双精度型和长整型通常会优先排列因为它们在内存中占用的空间较大对齐填充为了满足对象以个字节为粒度进行对齐的要求可能会在对象的末尾进行填充例如如果一个对象的实例数据部分占用的空间不是的倍数就会在末尾添加一些字节进行填充以保证整个对象的大小是的倍数三实例变量和类变量的内存分配实例变量分配实例变量属于类的实例每创建一个类的实例就会为实例变量分配一块内存空间例如对于类的多个实例和是类的两个不同实例它们各自拥有独立的和实例变量的内存空间类变量分配类变量使用修饰属于类本身在同一个内一个类的类变量只需一块内存空间例如无论创建多少个类的实例类变量都只有一份内存空间所有实例共享该类变量四对象的引用与指针引用的本质在中对象的引用实际上是一个指针它存储的是对象在堆中的地址通过引用我们可以在程序中操作对象例如在以下代码中变量就是对象的引用通过可以调用对象的方法和访问其成员变量不同引用类型中有强引用软引用弱引用和虚引用等不同类型的引用强引用是最常见的引用类型只要强引用存在对象就不会被垃圾回收例如这里的就是对对象的强引用软引用在内存不足时可能会被回收弱引用在垃圾回收时一定会被回收虚引用主要用于跟踪对象被垃圾回收的状态不能单独使用四内存回收机制一垃圾回收的基本原理判断对象死活的方法使用根搜索算法来判断对象是否存活包括虚拟机栈中的引用对象方法区中的类静态属性引用的对象方法区中的常量引用的对象本地方法区中的引用的对象等从这些开始向下搜索搜索所经过的路径称为引用链当一个对象到没有引用链时该对象可被判定为不可用即将死亡例如在以下代码中当被赋值为后对象就没有了引用从这里是虚拟机栈中的引用无法到达该对象它将被视为可回收对象垃圾回收的时机中的垃圾回收器启动时间不固定它会根据内存的使用情况进行动态自适应调整一般来说当内存不足或达到一定的垃圾收集器时间间隔时垃圾回收器会启动例如当堆内存中的对象数量过多占用的内存接近堆的最大值时垃圾回收器可能会被触发二垃圾回收算法标记清除算法标记清除算法分为两个阶段首先是标记阶段使用根搜索算法标记出所有从可达的对象然后是清除阶段遍历整个堆回收未被标记的对象所占用的内存例如假设有一个堆内存中有多个对象其中一些对象通过引用链与相连标记阶段会将这些可达对象标记为存活清除阶段则会回收那些未被标记的对象的内存优点是实现简单缺点是效率不高会产生大量不连续的内存碎片可能导致后续分配大对象时无法找到足够连续的内存从而提前触发另一次垃圾收集动作复制算法复制算法将可用内存按容量大小划分为两块每次只使用其中一块当这一块内存用完后将还存活的对象复制到另一块内存上然后把刚使用过的内存空间一次性清除掉例如在新生代中通常会将内存划分为一个较大的空间和两个较小的空间每次使用和其中一个回收时将存活对象复制到另一个中优点是提高了回收效率回收后不会产生不连续的空间缺点是将可用内存缩小为原来的一半当对象存活率较高时需要执行较多的复制操作效率会降低标记整理算法标记整理算法结合了标记清除和复制算法的优点它首先使用标记清除算法标记出存活对象然后将存活对象向一端移动使它们紧密排列最后直接清理掉端边界以外的内存例如在老年代中由于对象存活率较高适合使用标记整理算法来回收内存该算法克服了标记清除算法产生内存碎片的问题同时避免了复制算法中内存减半的缺点三堆内存的分代回收分代的依据堆内存分为新生代和老年代这种分代回收的依据主要有两点一是对象生存时间的长短大部分对象在新生代期间就被回收二是不同代采取不同的垃圾回收策略新老对象之间很少存在引用例如在一个应用程序中很多临时创建的对象像是请求处理过程里的临时数据载体生命周期极短大概率存活于新生代而像数据库连接池里长期持有的连接对象缓存里的常用数据对象因其长期被程序依赖往往驻留在老年代新生代回收新生代又细分为区以及两个区一般分别称作和默认比例是对象创建时优先在区分配内存当区满了触发新生代垃圾回收回收时存活对象从区和区中存活的对象会被复制到另一个区假设从复制到并按年龄值经历过的次数递增年龄达到一定阈值默认就会晋升到老年代示例代码如下快速创建大量对象填充区已创建一批对象模拟对象生命周期结束便于观察效果这段代码不断批量创建对象填满区促使频繁发生借此观察新生代垃圾回收过程同时搭配间隔时间毫秒查询次数命令是进程号查看新生代内存占用回收频率等指标老年代回收老年代存放历经多次仍存活的对象当老年代空间不足或新生代晋升到老年代的对象大小超出老年代剩余空间时触发老年代垃圾回收或回收算法多采用标记整理耗时久会暂停整个应用程序线程对性能冲击大所以要极力避免频繁触发例如下面代码创建大量大对象强行让它们晋升到老年代创建大对象运行此代码很快就会因老年代空间告急触发借助性能监控工具如能直观看到老年代内存走势频次及耗时四垃圾回收器垃圾回收器回收器是最基础单线程的垃圾回收器新生代用复制算法老年代用标记整理算法它工作时会暂停所有用户线程直至垃圾回收结束也就是虽说效率有限但简单小巧适用于单核小型应用场景因其无需复杂的线程同步开销配置参数示例启用垃圾回收器用于新生代和老年代在命令行启动简单工具类时若资源受限追求极简部署回收器能胜任基础的内存管理确保程序平稳运行像一些轻量级的命令行脚本工具对实时性要求不高就能有效管控内存垃圾回收器回收器又称吞吐量优先回收器新生代老年代都采用多线程并行回收显著提升回收效率它同样会引发但因多线程并行处理垃圾能在有限时间内回收更多垃圾适合后台批处理科学计算这类看重整体吞吐量的程序常用参数有开启新生代并行回收开启老年代并行回收例如企业级数据处理任务每晚批量执行海量数据清洗统计回收器多线程协作大幅缩减垃圾回收耗时保障任务尽早完工垃圾回收器回收器主打低延迟致力于减少垃圾回收时的停顿时间它在标记清理阶段尽量与用户线程并发执行仅在初始标记重新标记这两个小阶段短暂暂停用户线程标记阶段用标记清除算法所以会产生内存碎片关键参数启用像电商网站的订单处理系统要随时响应海量用户下单查询回收器可维持流畅交互体验降低因垃圾回收造成的页面卡顿延迟垃圾回收器垃圾回收器是区域化并行与并发兼备的回收器把堆内存划分成多个大小相等的各依对象存活情况动态归属新生代老年代它优先回收垃圾最多的平衡停顿时间与回收效率兼具低延迟与高吞吐量优势启用参数以大型分布式微服务架构应用为例服务繁多内存占用波动大能精准定位垃圾密集区高效清理稳定系统性能防止因个别服务内存溢出致使整个集群故障五内存优化技巧一减少对象创建对象复用复用已有的对象实例避免不必要的新对象创建比如类的方法它能把字符串字面量放入运行时常量池复用以下代码展示其用法输出表明复用了常量池中的字符串在处理大量字符串拼接场景巧用或替代频繁的拼接操作也能大幅减少中间临时字符串对象生成延迟对象初始化遵循用时再初始化原则延迟对象实例化时机降低程序启动时内存压力像单例模式里的懒汉式实现只有首次调用方法时才创建单例对象避免程序伊始就分配不必要内存又如复杂配置类读取配置文件耗时久按需加载配置对象可提升启动速度合理分配内存资源二合理设置堆内存参数初始堆与最大堆初始堆大小与最大堆大小参数要依据应用特性硬件资源精准设定对于长时间稳定运行的服务二者设为相等值能避免动态调整堆大小带来的性能损耗像后端数据库中间件维持稳定内存空间利于持续高效服务举例为服务分配固定初始与最大堆内存若拿捏不准前期可借助性能测试工具模拟多并发大数据量场景监测内存用量曲线敲定适宜的堆大小参数新生代与老年代比例新生代和老年代的比例关乎对象回收效率内存利用率多数场景下新生代占比可适当调高加速短生命周期对象回收不过得提防新生代过小致使对象过快晋升老年代触发频繁例如应用高频请求催生海量临时对象设新生代占堆内存契合短寿对象处理节奏调整参数如设定老年代与新生代比值管控区与区比例灵活调配适配复杂业务场景三优化数据结构与算法选择高效容器类根据数据存取特点选对容器类是内存优化关键读取频繁元素少的数据用或替代因后两者额外开销大需频繁增删元素比更灵活高效它非连续内存存储修改无需大规模元素位移处理海量数据去重虽便捷但内存消耗大若数据有序结合合适排序算法在不超内存阈值前提下精准去重且节省内存遇上键值对存取权衡与前者非线程安全却性能卓越后者线程安全却有锁开销多线程读写选平衡安全与效率算法优化降内存占用算法复杂度影响内存与执行效率递归算法简洁但多层递归易栈溢出占用栈内存多像斐波那契数列求值改迭代法可省大量栈帧内存缓存中间计算结果也是妙计计算组合数学复杂问题缓存子问题答案降低重复计算减少临时数据存储实现内存高效利用四监控与排查内存问题工具选用自带工具可视化监控进程内存线程类加载等状况界面直观连接本地或远程进程实时观测堆内存各代占用频次功能更强能生成内存快照深度剖析对象实例分布引用关系揪出内存泄漏元凶第三方的是排查内存问题利器导入堆文件精确定位大对象循环引用点商业软件如多维度剖析性能瓶颈内存异常辅助企业级复杂应用调优内存泄漏排查实例假设某服务响应渐慢内存飙升先采命令生成堆文件再用打开分析若发现海量对象滞留堆中追踪代码发现未及时注销过期修复注销逻辑解除内存泄漏危机又如持续扩容未缩容闲置大容量数组占据内存优化数据结构使用策略回收多余内存六总结内存管理是门深邃复杂却极具价值的技术领域它渗透于程序开发全程从初始对象创建内存分配到后期垃圾回收性能优化各环节环环相扣精准把握内存结构回收机制灵活运用优化技巧辅以高效监控排查工具方能写出高性能强稳定低耗存的程序伴随技术迭代业务场景多元持续钻研内存管理精要是开发者进阶必由之路助力打造更卓越的软件产品从容应对海量数据高并发挑战记住内存管理并非一蹴而就实践出真知多在项目里实操多拿工具剖析将理论落地为实战技能让程序在内存这片舞台上轻盈起舞释放无限潜能愿各位开发者在内存管理征途上收获满满创作出更优质的代码佳作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:30:38',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/jvm/" itemprop="url">jvm</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">深入理解Java内存管理：原理、优化与最佳实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-12-10T07:27:24.000Z" title="发表于 2024-12-10 15:27:24">2024-12-10</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.388Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm2.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/"><header><a class="post-meta-categories" href="/categories/jvm/" itemprop="url">jvm</a><h1 id="CrawlerTitle" itemprop="name headline">深入理解Java内存管理：原理、优化与最佳实践</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-12-10T07:27:24.000Z" title="发表于 2024-12-10 15:27:24">2024-12-10</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.388Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></header><h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>在Java编程中，内存管理是一个至关重要的方面，它直接影响着程序的性能、稳定性和可扩展性。Java的内存管理机制由Java虚拟机（JVM）负责，包括内存分配和回收等关键任务。理解Java内存管理的工作原理对于编写高效、可靠的Java程序至关重要。</p>
+<p>本文将深入探讨Java内存管理的各个方面，包括内存结构、对象的内存分配、内存回收机制以及相关的优化技巧和最佳实践。通过对这些内容的详细阐述，读者将能够更好地理解Java程序在内存中的运行机制，从而优化程序性能，避免常见的内存问题。</p>
+<h2 id="二、Java内存结构"><a href="#二、Java内存结构" class="headerlink" title="二、Java内存结构"></a>二、Java内存结构</h2><h3 id="（一）程序计数器（PC-Register）"><a href="#（一）程序计数器（PC-Register）" class="headerlink" title="（一）程序计数器（PC Register）"></a>（一）程序计数器（PC Register）</h3><ol>
+<li><strong>作用与特点</strong><ul>
+<li>程序计数器是一块较小的内存区域，用于记录当前线程所执行的字节码的行号。它就像是线程执行的“导航仪”，指引着字节码解释器按顺序选取下一条字节码指令执行。例如，在执行循环、分支、方法调用等操作时，程序计数器的值会相应改变，以确保线程在正确的位置继续执行。</li>
+<li>每个线程都有独立的程序计数器，它们之间互不影响，这使得多线程能够在同一时刻各自执行不同的字节码指令，实现线程的并发执行。</li>
+</ul>
+</li>
+<li><strong>示例代码</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PCRegisterExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，当线程执行<code>while</code>循环时，程序计数器会不断更新，以指示下一次循环中要执行的字节码指令的位置。</p>
+<h3 id="（二）Java虚拟机栈（JVM-Stack）"><a href="#（二）Java虚拟机栈（JVM-Stack）" class="headerlink" title="（二）Java虚拟机栈（JVM Stack）"></a>（二）Java虚拟机栈（JVM Stack）</h3><ol>
+<li><strong>存储内容与功能</strong><ul>
+<li>JVM栈用于存储当前线程中局部基本类型的变量（如<code>boolean</code>、<code>char</code>、<code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>、<code>double</code>）、部分的返回结果以及<code>Stack Frame</code>（栈帧）。栈帧包含了方法的局部变量表、操作数栈、动态链接、方法出口等信息。</li>
+<li>当一个方法被调用时，一个新的栈帧会被创建并压入JVM栈；当方法执行完成后，栈帧会从栈中弹出，释放相应的内存空间。例如，在递归方法调用中，每一次递归调用都会创建一个新的栈帧，随着递归深度的增加，栈帧会不断地压入栈中。</li>
+</ul>
+</li>
+<li><strong>内存分配与回收</strong><ul>
+<li>JVM栈是线程私有的，其内存分配在物理内存上（Sun JDK实现），并且在内存分配上非常高效。当线程运行完毕后，JVM栈占用的内存会自动回收，无需程序员手动干预。</li>
+<li>然而，如果线程请求的栈深度大于虚拟机允许的深度，将会抛出<code>StackOverflowError</code>异常。例如，以下代码会导致栈溢出：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StackOverflowErrorExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">stackLeak</span><span class="params">()</span> &#123;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，<code>stackLeak</code>方法不断地递归调用自身，导致栈帧不断地压入JVM栈，最终超出了栈的深度限制，抛出<code>StackOverflowError</code>异常。</p>
+<h3 id="（三）堆（Heap）"><a href="#（三）堆（Heap）" class="headerlink" title="（三）堆（Heap）"></a>（三）堆（Heap）</h3><ol>
+<li><strong>对象存储与管理</strong><ul>
+<li>堆是Java虚拟机管理的内存中最大的一块区域，用于存储对象实例以及数组值。几乎所有通过<code>new</code>关键字创建的对象都会在堆中分配内存。例如，创建一个<code>Person</code>对象：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HeapExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，<code>Person</code>对象会在堆中分配内存来存储其成员变量<code>name</code>和<code>age</code>。<br><separator></separator><br>2. <strong>内存大小调整</strong></p>
+<ul>
+<li>堆的大小可以通过<code>-Xms</code>（初始堆大小）和<code>-Xmx</code>（最大堆大小）参数进行调整。在32位操作系统上，堆的最大大小通常为2GB；在64位操作系统上则没有限制，但默认情况下，JVM会根据系统内存自动设置合适的堆大小。例如，可以使用以下命令启动Java程序并设置堆大小：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xms512m -Xmx1024m MainClass</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当堆中需要使用的内存超过其允许的大小时，会抛出<code>OutOfMemoryError</code>异常。这可能发生在创建大量对象且这些对象无法及时被回收的情况下。</li>
+</ul>
+<h3 id="（四）方法区域（Method-Area）"><a href="#（四）方法区域（Method-Area）" class="headerlink" title="（四）方法区域（Method Area）"></a>（四）方法区域（Method Area）</h3><ol>
+<li><strong>存储信息类型</strong><ul>
+<li>方法区域存放了所加载的类的信息，包括类的名称、修饰符、类中的静态变量、类中定义为<code>final</code>类型的常量、类中的<code>Field</code>信息、类中的方法信息等。例如，当使用反射机制获取类的信息时，这些信息就来源于方法区域。</li>
+<li>它还存储了编译器编译后的代码数据，如字节码指令等。</li>
+</ul>
+</li>
+<li><strong>内存管理特点</strong><ul>
+<li>方法区域是全局共享的，在虚拟机启动时创建，并且在一定条件下会被垃圾回收。不过，该区域的垃圾收集行为相对较少出现，因为其中存储的很多数据在程序运行期间通常不会发生变化。</li>
+<li>与堆类似，方法区域的大小也可以通过参数进行调整，如在HotSpot虚拟机中，可以使用<code>-XX:PermSize</code>（初始永久代大小）和<code>-XX:MaxPermSize</code>（最大永久代大小）来设置方法区域的大小（在Java 8及以后版本，永久代被元空间取代，相关参数也有所变化）。当方法区域无法满足内存分配需求时，会抛出<code>OutOfMemoryError</code>异常。</li>
+</ul>
+</li>
+</ol>
+<h3 id="（五）运行时常量池（Runtime-Constant-Pool）"><a href="#（五）运行时常量池（Runtime-Constant-Pool）" class="headerlink" title="（五）运行时常量池（Runtime Constant Pool）"></a>（五）运行时常量池（Runtime Constant Pool）</h3><ol>
+<li><strong>常量存储与作用</strong><ul>
+<li>运行时常量池是方法区域的一部分，用于存放类中的固定常量信息、方法和<code>Field</code>的引用信息等。它包含了编译器生成的各种字面量（如字符串常量、基本类型常量等）和符号引用（如类和接口的全限定名、字段的名称和描述符、方法的名称和描述符等）。例如，字符串常量<code>&quot;Hello, World!&quot;</code>就会存储在运行时常量池中。</li>
+<li>运行时常量池在类加载后分配内存，并且其空间从方法区域中获取。它的一个重要特性是具备动态性，即在运行期间也可以将新的常量放入池中，这使得Java语言在处理常量方面更加灵活。例如，通过<code>String</code>类的<code>intern</code>方法可以将字符串常量放入运行时常量池中。</li>
+</ul>
+</li>
+<li><strong>内存限制与异常</strong><ul>
+<li>由于运行时常量池是方法区域的一部分，它自然会受到方法区域内存的限制。当常量池无法再申请到内存时，会抛出<code>OutOfMemoryError</code>异常。这可能发生在程序中大量使用字符串常量或动态生成大量常量的情况下。</li>
+</ul>
+</li>
+</ol>
+<h3 id="（六）本地方法堆栈（Native-Method-Stacks）"><a href="#（六）本地方法堆栈（Native-Method-Stacks）" class="headerlink" title="（六）本地方法堆栈（Native Method Stacks）"></a>（六）本地方法堆栈（Native Method Stacks）</h3><ol>
+<li><strong>支持Native方法执行</strong><ul>
+<li>本地方法堆栈用于支持<code>native</code>方法的执行，它为每个<code>native</code>方法调用存储相关的状态信息。当Java程序调用<code>native</code>方法时，本地方法堆栈会为该方法的执行提供必要的支持，包括保存方法的参数、局部变量以及返回地址等信息。</li>
+<li>与Java虚拟机栈类似，本地方法栈也是线程私有的，每个线程都有自己独立的本地方法栈。</li>
+</ul>
+</li>
+<li><strong>异常情况</strong><ul>
+<li>本地方法堆栈抛出的异常与Java虚拟机栈类似，如果线程请求的栈深度大于虚拟机允许的深度，会抛出<code>StackOverflowError</code>异常；如果栈允许动态扩展，但在尝试扩展时无法申请到足够的内存，会抛出<code>OutOfMemoryError</code>异常。</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、Java对象的内存分配"><a href="#三、Java对象的内存分配" class="headerlink" title="三、Java对象的内存分配"></a>三、Java对象的内存分配</h2><h3 id="（一）对象的创建过程"><a href="#（一）对象的创建过程" class="headerlink" title="（一）对象的创建过程"></a>（一）对象的创建过程</h3><ol>
+<li><strong>类加载与对象初始化</strong><ul>
+<li>当创建一个对象时，首先要进行类加载。类加载器负责将类的字节码文件加载到内存中，并在方法区域中存储类的相关信息，如类的结构、静态变量、方法等。例如，在启动一个Java应用程序时，JVM会加载主类及其依赖的其他类。</li>
+<li>接着进行对象的初始化。对象的初始化包括为对象的实例变量分配内存空间，并赋予默认值（如<code>int</code>类型的变量默认值为0，对象引用类型的变量默认值为<code>null</code>）。然后，按照初始化顺序执行类中的初始化块和构造函数，对实例变量进行初始化操作。例如：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectInitializationExample</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        num = <span class="number">10</span>;</span><br><span class="line">        name = <span class="string">&quot;Initialized&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ObjectInitializationExample</span><span class="params">()</span> &#123;</span><br><span class="line">        num = <span class="number">20</span>;</span><br><span class="line">        name = <span class="string">&quot;Constructed&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，先执行初始化块，将<code>num</code>赋值为10，<code>name</code>赋值为<code>&quot;Initialized&quot;</code>，然后执行构造函数，将<code>num</code>重新赋值为20，<code>name</code>重新赋值为<code>&quot;Constructed&quot;</code>。<br>2. <strong>内存分配位置</strong></p>
+<ul>
+<li>对象的内存主要在堆中分配，但对象的引用（指针）会存储在栈中或作为其他对象的实例变量存储在堆中。例如，在以下代码中：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObjectAllocationExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ObjectAllocationExample</span> <span class="variable">example</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectAllocationExample</span>();</span><br><span class="line">        <span class="type">int</span>[] array = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>example</code>对象本身在堆中分配内存，而<code>example</code>变量（对象的引用）存储在栈中；<code>array</code>数组对象在堆中分配内存，其引用也存储在栈中。</p>
+<h3 id="（二）对象在内存中的布局"><a href="#（二）对象在内存中的布局" class="headerlink" title="（二）对象在内存中的布局"></a>（二）对象在内存中的布局</h3><ol>
+<li><strong>对象头与实例数据</strong><ul>
+<li>在32位Sun JVM中，对象通常有两个机器字（words）的头部。第一个字包含对象的标示哈希码以及其他一些标识信息，如锁状态等；第二个字包含一个指向对象的类的引用。例如，对于一个简单的<code>Person</code>对象：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其对象在内存中的布局大致如下（假设对象头部占用8字节）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[对象头（8字节）][name引用（4字节）][age（4字节）]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例数据部分存储对象的成员变量的值，其存储顺序会根据变量的类型进行优化排列，以提高内存访问效率。例如，双精度型（<code>doubles</code>）和长整型（<code>longs</code>）通常会优先排列，因为它们在内存中占用的空间较大。</li>
+</ul>
+<ol start="2">
+<li><strong>对齐填充</strong><ul>
+<li>为了满足对象以8个字节为粒度进行对齐的要求，可能会在对象的末尾进行填充。例如，如果一个对象的实例数据部分占用的空间不是8的倍数，就会在末尾添加一些字节进行填充，以保证整个对象的大小是8的倍数。</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）实例变量和类变量的内存分配"><a href="#（三）实例变量和类变量的内存分配" class="headerlink" title="（三）实例变量和类变量的内存分配"></a>（三）实例变量和类变量的内存分配</h3><ol>
+<li><strong>实例变量分配</strong><ul>
+<li>实例变量属于类的实例，每创建一个类的实例，就会为实例变量分配一块内存空间。例如，对于<code>Person</code>类的多个实例：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InstanceVariableExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Alice&quot;</span>, <span class="number">25</span>);</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Bob&quot;</span>, <span class="number">30</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>person1</code>和<code>person2</code>是<code>Person</code>类的两个不同实例，它们各自拥有独立的<code>name</code>和<code>age</code>实例变量的内存空间。<br>2. <strong>类变量分配</strong></p>
+<ul>
+<li>类变量使用<code>static</code>修饰，属于类本身，在同一个JVM内，一个类的类变量只需一块内存空间。例如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClassVariableExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ClassVariableExample.count++;</span><br><span class="line">        System.out.println(ClassVariableExample.count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>无论创建多少个<code>ClassVariableExample</code>类的实例，<code>count</code>类变量都只有一份内存空间，所有实例共享该类变量。</p>
+<h3 id="（四）对象的引用与指针"><a href="#（四）对象的引用与指针" class="headerlink" title="（四）对象的引用与指针"></a>（四）对象的引用与指针</h3><ol>
+<li><strong>引用的本质</strong><ul>
+<li>在Java中，对象的引用实际上是一个指针，它存储的是对象在堆中的地址。通过引用，我们可以在程序中操作对象。例如，在以下代码中：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReferenceExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line">        System.out.println(person.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>person</code>变量就是<code>Person</code>对象的引用，通过<code>person</code>可以调用<code>Person</code>对象的方法和访问其成员变量。<br>2. <strong>不同引用类型</strong></p>
+<ul>
+<li>Java中有强引用、软引用、弱引用和虚引用等不同类型的引用。强引用是最常见的引用类型，只要强引用存在，对象就不会被垃圾回收。例如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Alice&quot;</span>, <span class="number">25</span>);</span><br></pre></td></tr></table></figure>
+<p>这里的<code>person</code>就是对<code>Person</code>对象的强引用。软引用在内存不足时可能会被回收，弱引用在垃圾回收时一定会被回收，虚引用主要用于跟踪对象被垃圾回收的状态，不能单独使用。</p>
+<h2 id="四、Java内存回收机制"><a href="#四、Java内存回收机制" class="headerlink" title="四、Java内存回收机制"></a>四、Java内存回收机制</h2><h3 id="（一）垃圾回收的基本原理"><a href="#（一）垃圾回收的基本原理" class="headerlink" title="（一）垃圾回收的基本原理"></a>（一）垃圾回收的基本原理</h3><ol>
+<li><strong>判断对象死活的方法</strong><ul>
+<li>Java使用根搜索算法（GC Roots Tracing）来判断对象是否存活。GC Roots包括虚拟机栈中的引用对象、方法区中的类静态属性引用的对象、方法区中的常量引用的对象、本地方法区中<code>Native</code>的引用的对象等。从这些GC Roots开始向下搜索，搜索所经过的路径称为引用链，当一个对象到GC Roots没有引用链时，该对象可被判定为不可用（即将死亡）。例如，在以下代码中：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GarbageCollectionExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line">        person = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当<code>person</code>被赋值为<code>null</code>后，<code>Person</code>对象就没有了引用，从GC Roots（这里是虚拟机栈中的<code>person</code>引用）无法到达该对象，它将被视为可回收对象。<br>2. <strong>垃圾回收的时机</strong></p>
+<ul>
+<li>Java中的垃圾回收器启动时间不固定，它会根据内存的使用情况进行动态自适应调整。一般来说，当内存不足或达到一定的垃圾收集器时间间隔时，垃圾回收器会启动。例如，当堆内存中的对象数量过多，占用的内存接近堆的最大值时，垃圾回收器可能会被触发。</li>
+</ul>
+<h3 id="（二）垃圾回收算法"><a href="#（二）垃圾回收算法" class="headerlink" title="（二）垃圾回收算法"></a>（二）垃圾回收算法</h3><ol>
+<li><strong>标记 - 清除算法（Mark - Sweep）</strong><ul>
+<li>标记 - 清除算法分为两个阶段。首先是标记阶段，使用根搜索算法标记出所有从GC Roots可达的对象；然后是清除阶段，遍历整个堆，回收未被标记的对象所占用的内存。例如，假设有一个堆内存中有多个对象，其中一些对象通过引用链与GC Roots相连，标记阶段会将这些可达对象标记为存活，清除阶段则会回收那些未被标记的对象的内存。</li>
+<li>优点是实现简单，缺点是效率不高，会产生大量不连续的内存碎片，可能导致后续分配大对象时无法找到足够连续的内存，从而提前触发另一次垃圾收集动作。</li>
+</ul>
+</li>
+<li><strong>复制算法（Copying）</strong><ul>
+<li>复制算法将可用内存按容量大小划分为两块，每次只使用其中一块。当这一块内存用完后，将还存活的对象复制到另一块内存上，然后把刚使用过的内存空间一次性清除掉。例如，在新生代中，通常会将内存划分为一个较大的Eden空间和两个较小的Survivor空间，每次使用Eden和其中一个Survivor，回收时将存活对象复制到另一个Survivor中。</li>
+<li>优点是提高了回收效率，回收后不会产生不连续的空间，缺点是将可用内存缩小为原来的一半，当对象存活率较高时，需要执行较多的复制操作，效率会降低。</li>
+</ul>
+</li>
+<li><strong>标记 - 整理算法（Mark - Compact）</strong><ul>
+<li>标记 - 整理算法结合了标记 - 清除和复制算法的优点。它首先使用标记 - 清除算法标记出存活对象，然后将存活对象向一端移动，使它们紧密排列，最后直接清理掉端边界以外的内存。例如，在老年代中，由于对象存活率较高，适合使用标记 - 整理算法来回收内存。</li>
+<li>该算法克服了标记 - 清除算法产生内存碎片的问题，同时避免了复制算法中内存减半的缺点。</li>
+</ul>
+</li>
+</ol>
+<h4 id="（三）堆内存的分代回收"><a href="#（三）堆内存的分代回收" class="headerlink" title="（三）堆内存的分代回收"></a>（三）堆内存的分代回收</h4><ol>
+<li><p><strong>分代的依据</strong></p>
+<ul>
+<li>堆内存分为新生代（Young Generation）和老年代（Old Generation），这种分代回收的依据主要有两点。一是对象生存时间的长短，大部分对象在新生代期间就被回收；二是不同代采取不同的垃圾回收策略，新老对象之间很少存在引用。例如，在一个Web应用程序中，很多临时创建的对象，像是请求处理过程里的临时数据载体，生命周期极短，大概率存活于新生代；而像数据库连接池里长期持有的连接对象、缓存里的常用数据对象，因其长期被程序依赖，往往驻留在老年代。</li>
+</ul>
+</li>
+<li><p><strong>新生代回收</strong></p>
+<ul>
+<li>新生代又细分为 Eden 区以及两个 Survivor 区（一般分别称作 Survivor0 和 Survivor1），默认比例是 8:1:1。对象创建时优先在 Eden 区分配内存，当 Eden 区满了，触发新生代垃圾回收（Minor GC）。回收时，存活对象从 Eden 区和 Survivor 区中存活的对象，会被复制到另一个 Survivor 区（假设从 Survivor0 复制到 Survivor1），并按年龄值（经历过的 Minor GC 次数）递增，年龄达到一定阈值（默认 15），就会晋升到老年代。</li>
+<li>示例代码如下：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YoungGenerationGCExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;Object&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                list.add(<span class="keyword">new</span> <span class="title class_">Object</span>());  <span class="comment">// 快速创建大量对象填充 Eden 区</span></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;已创建一批对象&quot;</span>);</span><br><span class="line">            list.clear();  <span class="comment">// 模拟对象生命周期结束，便于观察 Minor GC 效果</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码不断批量创建对象，填满 Eden 区促使 Minor GC 频繁发生，借此观察新生代垃圾回收过程；同时搭配 <code>jstat -gcutil [PID] [间隔时间（毫秒）] [查询次数]</code> 命令（<code>PID</code> 是 Java 进程号），查看新生代内存占用、回收频率等指标。</p>
+<ol start="3">
+<li><strong>老年代回收</strong><ul>
+<li>老年代存放历经多次 Minor GC 仍存活的对象，当老年代空间不足，或新生代晋升到老年代的对象大小超出老年代剩余空间时，触发老年代垃圾回收（Major GC 或 Full GC），回收算法多采用标记 - 整理。Full GC 耗时久，会暂停整个应用程序线程，对性能冲击大，所以要极力避免频繁触发。</li>
+<li>例如，下面代码创建大量大对象，强行让它们晋升到老年代：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OldGenerationGCExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;Object[]&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            Object[] largeArray = <span class="keyword">new</span> <span class="title class_">Object</span>[<span class="number">1024</span> * <span class="number">1024</span>];  <span class="comment">// 创建大对象</span></span><br><span class="line">            list.add(largeArray);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行此代码，很快就会因老年代空间告急触发 Full GC，借助 Java 性能监控工具（如 VisualVM），能直观看到老年代内存走势、GC 频次及耗时。</p>
+<h3 id="（四）垃圾回收器"><a href="#（四）垃圾回收器" class="headerlink" title="（四）垃圾回收器"></a>（四）垃圾回收器</h3><ol>
+<li><p><strong>Serial 垃圾回收器</strong></p>
+<ul>
+<li>Serial 回收器是最基础、单线程的垃圾回收器，新生代用复制算法，老年代用标记 - 整理算法。它工作时会暂停所有用户线程，直至垃圾回收结束，也就是“Stop the World”。虽说效率有限，但简单小巧，适用于单核、小型应用场景，因其无需复杂的线程同步开销。</li>
+<li>配置参数示例：<code>-XX:+UseSerialGC</code>，启用 Serial 垃圾回收器用于新生代和老年代。在命令行启动简单 Java 工具类时，若资源受限、追求极简部署，Serial 回收器能胜任基础的内存管理，确保程序平稳运行，像一些轻量级的命令行脚本工具，对实时性要求不高，Serial 就能有效管控内存。</li>
+</ul>
+</li>
+<li><p><strong>Parallel 垃圾回收器</strong></p>
+<ul>
+<li>Parallel 回收器又称吞吐量优先回收器，新生代、老年代都采用多线程并行回收，显著提升回收效率。它同样会引发“Stop the World”，但因多线程并行处理垃圾，能在有限时间内回收更多垃圾，适合后台批处理、科学计算这类看重整体吞吐量的程序。</li>
+<li>常用参数有：<code>-XX:+UseParallelGC</code>（开启新生代并行回收）、<code>-XX:+UseParallelOldGC</code>（开启老年代并行回收）。例如企业级数据处理任务，每晚批量执行海量数据清洗、统计，Parallel 回收器多线程协作，大幅缩减垃圾回收耗时，保障任务尽早完工。</li>
+</ul>
+</li>
+<li><p><strong>CMS 垃圾回收器</strong></p>
+<ul>
+<li>CMS（Concurrent Mark Sweep）回收器主打低延迟，致力于减少垃圾回收时的停顿时间。它在标记、清理阶段尽量与用户线程并发执行，仅在初始标记、重新标记这两个小阶段短暂暂停用户线程。标记阶段用标记 - 清除算法，所以会产生内存碎片。</li>
+<li>关键参数：<code>-XX:+UseConcMarkSweepGC</code>启用 CMS。像电商网站的订单处理系统，要随时响应海量用户下单、查询，CMS 回收器可维持流畅交互体验，降低因垃圾回收造成的页面卡顿、延迟。</li>
+</ul>
+</li>
+<li><p><strong>G1 垃圾回收器</strong></p>
+<ul>
+<li>G1（Garbage First）垃圾回收器是区域化、并行与并发兼备的回收器，把堆内存划分成多个大小相等的 Region，各 Region 依对象存活情况动态归属新生代、老年代。它优先回收垃圾最多的 Region，平衡停顿时间与回收效率，兼具低延迟与高吞吐量优势。</li>
+<li>启用参数：<code>-XX:+UseG1GC</code>。以大型分布式微服务架构应用为例，服务繁多、内存占用波动大，G1 能精准定位垃圾密集区高效清理，稳定系统性能，防止因个别服务内存溢出致使整个集群故障。</li>
+</ul>
+</li>
+</ol>
+<h2 id="五、Java-内存优化技巧"><a href="#五、Java-内存优化技巧" class="headerlink" title="五、Java 内存优化技巧"></a>五、Java 内存优化技巧</h2><h3 id="（一）减少对象创建"><a href="#（一）减少对象创建" class="headerlink" title="（一）减少对象创建"></a>（一）减少对象创建</h3><ol>
+<li><strong>对象复用</strong><ul>
+<li>复用已有的对象实例，避免不必要的新对象创建。比如 String 类的 <code>intern()</code> 方法，它能把字符串字面量放入运行时常量池复用。以下代码展示其用法：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringReuseExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>).intern();</span><br><span class="line">        System.out.println(str1 == str2);  <span class="comment">// 输出 true，表明复用了常量池中的字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在处理大量字符串拼接场景，巧用 <code>StringBuilder</code> 或 <code>StringBuffer</code> 替代频繁的 <code>+</code> 拼接操作，也能大幅减少中间临时字符串对象生成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringBuilderReuseExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            sb.append(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>延迟对象初始化</strong><ul>
+<li>遵循“用时再初始化”原则，延迟对象实例化时机，降低程序启动时内存压力。像单例模式里的懒汉式实现：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingleton</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只有首次调用 <code>getInstance()</code> 方法时才创建单例对象，避免程序伊始就分配不必要内存；又如复杂配置类，读取配置文件耗时久，按需加载配置对象，可提升启动速度，合理分配内存资源。</p>
+<h3 id="（二）合理设置堆内存参数"><a href="#（二）合理设置堆内存参数" class="headerlink" title="（二）合理设置堆内存参数"></a>（二）合理设置堆内存参数</h3><ol>
+<li><p><strong>初始堆与最大堆</strong></p>
+<ul>
+<li><code>-Xms</code>（初始堆大小）与 <code>-Xmx</code>（最大堆大小）参数要依据应用特性、硬件资源精准设定。对于长时间稳定运行的服务，二者设为相等值，能避免 JVM 动态调整堆大小带来的性能损耗，像后端数据库中间件，维持稳定内存空间利于持续高效服务。</li>
+<li>举例：<code>java -Xms2g -Xmx2g MyServerApp</code>，为服务分配固定 2GB 初始与最大堆内存；若拿捏不准，前期可借助性能测试工具，模拟多并发、大数据量场景，监测内存用量曲线，敲定适宜的堆大小参数。</li>
+</ul>
+</li>
+<li><p><strong>新生代与老年代比例</strong></p>
+<ul>
+<li>新生代和老年代的比例关乎对象回收效率、内存利用率。多数场景下，新生代占比可适当调高，加速短生命周期对象回收，不过得提防新生代过小，致使对象过快晋升老年代，触发频繁 Full GC。例如 Web 应用，高频请求催生海量临时对象，设新生代占堆内存 60% - 70%，契合短寿对象处理节奏。</li>
+<li>调整参数如 <code>-XX:NewRatio</code>，设定老年代与新生代比值；<code>-XX:SurvivorRatio</code> 管控 Eden 区与 Survivor 区比例，灵活调配，适配复杂业务场景。</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）优化数据结构与算法"><a href="#（三）优化数据结构与算法" class="headerlink" title="（三）优化数据结构与算法"></a>（三）优化数据结构与算法</h3><ol>
+<li><p><strong>选择高效容器类</strong></p>
+<ul>
+<li>根据数据存取特点选对容器类，是内存优化关键。读取频繁、元素少的数据，用 <code>ArrayList</code> 或 <code>LinkedList</code> 替代 <code>HashSet</code>，因后两者额外开销大；需频繁增删元素，<code>LinkedList</code> 比 <code>ArrayList</code> 更灵活高效，它非连续内存存储，修改无需大规模元素位移。</li>
+<li>处理海量数据去重，<code>HashSet</code> 虽便捷，但内存消耗大，若数据有序，<code>TreeSet</code> 结合合适排序算法，在不超内存阈值前提下，精准去重且节省内存；遇上键值对存取，权衡 <code>HashMap</code> 与 <code>Hashtable</code>，前者非线程安全却性能卓越，后者线程安全却有锁开销，多线程读写选 <code>ConcurrentHashMap</code> 平衡安全与效率。</li>
+</ul>
+</li>
+<li><p><strong>算法优化降内存占用</strong></p>
+<ul>
+<li>算法复杂度影响内存与执行效率。递归算法简洁，但多层递归易栈溢出、占用栈内存多，像斐波那契数列求值，改迭代法可省大量栈帧内存：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FibonacciIterative</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">fibonacci</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0</span>, b = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> a + b;</span><br><span class="line">            a = b;</span><br><span class="line">            b = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缓存中间计算结果也是妙计，计算组合数学复杂问题，缓存子问题答案，降低重复计算、减少临时数据存储，实现内存高效利用。</p>
+<h3 id="（四）监控与排查内存问题"><a href="#（四）监控与排查内存问题" class="headerlink" title="（四）监控与排查内存问题"></a>（四）监控与排查内存问题</h3><ol>
+<li><p><strong>工具选用</strong></p>
+<ul>
+<li>Java 自带 <code>jconsole</code>、<code>jvisualvm</code> 工具，可视化监控 Java 进程内存、线程、类加载等状况。<code>jconsole</code> 界面直观，连接本地或远程进程，实时观测堆内存各代占用、GC 频次；<code>jvisualvm</code> 功能更强，能生成内存快照，深度剖析对象实例分布、引用关系，揪出内存泄漏元凶。</li>
+<li>第三方的 <code>MAT</code>（Memory Analyzer Tool）是排查内存问题利器，导入堆 dump 文件，精确定位大对象、循环引用点；商业软件如 YourKit Java Profiler，多维度剖析性能瓶颈、内存异常，辅助企业级复杂应用调优。</li>
+</ul>
+</li>
+<li><p><strong>内存泄漏排查实例</strong></p>
+<ul>
+<li>假设某 Web 服务响应渐慢、内存飙升，先采 <code>jmap</code> 命令生成堆 dump 文件：<code>jmap -dump:format=b,file=heapdump.bin [PID]</code>，再用 <code>MAT</code> 打开分析。若发现海量 <code>Session</code> 对象滞留堆中，追踪代码发现未及时注销过期 <code>Session</code>，修复注销逻辑，解除内存泄漏危机；又如 ArrayList 持续扩容未缩容，闲置大容量数组占据内存，优化数据结构使用策略，回收多余内存。</li>
+</ul>
+</li>
+</ol>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>Java 内存管理是门深邃复杂却极具价值的技术领域，它渗透于 Java 程序开发全程，从初始对象创建、内存分配，到后期垃圾回收、性能优化，各环节环环相扣。精准把握内存结构、回收机制，灵活运用优化技巧，辅以高效监控排查工具，方能写出高性能、强稳定、低耗存的 Java 程序。伴随 Java 技术迭代、业务场景多元，持续钻研内存管理精要，是 Java 开发者进阶必由之路，助力打造更卓越的软件产品，从容应对海量数据、高并发挑战。</p>
+<p>记住，Java 内存管理并非一蹴而就，实践出真知。多在项目里实操、多拿工具剖析，将理论落地为实战技能，让程序在内存这片“舞台”上轻盈起舞，释放无限潜能。愿各位开发者在 Java 内存管理征途上收获满满，创作出更优质的代码佳作！ </p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/')">深入理解Java内存管理：原理、优化与最佳实践</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=深入理解Java内存管理：原理、优化与最佳实践&amp;url=https://tushu.info/archives/shen-ru-li-jie-Java-nei-cun-guan-li/&amp;pic=https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm2.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/shen-du-pou-xi-Java-nei-cun-guan-li-xie/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/jvm3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度剖析Java内存管理：泄漏、溢出与优化</div></div></a></div><div class="next-post pull-right"><a href="/archives/mei-ge-Web-kai-fa-zhe-dou-ying-zhang-wo/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">每个Web开发者都应掌握的URL编码知识</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">一、引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Java%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">二、Java内存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%88PC-Register%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">（一）程序计数器（PC Register）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%EF%BC%88JVM-Stack%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">（二）Java虚拟机栈（JVM Stack）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%A0%86%EF%BC%88Heap%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">（三）堆（Heap）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E5%9F%9F%EF%BC%88Method-Area%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">（四）方法区域（Method Area）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0%EF%BC%88Runtime-Constant-Pool%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">（五）运行时常量池（Runtime Constant Pool）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E5%A0%86%E6%A0%88%EF%BC%88Native-Method-Stacks%EF%BC%89"><span class="toc-number">2.6.</span> <span class="toc-text">（六）本地方法堆栈（Native Method Stacks）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">3.</span> <span class="toc-text">三、Java对象的内存分配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">（一）对象的创建过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%AF%B9%E8%B1%A1%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80"><span class="toc-number">3.2.</span> <span class="toc-text">（二）对象在内存中的布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E5%92%8C%E7%B1%BB%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">3.3.</span> <span class="toc-text">（三）实例变量和类变量的内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E6%8C%87%E9%92%88"><span class="toc-number">3.4.</span> <span class="toc-text">（四）对象的引用与指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Java%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">四、Java内存回收机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">（一）垃圾回收的基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text">（二）垃圾回收算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%A0%86%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E4%BB%A3%E5%9B%9E%E6%94%B6"><span class="toc-number">4.2.1.</span> <span class="toc-text">（三）堆内存的分代回收</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="toc-number">4.3.</span> <span class="toc-text">（四）垃圾回收器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81Java-%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7"><span class="toc-number">5.</span> <span class="toc-text">五、Java 内存优化技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%87%8F%E5%B0%91%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA"><span class="toc-number">5.1.</span> <span class="toc-text">（一）减少对象创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%90%88%E7%90%86%E8%AE%BE%E7%BD%AE%E5%A0%86%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0"><span class="toc-number">5.2.</span> <span class="toc-text">（二）合理设置堆内存参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"><span class="toc-number">5.3.</span> <span class="toc-text">（三）优化数据结构与算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%8E%92%E6%9F%A5%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-number">5.4.</span> <span class="toc-text">（四）监控与排查内存问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">六、总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

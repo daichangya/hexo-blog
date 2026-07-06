@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>面试问题总结 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="面试问题总结"><meta name="application-name" content="面试问题总结"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="面试问题总结"><meta property="og:url" content="https://tushu.info/archives/mian-shi-wen-ti-zong-jie/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。我在爱卡汽车网担任技术经理和架构师，负责广告部门的团队组建、架构设计以及重要模块开发。 这个项目极具挑战，因为公司原本技术栈以 PHP 为主，而我要将其转换为 Java，并从 0 到 1 搭建起完整的 Java"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide0.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide0.jpg"><meta name="description" content="请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。我在爱卡汽车网担任技术经理和架构师，负责广告部门的团队组建、架构设计以及重要模块开发。 这个项目极具挑战，因为公司原本技术栈以 PHP 为主，而我要将其转换为 Java，并从 0 到 1 搭建起完整的 Java"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/mian-shi-wen-ti-zong-jie/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '面试问题总结',
+  postAI: '',
+  pageFillDescription: '请介绍一下你在 Java 开发中最有成就感的一个项目并说明你在其中承担的角色和主要贡献。, 在这个项目中是如何进行 SQL 优化的？, 请说说你在项目中是如何进行数据库设计的？, 在项目中遇到的最大的数据库相关的挑战是什么以及你是如何解决的？, 请简单介绍一下你在 Netty 方面的项目经验, 请说说你在使用 Spring Boot 时遇到过哪些挑战以及你是如何解决的？, 请谈谈你对微服务架构的理解以及在实际项目中如何运用 Spring Boot 来实现微服务。, 在微服务架构中如何进行服务的监控和故障排查？, 请说说在微服务架构中如何保障数据的一致性, 请说一说你在使用 Grafana 和 Skywalking 进行性能监控和追踪时有哪些具体的实践经验和收获？, 在进行数据库设计时你通常会遵循哪些原则？请结合实际项目经验说明。, 在团队协作中你认为最重要的品质是什么？请举例说明。, 请描述一次你在项目中遇到的重大挑战以及你是如何克服它的。, 请简要介绍一下你在项目管理方面的经验。, 在你所负责的项目中遇到过最棘手的技术难题是什么？你是如何解决的？, 在你的项目经历中有没有运用到一些新兴技术？如果有是如何应用的？请介绍一下你在开发中最有成就感的一个项目并说明你在其中承担的角色和主要贡献我在爱卡汽车网担任技术经理和架构师负责广告部门的团队组建架构设计以及重要模块开发这个项目极具挑战因为公司原本技术栈以为主而我要将其转换为并从到搭建起完整的开发体系包括开发测试发布和监控项目采用微服务架构主要分为以下几个部分广告管理系统带有前端方便进行广告业务的管理广告搜索引擎这是我自主开发的核心功能之一基于先进的搜索引擎技术能够快速准确地为用户提供相关广告内容极大地提升了用户体验和广告投放效果投放效果统计分为离线统计和在线统计为广告主提供精准的数据反馈帮助他们优化广告投放策略消息中间件我基于开发了高效的消息同步机制确保广告商务广告系统录入的广告能够及时同步到广告搜索引擎等相关模块保证数据的实时性和一致性还包括注册发现配置中心定时任务管理系统和外部开放平台等为整个广告系统的稳定运行和拓展提供了有力支持作为技术负责人我面临的主要挑战是缺乏广告业务知识但我通过积极学习和查询大量资料深入了解广告业务的重要名词和关键环节成功完成了架构设计确保系统既满足业务需求又具备良好的技术性能和可扩展性这个项目充分展现了我的领导能力架构设计能力编程能力以及学习能力是我在开发中最有成就感的项目之一在爱卡汽车网负责广告部门项目时我遭遇了一系列极具挑战性的情况从角色转变来看我从单纯的研发人员跃升为技术经理和架构师这不仅要求我具备卓越的技术能力还需拥有出色的领导和管理才能同时对广告业务的陌生犹如一座巨大的山峰横亘在面前不知从何处着手进行架构设计以满足业务需求在技术层面公司决定从以为主的技术体系全面转型为这意味着要从无到有搭建完整的开发体系涵盖开发测试发布监控等各个环节还涉及等之前未曾深入接触的技术而采用微服务架构更是加大了项目难度包括广告管理系统先进的广告搜索引擎离线和在线的广告投放效果统计等多个复杂部分例如广告搜索引擎需要具备快速准确为用户提供相关广告内容的能力提升用户体验和广告效果广告投放效果统计既要利用进行离线统计又要借助进行在线统计同时我还基于开发了高效的消息同步机制确保广告系统的数据实时性和一致性此外服务发现注册和配置中心定时任务管理系统以及外部广告投放开放平台等方面的建设也充满挑战面对这些挑战我采取了一系列果断而有效的措施对于广告业务的陌生我投入大量时间和精力查阅行业资料研究竞争对手的做法并积极与业务部门同事沟通交流深入了解广告业务的重要名词关键环节和业务流程通过不断学习和实践我逐渐掌握了广告业务的核心要点为架构设计奠定了坚实的基础在技术转型方面我带领团队系统地学习技术栈从基础语法到高级特性从框架应用到性能优化逐步搭建起稳定高效的开发体系对于微服务架构的实施我仔细研究每个技术组件的特点和适用场景精心设计系统架构确保各个微服务之间的协同工作和高效运行例如在开发广告搜索引擎时深入研究先进的搜索引擎技术不断优化算法和查询性能以满足用户对广告内容的快速准确获取需求在消息同步机制的开发中反复测试和优化的发布订阅功能确保数据的可靠传输和实时同步通过不懈努力我成功克服了项目中的重大挑战这个项目充分展现了我的领导能力架构设计能力编程能力和强大的学习能力我不仅带领团队按时交付了高质量的项目成果还为公司的技术转型和业务发展做出了重要贡献在这个项目中是如何进行优化的在这个项目中我采取了一系列有效的方法进行优化首先建立了完善的慢监测机制通过对的请求次数和平均时长进行统计和排序精准地定位到可能存在性能问题的语句一旦发现慢我会深入分析其原因常见的原因主要有以下几种一是多表连接过多这会导致查询性能下降对于这种情况我会重新审视业务需求尽量减少不必要的连接表数量或者通过中间表临时表等方式优化连接条件降低查询的复杂度二是索引设置不合理我会仔细分析表结构和查询需求确定合适的索引字段并确保索引的创建方式正确避免出现索引未生效的情况三是查询语句本身存在问题例如使用了不恰当的函数或者复杂的逻辑表达式针对这种情况我会尝试简化查询语句使用更高效的查询方式在确定慢的原因后我会查看其执行计划通过执行计划我可以清楚地了解对该查询的执行过程包括是否进行了全表扫描是否使用了索引等根据执行计划的结果我可以进一步优化查询语句调整索引设置或者对数据库结构进行调整此外我还会定期对数据库进行性能分析和优化包括清理无用的数据优化表结构调整数据库参数等以确保数据库始终保持高效的运行状态通过以上方法我成功地优化了项目中的查询性能提高了系统的响应速度和稳定性请说说你在项目中是如何进行数据库设计的在项目中我进行数据库设计时会采取以下严谨且高效的方法首先全面深入地分析项目需求明确所有涉及的实体对象以一个在线教育项目为例会确定有学生教师课程作业等对象仔细梳理这些对象之间的关系比如学生与课程是选课关系通过学生和课程进行关联接着进行规范化设计遵循数据库设计的范式原则确保数据的一致性和减少冗余例如将学生的基本信息课程的详细信息分别存储在不同的表中通过外键进行关联避免数据重复存储但同时也会根据实际业务场景灵活考虑冗余设计比如在查询学生选课信息频繁的情况下在学生表中适当冗余存储一些选课相关的关键信息这样可以大大提高查询效率减少多表关联的开销在设计过程中严格确保每个表都有明确的主键主键的选择要具有唯一性和稳定性能够准确标识每一条记录比如学生表可以使用学生作为主键课程表可以使用课程编号作为主键对于索引设计会进行细致的分析和规划如果是写操作频繁的场景会谨慎创建索引避免过多的索引影响写入性能但如果是查询占主导的场景会根据查询的频率和重要性设计合适的索引比如在教师查询学生作业情况的场景中根据作业提交时间学生教师等字段设计联合索引以提高查询速度在项目开发过程中持续监控数据库的性能表现通过数据库的性能监控工具观察查询的响应时间写入速度等指标如果发现某些查询性能下降会及时分析原因并对数据库设计进行调整可能是调整索引优化查询语句或者对数据库结构进行微调总之通过以上全面而科学的数据库设计方法能够确保项目中的数据库既满足业务需求又具有高效的性能和良好的可扩展性在项目中遇到的最大的数据库相关的挑战是什么以及你是如何解决的在震坤行的这个项目中数据库方面遇到的最大挑战极具复杂性项目基于老旧版本的以及框架开发采用单体数据库架构这带来了诸多问题一是随着业务量增长请求量不断攀升单体数据库无法动态扩展性能瓶颈日益明显二是大量存储过程和定时任务在中执行使得数据库的运算和存储压力巨大严重影响了响应速度为有效解决这些挑战我采取了一系列针对性强且高效的措施首先对硬件进行升级增加服务器的内存和提升数据库的处理能力为后续的优化争取时间接着对进行版本升级使其支持主从配置新增一个只读副本将读请求分流到只读副本上极大地减轻了主数据库的压力提高了查询性能同时将原本在中的定时任务迁移到端执行这样一来数据库不再承担定时任务的执行压力能够更加专注于处理数据存储和查询操作此外把中的存储过程逐步转换为代码执行一方面代码在可维护性和扩展性上更具优势另一方面也能更好地与项目中的其他模块进行集成降低数据库的负担最后建立了完善的数据库监控机制定时分析数据库的性能问题如死锁情况慢查询的存储过程和语句等对于执行慢的存储过程和根据执行计划进行针对性改造例如若发现有过多的表连接导致查询缓慢就尝试减少表连接数量若发现有全表扫描的情况就分析是否可以添加合理的索引来提高查询效率通过这些措施的综合运用成功地解决了项目中的数据库性能问题为项目的稳定运行和持续发展提供了坚实的保障请简单介绍一下你在方面的项目经验我开发了一套基于的容器在此项目中发挥了关键作用首先利用的机制我们精心设计了一系列的解码器和编码器实现了对不同数据格式的高效处理比如对于二进制数据的快速反序列化和序列化操作确保数据在传输过程中的准确性和完整性同时通过添加自定义的过滤器我们能够对数据进行实时的校验和封装极大地提高了数据的安全性和可靠性在项目中的高性能异步非阻塞模型使得我们能够轻松应对数以万计的并发连接大大提升了系统的吞吐量和响应速度例如在一次压力测试中系统在高并发场景下依然保持稳定响应时间始终控制在极低的范围内此外我们还利用的可扩展性根据项目的特定需求进行了定制化开发比如开发了一个专门的业务处理器用于处理特定类型的业务逻辑进一步提高了系统的灵活性和可维护性的使用不仅解决了项目中的实际问题还为未来的业务扩展奠定了坚实的基础请说说你在使用时遇到过哪些挑战以及你是如何解决的在使用的过程中我确实遇到了一些挑战首先在初期阶段的自动配置和自动注解功能让我颇感困惑自动配置能够极大地提高开发效率但对于其背后的原理却不是很清晰为了解决这个问题我深入研究了的源代码仔细分析了自动配置的实现机制我发现通过巧妙地使用条件注解和配置文件根据不同的环境和依赖自动调整配置实现了高度的灵活性和可扩展性同时对于自动注解我通过查看文档和实际项目中的运用逐渐掌握了其用法和作用能够熟练地运用各种注解来简化开发过程在深入使用的阶段我想要将内嵌的容器替换为容器这是一个具有一定难度的挑战因为需要深入理解的容器启动机制和的工作原理我首先查阅了大量的资料了解到是通过自动配置类来启动内嵌容器的为了替换为容器我需要实现一个自定义的服务器启动类并将其配置到的自动配置体系中我仔细研究了的文档和示例代码实现了一个基于的服务器并通过实现的接口和配置类将其整合到项目中在这个过程中我遇到了一些问题比如配置参数的调整线程模型的优化等但通过不断地调试和尝试最终成功地将容器替换为容器实现了项目的特定需求总之通过面对这些挑战并积极解决我对的理解更加深入也提高了自己的技术水平和解决问题的能力请谈谈你对微服务架构的理解以及在实际项目中如何运用来实现微服务对于微服务架构我的理解是它代表了一种现代化的软件架构理念微服务将原本庞大复杂的单体应用拆分为多个独立运行功能单一的小型服务其优点众多其一技术选型灵活每个微服务可以根据自身的业务需求和特点选择最适合的技术栈比如一个服务可以用实现另一个可以用充分发挥不同技术的优势其二独立部署和扩展各个微服务可以独立进行部署不会因为一个服务的更新而影响整个系统同时可以根据服务的负载情况单独进行扩展提高资源利用率其三易于维护和故障隔离当某个微服务出现问题时只会影响该服务自身不会导致整个系统崩溃便于快速定位和解决问题在实际项目中利用来实现微服务可以结合框架首先通过服务注册与发现组件如或每个微服务在启动时将自己的信息注册到注册中心其他服务可以从注册中心获取可用服务的地址进行调用例如当一个新的微服务上线时它自动向注册中心注册其他服务无需任何配置更改就能发现并调用它服务间的通信可以采用或者消息队列等方式的客户端可以方便地进行服务调用并实现负载均衡同时利用进行服务熔断和降级当某个服务出现故障时能够快速响应避免故障扩散在配置管理方面可以实现集中式的配置管理各个微服务可以从配置中心获取自己的配置信息方便进行配置的更新和管理而对于服务的监控和管理提供了强大的功能可以实时监控各个微服务的运行状态性能指标等便于及时发现问题并进行处理总之通过和的结合能够高效地构建部署和管理微服务架构为企业的业务发展提供强大的技术支撑在微服务架构中如何进行服务的监控和故障排查在微服务架构中有效的服务监控和故障排查至关重要对于服务监控一方面利用进行监控指标的收集涵盖请求响应时间内存使用率负载等关键指标这些指标通过以直观的图表形式展示让运维人员和开发人员能够快速了解服务的运行状态同时设置智能的报警机制当请求超过预设阈值如或者响应时间慢于特定时间如一秒时立即触发报警通知相关人员及时处理在日志管理方面广泛采用架构进行日志文件的收集通过对日志中的异常信息如特定的错误关键字等进行实时监测和统计例如设定规则当在最近分钟内出现一定数量的异常时自动触发报警确保问题能够被及时发现为了实现高效的故障排查引入全局这个在整个请求链路中贯穿始终无论是从客户端发起请求到各个微服务之间的调用还是最终的响应返回当出现问题时通过可以快速定位到具体的请求在哪个微服务出现了问题以及该请求经过了哪些微服务从而精准地确定故障点此外充分利用注册服务中心分析服务间的调用关系并制作调用关系图这样可以清晰地了解每个服务对其他服务的依赖关系当出现故障时能够迅速判断可能受到影响的服务范围为故障排查和恢复提供有力的支持总之通过综合运用这些方法能够在微服务架构中实现高效的服务监控和故障排查确保系统的稳定运行请说说在微服务架构中如何保障数据的一致性在微服务架构中保障数据一致性可以从以下几个方面着手首先对于最终一致性的实现可以设置合理的重试机制当一个微服务操作数据失败时自动进行多次重试确保在一定时间内不断尝试直到成功同时制定完善的数据回归策略当重试多次仍无法成功时能够安全地将数据恢复到之前的状态避免出现不一致的情况其次考虑使用全局事务管理引入专门的事务管理中间件对多个微服务之间的事务进行统一协调和管理在事务开始时对所有涉及的微服务进行预提交操作确保各个服务都准备好进行事务处理如果在事务执行过程中出现问题可以进行回滚操作保证数据的一致性虽然这种方式实现起来较为复杂但对于对数据一致性要求极高的场景非常有效再者如果对事务的要求非常高可以让多个微服务同时访问一个数据库这样可以利用数据库本身的事务机制来保证数据的一致性避免多个微服务之间的数据冲突最后利用数据库同步机制也是一个不错的选择例如通过数据库日志监听技术当一个数据库中的数据发生变化时及时将变更同步到其他相关的数据库中确保不同数据库之间的数据保持一致总之通过综合运用这些方法可以在微服务架构中有效地保障数据的一致性请说一说你在使用和进行性能监控和追踪时有哪些具体的实践经验和收获是一个功能强大的数据可视化工具在实际项目中我利用它连接多种数据源如等通过配置自定义仪表盘能够直观地展示系统关键性能指标例如我设置了实时监控页面展示服务器的内存使用率以及数据库的连接数等指标同时利用其报警功能当指标超过预设阈值时能及时通过邮件和短信通知相关人员大大提高了问题响应速度则在链路跟踪方面表现出色通过它我可以清晰地看到微服务架构中各个服务之间的调用关系和性能指标在一次复杂的项目中当系统出现性能问题时借助的全局和快速定位到了问题服务和具体的代码位置并且它对各种中间件的拦截功能非常实用比如对和请求的拦截让我能够深入了解这些关键组件的性能情况通过对收集到的数据进行分析我能够针对性地进行性能优化极大地提升了系统的稳定性和响应速度在进行数据库设计时你通常会遵循哪些原则请结合实际项目经验说明在进行数据库设计时我主要遵循以下几个原则一范式化原则严格遵循数据库范式尤其是第三范式确保数据的独立性和减少数据冗余在我负责的一个大型企业资源管理系统项目中将员工信息部门信息岗位信息分别存储在不同的表中通过外键关联避免了重复存储部门名称岗位名称等信息极大地提高了数据的一致性和可维护性当部门名称或岗位名称发生变化时只需在对应的表中进行修改而不会影响到员工信息表二性能与反范式平衡原则虽然范式化可以提高数据的规范性但在某些对性能要求极高的场景下适当进行反范式设计例如在一个电商平台的订单系统中订单表中会存储商品的名称和价格等信息虽然这会造成一定的数据冗余但在查询订单详情时可以避免频繁的关联查询商品表大大提高了查询性能三扩展性原则充分考虑未来业务的发展预留扩展字段在一个社交平台项目中用户信息表中预留了几个自定义字段随着平台功能的不断扩展这些字段被用于存储用户的个性化标签兴趣爱好等信息无需对表结构进行大规模修改保证了系统的稳定性四索引优化原则合理添加索引包括普通索引唯一索引和覆盖索引等在一个金融交易系统中对交易流水表的交易时间交易金额等频繁用于查询和排序的字段添加索引极大地提高了查询和统计的效率同时通过分析业务场景创建了一些覆盖索引使得查询可以直接从索引中获取所需数据无需回表查询进一步提升了性能五数据校验规则原则设置严格的数据校验规则确保存入数据库的数据符合规范在一个医疗管理系统中对患者年龄字段设置了到的范围限制对药品剂量字段设置了合理的数值范围和精度要求有效避免了错误数据的存入六数据安全性原则高度重视数据安全通过多种方式进行保护在一个政府部门的信息管理系统中对敏感数据进行加密存储同时创建视图和存储过程严格控制不同用户对数据的访问权限例如普通用户只能通过视图查询部分公开信息而管理员可以通过存储过程进行数据的修改和删除操作确保了数据的安全性和保密性总之在数据库设计过程中我始终综合考虑这些原则结合实际项目需求进行科学合理的设计以确保数据库的高效稳定和安全在团队协作中你认为最重要的品质是什么请举例说明在团队协作中我认为最重要的品质是目标一致责任心强善于沟通和懂得协作分工目标一致是团队协作的基石在一个软件开发项目中我们的团队面临着紧张的工期和复杂的需求但大家都清楚地认识到我们的共同目标是按时交付高质量的软件产品为客户创造价值每个人都围绕这个目标努力即使在遇到困难和分歧时也始终以实现目标为导向进行决策和行动比如在需求讨论中当不同的意见出现时大家不是固执己见而是通过深入分析和讨论找到最符合项目目标的解决方案责任心强是团队成功的关键在团队中每个人都对自己的工作负责认真对待每一个任务有一次一位同事负责的模块出现了一个难以察觉的小问题但他没有忽视而是花费大量时间进行排查和修复确保整个系统的稳定运行这种责任心不仅保证了自己负责的部分不出差错也为其他成员提供了可靠的工作基础善于沟通能让团队高效运转在项目进行过程中我们定期召开团队会议分享工作进展遇到的问题和解决方案同时在日常工作中大家也随时进行沟通交流确保信息畅通比如在设计阶段开发人员和设计师密切沟通确保设计方案既满足用户需求又具有技术可行性这种及时有效的沟通避免了误解和重复工作提高了工作效率懂得协作分工可以充分发挥团队成员的优势我们根据每个人的技能和经验合理分配任务在一个大型项目中技术能力强的成员负责核心模块的开发细心的成员负责测试工作善于沟通的成员负责与客户对接需求通过这种分工协作我们充分发挥了每个人的优势提高了整个团队的工作质量和效率总之目标一致责任心强善于沟通和懂得协作分工这些品质在团队协作中至关重要它们共同推动着团队不断前进实现共同的目标请描述一次你在项目中遇到的重大挑战以及你是如何克服它的在爱卡汽车网负责广告部门项目时我遭遇了一系列极具挑战性的情况从角色转变来看我从单纯的研发人员跃升为技术经理和架构师这不仅要求我具备卓越的技术能力还需拥有出色的领导和管理才能同时对广告业务的陌生犹如一座巨大的山峰横亘在面前不知从何处着手进行架构设计以满足业务需求在技术层面公司决定从以为主的技术体系全面转型为这意味着要从无到有搭建完整的开发体系涵盖开发测试发布监控等各个环节还涉及等之前未曾深入接触的技术而采用微服务架构更是加大了项目难度包括广告管理系统先进的广告搜索引擎离线和在线的广告投放效果统计等多个复杂部分例如广告搜索引擎需要具备快速准确为用户提供相关广告内容的能力提升用户体验和广告效果广告投放效果统计既要利用进行离线统计又要借助进行在线统计同时我还基于开发了高效的消息同步机制确保广告系统的数据实时性和一致性此外服务发现注册和配置中心定时任务管理系统以及外部广告投放开放平台等方面的建设也充满挑战面对这些挑战我采取了一系列果断而有效的措施对于广告业务的陌生我投入大量时间和精力查阅行业资料研究竞争对手的做法并积极与业务部门同事沟通交流深入了解广告业务的重要名词关键环节和业务流程通过不断学习和实践我逐渐掌握了广告业务的核心要点为架构设计奠定了坚实的基础在技术转型方面我带领团队系统地学习技术栈从基础语法到高级特性从框架应用到性能优化逐步搭建起稳定高效的开发体系对于微服务架构的实施我仔细研究每个技术组件的特点和适用场景精心设计系统架构确保各个微服务之间的协同工作和高效运行例如在开发广告搜索引擎时深入研究先进的搜索引擎技术不断优化算法和查询性能以满足用户对广告内容的快速准确获取需求在消息同步机制的开发中反复测试和优化的发布订阅功能确保数据的可靠传输和实时同步通过不懈努力我成功克服了项目中的重大挑战这个项目充分展现了我的领导能力架构设计能力编程能力和强大的学习能力我不仅带领团队按时交付了高质量的项目成果还为公司的技术转型和业务发展做出了重要贡献请简要介绍一下你在项目管理方面的经验在项目管理中我始终秉持着严谨与高效的原则项目启动前我会以敏锐的洞察力全面剖析项目目标及相关方与产品业务等各方深入沟通确保对项目需求有精准把握对可能存在的模糊点绝不放过反复确认产品文档的准确性与可行性技术方案评估环节我会召集技术骨干进行多轮研讨从技术可行性性能优化未来扩展性等多个维度进行考量确保方案既符合当下需求又能为未来发展留有余地随后精心制定详细且具有弹性的项目进度计划明确各阶段里程碑精确到具体交付物与时间节点让团队成员和相关方对项目进程一目了然人员管理上我通过日常观察技术交流等方式深入了解团队成员的能力与特长根据项目需求进行合理分工让每个人都能在自己擅长的领域发挥最大价值同时注重团队协作氛围的营造定期组织技术分享会和团队建设活动提升团队凝聚力项目推进过程中我保持与上级领导的密切沟通以清晰简洁的方式同步项目进展风险点及解决方案让领导对项目全局有准确掌控验收阶段我以严格的标准把控质量与时间提前制定详细的验收计划对每一个交付物进行细致检查面对相关方提出的新需求冷静分析其影响范围与紧急程度通过合理的评估确定是否纳入后续版本确保项目的稳定性与可持续性项目上线后我会立即组织全面总结对项目过程中的人力问题需求变更进度偏差等进行深入剖析总结经验教训形成详细的文档记录为下一个项目提供宝贵的参考依据在你所负责的项目中遇到过最棘手的技术难题是什么你是如何解决的在我负责的广告业务项目中遇到过最棘手的技术难题当属跨领域的截屏需求作为主要从事后端开发的我面对记录每个页面投放广告效果并截屏的任务首先在端展开攻坚通过深入调研发现测试工具中的浏览器操控测试工具可打开固定网址拉到指定位置并进行截屏操作成功解决了端的难题然而端的挑战接踵而至对于页面可通过网址调用指定页面进行截屏但原生应用却困难重重需配置脚本通过一系列操作到达指定页面再截屏可这种方式不仅配置麻烦而且改版后可能因操作步骤变化导致效果不理想维护也极为困难尽管我们努力尝试多种解决方案如不断优化脚本以适应可能的改版情况积极探索更稳定的截屏机制但最终仅成功交付了端端仅展示了效果未上线在解决这个问题的过程中我深刻体会到跨领域知识的关键作用它促使我在未来的项目中更加积极主动地学习不同领域的技术拓宽自己的知识面同时也让我明白面对复杂问题时要坚持不懈地进行调研和尝试不同的解决方案不能因为困难就轻易放弃而应勇于挑战不断探索创新以找到最适合项目需求的解决方案通过这个项目我不仅提升了自己的技术能力还在跨领域协作和问题解决方面积累了宝贵经验为今后的项目管理工作奠定了坚实基础在你的项目经历中有没有运用到一些新兴技术如果有是如何应用的在我的项目经历中最近引入了大模型这一热门的新技术我深入了解了大模型的底层实现原理和应用大模型能够将语言转换为特征向量这些特征向量包含语言的情感同义词等多维度信息从而可以通过特征向量的比较从较长的文本中找出相似的内容在快递物流领域我们成功地应用了大模型技术当使用三方公司发货时客户会将物流公司和物流编码录入我们的系统但我们常常无法确定其准确性利用大模型技术我们可以根据快递单号进行快速匹配确定该单号所属的快递公司从而校验客户输入的快递公司和快递编号是否一致如果通过快递编码无法找到对应的快递公司那么很可能客户输入的快递公司信息是错误的实现了二次校验确保客户数据输入的准确性对错误进行了前置校验我们进行了充分的前期调研和数据分析将历史数据导入大模型中进行像素对的匹配发现准确率达到了而原来人工校验的准确率只有这一显著的提升为我们引入该技术提供了有力的依据为了确保新功能不影响现有功能我们采取了谨慎的措施仅给客户提供提示告知他们可能输入错误既不影响系统的正常运行又能让客户及时纠正错误顺利完成业务流程引入大模型技术后我们不仅提高了数据校验的准确性还大大节省了人力成本和时间成本以往人工校验需要耗费大量的时间和精力而现在借助大模型效率得到了极大的提升同时这一新技术的应用也优化了业务流程提高了客户满意度为公司的快递物流业务带来了新的活力和竞争力总之引入大模型技术是一次非常成功的尝试让我在实际项目中深刻体会到了新技术的强大力量和价值',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:30:38',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" itemprop="url">面试指南</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">面试问题总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-11-22T04:12:20.000Z" title="发表于 2024-11-22 12:12:20">2024-11-22</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.179Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide0.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/mian-shi-wen-ti-zong-jie/"><header><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" itemprop="url">面试指南</a><h1 id="CrawlerTitle" itemprop="name headline">面试问题总结</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-11-22T04:12:20.000Z" title="发表于 2024-11-22 12:12:20">2024-11-22</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.179Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></header><h3 id="请介绍一下你在-Java-开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。"><a href="#请介绍一下你在-Java-开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。" class="headerlink" title="请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。"></a>请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。</h3><p>我在爱卡汽车网担任技术经理和架构师，负责广告部门的团队组建、架构设计以及重要模块开发。</p>
+<p>这个项目极具挑战，因为公司原本技术栈以 PHP 为主，而我要将其转换为 Java，并从 0 到 1 搭建起完整的 Java 开发体系，包括开发、测试、发布和监控。</p>
+<p>项目采用微服务架构，主要分为以下几个部分：</p>
+<ul>
+<li><p>广告管理系统：带有前端，方便进行广告业务的管理。</p>
+</li>
+<li><p>广告搜索引擎：这是我自主开发的核心功能之一。基于先进的搜索引擎技术，能够快速准确地为用户提供相关广告内容，极大地提升了用户体验和广告投放效果。</p>
+</li>
+<li><p>投放效果统计：分为离线统计和在线统计，为广告主提供精准的数据反馈，帮助他们优化广告投放策略。</p>
+</li>
+<li><p>消息中间件：我基于 Redis 开发了高效的消息同步机制，确保广告商务广告系统录入的广告能够及时同步到广告搜索引擎等相关模块，保证数据的实时性和一致性。</p>
+</li>
+<li><p>还包括注册发现、配置中心、定时任务管理系统和外部开放平台等，为整个广告系统的稳定运行和拓展提供了有力支持。</p>
+</li>
+</ul>
+<p>作为技术负责人，我面临的主要挑战是缺乏广告业务知识。但我通过积极学习和查询大量资料，深入了解广告业务的重要名词和关键环节，成功完成了架构设计，确保系统既满足业务需求，又具备良好的技术性能和可扩展性。</p>
+<p>这个项目充分展现了我的领导能力、架构设计能力、编程能力以及学习能力，是我在 Java 开发中最有成就感的项目之一。</p>
+<p><separator></separator></p>
+<p>“在爱卡汽车网负责广告部门项目时，我遭遇了一系列极具挑战性的情况。从角色转变来看，我从单纯的研发人员跃升为技术经理和架构师，这不仅要求我具备卓越的技术能力，还需拥有出色的领导和管理才能。同时，对广告业务的陌生犹如一座巨大的山峰横亘在面前，不知从何处着手进行架构设计以满足业务需求。</p>
+<p>在技术层面，公司决定从以 PHP 为主的技术体系全面转型为 Java，这意味着要从无到有搭建完整的 Java 开发体系，涵盖开发、测试、发布监控等各个环节，还涉及 Docker、Kafka 等之前未曾深入接触的技术。而采用微服务架构更是加大了项目难度，包括广告管理系统、先进的广告搜索引擎、离线和在线的广告投放效果统计等多个复杂部分。例如，广告搜索引擎需要具备快速准确为用户提供相关广告内容的能力，提升用户体验和广告效果；广告投放效果统计既要利用 Spark、Hadoop 进行离线统计，又要借助 Redis 进行在线统计，同时我还基于 Redis 开发了高效的消息同步机制，确保广告系统的数据实时性和一致性。此外，服务发现注册和配置中心、定时任务管理系统以及外部广告投放开放平台等方面的建设也充满挑战。</p>
+<p>面对这些挑战，我采取了一系列果断而有效的措施。对于广告业务的陌生，我投入大量时间和精力，查阅行业资料、研究竞争对手的做法，并积极与业务部门同事沟通交流，深入了解广告业务的重要名词、关键环节和业务流程。通过不断学习和实践，我逐渐掌握了广告业务的核心要点，为架构设计奠定了坚实的基础。在技术转型方面，我带领团队系统地学习 Java 技术栈，从基础语法到高级特性，从框架应用到性能优化，逐步搭建起稳定高效的 Java 开发体系。对于微服务架构的实施，我仔细研究每个技术组件的特点和适用场景，精心设计系统架构，确保各个微服务之间的协同工作和高效运行。例如，在开发广告搜索引擎时，深入研究先进的搜索引擎技术，不断优化算法和查询性能，以满足用户对广告内容的快速准确获取需求。在消息同步机制的开发中，反复测试和优化 Redis 的发布订阅功能，确保数据的可靠传输和实时同步。</p>
+<p>通过不懈努力，我成功克服了项目中的重大挑战。这个项目充分展现了我的领导能力、架构设计能力、编程能力和强大的学习能力。我不仅带领团队按时交付了高质量的项目成果，还为公司的技术转型和业务发展做出了重要贡献。”</p>
+<h3 id="在这个项目中是如何进行-SQL-优化的？"><a href="#在这个项目中是如何进行-SQL-优化的？" class="headerlink" title="在这个项目中是如何进行 SQL 优化的？"></a>在这个项目中是如何进行 SQL 优化的？</h3><p>在这个项目中，我采取了一系列有效的方法进行 SQL 优化。</p>
+<p>首先，建立了完善的慢 SQL 监测机制。通过对 MySQL 的请求次数和平均时长进行统计和排序，精准地定位到可能存在性能问题的 SQL 语句。</p>
+<p>一旦发现慢 SQL，我会深入分析其原因。常见的原因主要有以下几种：一是多表连接过多，这会导致查询性能下降。对于这种情况，我会重新审视业务需求，尽量减少不必要的连接表数量，或者通过中间表、临时表等方式优化连接条件，降低查询的复杂度。二是索引设置不合理。我会仔细分析表结构和查询需求，确定合适的索引字段，并确保索引的创建方式正确，避免出现索引未生效的情况。三是查询语句本身存在问题，例如使用了不恰当的函数或者复杂的逻辑表达式。针对这种情况，我会尝试简化查询语句，使用更高效的查询方式。</p>
+<p>在确定慢 SQL 的原因后，我会查看其执行计划。通过执行计划，我可以清楚地了解 MySQL 对该查询的执行过程，包括是否进行了全表扫描、是否使用了索引等。根据执行计划的结果，我可以进一步优化查询语句，调整索引设置，或者对数据库结构进行调整。</p>
+<p>此外，我还会定期对数据库进行性能分析和优化，包括清理无用的数据、优化表结构、调整数据库参数等，以确保数据库始终保持高效的运行状态。</p>
+<p>通过以上方法，我成功地优化了项目中的 SQL 查询性能，提高了系统的响应速度和稳定性。</p>
+<h3 id="请说说你在项目中是如何进行数据库设计的？"><a href="#请说说你在项目中是如何进行数据库设计的？" class="headerlink" title="请说说你在项目中是如何进行数据库设计的？"></a>请说说你在项目中是如何进行数据库设计的？</h3><p>在项目中，我进行数据库设计时会采取以下严谨且高效的方法。</p>
+<p>首先，全面深入地分析项目需求，明确所有涉及的实体对象。以一个在线教育项目为例，会确定有学生、教师、课程、作业等对象。仔细梳理这些对象之间的关系，比如学生与课程是选课关系，通过学生 ID 和课程 ID 进行关联。</p>
+<p>接着进行规范化设计，遵循数据库设计的范式原则，确保数据的一致性和减少冗余。例如，将学生的基本信息、课程的详细信息分别存储在不同的表中，通过外键进行关联，避免数据重复存储。</p>
+<p>但同时，也会根据实际业务场景灵活考虑冗余设计。比如在查询学生选课信息频繁的情况下，在学生表中适当冗余存储一些选课相关的关键信息，这样可以大大提高查询效率，减少多表关联的开销。</p>
+<p>在设计过程中，严格确保每个表都有明确的主键。主键的选择要具有唯一性和稳定性，能够准确标识每一条记录。比如学生表可以使用学生 ID 作为主键，课程表可以使用课程编号作为主键。</p>
+<p>对于索引设计，会进行细致的分析和规划。如果是写操作频繁的场景，会谨慎创建索引，避免过多的索引影响写入性能。但如果是查询占主导的场景，会根据查询的频率和重要性设计合适的索引。比如在教师查询学生作业情况的场景中，根据作业提交时间、学生 ID、教师 ID 等字段设计联合索引，以提高查询速度。</p>
+<p>在项目开发过程中，持续监控数据库的性能表现。通过数据库的性能监控工具，观察查询的响应时间、写入速度等指标。如果发现某些查询性能下降，会及时分析原因并对数据库设计进行调整。可能是调整索引、优化查询语句或者对数据库结构进行微调。</p>
+<p>总之，通过以上全面而科学的数据库设计方法，能够确保项目中的数据库既满足业务需求，又具有高效的性能和良好的可扩展性。</p>
+<h3 id="在项目中遇到的最大的数据库相关的挑战是什么，以及你是如何解决的？"><a href="#在项目中遇到的最大的数据库相关的挑战是什么，以及你是如何解决的？" class="headerlink" title="在项目中遇到的最大的数据库相关的挑战是什么，以及你是如何解决的？"></a>在项目中遇到的最大的数据库相关的挑战是什么，以及你是如何解决的？</h3><p>在震坤行的这个项目中，数据库方面遇到的最大挑战极具复杂性。</p>
+<p>项目基于老旧版本的 SQL Server 以及 Spring 框架开发，采用单体数据库架构。这带来了诸多问题：一是随着业务量增长，请求量不断攀升，单体数据库无法动态扩展，性能瓶颈日益明显。二是大量存储过程和定时任务在 SQL Server 中执行，使得数据库的运算和存储压力巨大，严重影响了响应速度。</p>
+<p>为有效解决这些挑战，我采取了一系列针对性强且高效的措施。</p>
+<p>首先，对硬件进行升级。增加服务器的内存和 CPU，提升数据库的处理能力，为后续的优化争取时间。</p>
+<p>接着，对 SQL Server 进行版本升级，使其支持主从配置。新增一个只读副本，将读请求分流到只读副本上，极大地减轻了主数据库的压力，提高了查询性能。</p>
+<p>同时，将原本在 SQL Server 中的定时任务迁移到 Java 端执行。这样一来，数据库不再承担定时任务的执行压力，能够更加专注于处理数据存储和查询操作。</p>
+<p>此外，把 SQL Server 中的存储过程逐步转换为 Java 代码执行。一方面，Java 代码在可维护性和扩展性上更具优势；另一方面，也能更好地与项目中的其他模块进行集成，降低数据库的负担。</p>
+<p>最后，建立了完善的数据库监控机制。定时分析数据库的性能问题，如死锁情况、慢查询的存储过程和 SQL 语句等。对于执行慢的存储过程和 SQL，根据执行计划进行针对性改造。例如，若发现有过多的表连接导致查询缓慢，就尝试减少表连接数量；若发现有全表扫描的情况，就分析是否可以添加合理的索引来提高查询效率。</p>
+<p>通过这些措施的综合运用，成功地解决了项目中的数据库性能问题，为项目的稳定运行和持续发展提供了坚实的保障。</p>
+<h3 id="请简单介绍一下你在-Netty-方面的项目经验"><a href="#请简单介绍一下你在-Netty-方面的项目经验" class="headerlink" title="请简单介绍一下你在 Netty 方面的项目经验"></a>请简单介绍一下你在 Netty 方面的项目经验</h3><p>我开发了一套基于Netty的web容器，Netty 在此项目中发挥了关键作用。首先，利用 Netty 的 ChannelPipeline 机制，我们精心设计了一系列的解码器和编码器，实现了对不同数据格式的高效处理。比如，对于二进制数据的快速反序列化和序列化操作，确保数据在传输过程中的准确性和完整性。</p>
+<p>同时，通过添加自定义的过滤器，我们能够对数据进行实时的校验和封装，极大地提高了数据的安全性和可靠性。在项目中，Netty 的高性能异步非阻塞 I&#x2F;O 模型使得我们能够轻松应对数以万计的并发连接，大大提升了系统的吞吐量和响应速度。例如，在一次压力测试中，系统在高并发场景下依然保持稳定，响应时间始终控制在极低的范围内。</p>
+<p>此外，我们还利用 Netty 的可扩展性，根据项目的特定需求进行了定制化开发。比如，开发了一个专门的业务处理器，用于处理特定类型的业务逻辑，进一步提高了系统的灵活性和可维护性。Netty 的使用不仅解决了项目中的实际问题，还为未来的业务扩展奠定了坚实的基础。</p>
+<h3 id="请说说你在使用-Spring-Boot-时，遇到过哪些挑战，以及你是如何解决的？"><a href="#请说说你在使用-Spring-Boot-时，遇到过哪些挑战，以及你是如何解决的？" class="headerlink" title="请说说你在使用 Spring Boot 时，遇到过哪些挑战，以及你是如何解决的？"></a>请说说你在使用 Spring Boot 时，遇到过哪些挑战，以及你是如何解决的？</h3><p>在使用 Spring Boot 的过程中，我确实遇到了一些挑战。首先在初期阶段，Spring Boot 的自动配置和自动注解功能让我颇感困惑。自动配置能够极大地提高开发效率，但对于其背后的原理却不是很清晰。为了解决这个问题，我深入研究了 Spring Boot 的源代码，仔细分析了自动配置的实现机制。我发现 Spring Boot 通过巧妙地使用条件注解和配置文件，根据不同的环境和依赖自动调整配置，实现了高度的灵活性和可扩展性。同时，对于自动注解，我通过查看文档和实际项目中的运用，逐渐掌握了其用法和作用，能够熟练地运用各种注解来简化开发过程。</p>
+<p>在深入使用的阶段，我想要将内嵌的 Tomcat 容器替换为 Netty 容器。这是一个具有一定难度的挑战，因为需要深入理解 Spring Boot 的容器启动机制和 Netty 的工作原理。我首先查阅了大量的资料，了解到 Spring Boot 是通过自动配置类来启动内嵌容器的。为了替换为 Netty 容器，我需要实现一个自定义的服务器启动类，并将其配置到 Spring Boot 的自动配置体系中。我仔细研究了 Netty 的文档和示例代码，实现了一个基于 Netty 的服务器，并通过实现 Spring Boot 的接口和配置类，将其整合到项目中。在这个过程中，我遇到了一些问题，比如配置参数的调整、线程模型的优化等，但通过不断地调试和尝试，最终成功地将 Tomcat 容器替换为 Netty 容器，实现了项目的特定需求。</p>
+<p>总之，通过面对这些挑战并积极解决，我对 Spring Boot 的理解更加深入，也提高了自己的技术水平和解决问题的能力。</p>
+<h3 id="请谈谈你对微服务架构的理解，以及在实际项目中如何运用-Spring-Boot-来实现微服务。"><a href="#请谈谈你对微服务架构的理解，以及在实际项目中如何运用-Spring-Boot-来实现微服务。" class="headerlink" title="请谈谈你对微服务架构的理解，以及在实际项目中如何运用 Spring Boot 来实现微服务。"></a>请谈谈你对微服务架构的理解，以及在实际项目中如何运用 Spring Boot 来实现微服务。</h3><p>对于微服务架构，我的理解是它代表了一种现代化的软件架构理念。微服务将原本庞大复杂的单体应用拆分为多个独立运行、功能单一的小型服务。</p>
+<p>其优点众多。其一，技术选型灵活，每个微服务可以根据自身的业务需求和特点选择最适合的技术栈，比如一个服务可以用 Java 实现，另一个可以用 Python，充分发挥不同技术的优势。其二，独立部署和扩展，各个微服务可以独立进行部署，不会因为一个服务的更新而影响整个系统，同时可以根据服务的负载情况单独进行扩展，提高资源利用率。其三，易于维护和故障隔离，当某个微服务出现问题时，只会影响该服务自身，不会导致整个系统崩溃，便于快速定位和解决问题。</p>
+<p>在实际项目中，利用 Spring Boot 来实现微服务可以结合 Spring Cloud 框架。首先，通过服务注册与发现组件（如 Eureka 或 Consul），每个微服务在启动时将自己的信息注册到注册中心，其他服务可以从注册中心获取可用服务的地址进行调用。例如，当一个新的微服务上线时，它自动向注册中心注册，其他服务无需任何配置更改就能发现并调用它。</p>
+<p>服务间的通信可以采用 RESTful API 或者消息队列等方式，Spring Cloud 的 Feign 客户端可以方便地进行服务调用，并实现负载均衡。同时，利用 Hystrix 进行服务熔断和降级，当某个服务出现故障时，能够快速响应，避免故障扩散。</p>
+<p>在配置管理方面，Spring Cloud Config 可以实现集中式的配置管理，各个微服务可以从配置中心获取自己的配置信息，方便进行配置的更新和管理。</p>
+<p>而对于服务的监控和管理，Spring Cloud Admin 提供了强大的功能，可以实时监控各个微服务的运行状态、性能指标等，便于及时发现问题并进行处理。</p>
+<p>总之，通过 Spring Boot 和 Spring Cloud 的结合，能够高效地构建、部署和管理微服务架构，为企业的业务发展提供强大的技术支撑。</p>
+<h3 id="在微服务架构中，如何进行服务的监控和故障排查？"><a href="#在微服务架构中，如何进行服务的监控和故障排查？" class="headerlink" title="在微服务架构中，如何进行服务的监控和故障排查？"></a>在微服务架构中，如何进行服务的监控和故障排查？</h3><p>在微服务架构中，有效的服务监控和故障排查至关重要。</p>
+<p>对于服务监控，一方面利用 Prometheus 进行监控指标的收集，涵盖请求 QPS、响应时间、内存使用率、CPU 负载等关键指标。这些指标通过 Grafana 以直观的图表形式展示，让运维人员和开发人员能够快速了解服务的运行状态。同时，设置智能的报警机制，当请求 QPS 超过预设阈值（如 10000QPS）或者响应时间慢于特定时间（如一秒）时，立即触发报警，通知相关人员及时处理。</p>
+<p>在日志管理方面，广泛采用 ELK 架构进行日志文件的收集。通过对日志中的异常信息（如特定的错误关键字、exception 等）进行实时监测和统计。例如，设定规则当在最近 5 分钟内出现一定数量的异常时自动触发报警，确保问题能够被及时发现。</p>
+<p>为了实现高效的故障排查，引入全局 trace ID。这个 trace ID 在整个请求链路中贯穿始终，无论是从客户端发起请求到各个微服务之间的调用，还是最终的响应返回。当出现问题时，通过 trace ID 可以快速定位到具体的请求在哪个微服务出现了问题，以及该请求经过了哪些微服务，从而精准地确定故障点。</p>
+<p>此外，充分利用注册服务中心，分析服务间的调用关系并制作调用关系 top 图。这样可以清晰地了解每个服务对其他服务的依赖关系，当出现故障时，能够迅速判断可能受到影响的服务范围，为故障排查和恢复提供有力的支持。</p>
+<p>总之，通过综合运用这些方法，能够在微服务架构中实现高效的服务监控和故障排查，确保系统的稳定运行。</p>
+<h3 id="请说说在微服务架构中，如何保障数据的一致性"><a href="#请说说在微服务架构中，如何保障数据的一致性" class="headerlink" title="请说说在微服务架构中，如何保障数据的一致性"></a>请说说在微服务架构中，如何保障数据的一致性</h3><p>在微服务架构中，保障数据一致性可以从以下几个方面着手。</p>
+<p>首先，对于最终一致性的实现，可以设置合理的重试机制。当一个微服务操作数据失败时，自动进行多次重试，确保在一定时间内不断尝试直到成功。同时，制定完善的数据回归策略，当重试多次仍无法成功时，能够安全地将数据恢复到之前的状态，避免出现不一致的情况。</p>
+<p>其次，考虑使用全局事务管理。引入专门的事务管理中间件，对多个微服务之间的事务进行统一协调和管理。在事务开始时，对所有涉及的微服务进行预提交操作，确保各个服务都准备好进行事务处理。如果在事务执行过程中出现问题，可以进行回滚操作，保证数据的一致性。虽然这种方式实现起来较为复杂，但对于对数据一致性要求极高的场景非常有效。</p>
+<p>再者，如果对事务的要求非常高，可以让多个微服务同时访问一个数据库。这样可以利用数据库本身的事务机制来保证数据的一致性，避免多个微服务之间的数据冲突。</p>
+<p>最后，利用数据库同步机制也是一个不错的选择。例如，通过数据库日志监听技术，当一个数据库中的数据发生变化时，及时将变更同步到其他相关的数据库中，确保不同数据库之间的数据保持一致。</p>
+<p>总之，通过综合运用这些方法，可以在微服务架构中有效地保障数据的一致性。</p>
+<h3 id="请说一说你在使用-Grafana-和-Skywalking-进行性能监控和追踪时，有哪些具体的实践经验和收获？"><a href="#请说一说你在使用-Grafana-和-Skywalking-进行性能监控和追踪时，有哪些具体的实践经验和收获？" class="headerlink" title="请说一说你在使用 Grafana 和 Skywalking 进行性能监控和追踪时，有哪些具体的实践经验和收获？"></a>请说一说你在使用 Grafana 和 Skywalking 进行性能监控和追踪时，有哪些具体的实践经验和收获？</h3><p>Grafana 是一个功能强大的数据可视化工具。在实际项目中，我利用它连接多种数据源，如 MySQL、Redis 等，通过配置自定义仪表盘，能够直观地展示系统关键性能指标。例如，我设置了实时监控页面，展示服务器的 CPU、内存使用率以及数据库的连接数等指标。同时，利用其报警功能，当指标超过预设阈值时，能及时通过邮件和短信通知相关人员，大大提高了问题响应速度。</p>
+<p>Skywalking 则在链路跟踪方面表现出色。通过它，我可以清晰地看到微服务架构中各个服务之间的调用关系和性能指标。在一次复杂的项目中，当系统出现性能问题时，借助 Skywalking 的全局 trace ID 和 span ID，快速定位到了问题服务和具体的代码位置。并且，它对各种中间件的拦截功能非常实用，比如对 Redis 和 HTTP 请求的拦截，让我能够深入了解这些关键组件的性能情况。通过对收集到的数据进行分析，我能够针对性地进行性能优化，极大地提升了系统的稳定性和响应速度。</p>
+<h3 id="在进行数据库设计时，你通常会遵循哪些原则？请结合实际项目经验说明。"><a href="#在进行数据库设计时，你通常会遵循哪些原则？请结合实际项目经验说明。" class="headerlink" title="在进行数据库设计时，你通常会遵循哪些原则？请结合实际项目经验说明。"></a>在进行数据库设计时，你通常会遵循哪些原则？请结合实际项目经验说明。</h3><p>在进行数据库设计时，我主要遵循以下几个原则。</p>
+<p><strong>一、范式化原则</strong>：严格遵循数据库范式，尤其是第三范式，确保数据的独立性和减少数据冗余。在我负责的一个大型企业资源管理系统项目中，将员工信息、部门信息、岗位信息分别存储在不同的表中，通过外键关联，避免了重复存储部门名称、岗位名称等信息，极大地提高了数据的一致性和可维护性。当部门名称或岗位名称发生变化时，只需在对应的表中进行修改，而不会影响到员工信息表。</p>
+<p><strong>二、性能与反范式平衡原则</strong>：虽然范式化可以提高数据的规范性，但在某些对性能要求极高的场景下，适当进行反范式设计。例如，在一个电商平台的订单系统中，订单表中会存储商品的名称和价格等信息，虽然这会造成一定的数据冗余，但在查询订单详情时，可以避免频繁的关联查询商品表，大大提高了查询性能。</p>
+<p><strong>三、扩展性原则</strong>：充分考虑未来业务的发展，预留扩展字段。在一个社交平台项目中，用户信息表中预留了几个自定义字段，随着平台功能的不断扩展，这些字段被用于存储用户的个性化标签、兴趣爱好等信息，无需对表结构进行大规模修改，保证了系统的稳定性。</p>
+<p><strong>四、索引优化原则</strong>：合理添加索引，包括普通索引、唯一索引和覆盖索引等。在一个金融交易系统中，对交易流水表的交易时间、交易金额等频繁用于查询和排序的字段添加索引，极大地提高了查询和统计的效率。同时，通过分析业务场景，创建了一些覆盖索引，使得查询可以直接从索引中获取所需数据，无需回表查询，进一步提升了性能。</p>
+<p><strong>五、数据校验规则原则</strong>：设置严格的数据校验规则，确保存入数据库的数据符合规范。在一个医疗管理系统中，对患者年龄字段设置了 0 到 120 的范围限制，对药品剂量字段设置了合理的数值范围和精度要求，有效避免了错误数据的存入。</p>
+<p><strong>六、数据安全性原则</strong>：高度重视数据安全，通过多种方式进行保护。在一个政府部门的信息管理系统中，对敏感数据进行加密存储，同时创建视图和存储过程，严格控制不同用户对数据的访问权限。例如，普通用户只能通过视图查询部分公开信息，而管理员可以通过存储过程进行数据的修改和删除操作，确保了数据的安全性和保密性。</p>
+<p>总之，在数据库设计过程中，我始终综合考虑这些原则，结合实际项目需求，进行科学合理的设计，以确保数据库的高效、稳定和安全。</p>
+<h3 id="在团队协作中，你认为最重要的品质是什么？请举例说明。"><a href="#在团队协作中，你认为最重要的品质是什么？请举例说明。" class="headerlink" title="在团队协作中，你认为最重要的品质是什么？请举例说明。"></a>在团队协作中，你认为最重要的品质是什么？请举例说明。</h3><p>在团队协作中，我认为最重要的品质是目标一致、责任心强、善于沟通和懂得协作分工。</p>
+<p>目标一致是团队协作的基石。在一个软件开发项目中，我们的团队面临着紧张的工期和复杂的需求。但大家都清楚地认识到，我们的共同目标是按时交付高质量的软件产品，为客户创造价值。每个人都围绕这个目标努力，即使在遇到困难和分歧时，也始终以实现目标为导向进行决策和行动。比如在需求讨论中，当不同的意见出现时，大家不是固执己见，而是通过深入分析和讨论，找到最符合项目目标的解决方案。</p>
+<p>责任心强是团队成功的关键。在团队中，每个人都对自己的工作负责，认真对待每一个任务。有一次，一位同事负责的模块出现了一个难以察觉的小问题，但他没有忽视，而是花费大量时间进行排查和修复，确保整个系统的稳定运行。这种责任心不仅保证了自己负责的部分不出差错，也为其他成员提供了可靠的工作基础。</p>
+<p>善于沟通能让团队高效运转。在项目进行过程中，我们定期召开团队会议，分享工作进展、遇到的问题和解决方案。同时，在日常工作中，大家也随时进行沟通交流，确保信息畅通。比如在设计阶段，开发人员和设计师密切沟通，确保设计方案既满足用户需求又具有技术可行性。这种及时有效的沟通避免了误解和重复工作，提高了工作效率。</p>
+<p>懂得协作分工可以充分发挥团队成员的优势。我们根据每个人的技能和经验，合理分配任务。在一个大型项目中，技术能力强的成员负责核心模块的开发，细心的成员负责测试工作，善于沟通的成员负责与客户对接需求。通过这种分工协作，我们充分发挥了每个人的优势，提高了整个团队的工作质量和效率。</p>
+<p>总之，目标一致、责任心强、善于沟通和懂得协作分工这些品质在团队协作中至关重要，它们共同推动着团队不断前进，实现共同的目标。</p>
+<h3 id="请描述一次你在项目中遇到的重大挑战，以及你是如何克服它的。"><a href="#请描述一次你在项目中遇到的重大挑战，以及你是如何克服它的。" class="headerlink" title="请描述一次你在项目中遇到的重大挑战，以及你是如何克服它的。"></a>请描述一次你在项目中遇到的重大挑战，以及你是如何克服它的。</h3><p>在爱卡汽车网负责广告部门项目时，我遭遇了一系列极具挑战性的情况。从角色转变来看，我从单纯的研发人员跃升为技术经理和架构师，这不仅要求我具备卓越的技术能力，还需拥有出色的领导和管理才能。同时，对广告业务的陌生犹如一座巨大的山峰横亘在面前，不知从何处着手进行架构设计以满足业务需求。</p>
+<p>在技术层面，公司决定从以 P2P 为主的技术体系全面转型为 Java，这意味着要从无到有搭建完整的 Java 开发体系，涵盖开发、测试、发布监控等各个环节，还涉及 Docker、Kafka 等之前未曾深入接触的技术。而采用微服务架构更是加大了项目难度，包括广告管理系统、先进的广告搜索引擎、离线和在线的广告投放效果统计等多个复杂部分。例如，广告搜索引擎需要具备快速准确为用户提供相关广告内容的能力，提升用户体验和广告效果；广告投放效果统计既要利用 Spark、Hadoop 进行离线统计，又要借助 Redis 进行在线统计，同时我还基于 Redis 开发了高效的消息同步机制，确保广告系统的数据实时性和一致性。此外，服务发现注册和配置中心、定时任务管理系统以及外部广告投放开放平台等方面的建设也充满挑战。</p>
+<p>面对这些挑战，我采取了一系列果断而有效的措施。对于广告业务的陌生，我投入大量时间和精力，查阅行业资料、研究竞争对手的做法，并积极与业务部门同事沟通交流，深入了解广告业务的重要名词、关键环节和业务流程。通过不断学习和实践，我逐渐掌握了广告业务的核心要点，为架构设计奠定了坚实的基础。在技术转型方面，我带领团队系统地学习 Java 技术栈，从基础语法到高级特性，从框架应用到性能优化，逐步搭建起稳定高效的 Java 开发体系。对于微服务架构的实施，我仔细研究每个技术组件的特点和适用场景，精心设计系统架构，确保各个微服务之间的协同工作和高效运行。例如，在开发广告搜索引擎时，深入研究先进的搜索引擎技术，不断优化算法和查询性能，以满足用户对广告内容的快速准确获取需求。在消息同步机制的开发中，反复测试和优化 Redis 的发布订阅功能，确保数据的可靠传输和实时同步。</p>
+<p>通过不懈努力，我成功克服了项目中的重大挑战。这个项目充分展现了我的领导能力、架构设计能力、编程能力和强大的学习能力。我不仅带领团队按时交付了高质量的项目成果，还为公司的技术转型和业务发展做出了重要贡献。</p>
+<h3 id="请简要介绍一下你在项目管理方面的经验。"><a href="#请简要介绍一下你在项目管理方面的经验。" class="headerlink" title="请简要介绍一下你在项目管理方面的经验。"></a>请简要介绍一下你在项目管理方面的经验。</h3><p>在项目管理中，我始终秉持着严谨与高效的原则。项目启动前，我会以敏锐的洞察力全面剖析项目目标及相关方。与产品、业务等各方深入沟通，确保对项目需求有精准把握，对可能存在的模糊点绝不放过，反复确认产品文档的准确性与可行性。</p>
+<p>技术方案评估环节，我会召集技术骨干进行多轮研讨。从技术可行性、性能优化、未来扩展性等多个维度进行考量，确保方案既符合当下需求，又能为未来发展留有余地。随后，精心制定详细且具有弹性的项目进度计划。明确各阶段里程碑，精确到具体交付物与时间节点，让团队成员和相关方对项目进程一目了然。</p>
+<p>人员管理上，我通过日常观察、技术交流等方式深入了解团队成员的能力与特长。根据项目需求进行合理分工，让每个人都能在自己擅长的领域发挥最大价值。同时，注重团队协作氛围的营造，定期组织技术分享会和团队建设活动，提升团队凝聚力。</p>
+<p>项目推进过程中，我保持与上级领导的密切沟通。以清晰简洁的方式同步项目进展、风险点及解决方案，让领导对项目全局有准确掌控。</p>
+<p>验收阶段，我以严格的标准把控质量与时间。提前制定详细的验收计划，对每一个交付物进行细致检查。面对相关方提出的新需求，冷静分析其影响范围与紧急程度，通过合理的评估确定是否纳入后续版本，确保项目的稳定性与可持续性。</p>
+<p>项目上线后，我会立即组织全面总结。对项目过程中的人力问题、需求变更、进度偏差等进行深入剖析，总结经验教训，形成详细的文档记录，为下一个项目提供宝贵的参考依据</p>
+<h3 id="在你所负责的项目中，遇到过最棘手的技术难题是什么？你是如何解决的？"><a href="#在你所负责的项目中，遇到过最棘手的技术难题是什么？你是如何解决的？" class="headerlink" title="在你所负责的项目中，遇到过最棘手的技术难题是什么？你是如何解决的？"></a>在你所负责的项目中，遇到过最棘手的技术难题是什么？你是如何解决的？</h3><p>在我负责的广告业务项目中，遇到过最棘手的技术难题当属跨领域的截屏需求。作为主要从事 Java 后端开发的我，面对记录每个页面投放广告效果并截屏的任务，首先在 PC 端展开攻坚。通过深入调研，发现测试工具中的浏览器操控测试工具，可打开固定网址、拉到指定位置并进行截屏操作，成功解决了 PC 端的难题。</p>
+<p>然而，APP 端的挑战接踵而至。对于 H5 页面，可通过网址调用指定页面进行截屏，但原生应用却困难重重。需配置脚本，通过一系列操作到达指定页面再截屏，可这种方式不仅配置麻烦，而且 APP 改版后可能因操作步骤变化导致效果不理想，维护也极为困难。尽管我们努力尝试多种解决方案，如不断优化脚本以适应可能的改版情况，积极探索更稳定的截屏机制，但最终仅成功交付了 PC 端，APP 端仅展示了 demo 效果未上线。</p>
+<p>在解决这个问题的过程中，我深刻体会到跨领域知识的关键作用。它促使我在未来的项目中更加积极主动地学习不同领域的技术，拓宽自己的知识面。同时，也让我明白面对复杂问题时，要坚持不懈地进行调研和尝试不同的解决方案。不能因为困难就轻易放弃，而应勇于挑战，不断探索创新，以找到最适合项目需求的解决方案。</p>
+<p>通过这个项目，我不仅提升了自己的技术能力，还在跨领域协作和问题解决方面积累了宝贵经验，为今后的项目管理工作奠定了坚实基础。</p>
+<h3 id="在你的项目经历中，有没有运用到一些新兴技术？如果有，是如何应用的？"><a href="#在你的项目经历中，有没有运用到一些新兴技术？如果有，是如何应用的？" class="headerlink" title="在你的项目经历中，有没有运用到一些新兴技术？如果有，是如何应用的？"></a>在你的项目经历中，有没有运用到一些新兴技术？如果有，是如何应用的？</h3><p>在我的项目经历中，最近引入了大模型这一热门的新技术。我深入了解了大模型的底层实现原理和应用。大模型能够将语言转换为特征向量，这些特征向量包含语言的情感、同义词等多维度信息，从而可以通过特征向量的比较，从较长的文本中找出相似的内容。</p>
+<p>在快递物流领域，我们成功地应用了大模型技术。当使用三方公司发货时，客户会将物流公司和物流编码录入我们的系统，但我们常常无法确定其准确性。利用大模型技术，我们可以根据快递单号进行快速匹配，确定该单号所属的快递公司，从而校验客户输入的快递公司和快递编号是否一致。如果通过快递编码无法找到对应的快递公司，那么很可能客户输入的快递公司信息是错误的，实现了二次校验，确保客户数据输入的准确性，对错误进行了前置校验。</p>
+<p>我们进行了充分的前期调研和数据分析。将历史数据导入大模型中进行像素对的匹配，发现准确率达到了 95%，而原来人工校验的准确率只有 92%。这一显著的提升为我们引入该技术提供了有力的依据。</p>
+<p>为了确保新功能不影响现有功能，我们采取了谨慎的措施。仅给客户提供提示，告知他们可能输入错误，既不影响系统的正常运行，又能让客户及时纠正错误，顺利完成业务流程。</p>
+<p>引入大模型技术后，我们不仅提高了数据校验的准确性，还大大节省了人力成本和时间成本。以往人工校验需要耗费大量的时间和精力，而现在借助大模型，效率得到了极大的提升。同时，这一新技术的应用也优化了业务流程，提高了客户满意度，为公司的快递物流业务带来了新的活力和竞争力。</p>
+<p>总之，引入大模型技术是一次非常成功的尝试，让我在实际项目中深刻体会到了新技术的强大力量和价值。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/mian-shi-wen-ti-zong-jie/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/mian-shi-wen-ti-zong-jie/')">面试问题总结</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/mian-shi-wen-ti-zong-jie/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=面试问题总结&amp;url=https://tushu.info/archives/mian-shi-wen-ti-zong-jie/&amp;pic=https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide0.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Java-gao-ji-mian-shi-zhi-nan-kai-fang/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java高级面试指南-开放问题</div></div></a></div><div class="next-post pull-right"><a href="/archives/mian-shi-wen-ti-zong-jie-02/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/javaguide1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面试问题总结02</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E4%BD%A0%E5%9C%A8-Java-%E5%BC%80%E5%8F%91%E4%B8%AD%E6%9C%80%E6%9C%89%E6%88%90%E5%B0%B1%E6%84%9F%E7%9A%84%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%B9%B6%E8%AF%B4%E6%98%8E%E4%BD%A0%E5%9C%A8%E5%85%B6%E4%B8%AD%E6%89%BF%E6%8B%85%E7%9A%84%E8%A7%92%E8%89%B2%E5%92%8C%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">请介绍一下你在 Java 开发中最有成就感的一个项目，并说明你在其中承担的角色和主要贡献。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C-SQL-%E4%BC%98%E5%8C%96%E7%9A%84%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">在这个项目中是如何进行 SQL 优化的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">请说说你在项目中是如何进行数据库设计的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8C%91%E6%88%98%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%A0%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">在项目中遇到的最大的数据库相关的挑战是什么，以及你是如何解决的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E4%BD%A0%E5%9C%A8-Netty-%E6%96%B9%E9%9D%A2%E7%9A%84%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">请简单介绍一下你在 Netty 方面的项目经验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%9C%A8%E4%BD%BF%E7%94%A8-Spring-Boot-%E6%97%B6%EF%BC%8C%E9%81%87%E5%88%B0%E8%BF%87%E5%93%AA%E4%BA%9B%E6%8C%91%E6%88%98%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%A0%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">请说说你在使用 Spring Boot 时，遇到过哪些挑战，以及你是如何解决的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%9C%A8%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%A6%82%E4%BD%95%E8%BF%90%E7%94%A8-Spring-Boot-%E6%9D%A5%E5%AE%9E%E7%8E%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E3%80%82"><span class="toc-number">7.</span> <span class="toc-text">请谈谈你对微服务架构的理解，以及在实际项目中如何运用 Spring Boot 来实现微服务。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9B%91%E6%8E%A7%E5%92%8C%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">在微服务架构中，如何进行服务的监控和故障排查？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E8%AF%B4%E8%AF%B4%E5%9C%A8%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E9%9A%9C%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">9.</span> <span class="toc-text">请说说在微服务架构中，如何保障数据的一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E5%9C%A8%E4%BD%BF%E7%94%A8-Grafana-%E5%92%8C-Skywalking-%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%92%8C%E8%BF%BD%E8%B8%AA%E6%97%B6%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E5%85%B7%E4%BD%93%E7%9A%84%E5%AE%9E%E8%B7%B5%E7%BB%8F%E9%AA%8C%E5%92%8C%E6%94%B6%E8%8E%B7%EF%BC%9F"><span class="toc-number">10.</span> <span class="toc-text">请说一说你在使用 Grafana 和 Skywalking 进行性能监控和追踪时，有哪些具体的实践经验和收获？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%97%B6%EF%BC%8C%E4%BD%A0%E9%80%9A%E5%B8%B8%E4%BC%9A%E9%81%B5%E5%BE%AA%E5%93%AA%E4%BA%9B%E5%8E%9F%E5%88%99%EF%BC%9F%E8%AF%B7%E7%BB%93%E5%90%88%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C%E8%AF%B4%E6%98%8E%E3%80%82"><span class="toc-number">11.</span> <span class="toc-text">在进行数据库设计时，你通常会遵循哪些原则？请结合实际项目经验说明。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C%E4%B8%AD%EF%BC%8C%E4%BD%A0%E8%AE%A4%E4%B8%BA%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%93%81%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E8%AF%B7%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E%E3%80%82"><span class="toc-number">12.</span> <span class="toc-text">在团队协作中，你认为最重要的品质是什么？请举例说明。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%80%E6%AC%A1%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%87%8D%E5%A4%A7%E6%8C%91%E6%88%98%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%A0%E6%98%AF%E5%A6%82%E4%BD%95%E5%85%8B%E6%9C%8D%E5%AE%83%E7%9A%84%E3%80%82"><span class="toc-number">13.</span> <span class="toc-text">请描述一次你在项目中遇到的重大挑战，以及你是如何克服它的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E6%96%B9%E9%9D%A2%E7%9A%84%E7%BB%8F%E9%AA%8C%E3%80%82"><span class="toc-number">14.</span> <span class="toc-text">请简要介绍一下你在项目管理方面的经验。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E4%BD%A0%E6%89%80%E8%B4%9F%E8%B4%A3%E7%9A%84%E9%A1%B9%E7%9B%AE%E4%B8%AD%EF%BC%8C%E9%81%87%E5%88%B0%E8%BF%87%E6%9C%80%E6%A3%98%E6%89%8B%E7%9A%84%E6%8A%80%E6%9C%AF%E9%9A%BE%E9%A2%98%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%BD%A0%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%9F"><span class="toc-number">15.</span> <span class="toc-text">在你所负责的项目中，遇到过最棘手的技术难题是什么？你是如何解决的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E7%BB%8F%E5%8E%86%E4%B8%AD%EF%BC%8C%E6%9C%89%E6%B2%A1%E6%9C%89%E8%BF%90%E7%94%A8%E5%88%B0%E4%B8%80%E4%BA%9B%E6%96%B0%E5%85%B4%E6%8A%80%E6%9C%AF%EF%BC%9F%E5%A6%82%E6%9E%9C%E6%9C%89%EF%BC%8C%E6%98%AF%E5%A6%82%E4%BD%95%E5%BA%94%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="toc-number">16.</span> <span class="toc-text">在你的项目经历中，有没有运用到一些新兴技术？如果有，是如何应用的？</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

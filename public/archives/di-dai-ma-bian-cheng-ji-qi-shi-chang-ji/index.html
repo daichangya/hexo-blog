@@ -1,0 +1,521 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>低代码编程及其市场机遇剖析 | 低代码技术内幕 | 代老师的博客</title><meta name="keywords" content="di-dai-ma"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="低代码编程及其市场机遇剖析 | 低代码技术内幕"><meta name="application-name" content="低代码编程及其市场机遇剖析 | 低代码技术内幕"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="低代码编程及其市场机遇剖析 | 低代码技术内幕"><meta property="og:url" content="https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="自 2020 年来，网易数帆探索可视化低代码编程已两年有余，打造了轻舟低代码平台用于企业应用开发。然而，不少编程技术人员对这一领域还比较陌生。我们开设《低代码技术内幕》专栏，旨在讨论低代码编程领域中的困难、问题，以及高效的解决方案。本文为第一篇，深度剖析低代码编程带来的机遇。  据说早期人类语言"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="自 2020 年来，网易数帆探索可视化低代码编程已两年有余，打造了轻舟低代码平台用于企业应用开发。然而，不少编程技术人员对这一领域还比较陌生。我们开设《低代码技术内幕》专栏，旨在讨论低代码编程领域中的困难、问题，以及高效的解决方案。本文为第一篇，深度剖析低代码编程带来的机遇。  据说早期人类语言"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '低代码编程及其市场机遇剖析 | 低代码技术内幕',
+  postAI: '',
+  pageFillDescription: '低代码定义：发展与变迁, 低代码的市场和机遇, 全球的发展, 中国的优势, 更多的统计数据, 现有的低代码产品, 小结, 参考自年来网易数帆探索可视化低代码编程已两年有余打造了轻舟低代码平台用于企业应用开发然而不少编程技术人员对这一领域还比较陌生我们开设低代码技术内幕专栏旨在讨论低代码编程领域中的困难问题以及高效的解决方案本文为第一篇深度剖析低代码编程带来的机遇据说早期人类语言只有听说系统后因国家税收之需又演化出了读写系统而读写相较于听说的方式有易于复制传播歧义少保存持久等优点类似的早期用于人机交流的程序语言只有字符系统现在因为某些诉求市场上涌现出一批可视化低代码系统什么是低代码它有哪些优势我为什么要学习使用它低代码未来的市场是怎样的本文重点描述低代码未来年的广阔市场但仍循序渐进从概述低代码编程的历史发展开始所以想要了解市场规模和前景的读者请直接跳转到低代码的市场和机遇部分低代码定义发展与变迁提高生产效率是人类永恒的主题正因此我们认为广义的低代码编程取其字面意思应当是指在某个时间段内完成项目所需的代码量大幅低于其他语言平均值的编程模式无独有偶我们的认知与相合文中描述和在年代刚出现时它们作为高级编程语言的始祖是那个年代里不折不扣的低代码编程语言即便现在大多数的编程人员已经不这么认为文章还表示年苹果公司开发的编程语言尽管不为大多数人所知是低代码发展中的一个里程碑融合了一套图形化可扩展可编辑的接口和数据库功能它的部分设计理念与微软的相似但早于后者年发布图图标图片来源维基百科图界面图片来源年代随着第四代编程语言等的发展与成熟以及高效的应用程序开发工具如等的横空出世设计器红极一时模型驱动设计自动代码生成和可视化开发思想成为了当年低代码开发的核心直到这时为止低代码的核心诉求都是提高专业开发人员的开发效率图设计图年代低代码的核心诉求发生剧烈变化开始向让业务专家将自己的专业知识和经验落地成在线应用转移很多公司没有经费聘用专业的开发人员因此希望业务专家经过一定的培训也可以上手开发应用这些应用很大一部分是用于市场营销销售的也比较同质化容易从统一的模板中搭建出由此便有了我们所熟知的在当前时代背景下的狭义的低代码编程国际上最具有影响力和代表性的产品有等这些产品具有以下特点为让非专业编码人员易于使用配备了完善的可视化开发框架不仅提供可视化开发前端的能力还提供可视化开发复杂逻辑的能力无需记忆编程语言的语法通过拖拽和点击即可实现业务功能提供完整的前后端数据库部署运维等解决方案屏蔽了前端等后端或等数据库或等云服务等技术无需点击即开即用图可视化逻辑图片来源轻舟低代码团队为什么要做编程语言图轻舟低代码可视化逻辑图片来源轻舟低代码团队为什么要做编程语言了解了低代码的大致历史后我们便知道它并不是先有定义再发展起来的事物它的定义随着时代发展而变化以反应当前时代市场的诉求因此我们不妨援引西门子的定义来概述世纪年代的低代码低代码开发是一种可视化应用开发方法通过低代码开发不同经验水平的开发人员能够通过图形用户界面使用拖放式组件和模型驱动逻辑来创建和移动应用了解了低代码的概念后我们来看看低代码在未来年的广阔市场低代码的市场和机遇本章我们先讨论低代码这一新兴技术在全球的发展再描绘其在中国特定时代背景下更大的前景全球的发展在低代码领域目前海外大约活跃着六十七家供应商而且它的生态系统正在迅速成长年是一个分界点在大型软件供应商中年之前只有采用的低代码平台随后微软甲骨文和等企业都纷纷加入了这个市场低代码含无代码市场呈爆发式增长年市场规模达到亿美元年市场规模达到亿美元年市场规模达到亿美元更重要的是目前低代码市场的增长是超过预期的例如年月曾有机构预测改年的低代码市场为亿美元而年回顾的市场实际值为亿图低代码全球市场份额原始数据来源当我们聚焦代表性的个体时数据同样展现出了潜力年获得和高盛亿美元融资估值超过亿美元已逐渐成长为生态完善的可视化低代码建站平台数以百万计的个人和企业在这些平台上搭建自己的官网或者应用其中的生态厂商在年初获得万轮融资在过去一年中该插件已部署了多个新功能还被翻译成种语言目前获得超过了万活跃安装低代码建站市场和低代码企业服务领域一样快速发展中为什么低代码会有如此广阔的市场正是因为低代码开发高效灵活稳定降低了应用搭建的门槛和对专业工程师的依赖让业务部门用拖拽的方式自行搭建应用平台减少与部门反复沟通的流程最终实打实地降低了人力成本克服了传统开发交付周期长定制能力差难以应对不断变化的市场和客户期望等弱点翻译你不需要为你的员工投资昂贵的培训项目你可以让他们以更快的速度建立应用程序并减少培训而在一天结束时所有这些都使你的企业获得更多的收入中国的优势在十四五数字经济发展规划等政策以及企业数字化转型大背景下能为企业提供降本增效提质并推动数字经济发展的低代码无代码在正在蓬勃发展数字化转型是企业必经的可持续进化历程越来越多的企业将从不得不转转变到主动要转其中无论是政企医疗金融业务还是房地产制造零售等我们都能看到低代码的身影以下内容均来自该引用泰康人寿泰行销分公司专栏项目包含新闻文章管理搜索滚动新闻消息提醒新闻文章列表大量的数据统计业绩数据排名数据考核数据以及客户数据等特性内容使用轻舟低代码平台通过可视化方式实现数据建模页面搭建以及业务逻辑编排在教练指导下周完成开发项目通过扩展组件实现资产复用可导出为模板并成为平台资产其他分公司从而可以通过模板快速搭建专栏中国联通软件研究院针对业务部门业务需求多样化开发门槛高开发周期长等问题通过研究低代码在轻量级业务场景通用型业务场景下的应用帮助企业开发人员提高研发效率降低开发门槛赋能企业运营助力数字化转型同时中国联通低代码赋能政企业务受理集约实现联通政企业务受理集约流程可视化分钟级配置所见即所得流程发布由原来的周提升至天支撑省超个地市大类业务的受理集约重庆长安汽车与华为基于合作构建智慧党建系统在线业务预算系统等个企业应用其中在线业务预算系统需要将庞杂的表单业务在线化实现计划管理系统合同管理系统整车利润分析系统以及填报审核分析自动生成相应财务报表等预算编制流程等借助低代码应用构建效率整体提升了倍经过个多月的努力基本实现预期目标中国雄安集团电子招标采购交易平台结合雄安集团业务复杂性和具体需求最终在评审结果汇总计算价格评审计算费用计算等招采业务场景中使用计算规则引擎整体解决方案只需小时即可完成传统做法需要天的业务系统升级迭代流程此方案的计算代码部分由低代码组成宏观统计数据也表明年中国低代码无代码市场规模预计为亿元并预计在年达到亿元其年均复合增长率高达其中低代码产品是总体市场的主要构成占比年将有的大型企业使用低代码开发应用低代码的领军之一更是表示低代码市场在中国展现出巨大潜力低代码发展正当时中国将取代美国成为低代码开发的全球领导者报告显示的决策者表示表示正积极拥抱低代码技术认为低代码是他们不容错过的趋势且近一半的日常开发工作可以在低代码平台上完成尽管转型领军者的数字化优势进一步加大年进入转型领军者行列的企业比例仅为与去年基本持平低代码在中国有着巨大的增量市场低代码应用在高校放彩促进产学研全链路一体化建设立足中国市场随着十四五规划的推进中国企业的数字化转型必将取得长足的进步在降本增效的驱使下低代码也必将成为中国大多数企业的最佳选择更多的统计数据根据的统计人们对低代码持有以下观点美国有超过万个计算机科学职位空缺预计它的增长速度是其他工作领域的倍但世界上只有的人口知道如何编码到年低代码将占到应用开发活动的以上易用性是人们在描述低代码无代码开发平台时使用最多的正面词汇这是基于从所有低代码无代码开发平台公司的客户评论中收集的数据的用户在使用低代码无代码平台之前完全没有经验其中的用户大多有商业背景的企业转向低代码无代码因为它们能够减少资源的压力提高上市速度并让企业参与数字资产开发使用低代码无代码的企业没有使用它们来构建和交付任何最高价值的应用程序的用户在个月或更短的时间内用低代码应用开发应用程序低代码无代码解决方案有可能将应用程序的开发时间减少的企业在未来更愿意使用定制的低代码无代码来处理复杂的商业逻辑现有的低代码产品最后我们再介绍一些支撑起低代码市场的代表性产品从离我们比较近的国内产品开始时至今日国内的低代码产品已经比较丰富例如轻舟低代码平台阿里低代码引擎葡萄城活字格奥哲氚云轻流普元平台等轻舟低代码是网易数帆打造的企业级应用开发平台兼具下述原生低代码和开发工具的特点它通过简单易上手的可视化编程语言帮助企业搭建高复杂度融合企业资产交互视觉高保真还原的企业级应用致力于帮助企业实现低成本高效率的数字化转型和应用创新阿里低代码引擎的代表产品有钉钉宜搭等钉钉宜搭基于阿里云的云基础设施和钉钉的企业数字化操作系统提供低门槛高效率的数字化业务云平台的厂商希望借助低代码吸引更多用户购买其云服务因此其低代码产品的发展方向上以深度整合自家云资源降低门槛为主葡萄城活字格是厂商整合自身的开发工具资源后推出了低代码产品发展方向上以产品力提升为主在技术门槛和扩展性中间会更倾向于后者用户集中在初创型软件开发团队行业软件代理商系统集成商和中大企业中心而不是一线业务人员奥哲氚云是低代码行业的创业公司正处于风口快速发展阶段后获得阿里系投资更关注流量和市占率产品发展上倾向于在降低门槛与钉钉等流量平台整合类似的还有明道云简道云等轻流是专注于流程和表单的厂商在自身软件的基础上增加可视化设计器进一步降低使用门槛后从而实现低代码转型的产品这些产品的核心优势是强大的工作流引擎但这种基于表单而不是数据模型的架构在应对复杂应用场景时可能会遇到诸多障碍类似的产品还有炎黄盈动等普元平台可以看成行业软件向通用平台的演进的尝试它希望利用低代码技术降低实施特别是实施中客户化开发环节的工作量提升行业软件自身的竞争力典型产品还有用友的等目前上述产品的海外市场并不多根据我们列出几个重要的海外低代码产品及其简介供参考配备了原生部署工具和与等开发工具的集成选项允许用户建立业务流程管理应用程序帮助企业组织和优化业务流程可快速构建客制化的商业应用程序它包含了预建的人工智能组件还具备良好的可扩展性为每个用户创建个性化的体验用拖放字段和动作来定制页面在正确的时间提供正确的信息构建智能的可移动的应用程序提供可视化模型驱动的工具以实现快速开发和部署应用程序它还提供实时性能监控和拥有高安全性常被用于构建改善公司内部流程的解决方案其用户只需最少量的编程知识和一个良好的策略被用于数字保险供应链货物交付管理和商业分析等各种市场领域使开发人员能够快速构建应用程序并解决实际问题开发人员不需要成为掌握大量网络技术的专家他可以专注于要解决的问题会完成其余繁重的工作说了这么多哪个低代码平台最火爆呀对于这个程序员永远关注的话题我们找到了来自的排名如下选购产品时需综合考量不能依赖单一排名图低代码开发平台指数数据来源小结我们概述了上世纪和本世纪的低代码产品定位提高专业开发人员的开发效率让业务专家将自己的专业知识和经验落地成在线应用讨论了低代码的大致定义然后通过大量统计数据和一些中国的典型案例描绘了低代码在近年的高速发展和其在未来年国内外的巨大市场最后介绍了一些支撑起这个市场的国内外的低代码产品为了较好地解决低代码产品的诉求低代码平台具体需要怎么做技术上有哪些挑战不同的方案效果如何我们会在本专栏文章的后续篇章中一一解明参考低代码发展现状调研和思考管中窥豹非其全轻舟低代码团队为什么要做编程语言起草中后续发布化繁为简低代码行业研究报告艾瑞咨询年中国低代码无代码市场研究及选型评估报告海比研究院数字化转型可持续的进化历程埃森哲低代码无代码应用案例汇编年月第一版企业数字化发展共建共享平台中国低代码领域十大趋势腾讯新闻低代码发展正当时中国将取代美国成为低代码开发的全球领导者美通社资讯年中国低代码行业生态发展洞察报告艾瑞咨询',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" itemprop="url">系统架构</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/di-dai-ma/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>di-dai-ma</span></a></span></div></div><h1 class="post-title" itemprop="name headline">低代码编程及其市场机遇剖析 | 低代码技术内幕</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:04.000Z" title="发表于 2024-10-31 22:02:04">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.176Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/"><header><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" itemprop="url">系统架构</a><a href="/tags/di-dai-ma/" tabindex="-1" itemprop="url">di-dai-ma</a><h1 id="CrawlerTitle" itemprop="name headline">低代码编程及其市场机遇剖析 | 低代码技术内幕</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:04.000Z" title="发表于 2024-10-31 22:02:04">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.176Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/9b/a1/9bcf66c91eaeebaba6963f5a1496b7a1.jpg" alt="低代码编程及其市场机遇剖析 | 低代码技术内幕"></p>
+<blockquote>
+<p>自 2020 年来，网易数帆探索可视化低代码编程已两年有余，打造了轻舟低代码平台用于企业应用开发。然而，不少编程技术人员对这一领域还比较陌生。我们开设<a target="_blank" rel="noopener" href="https://www.infoq.cn/theme/190" title="xxx">《低代码技术内幕》专栏</a>，旨在讨论低代码编程领域中的困难、问题，以及高效的解决方案。本文为第一篇，深度剖析低代码编程带来的机遇。</p>
+</blockquote>
+<p>据说早期人类语言只有“听说”系统，后因国家税收之需，又演化出了“读写”系统。而读写相较于听说的方式，有易于复制传播、歧义少、保存持久等优点……类似的，早期用于人机交流的程序语言只有“字符”系统，现在因为某些诉求，市场上涌现出一批“可视化低代码”系统。什么是低代码，它有哪些优势，我为什么要学习、使用它？<strong>低代码未来的市场是怎样的？</strong> 本文<strong>重点描述低代码未来 5~10 年的广阔市场</strong> ，但仍循序渐进，从概述低代码编程的历史发展开始。（所以想要了解市场规模和前景的读者，请直接跳转到低代码的市场和机遇部分）</p>
+<h2 id="低代码定义：发展与变迁"><a href="#低代码定义：发展与变迁" class="headerlink" title="低代码定义：发展与变迁"></a>低代码定义：发展与变迁</h2><p>提高生产效率是人类永恒的主题。正因此，我们认为<strong>广义</strong>的低代码编程，取其字面意思，应当是指在某个时间段内，完成项目所需的代码量（大幅）低于其他语言（平均值）的编程模式。无独有偶，我们的认知与 <a target="_blank" rel="noopener" href="https://www.itprotoday.com/no-codelow-code/evolution-low-codeno-code-development">ITPro Today</a>相合 [1]：文中描述 Fortran 和 COBOL 在 <strong>1950</strong> 年代刚出现时，它们作为高级编程语言的始祖，是那个年代里不折不扣的低代码编程语言——即便现在大多数的编程人员已经不这么认为。文章 [1] 还表示，<strong>1987</strong> 年苹果公司开发的 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/HyperCard">HyperCard 编程语言</a>（尽管不为大多数人所知）是低代码发展中的一个里程碑。HyperCard 融合了一套<strong>图形化</strong> 、可扩展、可编辑的接口和数据库功能，它的部分设计理念与微软的 Visual Basic 相似，但早于后者 4 年发布。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/41/9d/41a40fe4f4a757f7192bd6540e1f259d.png"></p>
+<p>图 1：HyperCard 图标。图片来源：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HyperCard" title="xxx">维基百科</a>。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/73/bc/73641126bdee7489bd883fab1afb9abc.png"></p>
+<p>图 2：HyperCard 界面。图片来源：<a target="_blank" rel="noopener" href="https://osxdaily.com/2017/05/27/run-hypercard-macos-web-browser-emu/" title="xxx">OSXDaily</a>。</p>
+<p><strong>1990</strong> 年代，随着第四代编程语言（SQL、MATLAB、Clipper 等）的发展与成熟以及高效的应用程序开发工具如 Visual Studio，Delphi 等的横空出世，<strong>UML + 设计器 + MDD</strong> 红极一时，模型驱动设计、自动代码生成和可视化开发思想成为了当年低代码开发的核心 [2]。直到这时为止，低代码的核心诉求都是<strong>提高专业开发人员的开发效率</strong> 。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/c0/3a/c06f6b2e8b58e776f79b4cd32f63d33a.png"></p>
+<p>图 3：UML 设计图</p>
+<p><strong>2010</strong> 年代，低代码的核心诉求发生剧烈变化，开始向“<strong>让业务专家将自己的专业知识和经验落地成在线应用</strong> ”转移 [2]。很多公司没有经费聘用专业的开发人员，因此希望业务专家经过一定的培训也可以上手开发应用，这些应用很大一部分是用于市场营销、销售的，也比较同质化，容易从统一的模板中搭建出。由此，便有了我们所熟知的在当前时代背景下的（狭义）的低代码编程，国际上最具有影响力和代表性的产品有 OutSystems、Mendix、MicroSoft Power Apps 等，这些产品具有以下特点 [3]：</p>
+<ul>
+<li><p>为让非专业编码人员易于使用，配备了完善的<strong>可视化开发</strong>框架，不仅提供可视化开发前端、UI 的能力，还提供<strong>可视化开发复杂逻辑</strong> 的能力：无需记忆编程语言的语法，通过拖拽和点击即可实现业务功能。</p>
+</li>
+<li><p>提供完整的前后端、数据库、部署、运维等解决方案，屏蔽了前端（HTML、JS、Vue &#x2F; React 等）、后端（NodeJs 或 Java + SpringBoot 等）、数据库（SQL 或 MongoDB 等）、云服务等技术，无需点击，即开即用。</p>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/34/33/349af93ee00f46f43a3885d7ee644233.png"></p>
+<p>图 4：OutSystems 可视化逻辑。图片来源：轻舟低代码团队为什么要做编程语言？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/91/69/919a5ce0ca153e59911628548b25c369.jpeg"></p>
+<p>图 5：轻舟低代码可视化逻辑。图片来源：轻舟低代码团队为什么要做编程语言？</p>
+<p>了解了低代码的大致历史后，我们便知道它并不是先有定义再发展起来的事物 [2]：它的定义随着时代发展而变化，以反应当前时代市场的诉求。因此，我们不妨援引西门子 Mendix 的定义来概述 21 世纪 20 年代的低代码：低代码开发是一种可视化应用开发方法。通过低代码开发，不同经验水平的开发人员能够通过图形用户界面，使用拖放式组件和模型驱动逻辑来创建 Web 和移动应用。了解了低代码的概念后，我们来看看低代码在未来 5~10 年的广阔市场。</p>
+<h2 id="低代码的市场和机遇"><a href="#低代码的市场和机遇" class="headerlink" title="低代码的市场和机遇"></a>低代码的市场和机遇</h2><p>本章我们先讨论低代码这一新兴技术在全球的发展，再描绘其在中国特定时代背景下（更大）的前景。</p>
+<h3 id="全球的发展"><a href="#全球的发展" class="headerlink" title="全球的发展"></a>全球的发展</h3><p>在低代码领域，目前海外大约活跃着六十七家供应商，而且它的生态系统正在迅速成长。<strong>2017 年</strong>是一个分界点，在大型软件供应商中，2017 年之前只有 Salesforce 采用 Force.com 的低代码平台。随后，微软、甲骨文、IBM 和 SAP 等企业都纷纷加入了这个市场，低代码（含无代码）市场呈爆发式增长：</p>
+<ul>
+<li><p>2020 年市场规模达到 108.2 亿美元 [4]。</p>
+</li>
+<li><p>2021 年市场规模达到 163 亿美元 [5]。</p>
+</li>
+<li><p>……</p>
+</li>
+<li><p>2030 年市场规模达到 1485 亿美元 [5] 。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p>更重要的是，目前低代码市场的增长是<strong>超过预期</strong>的，例如 2021 年 2 月曾有机构预测改年的低代码市场为 138 亿美元 [6]，而 2022 年回顾的市场实际值为 163 亿 [5]。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/c2/d4/c2c09fdeda44cc12b36c3036yy0208d4.png"></p>
+<p>图 6：低代码全球市场份额。原始数据来源：<a target="_blank" rel="noopener" href="https://www.spreadsheetweb.com/how-big-is-the-global-low-code-no-code-market-and-how-fast-is-it-growing/" title="xxx">SpreadSheetWeb</a> [7]</p>
+<p>当我们聚焦代表性的个体时，数据同样展现出了潜力 [2]：</p>
+<ul>
+<li><p>2018 年 Outsystems 获得 KKR 和高盛 3.6 亿美元融资，估值超过 10 亿美元。</p>
+</li>
+<li><p>WordPress、Wix 已逐渐成长为生态完善的可视化（低代码）建站平台，数以百万计的个人和企业在这些平台上搭建自己的官网或者应用。其中 WordPress 的生态厂商 Elementor 在 2020 年初获得 1500 万 A 轮融资，在过去一年中，该插件已部署了 300 多个新功能，还被翻译成 55 种语言，目前获得超过了 400 万活跃安装。低代码建站市场和低代码企业服务领域一样快速发展中。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p>为什么低代码会有如此<strong>广阔的市场</strong>？正是因为低代码开发高效灵活稳定，降低了应用搭建的门槛和对专业工程师的依赖，让业务部门用拖拽的方式自行搭建应用平台，减少与 IT 部门反复沟通的流程，最终实打实地<strong>降低了人力成本</strong>，克服了传统开发交付周期长、定制能力差、难以应对不断变化的市场和客户期望等弱点 [8]：</p>
+<blockquote>
+<p>You don’t need to invest in expensive training programs for your employees. You can have them build apps faster, with less training. And at the end of the day, all of this makes your business more revenue [9].</p>
+<p>翻译：你不需要为你的员工投资昂贵的培训项目。你可以让他们以更快的速度建立应用程序，并减少培训。而在一天结束时，所有这些都使你的企业获得更多的收入。</p>
+</blockquote>
+<h3 id="中国的优势"><a href="#中国的优势" class="headerlink" title="中国的优势"></a>中国的优势</h3><p>在《“十四五”数字经济发展规划》等政策以及企业数字化转型大背景下，能为企业提供降本、增效、提质，并推动数字经济发展的低代码、无代码在正在蓬勃发展 [10]；数字化转型是企业必经的可持续进化历程，越来越多的企业将从“不得不转”转变到“主动要转” [11]。其中无论是政企、医疗、金融业务，还是房地产、制造、零售等，我们都能看到低代码的身影 [12]（以下内容均来自该引用）：</p>
+<ul>
+<li><p>泰康人寿-泰行销 APP 分公司专栏项目，包含新闻、文章管理，搜索、滚动新闻，消息提醒，新闻、文章列表，大量的数据统计、业绩数据、排名数据、考核数据以及客户数据等特性、内容。使用<strong>轻舟低代码平台</strong>，通过可视化方式实现数据建模、页面搭建以及业务逻辑编排，在教练指导下 <strong>2 周完成开发</strong>。项目通过扩展组件实现 IT 资产复用，可导出为模板并成为平台资产，其他分公司从而可以通过模板快速搭建专栏。</p>
+</li>
+<li><p>中国联通软件研究院针对业务部门业务需求多样化，开发门槛高，开发周期长等问题，通过研究低代码在轻量级业务场景、通用型业务场景下的应用，帮助企业开发人员提高研发效率，降低开发门槛，赋能企业运营，助力数字化转型。同时，<strong>中国联通低代码</strong>赋能政企业务受理集约，实现联通政企业务受理集约流程可视化、分钟级配置、所见即所得，<strong>流程发布由原来的 2 周提升至 0.5 天</strong>，支撑 30 省超 300 个地市，8 大类业务的受理集约。</p>
+</li>
+<li><p>重庆长安汽车与华为基于 <strong>AppCube</strong> 合作，构建智慧党建系统、在线业务预算系统等 6 个企业应用。其中在线业务预算系统需要将庞杂的表单业务在线化，实现计划管理系统、合同管理系统、整车利润分析系统，以及填报、审核、分析、自动生成相应财务报表等预算编制流程等。借助 AppCube 低代码，<strong>应用构建效率整体提升了 2~3 倍</strong>，经过 3 个多月的努力，基本实现预期目标。</p>
+</li>
+<li><p>中国雄安集团电子招标采购交易平台，结合雄安集团业务复杂性和具体需求，最终在评审结果汇总计算、价格评审计算、费用计算等招采业务场景中使用计算规则引擎整体解决方案，只需 2 小时即可完成传统做法需要 5 天的业务系统升级迭代流程。此方案的<strong>计算代码部分由低代码组成</strong>。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p>宏观统计数据也表明：</p>
+<ul>
+<li><p>2022 年中国低代码无代码市场规模预计为 <strong>40.6 亿</strong>元，并预计在 2025 年达到 118.5 亿元，其<strong>年均复合增长率高达 42.9%</strong>。其中，低代码产品是总体市场的主要构成，占比 77.6% [10]。</p>
+</li>
+<li><p>2022 年将有 <strong>40%~60%</strong> 的大型企业使用低代码开发应用 [13]。</p>
+</li>
+<li><p>低代码的领军之一 Mendix 更是表示，低代码市场在中国展现出巨大潜力 [14]：低代码发展正当时，中国将取代美国成为低代码开发的全球领导者。报告显示 <strong>85%</strong> 的 IT 决策者表示表示正积极拥抱低代码技术，认为低代码是他们不容错过的趋势，且近一半（44%）的日常开发工作可以在低代码平台上完成。</p>
+</li>
+<li><p>尽管转型领军者的数字化优势进一步加大，2022 年进入转型领军者行列的企业比例仅为 17%，与去年（16%）基本持平。低代码在中国有着<strong>巨大的增量市场</strong>[11, 14]。</p>
+</li>
+<li><p>低代码应用在高校放彩，促进产学研全链路一体化建设 [15]……</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p>立足中国市场，随着“十四五”规划的推进，中国企业的数字化转型必将取得长足的进步，在降本增效的驱使下，低代码也必将成为中国大多数企业的最佳选择。</p>
+<h3 id="更多的统计数据"><a href="#更多的统计数据" class="headerlink" title="更多的统计数据"></a>更多的统计数据</h3><p>根据 UserGuiding 的统计，人们对低代码持有以下观点 [16] ：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://code.org/promote">美国有超过50万个</a>计算机科学职位空缺，预计它的增长速度是其他工作领域的 2 倍，但世界上只有 <a target="_blank" rel="noopener" href="https://www.weld.io/blog/only-0-5-percent-of-the-worlds-population-knows-how-to-code">0.5%</a>的人口知道如何编码。</p>
+</li>
+<li><p>到 2024 年，低代码将占到应用开发活动的 65% 以上。</p>
+</li>
+<li><p>“易用性”是人们在描述 低代码 &#x2F; 无代码开发平台时使用最多的<a target="_blank" rel="noopener" href="https://aimultiple.com/low-code-platform">(20%)</a>正面词汇，这是基于从所有低代码 &#x2F; 无代码开发平台公司的客户评论中收集的数据。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.mendix.com/blog/infographic-low-code-application-development-trends/">24%</a>的用户在使用低代码 &#x2F; 无代码平台之前完全没有经验。其中 40% 的用户大多有商业背景。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://assets.appian.com/uploads/2019/03/forrester-tlp-lowcode.pdf">84%</a>的企业转向低代码 &#x2F; 无代码，因为它们能够减少 IT 资源的压力，提高上市速度，并让企业参与数字资产开发。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://assets.appian.com/uploads/2019/03/forrester-tlp-lowcode.pdf">31%</a>使用低代码&#x2F;无代码的企业没有使用它们来构建和交付任何最高价值的应用程序。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.mendix.com/blog/infographic-low-code-application-development-trends/">72%</a>的用户在 3 个月或更短的时间内用低代码应用开发应用程序。</p>
+</li>
+<li><p>低代码 &#x2F; 无代码解决方案有可能将应用程序的开发时间减少 <a target="_blank" rel="noopener" href="https://www.redhat.com/cms/managed-files/mi-451-research-intelligent-process-automation-analyst-paper-f11434-201802.pdf">90%</a>。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://assets.appian.com/uploads/2019/03/forrester-tlp-lowcode.pdf">30%</a>的企业在未来更愿意使用定制的低代码 &#x2F; 无代码来处理复杂的商业逻辑。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<h2 id="现有的低代码产品"><a href="#现有的低代码产品" class="headerlink" title="现有的低代码产品"></a>现有的低代码产品</h2><p>最后我们再介绍一些支撑起低代码市场的代表性产品，从离我们比较近的国内产品开始。时至今日，国内的低代码产品已经比较丰富，例如<a target="_blank" rel="noopener" href="https://sf.163.com/product/lcap">轻舟低代码平台</a>、<a target="_blank" rel="noopener" href="https://lowcode-engine.cn/index">阿里低代码引擎</a>、<a target="_blank" rel="noopener" href="https://www.grapecity.com.cn/solutions/huozige">葡萄城活字格</a>、<a target="_blank" rel="noopener" href="https://www.h3yun.com/site/home?g=Chuanyun&m=Index&a=index">奥哲氚云</a>、<a target="_blank" rel="noopener" href="https://qingflow.com/">轻流</a>、<a target="_blank" rel="noopener" href="http://www.primeton.com/products/ep/">普元 EOS 平台</a>等：</p>
+<ul>
+<li><p>轻舟低代码是网易数帆打造的企业级应用开发平台，兼具（下述）原生低代码和开发工具的特点。它通过简单易上手的可视化编程语言，帮助企业搭建高复杂度、融合企业 IT 资产、交互视觉高保真还原的企业级应用，致力于帮助企业实现低成本、高效率的数字化转型和应用创新。</p>
+</li>
+<li><p>阿里低代码引擎的代表产品有钉钉宜搭等。钉钉宜搭基于阿里云的云基础设施和钉钉的企业数字化操作系统，提供低门槛、高效率的数字化业务 [2]。云平台的厂商希望借助低代码吸引更多用户购买其云服务，因此其低代码产品的发展方向上以深度整合自家云资源，降低门槛为主。</p>
+</li>
+<li><p>葡萄城活字格（Forguncy）是厂商整合自身的开发工具资源后推出了低代码产品，发展方向上以产品力提升为主，在技术门槛和扩展性中间会更倾向于后者 [2]。用户集中在初创型软件开发团队、行业软件代理商、系统集成商和中大企业 IT 中心，而不是一线业务人员。</p>
+</li>
+<li><p>奥哲氚云是低代码行业的创业公司，正处于风口快速发展阶段，后获得阿里系投资，更关注流量和市占率。产品发展上倾向于在降低门槛、与钉钉等流量平台整合 [2]。类似的还有明道云、简道云等。</p>
+</li>
+<li><p>轻流是专注于流程和表单的 BPM 厂商在自身软件的基础上增加可视化设计器，进一步降低使用门槛后，从而实现低代码转型的产品。这些产品的核心优势是强大的工作流引擎，但这种基于表单而不是数据模型的架构，在应对复杂应用场景时可能会遇到诸多障碍 [2]。类似的产品还有炎黄盈动 AWS PaaS 等。</p>
+</li>
+<li><p>普元 EOS 平台可以看成行业软件向通用平台的演进的尝试，它希望利用低代码技术降低实施、特别是实施中客户化开发环节的工作量，提升行业软件自身的竞争力 [2]。典型产品还有用友的 iUAP 等。</p>
+</li>
+</ul>
+<p>目前上述产品的海外市场并不多。根据 Fortune Business Insights [4]，我们列出几个重要的海外低代码产品及其简介 [17, 18] 供参考：</p>
+<ul>
+<li><p>Appian：Appian 配备了原生部署工具和与 Jenkins 等开发工具的集成选项，允许用户建立业务流程管理（BPM）应用程序，帮助企业组织和优化业务流程。</p>
+</li>
+<li><p>Microsoft Power Apps：可快速构建客制化的商业应用程序，它包含了预建的人工智能组件，还具备良好的可扩展性。</p>
+</li>
+<li><p>Salesforce：为每个用户创建个性化的体验，用拖放字段和动作来定制页面，在正确的时间提供正确的信息，构建智能的、可移动的应用程序。</p>
+</li>
+<li><p>OutSystems：提供可视化、模型驱动的工具，以实现快速开发和部署应用程序。它还提供实时性能监控和拥有高安全性。</p>
+</li>
+<li><p>Mendix：常被用于构建改善公司内部流程的解决方案，其用户只需最少量的编程知识和一个良好的策略。Mendix 被用于数字保险、SAP 供应链、货物交付管理和商业分析等各种市场领域。</p>
+</li>
+<li><p>Oracle APEX：Oracle APEX 使开发人员能够快速构建应用程序并解决实际问题。开发人员不需要成为掌握大量网络技术的专家，他可以专注于要解决的问题，Oracle APEX 会完成其余繁重的工作。</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p>说了这么多，哪个低代码平台最火爆呀？对于这个程序员永远关注的话题，我们找到了来自 GradientFlow 的“排名” [19] 如下（选购产品时需综合考量，不能依赖单一排名）：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/de/3c/de39b441dbfdf748489293403e04403c.png"></p>
+<p>图 7：低代码开发平台指数。数据来源：<a target="_blank" rel="noopener" href="https://gradientflow.com/ranking-low-code-development-platforms/" title="xxx">GradientFlow</a>  </p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>我们概述了上世纪和本世纪的低代码产品定位（提高专业开发人员的开发效率 vs 让业务专家将自己的专业知识和经验落地成在线应用），讨论了低代码的大致定义，然后通过大量统计数据和一些中国的典型案例描绘了低代码在近年的高速发展和其在未来 5~10 年国内外的巨大市场，最后介绍了一些支撑起这个市场的国内外的低代码产品。为了较好地解决低代码产品的诉求，<strong>低代码平台具体需要怎么做，技术上有哪些挑战，不同的方案效果如何？我们会在本专栏文章的后续篇章中一一解明。</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.itprotoday.com/no-codelow-code/evolution-low-codeno-code-development">[1] The History of Low-Code&#x2F;No-Code Development - ITPro Today</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vN0Mk4q4bQMbilNlQXS8Yg">[2] 低代码发展现状调研和思考 - 管中窥豹非其全</a>  </p>
+<p>[3] 轻舟低代码团队为什么要做编程语言？(起草中，后续发布)</p>
+<p><a target="_blank" rel="noopener" href="https://www.fortunebusinessinsights.com/low-code-development-platform-market-102972">[4] Low Code Development Platform Market Scope with Size, Share - Fortune Business Insights</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.globenewswire.com/news-release/2022/09/15/2517120/0/en/Low-Code-Development-Platform-Market-Size-is-projected-to-reach-USD-148-5-Billion-by-2030-growing-at-a-CAGR-of-27-8-Straits-Research.html">[5] Low Code Development Platform Market Size is projected to - Globe News Wire</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.gartner.com/en/newsroom/press-releases/2021-02-15-gartner-forecasts-worldwide-low-code-development-technologies-market-to-grow-23-percent-in-2021">[6] Gartner Forecasts Worldwide Low-Code Development Technologies Market to Grow 23% in 2021 - Gartner</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.spreadsheetweb.com/how-big-is-the-global-low-code-no-code-market-and-how-fast-is-it-growing/">[7] How Big is the Global Low-Code &#x2F; No-Code Market and How Fast is it Growing? - Spread Sheet Web</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://pdf.dfcfw.com/pdf/H3_AP202103221474638909_1.pdf">[8] 化繁为简：低代码行业研究报告 - 艾瑞咨询</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://kissflow.com/low-code/history-of-low-code-development-platforms/">[9] The History of Low-Code Development Platform - kissflow</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.donews.com/news/detail/4/3210864.html">[10]《2022年中国低代码无代码市场研究及选型评估报告》- 海比研究院</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.accenture.cn/content/dam/accenture/final/markets/growth-markets/document/Accenture-China-Digital-Transformation-Index-Report.pdf#zoom=50">[11] 数字化转型：可持续的进化历程 - 埃森哲</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.sgpjbg.com/baogao/93515.html">[12] 《2022 低代码 · 无代码 应用案例汇编》，2022 年 8 月第一版 - 企业数字化发展共建共享平台</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://new.qq.com/rain/a/20220106A03NY900">[13] 2022中国“低代码”领域十大趋势 - 腾讯新闻</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.163.com/dy/article/GNQLJJUQ051494RM.html">[14] 低代码发展正当时，中国将取代美国成为低代码开发的全球领导者 - 美通社资讯</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.163.com/dy/article/H34TF96605118VBB.html">[15] 2022年中国低代码行业生态发展洞察报告 - 艾瑞咨询</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://userguiding.com/blog/no-code-low-code-statistics/">[16] No-Code &#x2F; Low-Code Statistics and Trends - User Guiding</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.trio.dev/blog/low-code-platforms">[17] 9 Best Low-Code Platforms To Use in 2022 - Trio Developers</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://mobitouch.net/blog/10-best-low-code-no-code-platforms-to-create-an-effective-digital-product/">[18] 10 Best Low-Code &#x2F; No-Code Platforms To Create an Digital Product - Mobi Touch)</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://gradientflow.com/ranking-low-code-development-platforms/">[19] Ranking Low-code Development Platforms - Gradient Flow</a>  </p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/')">低代码编程及其市场机遇剖析 | 低代码技术内幕</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=低代码编程及其市场机遇剖析 | 低代码技术内幕&amp;url=https://tushu.info/archives/di-dai-ma-bian-cheng-ji-qi-shi-chang-ji/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/di-dai-ma/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>di-dai-ma<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/xiang-liang-shu-ju-ku-yi-wen-quan-mian/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">向量数据库｜一文全面了解向量数据库的基本概念、原理、算法、选型</div></div></a></div><div class="next-post pull-right"><a href="/archives/Netty-you-na-xie-nei-cun-guan-li-zu/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Netty有那些内存管理组件可以替换</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8E%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%B9%89%EF%BC%9A%E5%8F%91%E5%B1%95%E4%B8%8E%E5%8F%98%E8%BF%81"><span class="toc-number">1.</span> <span class="toc-text">低代码定义：发展与变迁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8E%E4%BB%A3%E7%A0%81%E7%9A%84%E5%B8%82%E5%9C%BA%E5%92%8C%E6%9C%BA%E9%81%87"><span class="toc-number">2.</span> <span class="toc-text">低代码的市场和机遇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E7%90%83%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-number">2.1.</span> <span class="toc-text">全球的发展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E5%9B%BD%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">2.2.</span> <span class="toc-text">中国的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.</span> <span class="toc-text">更多的统计数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E7%9A%84%E4%BD%8E%E4%BB%A3%E7%A0%81%E4%BA%A7%E5%93%81"><span class="toc-number">3.</span> <span class="toc-text">现有的低代码产品</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

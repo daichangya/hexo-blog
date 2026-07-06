@@ -1,0 +1,501 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>安装和使用 memcached | 代老师的博客</title><meta name="keywords" content="memcached"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="安装和使用 memcached"><meta name="application-name" content="安装和使用 memcached"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="安装和使用 memcached"><meta property="og:url" content="https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="memcached 是由 Danga Interactive 开发并使用 BSD 许可的一种通用的分布式内存缓存系统。 Danga Interactive 开发 memcached 的目的是创建一个内存缓存系统来处理其网站 LiveJournal.com 的巨大流量。每天超过 2000 万的页面访问"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="memcached 是由 Danga Interactive 开发并使用 BSD 许可的一种通用的分布式内存缓存系统。 Danga Interactive 开发 memcached 的目的是创建一个内存缓存系统来处理其网站 LiveJournal.com 的巨大流量。每天超过 2000 万的页面访问"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '安装和使用 memcached',
+  postAI: '',
+  pageFillDescription: '如何将 memcached 融入到您的环境中？, 图 1. 使用 memcached 的示例应用程序体系结构, 读取, 写入, 安装 memcached, libevent, 清单 1. 生成和安装 libevent, memcached, 清单 2. 生成和安装 memcached, 使用 memcached, 清单 3. 启动 memcached, 清单 4. 连接到 memcached, 基本 memcached 客户机命令, 清单 5. 修改命令语法, 表 1. memcached 修改命令参数, 高级 memcached 客户机命令, 清单 6. set 更新版本指示符, 清单 7. 使用旧版本指示符的 cas 命令, 缓存管理命令, 缓存性能, 清单 8. 计算缓存命中率, 结束语, 相关主题是由开发并使用许可的一种通用的分布式内存缓存系统开发的目的是创建一个内存缓存系统来处理其网站的巨大流量每天超过万的页面访问量给的数据库施加了巨大的压力因此的便着手设计了不仅减少了网站数据库的负载还成为如今世界上大多数高流量网站所使用的缓存解决方案本文首先全面概述然后指导您安装以及在开发环境中构建它我还将介绍客户机命令总共有个并展示如何在标准和高级操作中使用它们最后我将提供一些使用命令测量缓存的性能和效率的技巧如何将融入到您的环境中在开始安装和使用之前我们需要了解如何将融入到您的环境中虽然在任何地方都可以使用但我发现需要在数据库层中执行几个经常性查询时往往能发挥最大的效用我经常会在数据库和应用服务器之间设置一系列实例并采用一种简单的模式来读取和写入这些服务器图可以帮助您了解如何设置应用程序体系结构图使用的示例应用程序体系结构体系结构相当容易理解我建立了一个层其中包括一些实例下一层是应用程序本身这一层通常运行于或其他开源应用服务器之上再下面一层是配置实例的地方即应用服务器与数据库服务器之间在使用这种配置时需要采用稍微不同的方式来执行数据库的读取和写入操作读取我执行读取操作的顺序是从层获取请求需要执行一次数据库查询并检查之前在缓存中存储的查询结果如果我找到所需的值则返回它如果未找到则执行查询并将结果存储在缓存中然后再将结果返回给层写入将数据写入到数据库中时首先需要执行数据库写入操作然后将之前缓存的任何受此写入操作影响的结果设定为无效此过程有助于防止缓存和数据库之间出现数据不一致性安装支持一些操作系统包括和在本文中我将详细介绍如何通过源文件构建和安装采用这种方式的主要原因是我在遇到问题时可以查看源代码是安装的唯一前提条件它是所依赖的异步事件通知库您可以在上找到关于的源文件接下来找到其最新版本的源文件对于本文我们使用稳定的版本获取了归档文件之后将它解压到一个方便的位置然后执行清单中的命令清单生成和安装从获取源文件仍然选择最新的分发版在撰写本文时其最新版本是将解压到方便的位置并执行清单中的命令清单生成和安装完成这些步骤之后您应该安装了一个工作副本并且可以使用它了让我们进行简单介绍然后使用它使用要开始使用您首先需要启动服务器然后使用客户机连接到它要启动执行清单中的命令清单启动这会以守护程序的形式启动为其分配内存并指定监听即端口您可以根据需要修改这些值但以上设置足以完成本文中的练习接下来您需要连接到您将使用一个简单的客户机连接到服务器大多数操作系统都提供了内置的客户机但如果您使用的是基于的操作系统则需要下载第三方客户机我推荐使用安装了客户机之后执行清单中的命令清单连接到如果一切正常则应该得到一个响应它会指示已经连接到如果未获得此响应则应该返回之前的步骤并确保和的源文件都已成功生成您现现已经登录到服务器此后您将能够通过一系列简单的命令来与通信个客户端命令可以分为三类基本高级管理基本客户机命令您将使用五种基本命令执行最简单的操作这些命令和操作包括前三个命令是用于操作存储在中的键值对的标准修改命令它们都非常简单易用且都使用清单所示的语法清单修改命令语法表定义了修改命令的参数和用法表修改命令参数参数用法用于查找缓存值可以包括键值对的整型参数客户机使用它存储关于键值对的额外信息在缓存中保存键值对的时间长度以秒为单位表示永远在缓存中存储的字节点存储的值始终位于第二行现在我们来看看这些命令的实际使用命令用于向缓存添加新的键值对如果键已经存在则之前的值将被替换注意以下交互它使用了命令如果使用命令正确设定了键值对服务器将使用单词进行响应本示例向缓存中添加了一个键值对其键为其值为并将过期时间设置为这将向通知您希望将此值存储在缓存中直到删除它为止仅当缓存中不存在键时命令才会向缓存中添加一个键值对如果缓存中已经存在键则之前的值将仍然保持相同并且您将获得响应下面是使用命令的标准交互仅当键已经存在时命令才会替换缓存中的键如果缓存中不存在键那么您将从服务器接受到一条响应下面是使用命令的标准交互最后两个基本命令是和这些命令相当容易理解并且使用了类似的语法如下所示接下来看这些命令的应用命令用于检索与之前添加的键值对相关的值您将使用执行大多数检索操作下面是使用命令的典型交互如您所见命令相当简单您使用一个键来调用如果这个键存在于缓存中则返回相应的值如果不存在则不返回任何内容最后一个基本命令是命令用于删除中的任何现有值您将使用一个键调用如果该键存在于缓存中则删除该值如果不存在则返回一条消息下面是使用命令的客户机服务器交互高级客户机命令可以在中使用的两个高级命令是和和命令需要结合使用您将使用这两个命令来确保不会将现有的名称值对设置为新值如果该值已经更新过我们来分别看看这些命令命令的功能类似于基本的命令两个命令之间的差异在于返回的信息稍微多一些位的整型值非常像名称值对的版本标识符下面是使用命令的客户机服务器交互考虑和命令之间的差异命令将返回一个额外的值在本例中是整型值用于标识名称值对如果对此名称值对执行另一个命令则返回的额外值将会发生更改以表明名称值对已经被更新清单显示了一个例子清单更新版本指示符您看到返回的值了吗它已经更新为您每次修改名称值对时该值都会发生更改和是一个非常便捷的命令用于设置名称值对的值如果该名称值对在您上次执行后没有更新过它使用与命令相类似的语法但包括一个额外的值返回的额外值注意以下使用命令的交互如您所见我使用额外的整型值来调用命令并且操作运行非常顺序现在我们来看看清单中的一系列命令清单使用旧版本指示符的命令注意我并未使用最近返回的整型值并且命令返回值以示失败从本质上说同时使用和命令可以防止您使用自上次读取后经过更新的名称值对缓存管理命令最后两个命令用于监控和清理实例它们是和命令命令的功能正如其名转储所连接的实例的当前统计数据在下例中执行命令显示了关于当前实例的信息此处的大多数输出都非常容易理解稍后在讨论缓存性能时我还将详细解释这些值的含义至于目前我们先来看看输出然后再使用新的键来运行一些命令并再次运行命令注意发生了哪些变化是最后一个要介绍的命令这个最简单的命令仅用于清理缓存中的所有名称值对如果您需要将缓存重置到干净的状态则能提供很大的用处下面是一个使用的例子缓存性能在本文的最后我将讨论如何使用高级命令来确定缓存的性能命令用于调优缓存的使用需要注意的两个最重要的统计数据是和这两个值分别指示找到名称值对的次数和未找到名称值对的次数结合这些值我们可以确定缓存的利用率如何初次启动缓存时可以看到会自然地增加但在经过一定的使用量之后这些值应该会逐渐趋于平稳这表示缓存主要用于常见的读取操作如果您看到继续快速增加而逐渐趋于平稳则需要确定一下所缓存的内容是什么您可能缓存了错误的内容确定缓存效率的另一种方法是查看缓存的命中率缓存命中率表示执行的次数与错过的次数的百分比要确定这个百分比需要再次运行命令如清单所示清单计算缓存命中率现在用的数值除以在本例中您的命中率大约是在理想情况下您可能希望得到更高的百分比比率越高越好查看统计数据并不时测量它们可以很好地判定缓存策略的效率结束语缓存是任何海量应用程序不可或缺的部分我自己成功使用过它好几次如果您选择使用作为缓存解决方案那么我敢保证您可以看到它的效率如何在本系列的第部分中您将学习如何将集成到一个应用程序中我们将借此机会讨论一个激动人心的用于可伸缩应用程序开发的栈并应用一些出色的技巧到目前为止本文介绍的知识足以帮助您开始掌握我鼓励您安装自己的实例并开始尝试使用它相关主题年月的向您介绍年月介绍跨多台机器缓存消息的负载平衡解决方案对应用程序进行性能调优年月概述应用程序的各种组件之间如何交互包括常见的性能瓶颈和缓存等解决方案年月概述在应用程序栈中的位置以及将轻量级缓存替代为带来的挑战下载一种分布式内存缓存系统下载一个异步事件通知库下载一个客户机技术专区查看数百篇关于编程各个方面的文章',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:36',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/memcached/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>memcached</span></a></span></div></div><h1 class="post-title" itemprop="name headline">安装和使用 memcached</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:47.000Z" title="发表于 2024-10-31 22:01:47">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.711Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/"><header><a href="/tags/memcached/" tabindex="-1" itemprop="url">memcached</a><h1 id="CrawlerTitle" itemprop="name headline">安装和使用 memcached</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:47.000Z" title="发表于 2024-10-31 22:01:47">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.711Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></header><p><a href="#artrelatedtopics">memcached</a> 是由 Danga Interactive 开发并使用 BSD 许可的一种通用的分布式内存缓存系统。</p>
+<p>Danga Interactive 开发 memcached 的目的是创建一个内存缓存系统来处理其网站 LiveJournal.com 的巨大流量。每天超过 2000 万的页面访问量给 LiveJournal 的数据库施加了巨大的压力，因此 Danga 的 <a href="#artrelatedtopics">Brad Fitzpatrick</a> 便着手设计了 memcached。memcached 不仅减少了网站数据库的负载，还成为如今世界上大多数高流量网站所使用的缓存解决方案。</p>
+<p>本文首先全面概述 memcached，然后指导您安装 memcached 以及在开发环境中构建它。我还将介绍 memcached 客户机命令（总共有 9 个）并展示如何在标准和高级 memcached 操作中使用它们。最后，我将提供一些使用 memcached 命令测量缓存的性能和效率的技巧。</p>
+<h2 id="如何将-memcached-融入到您的环境中？"><a href="#如何将-memcached-融入到您的环境中？" class="headerlink" title="如何将 memcached 融入到您的环境中？"></a>如何将 memcached 融入到您的环境中？</h2><p>在开始安装和使用 using memcached 之前，我们需要了解如何将 memcached 融入到您的环境中。虽然在任何地方都可以使用 memcached，但我发现需要在数据库层中执行几个经常性查询时，memcached 往往能发挥最大的效用。我经常会在数据库和应用服务器之间设置一系列 memcached 实例，并采用一种简单的模式来读取和写入这些服务器。图 1 可以帮助您了解如何设置应用程序体系结构：</p>
+<h5 id="图-1-使用-memcached-的示例应用程序体系结构"><a href="#图-1-使用-memcached-的示例应用程序体系结构" class="headerlink" title="图 1. 使用 memcached 的示例应用程序体系结构"></a>图 1. 使用 memcached 的示例应用程序体系结构</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.ibm.com/developerworks/cn/java/j-memcached1/memcached1-fig1.gif" alt="使用 memcached 的示例应用程序体系结构"></p>
+<p>体系结构相当容易理解。我建立了一个 Web 层，其中包括一些 Apache 实例。下一层是应用程序本身。这一层通常运行于 Apache Tomcat 或其他开源应用服务器之上。再下面一层是配置 memcached 实例的地方 — 即应用服务器与数据库服务器之间。在使用这种配置时，需要采用稍微不同的方式来执行数据库的读取和写入操作。</p>
+<h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><p>我执行读取操作的顺序是从 Web 层获取请求（需要执行一次数据库查询）并检查之前在缓存中存储的查询结果。如果我找到所需的值，则返回它。如果未找到，则执行查询并将结果存储在缓存中，然后再将结果返回给 Web 层。</p>
+<h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><p>将数据写入到数据库中时，首先需要执行数据库写入操作，然后将之前缓存的任何受此写入操作影响的结果设定为无效。此过程有助于防止缓存和数据库之间出现数据不一致性。</p>
+<h2 id="安装-memcached"><a href="#安装-memcached" class="headerlink" title="安装 memcached"></a>安装 memcached</h2><p>memcached 支持一些操作系统，包括 Linux®、Windows®、Mac OS 和 Solaris。在本文中，我将详细介绍如何通过源文件构建和安装 memcached。采用这种方式的主要原因是我在遇到问题时可以查看源代码。</p>
+<h3 id="libevent"><a href="#libevent" class="headerlink" title="libevent"></a>libevent</h3><p><a href="#artrelatedtopics">libevent</a> 是安装 memcached 的唯一前提条件。它是 memcached 所依赖的异步事件通知库。您可以在 <a href="#artrelatedtopics">monkey.org</a> 上找到关于 libevent 的源文件。接下来，找到其最新版本的源文件。对于本文，我们使用稳定的 1.4.11 版本。获取了归档文件之后，将它解压到一个方便的位置，然后执行清单 1 中的命令：</p>
+<h5 id="清单-1-生成和安装-libevent"><a href="#清单-1-生成和安装-libevent" class="headerlink" title="清单 1. 生成和安装 libevent"></a>清单 1. 生成和安装 libevent</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd libevent-1.4.11-stable/</span><br><span class="line"> </span><br><span class="line">./configure</span><br><span class="line">             </span><br><span class="line">make</span><br><span class="line">                 </span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="memcached"><a href="#memcached" class="headerlink" title="memcached"></a>memcached</h3><p>从 <a href="#artrelatedtopics">Danga Interactive</a> 获取 memcached 源文件，仍然选择最新的分发版。在撰写本文时，其最新版本是 1.4.0。将 tar.gz 解压到方便的位置，并执行清单 2 中的命令：</p>
+<h5 id="清单-2-生成和安装-memcached"><a href="#清单-2-生成和安装-memcached" class="headerlink" title="清单 2. 生成和安装 memcached"></a>清单 2. 生成和安装 memcached</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd memcached-1.4.0/</span><br><span class="line"> </span><br><span class="line">./configure</span><br><span class="line">             </span><br><span class="line">make</span><br><span class="line">                 </span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>完成这些步骤之后，您应该安装了一个 memcached 工作副本，并且可以使用它了。让我们进行简单介绍，然后使用它。</p>
+<h2 id="使用-memcached"><a href="#使用-memcached" class="headerlink" title="使用 memcached"></a>使用 memcached</h2><p>要开始使用 memcached，您首先需要启动 memcached 服务器，然后使用 telnet 客户机连接到它。</p>
+<p>要启动 memcached，执行清单 3 中的命令：</p>
+<h5 id="清单-3-启动-memcached"><a href="#清单-3-启动-memcached" class="headerlink" title="清单 3. 启动 memcached"></a>清单 3. 启动 memcached</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./memcached -d -m 2048 -l 10.0.0.40 -p 11211</span><br></pre></td></tr></table></figure>
+
+<p>这会以守护程序的形式启动 memcached（<code>-d</code>），为其分配 2GB 内存（<code>-m 2048</code>），并指定监听 localhost，即端口 11211。您可以根据需要修改这些值，但以上设置足以完成本文中的练习。接下来，您需要连接到 memcached。您将使用一个简单的 telnet 客户机连接到 memcached 服务器。</p>
+<p>大多数操作系统都提供了内置的 telnet 客户机，但如果您使用的是基于 Windows 的操作系统，则需要下载第三方客户机。我推荐使用 <a href="#artrelatedtopics">PuTTy</a>。</p>
+<p>安装了 telnet 客户机之后，执行清单 4 中的命令：</p>
+<h5 id="清单-4-连接到-memcached"><a href="#清单-4-连接到-memcached" class="headerlink" title="清单 4. 连接到 memcached"></a>清单 4. 连接到 memcached</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet localhost 11211</span><br></pre></td></tr></table></figure>
+
+<p>如果一切正常，则应该得到一个 telnet 响应，它会指示 <strong>Connected to localhost（已经连接到 localhost）</strong>。如果未获得此响应，则应该返回之前的步骤并确保 libevent 和 memcached 的源文件都已成功生成。</p>
+<p>您现现已经登录到 memcached 服务器。此后，您将能够通过一系列简单的命令来与 memcached 通信。9 个 memcached 客户端命令可以分为三类：</p>
+<ul>
+<li>基本</li>
+<li>高级</li>
+<li>管理</li>
+</ul>
+<h3 id="基本-memcached-客户机命令"><a href="#基本-memcached-客户机命令" class="headerlink" title="基本 memcached 客户机命令"></a>基本 memcached 客户机命令</h3><p>您将使用五种基本 memcached 命令执行最简单的操作。这些命令和操作包括：</p>
+<ul>
+<li><code>set</code></li>
+<li><code>add</code></li>
+<li><code>replace</code></li>
+<li><code>get</code></li>
+<li><code>delete</code></li>
+</ul>
+<p>前三个命令是用于操作存储在 memcached 中的键值对的标准修改命令。它们都非常简单易用，且都使用清单 5 所示的语法：</p>
+<h5 id="清单-5-修改命令语法"><a href="#清单-5-修改命令语法" class="headerlink" title="清单 5. 修改命令语法"></a>清单 5. 修改命令语法</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">command &lt;key&gt; &lt;flags&gt; &lt;expiration time&gt; &lt;bytes&gt;</span><br><span class="line">&lt;value&gt;</span><br></pre></td></tr></table></figure>
+
+<p>表 1 定义了 memcached 修改命令的参数和用法。</p>
+<h5 id="表-1-memcached-修改命令参数"><a href="#表-1-memcached-修改命令参数" class="headerlink" title="表 1. memcached 修改命令参数"></a>表 1. memcached 修改命令参数</h5><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>key</td>
+<td>key 用于查找缓存值</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>可以包括键值对的整型参数，客户机使用它存储关于键值对的额外信息</td>
+</tr>
+<tr>
+<td>expiration time</td>
+<td>在缓存中保存键值对的时间长度（以秒为单位，0 表示永远）</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>在缓存中存储的字节点</td>
+</tr>
+<tr>
+<td>value</td>
+<td>存储的值（始终位于第二行）</td>
+</tr>
+</tbody></table>
+<p>现在，我们来看看这些命令的实际使用。</p>
+<p><strong>set</strong><br><code>set</code> 命令用于向缓存添加新的键值对。如果键已经存在，则之前的值将被替换。</p>
+<p>注意以下交互，它使用了 <code>set</code> 命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">12345</span><br><span class="line">STORED</span><br></pre></td></tr></table></figure>
+
+<p>如果使用 <code>set</code> 命令正确设定了键值对，服务器将使用单词 <strong>STORED</strong> 进行响应。本示例向缓存中添加了一个键值对，其键为 <code>userId</code>，其值为 <code>12345</code>。并将过期时间设置为 0，这将向 memcached 通知您希望将此值存储在缓存中直到删除它为止。</p>
+<p><strong>add</strong><br>仅当缓存中不存在键时，<code>add</code> 命令才会向缓存中添加一个键值对。如果缓存中已经存在键，则之前的值将仍然保持相同，并且您将获得响应 <strong>NOT_STORED</strong>。</p>
+<p>下面是使用 <code>add</code> 命令的标准交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">12345</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">add userId 0 0 5</span><br><span class="line">55555</span><br><span class="line">NOT_STORED</span><br><span class="line"> </span><br><span class="line">add companyId 0 0 3</span><br><span class="line">564</span><br><span class="line">STORED</span><br></pre></td></tr></table></figure>
+
+<p><strong>replace</strong><br>仅当键已经存在时，<code>replace</code> 命令才会替换缓存中的键。如果缓存中不存在键，那么您将从 memcached 服务器接受到一条 <strong>NOT_STORED</strong> 响应。</p>
+<p>下面是使用 <code>replace</code> 命令的标准交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">replace accountId 0 0 5</span><br><span class="line">67890</span><br><span class="line">NOT_STORED</span><br><span class="line"> </span><br><span class="line">set accountId 0 0 5</span><br><span class="line">67890</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">replace accountId 0 0 5</span><br><span class="line">55555</span><br><span class="line">STORED</span><br></pre></td></tr></table></figure>
+
+<p>最后两个基本命令是 <code>get</code> 和 <code>delete</code>。这些命令相当容易理解，并且使用了类似的语法，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &lt;key&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接下来看这些命令的应用。</p>
+<p><strong>get</strong><br><code>get</code> 命令用于检索与之前添加的键值对相关的值。您将使用 <code>get</code> 执行大多数检索操作。</p>
+<p>下面是使用 <code>get</code> 命令的典型交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">12345</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">get userId</span><br><span class="line">VALUE userId 0 5</span><br><span class="line">12345</span><br><span class="line">END</span><br><span class="line"> </span><br><span class="line">get bob</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<p>如您所见，<code>get</code> 命令相当简单。您使用一个键来调用 <code>get</code>，如果这个键存在于缓存中，则返回相应的值。如果不存在，则不返回任何内容。</p>
+<p><strong>delete</strong><br>最后一个基本命令是 <code>delete</code>。<code>delete</code> 命令用于删除 memcached 中的任何现有值。您将使用一个键调用 <code>delete</code>，如果该键存在于缓存中，则删除该值。如果不存在，则返回一条 <strong>NOT_FOUND</strong> 消息。</p>
+<p>下面是使用 <code>delete</code> 命令的客户机服务器交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">98765</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">delete bob</span><br><span class="line">NOT_FOUND</span><br><span class="line"> </span><br><span class="line">delete userId</span><br><span class="line">DELETED</span><br><span class="line"> </span><br><span class="line">get userId</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<h3 id="高级-memcached-客户机命令"><a href="#高级-memcached-客户机命令" class="headerlink" title="高级 memcached 客户机命令"></a>高级 memcached 客户机命令</h3><p>可以在 memcached 中使用的两个高级命令是 <code>gets</code> 和 <code>cas</code>。<code>gets</code> 和 <code>cas</code> 命令需要结合使用。您将使用这两个命令来确保不会将现有的名称&#x2F;值对设置为新值（如果该值已经更新过）。我们来分别看看这些命令。</p>
+<p><strong>gets</strong><br><code>gets</code> 命令的功能类似于基本的 <code>get</code> 命令。两个命令之间的差异在于，<code>gets</code> 返回的信息稍微多一些：64 位的整型值非常像名称&#x2F;值对的 “版本” 标识符。</p>
+<p>下面是使用 <code>gets</code> 命令的客户机服务器交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">12345</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">get userId</span><br><span class="line">VALUE userId 0 5</span><br><span class="line">12345</span><br><span class="line">END</span><br><span class="line"> </span><br><span class="line">gets userId</span><br><span class="line">VALUE userId 0 5 4</span><br><span class="line">12345</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<p>考虑 <code>get</code> 和 <code>gets</code> 命令之间的差异。<code>gets</code> 命令将返回一个额外的值 — 在本例中是整型值 4，用于标识名称&#x2F;值对。如果对此名称&#x2F;值对执行另一个 <code>set</code> 命令，则 <code>gets</code> 返回的额外值将会发生更改，以表明名称&#x2F;值对已经被更新。清单 6 显示了一个例子：</p>
+<h5 id="清单-6-set-更新版本指示符"><a href="#清单-6-set-更新版本指示符" class="headerlink" title="清单 6. set 更新版本指示符"></a>清单 6. set 更新版本指示符</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">33333</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">gets userId</span><br><span class="line">VALUE userId 0 5 5</span><br><span class="line">33333</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<p>您看到 <code>gets</code> 返回的值了吗？它已经更新为 5。您每次修改名称&#x2F;值对时，该值都会发生更改。</p>
+<p><strong>cas</strong><br><code>cas</code>（check 和 set）是一个非常便捷的 memcached 命令，用于设置名称&#x2F;值对的值（如果该名称&#x2F;值对在您上次执行 <code>gets</code> 后没有更新过）。它使用与 <code>set</code> 命令相类似的语法，但包括一个额外的值：<code>gets</code> 返回的额外值。</p>
+<p>注意以下使用 <code>cas</code> 命令的交互：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">55555</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">gets userId</span><br><span class="line">VALUE userId 0 5 6</span><br><span class="line">55555</span><br><span class="line">END</span><br><span class="line"> </span><br><span class="line">cas userId 0 0 5 6</span><br><span class="line">33333</span><br><span class="line">STORED</span><br></pre></td></tr></table></figure>
+
+<p>如您所见，我使用额外的整型值 6 来调用 <code>gets</code> 命令，并且操作运行非常顺序。现在，我们来看看清单 7 中的一系列命令：</p>
+<h5 id="清单-7-使用旧版本指示符的-cas-命令"><a href="#清单-7-使用旧版本指示符的-cas-命令" class="headerlink" title="清单 7. 使用旧版本指示符的 cas 命令"></a>清单 7. 使用旧版本指示符的 <code>cas</code> 命令</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">55555</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">gets userId</span><br><span class="line">VALUE userId 0 5 8</span><br><span class="line">55555</span><br><span class="line">END</span><br><span class="line"> </span><br><span class="line">cas userId 0 0 5 6</span><br><span class="line">33333</span><br><span class="line">EXISTS</span><br></pre></td></tr></table></figure>
+
+<p>注意，我并未使用 <code>gets</code> 最近返回的整型值，并且 <code>cas</code> 命令返回 EXISTS 值以示失败。从本质上说，同时使用 <code>gets</code> 和 <code>cas</code> 命令可以防止您使用自上次读取后经过更新的名称&#x2F;值对。</p>
+<h3 id="缓存管理命令"><a href="#缓存管理命令" class="headerlink" title="缓存管理命令"></a>缓存管理命令</h3><p>最后两个 memcached 命令用于监控和清理 memcached 实例。它们是 <code>stats</code> 和 <code>flush_all</code> 命令。</p>
+<p><strong>stats</strong><br><code>stats</code> 命令的功能正如其名：转储所连接的 memcached 实例的当前统计数据。在下例中，执行 <code>stats</code> 命令显示了关于当前 memcached 实例的信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">stats</span><br><span class="line">STAT pid 63</span><br><span class="line">STAT uptime 101758</span><br><span class="line">STAT time 1248643186</span><br><span class="line">STAT version 1.4.11</span><br><span class="line">STAT pointer_size 32</span><br><span class="line">STAT rusage_user 1.177192</span><br><span class="line">STAT rusage_system 2.365370</span><br><span class="line">STAT curr_items 2</span><br><span class="line">STAT total_items 8</span><br><span class="line">STAT bytes 119</span><br><span class="line">STAT curr_connections 6</span><br><span class="line">STAT total_connections 7</span><br><span class="line">STAT connection_structures 7</span><br><span class="line">STAT cmd_get 12</span><br><span class="line">STAT cmd_set 12</span><br><span class="line">STAT get_hits 12</span><br><span class="line">STAT get_misses 0</span><br><span class="line">STAT evictions 0</span><br><span class="line">STAT bytes_read 471</span><br><span class="line">STAT bytes_written 535</span><br><span class="line">STAT limit_maxbytes 67108864</span><br><span class="line">STAT threads 4</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<p>此处的大多数输出都非常容易理解。稍后在讨论缓存性能时，我还将详细解释这些值的含义。至于目前，我们先来看看输出，然后再使用新的键来运行一些 <code>set</code> 命令，并再次运行 <code>stats</code> 命令，注意发生了哪些变化。</p>
+<p><strong>flush_all</strong><br><code>flush_all</code> 是最后一个要介绍的命令。这个最简单的命令仅用于清理缓存中的所有名称&#x2F;值对。如果您需要将缓存重置到干净的状态，则 <code>flush_all</code> 能提供很大的用处。下面是一个使用 <code>flush_all</code> 的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">set userId 0 0 5</span><br><span class="line">55555</span><br><span class="line">STORED</span><br><span class="line"> </span><br><span class="line">get userId</span><br><span class="line">VALUE userId 0 5</span><br><span class="line">55555</span><br><span class="line">END</span><br><span class="line"> </span><br><span class="line">flush_all</span><br><span class="line">OK</span><br><span class="line"> </span><br><span class="line">get userId</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<h2 id="缓存性能"><a href="#缓存性能" class="headerlink" title="缓存性能"></a>缓存性能</h2><p>在本文的最后，我将讨论如何使用高级 memcached 命令来确定缓存的性能。<code>stats</code> 命令用于调优缓存的使用。需要注意的两个最重要的统计数据是 et_hits 和 get_misses。这两个值分别指示找到名称&#x2F;值对的次数（get_hits）和未找到名称&#x2F;值对的次数（get_misses）。</p>
+<p>结合这些值，我们可以确定缓存的利用率如何。初次启动缓存时，可以看到 get_misses 会自然地增加，但在经过一定的使用量之后，这些 get_misses 值应该会逐渐趋于平稳 — 这表示缓存主要用于常见的读取操作。如果您看到 get_misses 继续快速增加，而 get_hits 逐渐趋于平稳，则需要确定一下所缓存的内容是什么。您可能缓存了错误的内容。</p>
+<p>确定缓存效率的另一种方法是查看缓存的命中率（hit ratio）。缓存命中率表示执行 <code>get</code> 的次数与错过 <code>get</code> 的次数的百分比。要确定这个百分比，需要再次运行 <code>stats</code> 命令，如清单 8 所示：</p>
+<h5 id="清单-8-计算缓存命中率"><a href="#清单-8-计算缓存命中率" class="headerlink" title="清单 8. 计算缓存命中率"></a>清单 8. 计算缓存命中率</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">stats</span><br><span class="line">STAT pid 6825</span><br><span class="line">STAT uptime 540692</span><br><span class="line">STAT time 1249252262</span><br><span class="line">STAT version 1.2.6</span><br><span class="line">STAT pointer_size 32</span><br><span class="line">STAT rusage_user 0.056003</span><br><span class="line">STAT rusage_system 0.180011</span><br><span class="line">STAT curr_items 595</span><br><span class="line">STAT total_items 961</span><br><span class="line">STAT bytes 4587415</span><br><span class="line">STAT curr_connections 3</span><br><span class="line">STAT total_connections 22</span><br><span class="line">STAT connection_structures 4</span><br><span class="line">STAT cmd_get 2688</span><br><span class="line">STAT cmd_set 961</span><br><span class="line">STAT get_hits 1908</span><br><span class="line">STAT get_misses 780</span><br><span class="line">STAT evictions 0</span><br><span class="line">STAT bytes_read 5770762</span><br><span class="line">STAT bytes_written 7421373</span><br><span class="line">STAT limit_maxbytes 536870912</span><br><span class="line">STAT threads 1</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+
+<p>现在，用 get_hits 的数值除以 cmd_gets。在本例中，您的命中率大约是 71%。在理想情况下，您可能希望得到更高的百分比 — 比率越高越好。查看统计数据并不时测量它们可以很好地判定缓存策略的效率。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>缓存是任何海量 Web 应用程序不可或缺的部分。我自己成功使用过它好几次。如果您选择使用 memcached 作为缓存解决方案，那么我敢保证您可以看到它的效率如何。</p>
+<p>在本系列的第 2 部分中，您将学习如何将 memcached 集成到一个 Grails 应用程序中。我们将借此机会讨论一个激动人心的用于可伸缩 Web 应用程序开发的栈，并应用一些出色的技巧。到目前为止，本文介绍的知识足以帮助您开始掌握 memcached。我鼓励您安装自己的 memcached 实例并开始尝试使用它。</p>
+<hr>
+<h4 id="相关主题"><a href="#相关主题" class="headerlink" title="相关主题"></a>相关主题</h4><ul>
+<li>“<a target="_blank" rel="noopener" href="http://www.linuxjournal.com/article/7451">Distributed Caching with Memcached</a>”（Brad Fitzpatrick，<em>Linux Journal</em>，2004 年 8 月）：Danga Interactive 的 Brad Fitzpatrick 向您介绍 memcached。</li>
+<li>“<a target="_blank" rel="noopener" href="http://www.javaworld.com/javaworld/jw-10-2008/jw-10-load-balancing-1.html">Server load-balancing architectures: Transport-level architectures</a>”（Gregor Roth，JavaWorld，2008 年 10 月）：介绍跨多台机器缓存 <code>HttpResponse</code> 消息的 memcached 负载平衡解决方案。</li>
+<li>“<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/aix/library/au-perf_tuning/">对 Web 应用程序进行性能调优</a>”（Sean Walberg，developerWorks，2009 年 1 月）：概述 Web 应用程序的各种组件之间如何交互，包括常见的性能瓶颈和缓存等解决方案。</li>
+<li>“<a target="_blank" rel="noopener" href="http://gigaom.com/2009/05/17/memcached-and-an-ailing-mysql/">Is Memcached a Good or Bad Sign for MySQL?</a>”（Gary Orenstein，Gigaom.com，2009 年 5 月）：概述 memcached 在应用程序栈中的位置，以及将轻量级缓存替代为 RDBMS 带来的挑战。</li>
+<li><a target="_blank" rel="noopener" href="http://www.danga.com/memcached/download.bml">下载 memcached</a>：一种分布式内存缓存系统。</li>
+<li><a target="_blank" rel="noopener" href="http://www.monkey.org/~provos/libevent/">下载 libevent</a>：一个异步事件通知库。</li>
+<li><a target="_blank" rel="noopener" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">下载 PuTTy</a>：一个 Windows telnet 客户机。</li>
+<li><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/">developerWorks Java 技术专区</a>：查看数百篇关于 Java 编程各个方面的文章。</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/')">安装和使用 memcached</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=安装和使用 memcached&amp;url=https://tushu.info/archives/an-zhuang-he-shi-yong-memcached/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/memcached/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>memcached<span class="tagsPageCount">3</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/cheng-xu-yuan-chu-xue-ji-qi-xue-xi-de/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">程序员初学机器学习的四种方式</div></div></a></div><div class="next-post pull-right"><a href="/archives/Tomcat-xi-tong-jia-gou-yu-she-ji-mo-shi/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Tomcat 系统架构与设计模式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/archives/cong-ru-men-dao-jin-jie-yi-wen-zhang-wo/" title="从入门到进阶：一文掌握 Memcached 的核心原理与应用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-15</div><div class="title">从入门到进阶：一文掌握 Memcached 的核心原理与应用</div></div></a></div><div><a href="/archives/ying-yong-memcached-ti-sheng-zhan-dian/" title="应用 memcached 提升站点性能"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">应用 memcached 提升站点性能</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86-memcached-%E8%9E%8D%E5%85%A5%E5%88%B0%E6%82%A8%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%AD%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">如何将 memcached 融入到您的环境中？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE-1-%E4%BD%BF%E7%94%A8-memcached-%E7%9A%84%E7%A4%BA%E4%BE%8B%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">图 1. 使用 memcached 的示例应用程序体系结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96"><span class="toc-number">1.1.</span> <span class="toc-text">读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">写入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-memcached"><span class="toc-number">2.</span> <span class="toc-text">安装 memcached</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#libevent"><span class="toc-number">2.1.</span> <span class="toc-text">libevent</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-1-%E7%94%9F%E6%88%90%E5%92%8C%E5%AE%89%E8%A3%85-libevent"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">清单 1. 生成和安装 libevent</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#memcached"><span class="toc-number">2.2.</span> <span class="toc-text">memcached</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-2-%E7%94%9F%E6%88%90%E5%92%8C%E5%AE%89%E8%A3%85-memcached"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">清单 2. 生成和安装 memcached</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-memcached"><span class="toc-number">3.</span> <span class="toc-text">使用 memcached</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-3-%E5%90%AF%E5%8A%A8-memcached"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">清单 3. 启动 memcached</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-4-%E8%BF%9E%E6%8E%A5%E5%88%B0-memcached"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">清单 4. 连接到 memcached</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC-memcached-%E5%AE%A2%E6%88%B7%E6%9C%BA%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">基本 memcached 客户机命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-5-%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">清单 5. 修改命令语法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8-1-memcached-%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">表 1. memcached 修改命令参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7-memcached-%E5%AE%A2%E6%88%B7%E6%9C%BA%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.</span> <span class="toc-text">高级 memcached 客户机命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-6-set-%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC%E6%8C%87%E7%A4%BA%E7%AC%A6"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">清单 6. set 更新版本指示符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-7-%E4%BD%BF%E7%94%A8%E6%97%A7%E7%89%88%E6%9C%AC%E6%8C%87%E7%A4%BA%E7%AC%A6%E7%9A%84-cas-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">清单 7. 使用旧版本指示符的 cas 命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">缓存管理命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E6%80%A7%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">缓存性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B8%85%E5%8D%95-8-%E8%AE%A1%E7%AE%97%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87"><span class="toc-number">4.0.0.1.</span> <span class="toc-text">清单 8. 计算缓存命中率</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E4%B8%BB%E9%A2%98"><span class="toc-number">5.0.1.</span> <span class="toc-text">相关主题</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

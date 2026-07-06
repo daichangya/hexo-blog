@@ -1,0 +1,949 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Markdown basic-syntax | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Markdown basic-syntax"><meta name="application-name" content="Markdown basic-syntax"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Markdown basic-syntax"><meta property="og:url" content="https://tushu.info/archives/Markdown-basic-syntax/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="[TOC]OverviewNearly all Markdown applications support the basic syntax outlined in John Gruber’s original design document. There are minor variations"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="[TOC]OverviewNearly all Markdown applications support the basic syntax outlined in John Gruber’s original design document. There are minor variations"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Markdown-basic-syntax/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Markdown basic-syntax',
+  postAI: '',
+  pageFillDescription: '[TOC]Overview, Headings, Heading Best Practices, Here’s the heading, Here’s the heading, Paragraphs, Paragraph Best Practices, Line Breaks, Line Break Best Practices, Emphasis, Bold, Bold Best Practices, Italic, Italic Best Practices, Bold and Italic, Bold and Italic Best Practices, Blockquotes, Blockquotes with Multiple Paragraphs, Nested Blockquotes, Blockquotes with Other Elements, The quarterly results look great!, Lists, Ordered Lists, Unordered Lists, Adding Elements in Lists, Paragraphs, Blockquotes, Code Blocks, Images, Code, Escaping Backticks, Code Blocks, Horizontal Rules, Horizontal Rule Best Practices, 96Without blank lines this would be a heading.  , Links, Adding Titles, URLs and Email Addresses, Formatting Links, Reference-style Links, Formatting the First Part of the Link, Formatting the Second Part of the Link, An Example Putting the Parts Together, Link Best Practices, Images, Linking Images, Escaping Characters, Characters You Can Escape, , HTML, HTML Best Practices',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/markdown/" itemprop="url">markdown</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">Markdown basic-syntax</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.068Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Markdown-basic-syntax/"><header><a class="post-meta-categories" href="/categories/markdown/" itemprop="url">markdown</a><h1 id="CrawlerTitle" itemprop="name headline">Markdown basic-syntax</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.068Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><h2 id="TOC-Overview"><a href="#TOC-Overview" class="headerlink" title="[TOC]Overview"></a>[TOC]<br>Overview<a href="#overview"></a></h2><p>Nearly all Markdown applications support the basic syntax outlined in John Gruber’s original design document. There are minor variations and discrepancies between Markdown processors — those are noted inline wherever possible.</p>
+<h2 id="Headings"><a href="#Headings" class="headerlink" title="Headings"></a>Headings<a href="#headings"></a></h2><p>To create a heading, add number signs (<code>#</code>) in front of a word or phrase. The number of number signs you use should correspond to the heading level. For example, to create a heading level three (<code>&lt;h3&gt;</code>), use three number signs (e.g., <code>### My Header</code>).</p>
+<table>
+<thead>
+<tr>
+<th align="left">Markdown</th>
+<th align="center">HTML</th>
+<th align="right">Rendered Output</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code># Heading level 1</code></td>
+<td align="center"><code>&lt;h1&gt;Heading level 1&lt;/h1&gt;</code></td>
+<td align="right"># Heading level 1</td>
+</tr>
+<tr>
+<td align="left"><code>## Heading level 2</code></td>
+<td align="center"><code>&lt;h2&gt;Heading level 2&lt;/h2&gt;</code></td>
+<td align="right">## Heading level 2</td>
+</tr>
+</tbody></table>
+<h3 id="Heading-Best-Practices"><a href="#Heading-Best-Practices" class="headerlink" title="Heading Best Practices"></a>Heading Best Practices<a href="#heading-best-practices"></a></h3><p>Markdown applications don’t agree on how to handle missing blank lines between a heading and the surrounding paragraphs. For compatibility, separate paragraphs and headings with one or more blank lines.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p>&#96;This is a paragraph.  </p>
+<h1 id="Here’s-the-heading"><a href="#Here’s-the-heading" class="headerlink" title="Here’s the heading"></a>Here’s the heading</h1><p>And this is another paragraph.&#96;</p>
+<p>&#96;This is a paragraph.  </p>
+<h1 id="Here’s-the-heading-1"><a href="#Here’s-the-heading-1" class="headerlink" title="Here’s the heading"></a>Here’s the heading</h1><p>And this is another paragraph.&#96;</p>
+<h2 id="Paragraphs"><a href="#Paragraphs" class="headerlink" title="Paragraphs"></a>Paragraphs<a href="#paragraphs-1"></a></h2><p>To create paragraphs, use a blank line to separate one or more lines of text.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p>&#96;I really like using Markdown.  </p>
+<p>I think I’ll use it to format all of my documents from now on.&#96;</p>
+<p>&#96;<p>I really like using Markdown.</p>  </p>
+<p>I think I'll use it to format all of my documents from now on.</p>`
+
+<p>I really like using Markdown.</p>
+<p>I think I’ll use it to format all of my documents from now on.</p>
+<h3 id="Paragraph-Best-Practices"><a href="#Paragraph-Best-Practices" class="headerlink" title="Paragraph Best Practices"></a>Paragraph Best Practices<a href="#paragraph-best-practices"></a></h3><p>Don’t indent paragraphs with spaces or tabs.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p>&#96;Don’t put tabs or spaces in front of your paragraphs.  </p>
+<p>Keep lines left-aligned like this.  </p>
+<p>&#96;</p>
+<p>&#96;    This can result in unexpected formatting problems.  </p>
+<p>  Don’t add tabs or spaces in front of paragraphs.&#96;</p>
+<h2 id="Line-Breaks"><a href="#Line-Breaks" class="headerlink" title="Line Breaks"></a>Line Breaks<a href="#line-breaks"></a></h2><p>To create a line break (<code>&lt;br&gt;</code>), end a line with two or more spaces, and then type return.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>This is the first line.     And this is the second line.</code></p>
+<p><code>&lt;p&gt;This is the first line.&lt;br&gt;   And this is the second line.&lt;/p&gt;</code></p>
+<p>This is the first line.<br>And this is the second line.</p>
+<h3 id="Line-Break-Best-Practices"><a href="#Line-Break-Best-Practices" class="headerlink" title="Line Break Best Practices"></a>Line Break Best Practices<a href="#line-break-best-practices"></a></h3><p>You can use two or more spaces (referred to as “trailing whitespace”) for line breaks in nearly every Markdown application, but it’s controversial. It’s hard to see trailing whitespace in an editor, and many people accidentally or intentionally put two spaces after every sentence. For this reason, you may want to use something other than trailing whitespace for line breaks. Fortunately, there is another option supported by nearly every Markdown application: the <code>&lt;br&gt;</code> HTML tag.</p>
+<p>For compatibility, use trailing white space or the <code>&lt;br&gt;</code> HTML tag at the end of the line.</p>
+<p>There are two other options I don’t recommend using. CommonMark and a few other lightweight markup languages let you type a backslash (<code>\</code>) at the end of the line, but not all Markdown applications support this, so it isn’t a great option from a compatibility perspective. And at least a couple lightweight markup languages don’t require anything at the end of the line — just type return and they’ll create a line break.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p>&#96;First line with two spaces after.<br>And the next line.  </p>
+<p>First line with the HTML tag after.<br><br>And the next line.  </p>
+<p>&#96;</p>
+<p>&#96;First line with a backslash after.\<br>And the next line.  </p>
+<p>First line with nothing after.<br>And the next line.  </p>
+<p>&#96;</p>
+<h2 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis<a href="#emphasis"></a></h2><p>You can add emphasis by making text bold or italic.</p>
+<h3 id="Bold"><a href="#Bold" class="headerlink" title="Bold"></a>Bold<a href="#bold"></a></h3><p>To bold text, add two asterisks or underscores before and after a word or phrase. To bold the middle of a word for emphasis, add two asterisks without spaces around the letters.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>I just love **bold text**.</code></p>
+<p><code>I just love &lt;strong&gt;bold text&lt;/strong&gt;.</code></p>
+<p>I just love <strong>bold text</strong>.</p>
+<p><code>I just love __bold text__.</code></p>
+<p><code>I just love &lt;strong&gt;bold text&lt;/strong&gt;.</code></p>
+<p>I just love <strong>bold text</strong>.</p>
+<p><code>Love**is**bold</code></p>
+<p><code>Love&lt;strong&gt;is&lt;/strong&gt;bold</code></p>
+<p>Love<strong>is</strong>bold</p>
+<h4 id="Bold-Best-Practices"><a href="#Bold-Best-Practices" class="headerlink" title="Bold Best Practices"></a>Bold Best Practices<a href="#bold-best-practices"></a></h4><p>Markdown applications don’t agree on how to handle underscores in the middle of a word. For compatibility, use asterisks to bold the middle of a word for emphasis.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p><code>Love**is**bold</code></p>
+<p><code>Love__is__bold</code></p>
+<h3 id="Italic"><a href="#Italic" class="headerlink" title="Italic"></a>Italic<a href="#italic"></a></h3><p>To italicize text, add one asterisk or underscore before and after a word or phrase. To italicize the middle of a word for emphasis, add one asterisk without spaces around the letters.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>Italicized text is the *cat&#39;s meow*.</code></p>
+<p><code>Italicized text is the &lt;em&gt;cat&#39;s meow&lt;/em&gt;.</code></p>
+<p>Italicized text is the <em>cat’s meow</em>.</p>
+<p><code>Italicized text is the _cat&#39;s meow_.</code></p>
+<p><code>Italicized text is the &lt;em&gt;cat&#39;s meow&lt;/em&gt;.</code></p>
+<p>Italicized text is the <em>cat’s meow</em>.</p>
+<p><code>A*cat*meow</code></p>
+<p><code>A&lt;em&gt;cat&lt;/em&gt;meow</code></p>
+<p>A_cat_meow</p>
+<h4 id="Italic-Best-Practices"><a href="#Italic-Best-Practices" class="headerlink" title="Italic Best Practices"></a>Italic Best Practices<a href="#italic-best-practices"></a></h4><p>Markdown applications don’t agree on how to handle underscores in the middle of a word. For compatibility, use asterisks to italicize the middle of a word for emphasis.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p><code>A*cat*meow</code></p>
+<p><code>A_cat_meow</code></p>
+<h3 id="Bold-and-Italic"><a href="#Bold-and-Italic" class="headerlink" title="Bold and Italic"></a>Bold and Italic<a href="#bold-and-italic"></a></h3><p>To emphasize text with bold and italics at the same time, add three asterisks or underscores before and after a word or phrase. To bold and italicize the middle of a word for emphasis, add three asterisks without spaces around the letters.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>This text is ***really important***.</code></p>
+<p><code>This text is &lt;strong&gt;&lt;em&gt;really important&lt;/em&gt;&lt;/strong&gt;.</code></p>
+<p>This text is <strong><em>really important</em></strong>.</p>
+<p><code>This text is ___really important___.</code></p>
+<p><code>This text is &lt;strong&gt;&lt;em&gt;really important&lt;/em&gt;&lt;/strong&gt;.</code></p>
+<p>This text is <strong><em>really important</em></strong>.</p>
+<p><code>This text is __*really important*__.</code></p>
+<p><code>This text is &lt;strong&gt;&lt;em&gt;really important&lt;/em&gt;&lt;/strong&gt;.</code></p>
+<p>This text is <strong><em>really important</em></strong>.</p>
+<p><code>This text is **_really important_**.</code></p>
+<p><code>This text is &lt;strong&gt;&lt;em&gt;really important&lt;/em&gt;&lt;/strong&gt;.</code></p>
+<p>This text is <strong><em>really important</em></strong>.</p>
+<p><code>This is really***very***important text.</code></p>
+<p><code>This is really&lt;strong&gt;&lt;em&gt;very&lt;/em&gt;&lt;/strong&gt;important text.</code></p>
+<p>This is really**<em>very</em>**important text.</p>
+<h4 id="Bold-and-Italic-Best-Practices"><a href="#Bold-and-Italic-Best-Practices" class="headerlink" title="Bold and Italic Best Practices"></a>Bold and Italic Best Practices<a href="#bold-and-italic-best-practices"></a></h4><p>Markdown applications don’t agree on how to handle underscores in the middle of a word. For compatibility, use asterisks to bold and italicize the middle of a word for emphasis.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p><code>This is really***very***important text.</code></p>
+<p><code>This is really___very___important text.</code></p>
+<h2 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes<a href="#blockquotes-1"></a></h2><p>To create a blockquote, add a <code>&gt;</code> in front of a paragraph.</p>
+<pre><code>&gt; Dorothy followed her through many of the beautiful rooms in her castle.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<blockquote>
+<p>Dorothy followed her through many of the beautiful rooms in her castle.</p>
+</blockquote>
+<h3 id="Blockquotes-with-Multiple-Paragraphs"><a href="#Blockquotes-with-Multiple-Paragraphs" class="headerlink" title="Blockquotes with Multiple Paragraphs"></a>Blockquotes with Multiple Paragraphs<a href="#blockquotes-with-multiple-paragraphs"></a></h3><p>Blockquotes can contain multiple paragraphs. Add a <code>&gt;</code> on the blank lines between the paragraphs.</p>
+<pre><code>&gt; Dorothy followed her through many of the beautiful rooms in her castle.
+&gt;
+&gt; The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<blockquote>
+<p>Dorothy followed her through many of the beautiful rooms in her castle.</p>
+<p>The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.</p>
+</blockquote>
+<h3 id="Nested-Blockquotes"><a href="#Nested-Blockquotes" class="headerlink" title="Nested Blockquotes"></a>Nested Blockquotes<a href="#nested-blockquotes"></a></h3><p>Blockquotes can be nested. Add a <code>&gt;&gt;</code> in front of the paragraph you want to nest.</p>
+<pre><code>&gt; Dorothy followed her through many of the beautiful rooms in her castle.
+&gt;
+&gt;&gt; The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<blockquote>
+<p>Dorothy followed her through many of the beautiful rooms in her castle.</p>
+<blockquote>
+<p>The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.</p>
+</blockquote>
+</blockquote>
+<h3 id="Blockquotes-with-Other-Elements"><a href="#Blockquotes-with-Other-Elements" class="headerlink" title="Blockquotes with Other Elements"></a>Blockquotes with Other Elements<a href="#blockquotes-with-other-elements"></a></h3><p>Blockquotes can contain other Markdown formatted elements. Not all elements can be used — you’ll need to experiment to see which ones work.</p>
+<pre><code>&gt; #### The quarterly results look great!
+&gt;
+&gt; - Revenue was off the chart.
+&gt; - Profits were higher than ever.
+&gt;
+&gt;  *Everything* is going according to **plan**.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<blockquote>
+<h4 id="The-quarterly-results-look-great"><a href="#The-quarterly-results-look-great" class="headerlink" title="The quarterly results look great!"></a>The quarterly results look great!</h4><ul>
+<li>Revenue was off the chart.</li>
+<li>Profits were higher than ever.</li>
+</ul>
+<p><em>Everything</em> is going according to <strong>plan</strong>.</p>
+</blockquote>
+<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists<a href="#lists"></a></h2><p>You can organize items into ordered and unordered lists.</p>
+<h3 id="Ordered-Lists"><a href="#Ordered-Lists" class="headerlink" title="Ordered Lists"></a>Ordered Lists<a href="#ordered-lists"></a></h3><p>To create an ordered list, add line items with numbers followed by periods. The numbers don’t have to be in numerical order, but the list should start with the number one.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>1. First item   2. Second item   3. Third item   4. Fourth item</code></p>
+<p>&#96;<ol>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ol>`
+
+<ol>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ol>
+<p>&#96;1. First item  </p>
+<ol>
+<li>Second item  </li>
+<li>Third item  </li>
+<li>Fourth item&#96;</li>
+</ol>
+<p>&#96;<ol>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ol>`
+
+<ol>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ol>
+<p><code>1. First item   8. Second item   3. Third item   5. Fourth item</code></p>
+<p>&#96;<ol>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ol>`
+
+<ol>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ol>
+<p><code>1. First item   2. Second item   3. Third item       1. Indented item       2. Indented item   4. Fourth item</code></p>
+<p>&#96;<ol>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item  
+<ol>  
+<li>Indented item</li>  
+<li>Indented item</li>  
+</ol>  
+</li>  
+<li>Fourth item</li>  
+</ol>`
+
+<ol>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item<ol>
+<li>Indented item</li>
+<li>Indented item</li>
+</ol>
+</li>
+<li>Fourth item</li>
+</ol>
+<h3 id="Unordered-Lists"><a href="#Unordered-Lists" class="headerlink" title="Unordered Lists"></a>Unordered Lists<a href="#unordered-lists"></a></h3><p>To create an unordered list, add dashes (<code>-</code>), asterisks (<code>*</code>), or plus signs (<code>+</code>) in front of line items. Indent one or more items to create a nested list.</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p>&#96;- First item  </p>
+<ul>
+<li>Second item  </li>
+<li>Third item  </li>
+<li>Fourth item&#96;</li>
+</ul>
+<p>&#96;<ul>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ul>`
+
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ul>
+<p>&#96;* First item  </p>
+<ul>
+<li>Second item  </li>
+<li>Third item  </li>
+<li>Fourth item&#96;</li>
+</ul>
+<p>&#96;<ul>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ul>`
+
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ul>
+<p>&#96;+ First item  </p>
+<ul>
+<li>Second item</li>
+</ul>
+<ul>
+<li>Third item</li>
+</ul>
+<ul>
+<li>Fourth item&#96;</li>
+</ul>
+<p>&#96;<ul>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item</li>  
+<li>Fourth item</li>  
+</ul>`
+
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+<li>Fourth item</li>
+</ul>
+<p>&#96;- First item  </p>
+<ul>
+<li>Second item  </li>
+<li>Third item  <ul>
+<li>Indented item  </li>
+<li>Indented item</li>
+</ul>
+</li>
+<li>Fourth item&#96;</li>
+</ul>
+<p>&#96;<ul>  </p>
+<li>First item</li>  
+<li>Second item</li>  
+<li>Third item  
+<ul>  
+<li>Indented item</li>  
+<li>Indented item</li>  
+</ul>  
+</li>  
+<li>Fourth item</li>  
+</ul>`
+
+<ul>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item<ul>
+<li>Indented item</li>
+<li>Indented item</li>
+</ul>
+</li>
+<li>Fourth item</li>
+</ul>
+<h3 id="Adding-Elements-in-Lists"><a href="#Adding-Elements-in-Lists" class="headerlink" title="Adding Elements in Lists"></a>Adding Elements in Lists<a href="#adding-elements-in-lists"></a></h3><p>To add another element in a list while preserving the continuity of the list, indent the element four spaces or one tab, as shown in the following examples.</p>
+<h4 id="Paragraphs-1"><a href="#Paragraphs-1" class="headerlink" title="Paragraphs"></a>Paragraphs<a href="#paragraphs"></a></h4><pre><code>*   This is the first list item.
+*   Here&#39;s the second list item.
+
+    I need to add another paragraph below the second list item.
+
+*   And here&#39;s the third list item.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<ul>
+<li><p>This is the first list item.</p>
+</li>
+<li><p>Here’s the second list item.</p>
+<p>I need to add another paragraph below the second list item.</p>
+</li>
+<li><p>And here’s the third list item.</p>
+</li>
+</ul>
+<h4 id="Blockquotes-1"><a href="#Blockquotes-1" class="headerlink" title="Blockquotes"></a>Blockquotes<a href="#blockquotes"></a></h4><pre><code>*   This is the first list item.
+*   Here&#39;s the second list item.
+
+    &gt; A blockquote would look great below the second list item.
+
+*   And here&#39;s the third list item.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<ul>
+<li><p>This is the first list item.</p>
+</li>
+<li><p>Here’s the second list item.</p>
+<blockquote>
+<p>A blockquote would look great below the second list item.</p>
+</blockquote>
+</li>
+<li><p>And here’s the third list item.</p>
+</li>
+</ul>
+<h4 id="Code-Blocks"><a href="#Code-Blocks" class="headerlink" title="Code Blocks"></a>Code Blocks<a href="#code-blocks-1"></a></h4><p><a href="#code-blocks">Code blocks</a> are normally indented four spaces or one tab. When they’re in a list, indent them eight spaces or two tabs.</p>
+<pre><code>1.  Open the file.
+2.  Find the following code block on line 21:
+
+        &lt;html&gt;
+          &lt;head&gt;
+            &lt;title&gt;Test&lt;/title&gt;
+          &lt;/head&gt;
+
+3.  Update the title to match the name of your website.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<ol>
+<li><p>Open the file.</p>
+</li>
+<li><p>Find the following code block on line 21:</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Test&lt;/title&gt;
+  &lt;/head&gt;
+</code></pre>
+</li>
+<li><p>Update the title to match the name of your website.</p>
+</li>
+</ol>
+<h4 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images<a href="#images"></a></h4><pre><code>1.  Open the file containing the Linux mascot.
+2.  Marvel at its beauty.
+
+    ![Tux, the Linux mascot](/assets/images/tux.png)
+
+3.  Close the file.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<ol>
+<li><p>Open the file containing the Linux mascot.</p>
+</li>
+<li><p>Marvel at its beauty.</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://d33wubrfki0l68.cloudfront.net/e7ed9fe4bafe46e275c807d63591f85f9ab246ba/e2d28/assets/images/tux.png" alt="Tux, the Linux mascot"></p>
+</li>
+<li><p>Close the file.</p>
+</li>
+</ol>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code<a href="#code"></a></h2><p>To denote a word or phrase as code, enclose it in backticks (<code>`</code>).</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>At the command prompt, type `nano`.</code></p>
+<p><code>At the command prompt, type &lt;code&gt;nano&lt;/code&gt;.</code></p>
+<p>At the command prompt, type <code>nano</code>.</p>
+<h3 id="Escaping-Backticks"><a href="#Escaping-Backticks" class="headerlink" title="Escaping Backticks"></a>Escaping Backticks<a href="#escaping-backticks"></a></h3><p>If the word or phrase you want to denote as code includes one or more backticks, you can escape it by enclosing the word or phrase in double backticks (<code>``</code>).</p>
+<p>Markdown</p>
+<p>HTML</p>
+<p>Rendered Output</p>
+<p><code>``Use `code` in your Markdown file.``</code></p>
+<p><code>&lt;code&gt;Use `code` in your Markdown file.&lt;/code&gt;</code></p>
+<p><code>Use `code` in your Markdown file.</code></p>
+<h3 id="Code-Blocks-1"><a href="#Code-Blocks-1" class="headerlink" title="Code Blocks"></a>Code Blocks<a href="#code-blocks"></a></h3><p>To create code blocks, indent every line of the block by at least four spaces or one tab.</p>
+<pre><code>    &lt;html&gt;
+      &lt;head&gt;
+      &lt;/head&gt;
+    &lt;/html&gt;
+</code></pre>
+<p>The rendered output looks like this:</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Note:</strong> To create code blocks without indenting lines, use <a href="/extended-syntax/#fenced-code-blocks">fenced code blocks</a>.</p>
+<h2 id="Horizontal-Rules"><a href="#Horizontal-Rules" class="headerlink" title="Horizontal Rules"></a>Horizontal Rules<a href="#horizontal-rules"></a></h2><p>To create a horizontal rule, use three or more asterisks (<code>***</code>), dashes (<code>---</code>), or underscores (<code>___</code>) on a line by themselves.</p>
+<pre><code>***
+
+---
+
+_________________
+</code></pre>
+<p>The rendered output of all three looks identical:</p>
+<hr>
+<h3 id="Horizontal-Rule-Best-Practices"><a href="#Horizontal-Rule-Best-Practices" class="headerlink" title="Horizontal Rule Best Practices"></a>Horizontal Rule Best Practices<a href="#horizontal-rule-best-practices"></a></h3><p>For compatibility, put blank lines before and after horizontal rules.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p>&#96;Try to put a blank line before…  </p>
+<hr>
+<p>…and after a horizontal rule.&#96;</p>
+<h2 id="Without-blank-lines-this-would-be-a-heading"><a href="#Without-blank-lines-this-would-be-a-heading" class="headerlink" title="&#96;Without blank lines, this would be a heading.  "></a>&#96;Without blank lines, this would be a heading.  </h2><p>Don’t do this!&#96;</p>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links<a href="#links"></a></h2><p>To create a link, enclose the link text in brackets (e.g., <code>[Duck Duck Go]</code>) and then follow it immediately with the URL in parentheses (e.g., <code>(https://duckduckgo.com)</code>).</p>
+<pre><code>My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p>My favorite search engine is <a target="_blank" rel="noopener" href="https://duckduckgo.com/">Duck Duck Go</a>.</p>
+<h3 id="Adding-Titles"><a href="#Adding-Titles" class="headerlink" title="Adding Titles"></a>Adding Titles<a href="#adding-titles"></a></h3><p>You can optionally add a title for a link. This will appear as a tooltip when the user hovers over the link. To add a title, enclose it in parentheses after the URL.</p>
+<pre><code>My favorite search engine is [Duck Duck Go](https://duckduckgo.com &quot;The best search engine for privacy&quot;).
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p>My favorite search engine is <a target="_blank" rel="noopener" href="https://duckduckgo.com/" title="The best search engine for privacy">Duck Duck Go</a>.</p>
+<h3 id="URLs-and-Email-Addresses"><a href="#URLs-and-Email-Addresses" class="headerlink" title="URLs and Email Addresses"></a>URLs and Email Addresses<a href="#urls-and-email-addresses"></a></h3><p>To quickly turn a URL or email address into a link, enclose it in angle brackets.</p>
+<pre><code>&lt;https://www.markdownguide.org&gt;
+&lt;fake@example.com&gt;
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p><a target="_blank" rel="noopener" href="https://www.markdownguide.org/">https://www.markdownguide.org</a><br><a href="mailto:&#x66;&#97;&#x6b;&#101;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#99;&#x6f;&#109;">fake@example.com</a></p>
+<h3 id="Formatting-Links"><a href="#Formatting-Links" class="headerlink" title="Formatting Links"></a>Formatting Links<a href="#formatting-links"></a></h3><p>To <a href="#emphasis">emphasize</a> links, add asterisks before and after the brackets and parentheses. To denote links as <a href="#code">code</a>, add backticks in the brackets.</p>
+<pre><code>I love supporting the **[EFF](https://eff.org)**.
+This is the *[Markdown Guide](https://www.markdownguide.org)*.
+See the section on [`code`](#code).
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p>I love supporting the <strong><a target="_blank" rel="noopener" href="https://eff.org/">EFF</a></strong>.<br>This is the <em><a target="_blank" rel="noopener" href="https://www.markdownguide.org/">Markdown Guide</a></em>.<br>See the section on <a href="#code"><code>code</code></a>.</p>
+<h3 id="Reference-style-Links"><a href="#Reference-style-Links" class="headerlink" title="Reference-style Links"></a>Reference-style Links<a href="#reference-style-links"></a></h3><p>Reference-style links are a special kind of link that make URLs easier to display and read in Markdown. Reference-style links are constructed in two parts: the part you keep inline with your text and the part you store somewhere else in the file to keep the text easy to read.</p>
+<h4 id="Formatting-the-First-Part-of-the-Link"><a href="#Formatting-the-First-Part-of-the-Link" class="headerlink" title="Formatting the First Part of the Link"></a>Formatting the First Part of the Link<a href="#formatting-the-first-part-of-the-link"></a></h4><p>The first part of a reference-style link is formatted with two sets of brackets. The first set of brackets surrounds the text that should appear linked. The second set of brackets displays a label used to point to the link you’re storing elsewhere in your document.</p>
+<p>Although not required, you can include a space between the first and second set of brackets. The label in the second set of brackets is not case sensitive and can include letters, numbers, spaces, or punctuation.</p>
+<p>This means the following example formats are roughly equivalent for the first part of the link:</p>
+<ul>
+<li><code>[hobbit-hole][1]</code></li>
+<li><code>[hobbit-hole] [1]</code></li>
+</ul>
+<h4 id="Formatting-the-Second-Part-of-the-Link"><a href="#Formatting-the-Second-Part-of-the-Link" class="headerlink" title="Formatting the Second Part of the Link"></a>Formatting the Second Part of the Link<a href="#formatting-the-second-part-of-the-link"></a></h4><p>The second part of a reference-style link is formatted with the following attributes:</p>
+<ol>
+<li>The label, in brackets, followed immediately by a colon and at least one space (e.g., <code>[label]:</code> ).</li>
+<li>The URL for the link, which you can optionally enclose in angle brackets.</li>
+<li>The optional title for the link, which you can enclose in double quotes, single quotes, or parentheses.</li>
+</ol>
+<p>This means the following example formats are all roughly equivalent for the second part of the link:</p>
+<ul>
+<li><code>[1]: https://en.wikipedia.org/wiki/Hobbit#Lifestyle</code></li>
+<li><code>[1]: https://en.wikipedia.org/wiki/Hobbit#Lifestyle &quot;Hobbit lifestyles&quot;</code></li>
+<li><code>[1]: https://en.wikipedia.org/wiki/Hobbit#Lifestyle &#39;Hobbit lifestyles&#39;</code></li>
+<li><code>[1]: https://en.wikipedia.org/wiki/Hobbit#Lifestyle (Hobbit lifestyles)</code></li>
+<li><code>[1]: &lt;https://en.wikipedia.org/wiki/Hobbit#Lifestyle&gt; &quot;Hobbit lifestyles&quot;</code></li>
+<li><code>[1]: &lt;https://en.wikipedia.org/wiki/Hobbit#Lifestyle&gt; &#39;Hobbit lifestyles&#39;</code></li>
+<li><code>[1]: &lt;https://en.wikipedia.org/wiki/Hobbit#Lifestyle&gt; (Hobbit lifestyles)</code></li>
+</ul>
+<p>You can place this second part of the link anywhere in your Markdown document. Some people place them immediately after the paragraph in which they appear while other people place them at the end of the document (like endnotes or footnotes).</p>
+<h4 id="An-Example-Putting-the-Parts-Together"><a href="#An-Example-Putting-the-Parts-Together" class="headerlink" title="An Example Putting the Parts Together"></a>An Example Putting the Parts Together<a href="#an-example-putting-the-parts-together"></a></h4><p>Say you add a URL as a <a href="#links">standard URL link</a> to a paragraph and it looks like this in Markdown:</p>
+<pre><code>In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends
+of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to
+eat: it was a [hobbit-hole](https://en.wikipedia.org/wiki/Hobbit#Lifestyle &quot;Hobbit lifestyles&quot;), and that means comfort.
+</code></pre>
+<p>Though it may point to interesting additional information, the URL as displayed really doesn’t add much to the existing raw text other than making it harder to read. To fix that, you could format the URL like this instead:</p>
+<pre><code>In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends
+of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to
+eat: it was a [hobbit-hole][1], and that means comfort.
+
+[1]: &lt;https://en.wikipedia.org/wiki/Hobbit#Lifestyle&gt; &quot;Hobbit lifestyles&quot;
+</code></pre>
+<p>In both instances above, the rendered output would be identical:</p>
+<blockquote>
+<p>In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hobbit#Lifestyle" title="Hobbit lifestyles">hobbit-hole</a>, and that means comfort.</p>
+</blockquote>
+<p>and the HTML for the link would be:</p>
+<pre><code>&lt;a href=&quot;https://en.wikipedia.org/wiki/Hobbit#Lifestyle&quot; title=&quot;Hobbit lifestyles&quot;&gt;hobbit-hole&lt;/a&gt;
+</code></pre>
+<h3 id="Link-Best-Practices"><a href="#Link-Best-Practices" class="headerlink" title="Link Best Practices"></a>Link Best Practices<a href="#link-best-practices"></a></h3><p>Markdown applications don’t agree on how to handle spaces in the middle of a URL. For compatibility, try to URL encode any spaces with <code>%20</code>.</p>
+<p>✅  Do this</p>
+<p>❌  Don’t do this</p>
+<p><code>[link](https://www.example.com/my%20great%20page)</code></p>
+<p><code>[link](https://www.example.com/my great page)</code></p>
+<h2 id="Images-1"><a href="#Images-1" class="headerlink" title="Images"></a>Images<a href="#images-1"></a></h2><p>To add an image, add an exclamation mark (<code>!</code>), followed by alt text in brackets, and the path or URL to the image asset in parentheses. You can optionally add a title after the URL in the parentheses.</p>
+<pre><code>![Philadelphia&#39;s Magic Gardens. This place was so cool!](/assets/images/philly-magic-gardens.jpg &quot;Philadelphia&#39;s Magic Gardens&quot;)
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://d33wubrfki0l68.cloudfront.net/eab45e25bb79970178fab7a2d10cba0209372a59/94d9e/assets/images/philly-magic-garden.jpg" alt="Philadelphia&#39;s Magic Gardens. This place was so cool!" title="Philadelphia&#39;s Magic Gardens"></p>
+<h3 id="Linking-Images"><a href="#Linking-Images" class="headerlink" title="Linking Images"></a>Linking Images<a href="#linking-images"></a></h3><p>To add a link to an image, enclose the Markdown for the image in brackets, and then add the link in parentheses.</p>
+<pre><code>[![An old rock in the desert](/assets/images/shiprock.jpg &quot;Shiprock, New Mexico by Beau Rogers&quot;)](https://www.flickr.com/photos/beaurogers/31833779864/in/photolist-Qv3rFw-34mt9F-a9Cmfy-5Ha3Zi-9msKdv-o3hgjr-hWpUte-4WMsJ1-KUQ8N-deshUb-vssBD-6CQci6-8AFCiD-zsJWT-nNfsgB-dPDwZJ-bn9JGn-5HtSXY-6CUhAL-a4UTXB-ugPum-KUPSo-fBLNm-6CUmpy-4WMsc9-8a7D3T-83KJev-6CQ2bK-nNusHJ-a78rQH-nw3NvT-7aq2qf-8wwBso-3nNceh-ugSKP-4mh4kh-bbeeqH-a7biME-q3PtTf-brFpgb-cg38zw-bXMZc-nJPELD-f58Lmo-bXMYG-bz8AAi-bxNtNT-bXMYi-bXMY6-bXMYv)
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p><a target="_blank" rel="noopener" href="https://www.flickr.com/photos/beaurogers/31833779864/in/photolist-Qv3rFw-34mt9F-a9Cmfy-5Ha3Zi-9msKdv-o3hgjr-hWpUte-4WMsJ1-KUQ8N-deshUb-vssBD-6CQci6-8AFCiD-zsJWT-nNfsgB-dPDwZJ-bn9JGn-5HtSXY-6CUhAL-a4UTXB-ugPum-KUPSo-fBLNm-6CUmpy-4WMsc9-8a7D3T-83KJev-6CQ2bK-nNusHJ-a78rQH-nw3NvT-7aq2qf-8wwBso-3nNceh-ugSKP-4mh4kh-bbeeqH-a7biME-q3PtTf-brFpgb-cg38zw-bXMZc-nJPELD-f58Lmo-bXMYG-bz8AAi-bxNtNT-bXMYi-bXMY6-bXMYv"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://d33wubrfki0l68.cloudfront.net/70a143fdf134aacde3740662a2a47a2a1ee0d216/276c9/assets/images/shiprock.jpg" alt="An old rock in the desert" title="Shiprock, New Mexico by Beau Rogers"></a></p>
+<h2 id="Escaping-Characters"><a href="#Escaping-Characters" class="headerlink" title="Escaping Characters"></a>Escaping Characters<a href="#escaping-characters"></a></h2><p>To display a literal character that would otherwise be used to format text in a Markdown document, add a backslash (<code>\</code>) in front of the character.</p>
+<pre><code>\* Without the backslash, this would be a bullet in an unordered list.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p>* Without the backslash, this would be a bullet in an unordered list.</p>
+<h3 id="Characters-You-Can-Escape"><a href="#Characters-You-Can-Escape" class="headerlink" title="Characters You Can Escape"></a>Characters You Can Escape<a href="#characters-you-can-escape"></a></h3><p>You can use a backslash to escape the following characters.</p>
+<p>Character</p>
+<p>Name</p>
+<p>\</p>
+<p>backslash</p>
+<p>`</p>
+<p>backtick (see also <a href="#escaping-backticks">escaping backticks in code</a>)</p>
+<p>*</p>
+<p>asterisk</p>
+<p>_</p>
+<p>underscore</p>
+<p>{ }</p>
+<p>curly braces</p>
+<p>[ ]</p>
+<p>brackets</p>
+<p>( )</p>
+<p>parentheses</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>pound sign</p>
+<ul>
+<li></li>
+</ul>
+<p>plus sign</p>
+<p>-</p>
+<p>minus sign (hyphen)</p>
+<p>.</p>
+<p>dot</p>
+<p>!</p>
+<p>exclamation mark</p>
+<p>|</p>
+<p>pipe (see also <a href="/extended-syntax/#escaping-pipe-characters-in-tables">escaping pipe in tables</a>)</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML<a href="#html"></a></h2><p>Many Markdown applications allow you to use HTML tags in Markdown-formatted text. This is helpful if you prefer certain HTML tags to Markdown syntax. For example, some people find it easier to use HTML tags for images. Using HTML is also helpful when you need to change the attributes of an element, like specifying the color of text or changing the width of an image.</p>
+<p>To use HTML, place the tags in the text of your Markdown-formatted file.</p>
+<pre><code>This **word** is bold. This &lt;em&gt;word&lt;/em&gt; is italic.
+</code></pre>
+<p>The rendered output looks like this:</p>
+<p>This <strong>word</strong> is bold. This <em>word</em> is italic.</p>
+<h3 id="HTML-Best-Practices"><a href="#HTML-Best-Practices" class="headerlink" title="HTML Best Practices"></a>HTML Best Practices<a href="#html-best-practices"></a></h3><p>For security reasons, not all Markdown applications support HTML in Markdown documents. When in doubt, check your Markdown application’s documentation. Some applications support only a subset of HTML tags.</p>
+<p>Use blank lines to separate block-level HTML elements like <code>&lt;div&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;pre&gt;</code>, and <code>&lt;p&gt;</code> from the surrounding content. Try not to indent the tags with tabs or spaces — that can interfere with the formatting.</p>
+<p>You can’t use Markdown syntax inside block-level HTML tags. For example, <code>&lt;p&gt;italic and **bold**&lt;/p&gt;</code> won’t work.</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Markdown-basic-syntax/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Markdown-basic-syntax/')">Markdown basic-syntax</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Markdown-basic-syntax/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Markdown basic-syntax&amp;url=https://tushu.info/archives/Markdown-basic-syntax/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Twitter-wang-zhan-jia-gou-xue-xi-bi-ji/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Twitter网站架构学习笔记</div></div></a></div><div class="next-post pull-right"><a href="/archives/Java-zhong-sleep-he-wait-zhi-jian-de-qu/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java中sleep（）和wait（）之间的区别</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TOC-Overview"><span class="toc-number">1.</span> <span class="toc-text">[TOC]Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Headings"><span class="toc-number">2.</span> <span class="toc-text">Headings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Heading-Best-Practices"><span class="toc-number">2.1.</span> <span class="toc-text">Heading Best Practices</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Here%E2%80%99s-the-heading"><span class="toc-number"></span> <span class="toc-text">Here’s the heading</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Here%E2%80%99s-the-heading-1"><span class="toc-number"></span> <span class="toc-text">Here’s the heading</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paragraphs"><span class="toc-number">1.</span> <span class="toc-text">Paragraphs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Paragraph-Best-Practices"><span class="toc-number">1.1.</span> <span class="toc-text">Paragraph Best Practices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Line-Breaks"><span class="toc-number">2.</span> <span class="toc-text">Line Breaks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Line-Break-Best-Practices"><span class="toc-number">2.1.</span> <span class="toc-text">Line Break Best Practices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Emphasis"><span class="toc-number">3.</span> <span class="toc-text">Emphasis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bold"><span class="toc-number">3.1.</span> <span class="toc-text">Bold</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bold-Best-Practices"><span class="toc-number">3.1.1.</span> <span class="toc-text">Bold Best Practices</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Italic"><span class="toc-number">3.2.</span> <span class="toc-text">Italic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Italic-Best-Practices"><span class="toc-number">3.2.1.</span> <span class="toc-text">Italic Best Practices</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bold-and-Italic"><span class="toc-number">3.3.</span> <span class="toc-text">Bold and Italic</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bold-and-Italic-Best-Practices"><span class="toc-number">3.3.1.</span> <span class="toc-text">Bold and Italic Best Practices</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blockquotes"><span class="toc-number">4.</span> <span class="toc-text">Blockquotes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Blockquotes-with-Multiple-Paragraphs"><span class="toc-number">4.1.</span> <span class="toc-text">Blockquotes with Multiple Paragraphs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nested-Blockquotes"><span class="toc-number">4.2.</span> <span class="toc-text">Nested Blockquotes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blockquotes-with-Other-Elements"><span class="toc-number">4.3.</span> <span class="toc-text">Blockquotes with Other Elements</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-quarterly-results-look-great"><span class="toc-number">4.3.1.</span> <span class="toc-text">The quarterly results look great!</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lists"><span class="toc-number">5.</span> <span class="toc-text">Lists</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ordered-Lists"><span class="toc-number">5.1.</span> <span class="toc-text">Ordered Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unordered-Lists"><span class="toc-number">5.2.</span> <span class="toc-text">Unordered Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-Elements-in-Lists"><span class="toc-number">5.3.</span> <span class="toc-text">Adding Elements in Lists</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Paragraphs-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">Paragraphs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Blockquotes-1"><span class="toc-number">5.3.2.</span> <span class="toc-text">Blockquotes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code-Blocks"><span class="toc-number">5.3.3.</span> <span class="toc-text">Code Blocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Images"><span class="toc-number">5.3.4.</span> <span class="toc-text">Images</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">6.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Escaping-Backticks"><span class="toc-number">6.1.</span> <span class="toc-text">Escaping Backticks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-Blocks-1"><span class="toc-number">6.2.</span> <span class="toc-text">Code Blocks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Horizontal-Rules"><span class="toc-number">7.</span> <span class="toc-text">Horizontal Rules</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Horizontal-Rule-Best-Practices"><span class="toc-number">7.1.</span> <span class="toc-text">Horizontal Rule Best Practices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Without-blank-lines-this-would-be-a-heading"><span class="toc-number">8.</span> <span class="toc-text">&#96;Without blank lines, this would be a heading.  </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Links"><span class="toc-number">9.</span> <span class="toc-text">Links</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-Titles"><span class="toc-number">9.1.</span> <span class="toc-text">Adding Titles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URLs-and-Email-Addresses"><span class="toc-number">9.2.</span> <span class="toc-text">URLs and Email Addresses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Formatting-Links"><span class="toc-number">9.3.</span> <span class="toc-text">Formatting Links</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference-style-Links"><span class="toc-number">9.4.</span> <span class="toc-text">Reference-style Links</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Formatting-the-First-Part-of-the-Link"><span class="toc-number">9.4.1.</span> <span class="toc-text">Formatting the First Part of the Link</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Formatting-the-Second-Part-of-the-Link"><span class="toc-number">9.4.2.</span> <span class="toc-text">Formatting the Second Part of the Link</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#An-Example-Putting-the-Parts-Together"><span class="toc-number">9.4.3.</span> <span class="toc-text">An Example Putting the Parts Together</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Link-Best-Practices"><span class="toc-number">9.5.</span> <span class="toc-text">Link Best Practices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Images-1"><span class="toc-number">10.</span> <span class="toc-text">Images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linking-Images"><span class="toc-number">10.1.</span> <span class="toc-text">Linking Images</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Escaping-Characters"><span class="toc-number">11.</span> <span class="toc-text">Escaping Characters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Characters-You-Can-Escape"><span class="toc-number">11.1.</span> <span class="toc-text">Characters You Can Escape</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-number">1.</span> <span class="toc-text">HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML-Best-Practices"><span class="toc-number">1.1.</span> <span class="toc-text">HTML Best Practices</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

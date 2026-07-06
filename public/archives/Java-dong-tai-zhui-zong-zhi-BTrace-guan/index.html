@@ -1,0 +1,523 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Java动态追踪之BTrace：官方Wiki译文与译注 | 代老师的博客</title><meta name="keywords" content="btrace"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Java动态追踪之BTrace：官方Wiki译文与译注"><meta name="application-name" content="Java动态追踪之BTrace：官方Wiki译文与译注"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Java动态追踪之BTrace：官方Wiki译文与译注"><meta property="og:url" content="https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="本文翻译自 https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;btraceio&amp;#x2F;btrace&amp;#x2F;wiki  首页Btrace用于Java的安全的动态追踪工具。BTrace通过动态地调改正在运行的Java程序的字节码来工作。其在运行的Java类上hotswap，来插入追踪动作。 快速开始键入 btrace &amp;lt;"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="本文翻译自 https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;btraceio&amp;#x2F;btrace&amp;#x2F;wiki  首页Btrace用于Java的安全的动态追踪工具。BTrace通过动态地调改正在运行的Java程序的字节码来工作。其在运行的Java类上hotswap，来插入追踪动作。 快速开始键入 btrace &amp;lt;"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Java动态追踪之BTrace：官方Wiki译文与译注',
+  postAI: '',
+  pageFillDescription: '首页, Btrace, 快速开始, 运行BTrace的细节, 动态依附应用程序, 同时运行应用程序和BTrace, 适应性埋点, 适应性埋点, 声明探针的生效埋点等级, 调整埋点等级, 性能效益, BTrace 注解, BTrace 注解, 方法注解, @OnMethod, @OnTimer, @OnError, @OnExit, @OnEvent, @OnLowMemory, @OnProbe, @Sampled, 参数注解, @ProbeClassName, @ProbeMethodName, @Self, @Return, @Duration, @TargetInstance, @TargetMethodOrField, btracec, btracec, btracer, btracer, Trace 脚本, Trace 脚本, 脚本元素（Script Elements）, 探针点（Probe Point）, 追踪动作（Trace Actions or Actions）, 动作方法（Action Methods）, 限制本文翻译自首页用于的安全的动态追踪工具通过动态地调改正在运行的程序的字节码来工作其在运行的类上来插入追踪动作快速开始键入其中可以是任何正在运行的目标程序这个样本脚本会埋点所有下的类的所有方法而埋点将会在每个被埋点的方法进入时打印类名和方法名译注不是很好翻译经过检索相关资料在这篇文章的上下文中我认为将翻译为了埋点更好理解这个词的其他近似的含义有插桩调改调控监测等所有的输出会打印到标准输出当脚本运行期间你可以键入来停止工具运行片段这个脚本会追踪每个包下的方法进入使用前三思这个操作会显著地减慢你的程序的运行运行的细节动态依附应用程序对于快速依附于一个已经运行的程序获取感兴趣的数据再取消依附删掉追踪的代码很有用依附的命令行是是代理监听的接口这是一个可选参数是目录文件的集合用来在执行编译过程中找到这些要编译或链入的文件默认是是我们的追踪脚本如果它是一个文件那么在它被提交前会被编译否则这个参数就应该指明一个已经编译好的文件其会被直接提交运行会打印命令用法同时运行应用程序和在这个模式下的运行甚至要早于应用程序的初始代码运行这给我们机会去跟踪应用程序生命周期中最早期的运行情况运行应用程序的同时开启代理的命令是这个代理接受逗号分隔的参数列表不启动译注加载或下的类时用的路径译注加载类时用到的寻找路径开关调试信息开关不检查是否违反了的限制开关转换后的字节码到文件中标明转换后的文件要到哪个目录中开关重定向的输出到标准输出而不是写入一个任意文件寻找探针描述符的路径开关在时将所有已经加载的经过转换的类转换回去在开启时寻找脚本的路径存有的输出的文件路径在代理开始后要运行的脚本的列表其用冒号分隔要运行的脚本必须提前已经用编译成字节码文件适应性埋点适应性埋点支持用埋点等级来做到适应性埋点每个探针可以通过注解标记其最小生效等级这样一些轻量级埋点可以总被设置成级而一些运行代价较大的埋点可以考虑设置成以上埋点等级在运行期间是可以调整的它甚至可以在一个探针的里进行调整这样就可以让一些我们期待的特定触发点去动态地升高或降低埋点等级声明探针的生效埋点等级每个探针的埋点等级可以通过注解来定义这个注解接受诸如的字符串来声明他们等级下面的探针将会在过滤的埋点等级至少为时才会激活的效果是同样的也可以根据需求设置成诸如调整埋点等级探针的埋点等级可以通过调用来设置而则可以获取当前的埋点等级性能效益停用探针的只会造成整型比较和指令跳转的额外性能代价而这些相对于整个探针的工作造成的性能代价是微不足道的开关埋点等级二者间的性能差异也就在微秒之间注解注解方法注解用于标明在目标类目标方法目标方法的埋点位置是类全名是一个号再加上类接口全名意味着目标类接口的所有子类或实现类是能标明目标类名字的标准正则表达式是简单方法名没有函数签名或返回类型是方法的返回类型例如是参数类型被注解标注的将会在匹配的方法运行到指定的位置时而触发在注解中被追踪的类用被追踪的方法用属性标明可以是类全名就像或者是一个用左右两个斜杠括住的正则表达式可以参看这两个例子和正则表达式可以匹配零到多个类这些类都会被埋点例如匹配包下的所有类并且方法名同理也可以用正则表达式来标明例如还有一种方式可以抽象地标明被追踪的类或方法被追踪的类和方法名可以被注解来标识举个例子如果属性设置为会给所有被添加了注解的类埋点类似地目标程序里方法上的注解也可以被用来抽象地标明让埋点哪个方法例如使用正则表达式来标明注解也是可以的例如匹配了所有匹配指定正则表达式的注解所标注了的类还可以通过指定超类译注基类的方式来指明要匹配该超类的所有子类例如匹配了所有实现了接口的类型参考例子用来标明追踪必须每隔毫秒周期性地执行指定的时间周期时间周期通过注解的属性指定参考例子用来标明如果其他探针的追踪抛出了异常所要做的动作当任何相同中的其他产生了异常该注解标注的方法会被执行用来标注当代码执行了内建函数去关闭会话时要执行的动作参考例子用来关联追踪方法与客户端发送的外部事件是这个要相应的名字当客户端发送了一个事件被该注解标注的方法会被执行客户端发送的事件可以是用户的请求的某种形式比如或者菜单字符串值可以被用来作为事件的名字这样无论这些事件什么时候被用户触发这些特定的都会执行现在只要用户按下了的命令行客户端就可以发送事件按下后一个命令行菜单会显示出来你可以选择发送事件或者退出用来追踪内存使用已超出限定值的事件可以参考例子用来标注无需使用脚本里定义的译注存疑原文是一个任意的包的命名空间是一个任意的探针名字探针声明会映射到一个或多个代理声明的现在这个声明可以使用一个探针描述符来指定某个探针名这个文件会被代理访问可以参考例子和其使用的探针描述文件译注这里的含义其实就是在脚本里声明探针位置的方式一般是使用注解指定啥的但是还有一种方式是不使用指定而是额外写一个文件来间接地定义探针位置里面可以定义一些探针标签并且每个探针标签下可以再通过指定具体的位置这样脚本里直接使用注解指定里面声明的探针名字就好了可以对比下使用指定位置和使用声明探针脚本里使用定义的探针这个两个文件就懂了当运行这个例子时这个文件需要放置在目标运行的目录里或者在里去修改选项去指明文件的位置为被注解了的开启与注解一起连用只能是和中的一个参数注解用来标识的这个入参是当前打断的方法是哪个类的只能在被标注了注解的探针方法里使用用来标识的这个入参是当前打断的哪个方法只能在被标注了注解的探针方法里使用表示应该使用方法全名而不是简单名默认是表示该参数是用来访问当前打断的成员方法所依附的实例对一个参数使用该注解会有效地过滤掉其他匹配的静态方法译注这个的含义就是通过名字签名等方式匹配出来的目标方法可能是的也可能是非的使用这个注解会直接表明我们要的是非的因为只有非的方法才有一个隐式的指针指向一个实例即该参数该注解标识该参数是打断的目的方法的返回值只可以用于的情况并且该注解会造成如果目的方法没有返回值那么就不会触发改目标方法的执行耗时会通过注解了的参数提供只可以用于或的情况这个注解标识该参数提供访问当前打断的成员方法所依附的实例和很像但是可以用于即非方法被调用字段被设置或者读取的情况这个注解标识该参数提供方法或字段的访问类似于适用于表示是否使用全名而不是简单名默认为是用来把追踪脚本编译为文件的命令行工具其命令用法是是用来编译程序的默认是是编译后的文件存放的目录默认是与通常使用的不同的是能够在编译期间检查脚本正确性防止其在运行期间产生关于脚本正确性的初级错误是一个脚本用于方便地在开启应用程序同时打开其命令行语法是通过编译出的脚本文件虚拟机参数例如或指定应用程序的参数脚本脚本脚本定义了要追踪的是什么并且怎样追踪它们就是一些看起来被加上了许多注解的普通类注解标识了埋点应该在哪里放置并且什么数据传给脚本元素探针点即在或发生时的一系列语句才会被执行探针点指的是在目标程序中我们添加的一些感兴趣的点或者事件发生的时刻追踪动作当一个探针被触发时要执行的一系列指令语句动作方法当探针被触发时会被运行的那些在脚本里定义的方法限制为了保证在目标程序中动态注入代码的安全性有下面几点强制的限制不允许一个对象不允许一个数组不允许手动抛出异常不允许捕获任何异常不允许随意调用实例的方法或方法在程序中只能调用在该程序中声明的方法译注存疑不允许声明外部内部嵌套局部类不允许有块或方法不允许有循环语句不允许继承类超类只能是不允许实现接口不允许有断言语句不允许有字面值',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/btrace/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>btrace</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Java动态追踪之BTrace：官方Wiki译文与译注</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:55.000Z" title="发表于 2024-10-31 22:01:55">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.177Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/"><header><a href="/tags/btrace/" tabindex="-1" itemprop="url">btrace</a><h1 id="CrawlerTitle" itemprop="name headline">Java动态追踪之BTrace：官方Wiki译文与译注</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:55.000Z" title="发表于 2024-10-31 22:01:55">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.177Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><p>本文翻译自 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki">https://github.com/btraceio/btrace/wiki</a></p>
+<hr>
+<h2 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h2><h3 id="Btrace"><a href="#Btrace" class="headerlink" title="Btrace"></a>Btrace</h3><p>用于Java的安全的动态追踪工具。BTrace通过动态地调改正在运行的Java程序的字节码来工作。其在运行的Java类上hotswap，来插入追踪动作。</p>
+<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><p>键入 <code>btrace &lt;PID&gt; AllMethods.java</code> ，其中<code>PID</code>可以是任何正在运行的目标Java程序。<br>这个样本脚本<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki/Trace-Scripts">trace script</a>（<em>AllMethods.java</em>）会埋点所有 javax.swing.*下的类的所有方法。而埋点将会在每个被埋点的方法进入时打印类名和方法名。<br>（译注：instrument不是很好翻译，经过检索相关资料，在这篇文章的上下文中，我认为将instrument翻译为了“埋点”更好理解。这个词的其他近似的含义有，插桩、调改、调控、监测等）</p>
+<p>所有的输出会打印到标准输出（stdout）</p>
+<p>当脚本运行期间，你可以键入Ctrl-C来停止Btrace工具运行。</p>
+<p><em>片段1 - AllMethods.java</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package samples;</span><br><span class="line"></span><br><span class="line">import com.sun.btrace.annotations.*;</span><br><span class="line">import static com.sun.btrace.BTraceUtils.*;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 这个脚本会追踪每个javax.swing 包下的方法进入</span><br><span class="line"> * 使用前三思，这个操作会显著地减慢你的程序的运行 </span><br><span class="line"> */</span><br><span class="line">@BTrace public class AllMethods &#123;</span><br><span class="line">    @OnMethod(</span><br><span class="line">        clazz=&quot;/javax\\.swing\\..*/&quot;,</span><br><span class="line">        method=&quot;/.*/&quot;</span><br><span class="line">    )</span><br><span class="line">    public static void m(@ProbeClassName String probeClass, @ProbeMethodName String probeMethod) &#123;</span><br><span class="line">        print(Strings.strcat(&quot;entered &quot;, probeClass));</span><br><span class="line">        println(Strings.strcat(&quot;.&quot;, probeMethod));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="运行BTrace的细节"><a href="#运行BTrace的细节" class="headerlink" title="运行BTrace的细节"></a>运行BTrace的细节</h3><h4 id="动态依附应用程序"><a href="#动态依附应用程序" class="headerlink" title="动态依附应用程序"></a>动态依附应用程序</h4><p>对于快速依附于一个已经运行的程序、获取感兴趣的数据、再取消依附、删掉追踪的代码很有用。<br>依附的命令行是：<br><code>btrace [-p &lt;port&gt;] [-cp &lt;classpath&gt;] &lt;pid&gt; &lt;btrace-script&gt; [&lt;args&gt;]</code></p>
+<ul>
+<li><strong>port</strong> 是BTrace 代理监听的接口，这是一个可选参数。</li>
+<li><strong>classpath</strong> 是目录、jar文件的集合。用来在BTrace执行编译过程中找到这些要编译或链入的文件。默认是”.”。</li>
+<li><strong>btrace-script</strong> 是我们的追踪脚本。如果它是一个”.java”文件，那么在它被提交前会被编译。否则这个参数就应该指明一个已经编译好的”.class”文件，其会被直接提交。</li>
+</ul>
+<p>运行<code>btrace -h</code>会打印命令用法。</p>
+<h4 id="同时运行应用程序和BTrace"><a href="#同时运行应用程序和BTrace" class="headerlink" title="同时运行应用程序和BTrace"></a>同时运行应用程序和BTrace</h4><p>在这个模式下，BTrace的运行甚至要早于应用程序的初始代码运行。这给我们机会去跟踪应用程序生命周期中最早期的运行情况。</p>
+<p>运行应用程序的同时开启BTrace代理的命令是：<br><code>java -javaagent:btrace-agent.jar=[&lt;agent-arg&gt;[,&lt;agent-arg&gt;]*]? &lt;launch-args&gt;</code><br>这个代理接受逗号分隔的参数列表。</p>
+<ul>
+<li><strong>noServer</strong> - 不启动socket server</li>
+<li><strong>bootClassPath</strong> -（译注：bootstrap classloader加载java.*或javax.*下的类时用的路径）</li>
+<li><strong>systemClassPath</strong> - （译注：system classloader 加载类时用到的寻找路径）</li>
+<li><strong>debug</strong> - 开关：verbose调试信息（true&#x2F;false）</li>
+<li><strong>trusted</strong> - 开关：不检查是否违反了btace的限制（true&#x2F;false）</li>
+<li><strong>dumpClasses</strong> - 开关：dump转换后的字节码到文件中（true&#x2F;false）</li>
+<li><strong>dumpDir</strong> - 标明转换后的class文件要dump到哪个目录中</li>
+<li><strong>stdout</strong> - 开关：重定向btrace的输出到标准输出，而不是写入一个任意文件（true&#x2F;false）</li>
+<li><strong>probeDescPath</strong> - 寻找探针描述符XML的路径</li>
+<li><strong>startupRetransform</strong> - 开关：在attach时将所有已经加载的经过转换的类转换回去（true&#x2F;false）</li>
+<li><strong>scriptdir</strong> - 在agent开启时寻找脚本的路径</li>
+<li><strong>scriptOutputFile</strong> - 存有btrace的输出的文件路径</li>
+<li><strong>script</strong> - 在代理开始后要运行的脚本的列表，其用冒号分隔</li>
+</ul>
+<p>要运行的脚本必须提前已经用<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki/btracec">btracec</a>编译成字节码（<em>.class</em> 文件）</p>
+<hr>
+<h2 id="适应性埋点"><a href="#适应性埋点" class="headerlink" title="适应性埋点"></a>适应性埋点</h2><h3 id="适应性埋点-1"><a href="#适应性埋点-1" class="headerlink" title="适应性埋点"></a>适应性埋点</h3><p>BTrace支持用埋点等级来做到适应性埋点。每个探针可以通过注解标记其最小生效等级。这样一些轻量级埋点可以总被设置成0级，而一些运行代价较大的埋点可以考虑设置成100以上。</p>
+<p>埋点等级在运行期间是可以调整的，它甚至可以在一个探针的handler里进行调整，这样就可以让一些我们期待的特定触发点去动态地升高或降低埋点等级。</p>
+<h4 id="声明探针的生效埋点等级"><a href="#声明探针的生效埋点等级" class="headerlink" title="声明探针的生效埋点等级"></a>声明探针的生效埋点等级</h4><p>每个探针的埋点等级可以通过<code>@Level</code>注解来定义。这个注解接受诸如 [&#x3D;,&gt;,&lt;,&lt;&#x3D;,&gt;&#x3D;]的字符串来声明他们等级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 下面的探针将会在过滤的埋点等级至少为100时才会激活</span><br><span class="line">@Level(&quot;100&quot;) // @Level(&quot;&gt;=100&quot;)的效果是同样的</span><br><span class="line">// 也可以根据需求设置成诸如 @Level(&quot;&lt;100&quot;) @Level(&quot;&gt;100&quot;) @Level(&quot;&lt;=100&quot;) @Level(&quot;=100&quot;)</span><br><span class="line">@OnMethod(...)</span><br><span class="line">public void handler() &#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="调整埋点等级"><a href="#调整埋点等级" class="headerlink" title="调整埋点等级"></a>调整埋点等级</h4><p>探针的埋点等级可以通过调用 <code>BTraceUtils.setInstrumentationLevel(level)</code>来设置。而<code>BTraceUtils.getInstrumentationLevel()</code>则可以获取当前的埋点等级。</p>
+<h4 id="性能效益"><a href="#性能效益" class="headerlink" title="性能效益"></a>性能效益</h4><p>停用探针的handler只会造成整型比较和指令跳转的额外性能代价，而这些相对于整个探针handler的工作造成的性能代价是微不足道的。 开、关埋点等级，二者间的性能差异也就在微秒之间。</p>
+<hr>
+<h2 id="BTrace-注解"><a href="#BTrace-注解" class="headerlink" title="BTrace 注解"></a>BTrace 注解</h2><h3 id="BTrace-注解-1"><a href="#BTrace-注解-1" class="headerlink" title="BTrace 注解"></a>BTrace 注解</h3><h4 id="方法注解"><a href="#方法注解" class="headerlink" title="方法注解"></a>方法注解</h4><h5 id="OnMethod"><a href="#OnMethod" class="headerlink" title="@OnMethod"></a>@OnMethod</h5><blockquote>
+<p>用于标明在目标类、目标方法、目标方法的埋点位置。<br><code>@OnMethod(clazz=&lt;cname_spec&gt;[, method=&lt;mname_spec&gt;]? [, type=&lt;signature&gt;]? [, location=&lt;location_spec&gt;]?)</code></p>
+</blockquote>
+<ul>
+<li><strong>cname_spec</strong>* &#x3D; &lt;class_name&gt; | +&lt;class_name&gt; | &#x2F;regex&#x2F;</li>
+<li><strong>class_name</strong> 是类全名</li>
+<li><strong>+class_name</strong> 是一个 + 号再加上类&#x2F;接口全名，意味着目标类&#x2F;接口的所有子类或实现类</li>
+<li><strong>&#x2F;regex&#x2F;</strong> 是能标明目标类名字的标准正则表达式</li>
+<li><strong>mname_spec</strong> &#x3D; <method_name> | &#x2F;regex&#x2F;</li>
+<li><strong>method_name</strong> 是简单方法名（没有函数签名或返回类型）</li>
+<li><strong>signature</strong> &#x3D; &lt;return_type&gt; ((arg_type(,arg_type)*)?</li>
+<li><strong>return_type</strong> 是方法的返回类型（例如：<code>void</code>，<code>java.lang.String</code>）</li>
+<li><strong>arg_type</strong> 是参数类型</li>
+</ul>
+<p>被注解标注的action 将会在匹配的方法运行到指定的位置时而触发。在OnMethod 注解中，被追踪的类用”clazz”、被追踪的方法用”method”属性标明。”clazz”可以是类全名（就像java.awt.Component或者是一个用左右两个斜杠括住的正则表达式。可以参看这两个例子 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/NewComponent.java">NewComponent.java</a> 和 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/Classload.java">Classload.java</a>.）</p>
+<p>正则表达式可以匹配零到多个类，这些类都会被埋点。例如<code>/java\.awt\..+/</code> 匹配 java.awt 包下的所有类。并且，方法名同理也可以用正则表达式来标明。例如 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/MultiClass.java">MultiClass.java</a>。</p>
+<p>还有一种方式可以抽象地标明被追踪的类或方法。被追踪的类和方法名可以被注解来标识。举个例子，如果 “clazz” 属性设置为 @javax.jws.WebService。BTrace会给所有被添加了WebService注解的类埋点。类似地，目标程序里方法上的注解也可以被用来抽象地标明让BTrace埋点哪个方法。例如 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/WebServiceTracker.java">WebServiceTracker.java</a>。</p>
+<p>使用正则表达式来标明注解也是可以的，例如 <code>@/com\.acme\..+/</code>匹配了所有匹配指定正则表达式的注解所标注了的类。</p>
+<p>还可以通过指定超类（译注：基类）的方式来指明要匹配该超类的所有子类。 例如 +java.lang.Runnable 匹配了所有实现了 java.lang.Runnable接口的类型。 参考例子<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/SubTypeTracer.java">SubtypeTracer.java</a>。</p>
+<h5 id="OnTimer"><a href="#OnTimer" class="headerlink" title="@OnTimer"></a>@OnTimer</h5><blockquote>
+<p>用来标明追踪action必须每隔N毫秒周期性地执行</p>
+</blockquote>
+<p><code>@OnTimer([[value=]?&lt;value&gt;]?)</code></p>
+<ul>
+<li><strong>value</strong> 指定的时间周期<br>时间周期通过注解的”value”属性指定。参考例子<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/blob/master/samples/Histogram.java">Histogram.java</a></li>
+</ul>
+<h5 id="OnError"><a href="#OnError" class="headerlink" title="@OnError"></a>@OnError</h5><blockquote>
+<p>用来标明如果其他探针的追踪action抛出了异常，所要做的动作<br>当任何相同BTrace Class中的其他BTrace action产生了异常，该注解标注的方法会被执行。</p>
+</blockquote>
+<h5 id="OnExit"><a href="#OnExit" class="headerlink" title="@OnExit"></a>@OnExit</h5><blockquote>
+<p>用来标注当BTrace代码执行了内建函数<code>exit(int)</code>去关闭BTrace会话时要执行的动作。参考例子 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/ProbeExit.java">ProbeExit.java</a>。</p>
+</blockquote>
+<h5 id="OnEvent"><a href="#OnEvent" class="headerlink" title="@OnEvent"></a>@OnEvent</h5><blockquote>
+<p>用来关联追踪方法与BTrace客户端发送的外部事件。<br><code>@OnEvent([[value=]?&lt;event_name&gt;]?)</code></p>
+</blockquote>
+<ul>
+<li><strong>event_name</strong> 是这个handler要相应的event名字。</li>
+</ul>
+<p>当BTrace客户端发送了一个事件，被该注解标注的BTrace方法会被执行。客户端发送的事件可以是用户的请求的某种形式（比如 Ctrl-C 或者 GUI 菜单）。字符串值可以被用来作为事件的名字。这样，无论这些“事件”什么时候被用户触发，这些特定的action都会执行。</p>
+<p>现在，只要用户按下了 Ctrl-C（SIGINT），BTrace的命令行客户端就可以发送事件。按下Ctrl-C后，一个命令行菜单会显示出来。你可以选择发送事件或者退出。<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/HistoOnEvent.java">HistoOnEvent.java</a></p>
+<h5 id="OnLowMemory"><a href="#OnLowMemory" class="headerlink" title="@OnLowMemory"></a>@OnLowMemory</h5><blockquote>
+<p>用来追踪内存使用已超出限定值的事件<br>可以参考例子<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/MemAlerter.java">MemAlerter.java</a></p>
+</blockquote>
+<h5 id="OnProbe"><a href="#OnProbe" class="headerlink" title="@OnProbe"></a>@OnProbe</h5><blockquote>
+<p>用来标注无需使用BTrace脚本里定义的target（译注：存疑原文”used to specify to avoid using implementation internal classes in BTrace scripts”）<br><code>@OnProbe(namespace=&lt;namespace_name&gt;, name=&lt;probe_name&gt;)</code></p>
+</blockquote>
+<ul>
+<li><strong>namespace_name</strong> 是一个任意的Java包的命名空间</li>
+<li><strong>probe_name</strong> 是一个任意的探针名字</li>
+</ul>
+<p>@OnProbe 探针声明会映射到一个或多个BTrace代理声明的@OnMethod。现在这个声明可以使用一个XML探针描述符来指定某个探针名（这个XML文件会被BTrace代理访问）。可以参考例子 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/SocketTracker1.java">SocketTracker1.java</a>和其使用的XML探针描述文件<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/jbachorik/btrace/blob/master/samples/java.net.socket.xml">java.net.socket.xml</a>。</p>
+<p>（译注：这里的含义其实就是，在BTrace脚本里声明探针位置的方式一般是使用@OnMethod注解指定啥的。但是还有一种方式是不使用@OnMethod指定，而是额外写一个XML文件来间接地定义探针位置，里面可以定义一些探针标签，并且每个探针标签下可以再通过@OnMethod指定具体的位置。这样BTrace脚本里直接使用@OnProbe注解指定XML里面声明的探针名字就好了，可以对比下 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/blob/master/samples/SocketTracker.java">SocketTracker.java</a>（使用@OnMethod指定位置）和 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/blob/master/samples/SocketTracker1.java">SocketTracker1.java</a>（使用XML声明探针，脚本里使用XML定义的探针）这个两个文件就懂了 ）。</p>
+<p>当运行这个例子时，这个XML文件需要放置在目标JVM运行的目录里（或者在btracer.bat里去修改probeDescPath选项，去指明.xml文件的位置）</p>
+<h5 id="Sampled"><a href="#Sampled" class="headerlink" title="@Sampled"></a>@Sampled</h5><blockquote>
+<p>为被注解了的handler开启<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=http://jbachorik.github.io/btrace/2015/02/sampled-profiling">sampling</a>。与@OnMethod注解一起连用。<br><code>@Sampled([kind=&lt;sampler_kind&gt;[,mean=&lt;number&gt;])</code></p>
+</blockquote>
+<ul>
+<li><strong><sampler_kind></strong> 只能是Sampler.Const, Sampler.Adaptive 和 Sampler.None 中的一个。</li>
+</ul>
+<h4 id="参数注解"><a href="#参数注解" class="headerlink" title="参数注解"></a>参数注解</h4><h5 id="ProbeClassName"><a href="#ProbeClassName" class="headerlink" title="@ProbeClassName"></a>@ProbeClassName</h5><blockquote>
+<p>用来标识handler的这个入参是当前打断的方法是哪个类的。只能在被标注了@OnMethod注解的探针handler方法里使用。</p>
+</blockquote>
+<h5 id="ProbeMethodName"><a href="#ProbeMethodName" class="headerlink" title="@ProbeMethodName"></a>@ProbeMethodName</h5><blockquote>
+<p>用来标识handler的这个入参是当前打断的哪个方法。只能在被标注了@OnMethod注解的探针handler方法里使用</p>
+</blockquote>
+<p><code>@ProbeMethodName([fqn=(true|false)]?)</code></p>
+<ul>
+<li><strong>fqn</strong> 表示应该使用方法全名而不是简单名， 默认是false</li>
+</ul>
+<h5 id="Self"><a href="#Self" class="headerlink" title="@Self"></a>@Self</h5><p>表示该参数是用来访问当前打断的成员方法所依附的实例。对一个handler参数使用该注解会有效地过滤掉其他匹配的静态方法。<br>（译注：这个的含义就是通过名字、签名等方式匹配出来的目标方法可能是static的也可能是非static的。使用这个注解，会直接表明我们要的是非static的，因为只有非static的方法才有一个隐式的this指针指向一个实例，即该参数）</p>
+<h5 id="Return"><a href="#Return" class="headerlink" title="@Return"></a>@Return</h5><blockquote>
+<p>该注解标识该参数是打断的目的方法的返回值。只可以用于 <code>location=@Location(Kind.RETURN)</code>的情况。并且该注解会造成，如果目的方法没有返回值那么就不会触发改handler</p>
+</blockquote>
+<h5 id="Duration"><a href="#Duration" class="headerlink" title="@Duration"></a>@Duration</h5><blockquote>
+<p>目标方法的执行耗时会通过注解了@Duration的参数提供。只可以用于 <code>location=@Location(Kind.RETURN)</code>或 long 的情况。</p>
+</blockquote>
+<h5 id="TargetInstance"><a href="#TargetInstance" class="headerlink" title="@TargetInstance"></a>@TargetInstance</h5><blockquote>
+<p>这个注解标识该参数提供访问当前打断的成员方法所依附的实例（和@Self很像）但是可以用于<code>location=@Location([Kind.CALL|Kind.FIELD_GET|Kind.FIELD_SET)</code>，即非static方法被调用、字段被设置或者读取的情况。</p>
+</blockquote>
+<h5 id="TargetMethodOrField"><a href="#TargetMethodOrField" class="headerlink" title="@TargetMethodOrField"></a>@TargetMethodOrField</h5><blockquote>
+<p>这个注解标识该参数提供方法或字段的访问（类似于 @ProbeMethodName），适用于<code>location=@Location([Kind.CALL|Kind.FIELD_GET|Kind.FIELD_SET)</code></p>
+</blockquote>
+<p><code>@TargetMethodOrField([fqn=(true|false)]?)</code></p>
+<ul>
+<li>**fqn 表示是否使用全名而不是简单名，默认为false</li>
+</ul>
+<hr>
+<h2 id="btracec"><a href="#btracec" class="headerlink" title="btracec"></a>btracec</h2><h3 id="btracec-1"><a href="#btracec-1" class="headerlink" title="btracec"></a>btracec</h3><p>btracec 是用来把追踪脚本（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki/Trace-Scripts">trace scripts</a>）编译为class文件的命令行工具。</p>
+<p>其命令用法是：<br><code>btracec [-cp &lt;classpath&gt;] [-d &lt;directory&gt;] &lt;one-or-more-BTrace-.java-files&gt;</code></p>
+<ul>
+<li><strong>classpath</strong> 是用来编译BTrace 程序的classpath。默认是”.”</li>
+<li><strong>directory</strong> 是编译后的class文件存放的目录。默认是”.”</li>
+</ul>
+<p>与通常使用的javac不同的是，btracec 能够在编译期间检查脚本正确性，防止其在运行期间产生关于脚本正确性的初级错误。</p>
+<hr>
+<h2 id="btracer"><a href="#btracer" class="headerlink" title="btracer"></a>btracer</h2><h3 id="btracer-1"><a href="#btracer-1" class="headerlink" title="btracer"></a>btracer</h3><p>btracer是一个脚本。用于方便地在开启应用程序同时打开btrace。</p>
+<p>其命令行语法是：<br><code>btracer &lt;pre-compiled-btrace.class&gt; &lt;vm-arg&gt; &lt;application-args&gt;</code></p>
+<ul>
+<li><strong>pre-compiled-btrace.class</strong> 通过<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki/btracec">btracec</a>编译出的trace脚本class文件</li>
+<li><strong>vm-args</strong> 虚拟机参数，例如<code>-cp app.jar Main.class</code>或<code>-jar app.jar</code></li>
+<li><strong>application-args</strong> 指定应用程序的参数</li>
+</ul>
+<hr>
+<h2 id="Trace-脚本"><a href="#Trace-脚本" class="headerlink" title="Trace 脚本"></a>Trace 脚本</h2><h3 id="Trace-脚本-1"><a href="#Trace-脚本-1" class="headerlink" title="Trace 脚本"></a>Trace 脚本</h3><p>Trace脚本定义了要追踪的是什么并且怎样追踪。 它们就是一些看起来被加上了许多注解的普通Java类。注解（<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/btraceio/btrace/wiki/BTrace-Annotations">annotations</a>）标识了埋点应该在哪里放置，并且什么数据传给action。</p>
+<h4 id="脚本元素（Script-Elements）"><a href="#脚本元素（Script-Elements）" class="headerlink" title="脚本元素（Script Elements）"></a>脚本元素（Script Elements）</h4><h5 id="探针点（Probe-Point）"><a href="#探针点（Probe-Point）" class="headerlink" title="探针点（Probe Point）"></a>探针点（Probe Point）</h5><p>即在”location” 或发生 “event”时，trace action的一系列语句才会被执行。探针点指的是在目标程序中，我们添加的一些感兴趣的点或者事件发生的时刻。</p>
+<h5 id="追踪动作（Trace-Actions-or-Actions）"><a href="#追踪动作（Trace-Actions-or-Actions）" class="headerlink" title="追踪动作（Trace Actions or Actions）"></a>追踪动作（Trace Actions or Actions）</h5><p>当一个探针被触发时，要执行的一系列指令语句。</p>
+<h5 id="动作方法（Action-Methods）"><a href="#动作方法（Action-Methods）" class="headerlink" title="动作方法（Action Methods）"></a>动作方法（Action Methods）</h5><p>当探针被触发时，会被运行的那些在脚本里定义的static方法。</p>
+<h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h4><p>为了保证在目标程序中动态注入代码的安全性，有下面几点强制的限制。</p>
+<ul>
+<li>不允许new 一个对象</li>
+<li>不允许new 一个数组</li>
+<li>不允许手动抛出异常</li>
+<li>不允许捕获任何异常</li>
+<li>不允许随意调用实例的方法或static方法，在BTrace程序中只能调用在该程序中声明的方法（译注：存疑）</li>
+<li>不允许声明外部、内部、嵌套、局部类</li>
+<li>不允许有synchronized块或synchronized方法</li>
+<li>不允许有循环语句（for，while，do…while）</li>
+<li>不允许继承类（超类只能是 java.lang.Object）</li>
+<li>不允许实现接口</li>
+<li>不允许有assert断言语句</li>
+<li>不允许有字面值</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/')">Java动态追踪之BTrace：官方Wiki译文与译注</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Java动态追踪之BTrace：官方Wiki译文与译注&amp;url=https://tushu.info/archives/Java-dong-tai-zhui-zong-zhi-BTrace-guan/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/btrace/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>btrace<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Java-lie-chu-mu-lu-zhong-de-wen-jian/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java：列出目录中的文件</div></div></a></div><div class="next-post pull-right"><a href="/archives/Java-Agent-shi-yong-zhi-nan/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java Agent 使用指南</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5"><span class="toc-number">1.</span> <span class="toc-text">首页</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Btrace"><span class="toc-number">1.1.</span> <span class="toc-text">Btrace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-number">1.2.</span> <span class="toc-text">快速开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CBTrace%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-number">1.3.</span> <span class="toc-text">运行BTrace的细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BE%9D%E9%99%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">动态依附应用程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8CBTrace"><span class="toc-number">1.3.2.</span> <span class="toc-text">同时运行应用程序和BTrace</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E5%9F%8B%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">适应性埋点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E5%9F%8B%E7%82%B9-1"><span class="toc-number">2.1.</span> <span class="toc-text">适应性埋点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E6%8E%A2%E9%92%88%E7%9A%84%E7%94%9F%E6%95%88%E5%9F%8B%E7%82%B9%E7%AD%89%E7%BA%A7"><span class="toc-number">2.1.1.</span> <span class="toc-text">声明探针的生效埋点等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%9F%8B%E7%82%B9%E7%AD%89%E7%BA%A7"><span class="toc-number">2.1.2.</span> <span class="toc-text">调整埋点等级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%95%88%E7%9B%8A"><span class="toc-number">2.1.3.</span> <span class="toc-text">性能效益</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BTrace-%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">BTrace 注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BTrace-%E6%B3%A8%E8%A7%A3-1"><span class="toc-number">3.1.</span> <span class="toc-text">BTrace 注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.1.1.</span> <span class="toc-text">方法注解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#OnMethod"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">@OnMethod</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnTimer"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">@OnTimer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnError"><span class="toc-number">3.1.1.3.</span> <span class="toc-text">@OnError</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnExit"><span class="toc-number">3.1.1.4.</span> <span class="toc-text">@OnExit</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnEvent"><span class="toc-number">3.1.1.5.</span> <span class="toc-text">@OnEvent</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnLowMemory"><span class="toc-number">3.1.1.6.</span> <span class="toc-text">@OnLowMemory</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OnProbe"><span class="toc-number">3.1.1.7.</span> <span class="toc-text">@OnProbe</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Sampled"><span class="toc-number">3.1.1.8.</span> <span class="toc-text">@Sampled</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.1.2.</span> <span class="toc-text">参数注解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ProbeClassName"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">@ProbeClassName</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ProbeMethodName"><span class="toc-number">3.1.2.2.</span> <span class="toc-text">@ProbeMethodName</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Self"><span class="toc-number">3.1.2.3.</span> <span class="toc-text">@Self</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Return"><span class="toc-number">3.1.2.4.</span> <span class="toc-text">@Return</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Duration"><span class="toc-number">3.1.2.5.</span> <span class="toc-text">@Duration</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TargetInstance"><span class="toc-number">3.1.2.6.</span> <span class="toc-text">@TargetInstance</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TargetMethodOrField"><span class="toc-number">3.1.2.7.</span> <span class="toc-text">@TargetMethodOrField</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#btracec"><span class="toc-number">4.</span> <span class="toc-text">btracec</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#btracec-1"><span class="toc-number">4.1.</span> <span class="toc-text">btracec</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#btracer"><span class="toc-number">5.</span> <span class="toc-text">btracer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#btracer-1"><span class="toc-number">5.1.</span> <span class="toc-text">btracer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trace-%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">Trace 脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Trace-%E8%84%9A%E6%9C%AC-1"><span class="toc-number">6.1.</span> <span class="toc-text">Trace 脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E5%85%83%E7%B4%A0%EF%BC%88Script-Elements%EF%BC%89"><span class="toc-number">6.1.1.</span> <span class="toc-text">脚本元素（Script Elements）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A2%E9%92%88%E7%82%B9%EF%BC%88Probe-Point%EF%BC%89"><span class="toc-number">6.1.1.1.</span> <span class="toc-text">探针点（Probe Point）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%BD%E8%B8%AA%E5%8A%A8%E4%BD%9C%EF%BC%88Trace-Actions-or-Actions%EF%BC%89"><span class="toc-number">6.1.1.2.</span> <span class="toc-text">追踪动作（Trace Actions or Actions）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E6%96%B9%E6%B3%95%EF%BC%88Action-Methods%EF%BC%89"><span class="toc-number">6.1.1.3.</span> <span class="toc-text">动作方法（Action Methods）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%90%E5%88%B6"><span class="toc-number">6.1.2.</span> <span class="toc-text">限制</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Java里快如闪电的线程间通讯 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Java里快如闪电的线程间通讯"><meta name="application-name" content="Java里快如闪电的线程间通讯"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Java里快如闪电的线程间通讯"><meta property="og:url" content="https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="这个故事源自一个很简单的想法：创建一个对开发人员友好的、简单轻量的线程间通讯框架，完全不用锁、同步器、信号量、等待和通知，在 Java 里开发一个轻量、无锁的线程内通讯框架；并且也没有队列、消息、事件或任何其他并发专用的术语或工具。 只用普通的老式 Java 接口实现 POJO 的通讯。 它可能跟"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="这个故事源自一个很简单的想法：创建一个对开发人员友好的、简单轻量的线程间通讯框架，完全不用锁、同步器、信号量、等待和通知，在 Java 里开发一个轻量、无锁的线程内通讯框架；并且也没有队列、消息、事件或任何其他并发专用的术语或工具。 只用普通的老式 Java 接口实现 POJO 的通讯。 它可能跟"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Java里快如闪电的线程间通讯',
+  postAI: '',
+  pageFillDescription: '这个故事源自一个很简单的想法创建一个对开发人员友好的简单轻量的线程间通讯框架完全不用锁同步器信号量等待和通知在里开发一个轻量无锁的线程内通讯框架并且也没有队列消息事件或任何其他并发专用的术语或工具只用普通的老式接口实现的通讯它可能跟的类型化类似但作为一个必须超级轻量并且要针对单台多核计算机进行优化的新框架那个可能有点过了当跨越不同实例在同一台机器上或分布在网络上的不同机器上的进程边界时框架很善于处理进程间的通讯但对于那种只需要线程间通讯的小型项目而言用类型化可能有点儿像用牛刀杀鸡不过类型化仍然是一种理想的实现方式我花了几天时间用动态代理阻塞队列和缓存线程池创建了一个解决方案图一是这个框架的高层次架构图框架的高层次架构队列是指单一生产者单一消费者队列队列是指多生产者单一消费者队列派发线程负责接收线程发送的消息并把它们派发到对应的队列中去接收到消息的线程用其中的数据调用相应的实例中的方法借助其他的代理实例可以将消息发送到队列中然后消息会被发送给目标线程我创建了一个简单的例子来测试就是下面这个打乒乓球的程序发完就忘的方法调用发完就忘的方法调用管理器隐藏了线程间通讯的复杂性控制代理实现和线程在管理器内注册实现创建代理代理会将方法调用转换成内部消息会在线程间发给特定的实例经过测试速度大约在每秒次乒乓左右还不错吧然而跟单线程的运行速度比起来我突然就感觉没那么好了在单线程中运行的代码每秒速度能达到亿居然差了多倍太让我失望了在大多数情况下单线程代码的效果都比多线程代码更高效我开始找原因想看看我的乒乓球运动员们为什么这么慢经过一番调研和测试我发现是阻塞队列的问题我用来在间传递消息的队列影响了性能图只有一个生产者和一个消费者的队列所以我发起了一场竞赛要将它换成里最快的队列我发现了的博客他发了几篇文章介绍单一生产者单一消费者无锁队列的实现这些文章受到了的演讲终极性能的无锁算法的启发跟基于私有锁的队列相比无锁队列的性能更优在基于锁的队列中当一个线程得到锁时其它线程就要等着锁被释放而在无锁的算法中某个生产者线程生产消息时不会阻塞其它生产者线程消费者也不会被其它读取队列的消费者阻塞在的演讲以及在的博客中介绍的队列的性能简直令人难以置信超过了比的并发队列实现还要快倍在核的上的性能大约在左右我怀着极大的期望将所有上连接的链式阻塞队列都换成了无锁的队列可惜在吞吐量上的性能测试并没有像我预期的那样出现大幅提升不过很快我就意识到瓶颈并不在队列上而是在多个生产者单一消费者那里用队列做队列的任务并不那么简单在做操作时多个生产者可能会覆盖掉彼此的值队列就没有控制多个生产者操作的代码所以即便换成最快的队列也解决不了我的问题为了处理多个生产者单一消费者的情况我决定启用一个基于环形缓冲区的高性能进程间消息库图单一生产者和单一消费者的借助很容易实现低延迟高吞吐量的线程间消息通讯它还为生产者和消费者的不同组合提供了不同的用例几个线程可以互不阻塞地读取环形缓冲中的消息图单一生产者和两个消费者的下面是有多个生产者写入环形缓冲区多个消费者从中读取消息的场景图两个生产者和两个消费者的经过对性能测试的快速搜索我找到了三个发布者和一个消费者的吞吐量测试这个真是正合我意它给出了下面这个结果在个生产者个消费者场景下要比快两倍多然而这跟我所期望的性能上提升倍仍有很大差距这让我觉得很沮丧并且我的大脑一直在搜寻解决方案就像命中注定一样我最近不在跟人拼车上下班而是改乘地铁了突然灵光一闪我的大脑开始将车站跟生产者消费者对应起来在一个车站里既有生产者车和下车的人也有消费者同一辆车和上车的人我创建了类并用追踪从一站到下一站的列车我先从简单的场景开始只有一辆车的铁轨追踪列车并定义哪个车站接收到了列车会有多个线程访问这个方法并等待特定车站上的列车为保证高吞吐量的消息传递这个是必须的但在等待列车时它会消耗周期只有站号等于时这个忙循环才会返回这个方法通过增加列车的站点索引将这辆列车移到下一站为了测试我用的条件跟在性能测试中用的一样并且也是测的队列测试在线程间传递值我创建了下面这个类其中包含了一个数组传输运输货物的数组返回货物数量向列车中添加条目从列车中移走条目然后我写了一个简单的测试两个线程通过列车互相传递值图使用单辆列车的单一生产者和单一消费者启动一个消费者进程在站等列车卸货将当前列车送到第一站在站等列车将货物装到列车上每隔个条目测量一次性能在不同的列车容量下运行这个测试结果惊着我了容量吞吐量延迟在列车容量达到时两个线程传送消息的吞吐量达到了比博客中的队列快了几倍继续按铁路列车这个思路思考我想知道如果有两辆列车会怎么样我觉得应该能提高吞吐量同时还能降低延迟每个车站都会有它自己的列车当一辆列车在第一个车站装货时第二辆列车会在第二个车站卸货反之亦然图使用两辆列车的单一生产者和单一消费者下面是吞吐量的结果容量吞吐量延时结果是惊人的比单辆列车的结果快了倍多列车容量为一时延迟从纳秒降低到纳秒这显然是一个令人鼓舞的迹象因此我的实验还没结束列车容量为的两个线程传递消息的延迟为纳秒这太高了我在想如何降低它创建一个有很多辆列车的例子图使用多辆列车的单一生产者和单一消费者我还把列车容量降到了个值开始玩起了列车数量下面是测试结果列车数量吞吐量延迟用列车在线程间发送一个值的延迟降低到了纳秒通过调整列车数量和列车容量当延时不那么高吞吐量不那么低时吞吐量和延时就达到了最佳平衡对于单一生产者和单一消费者而言这些数值很棒但我们怎么让它在有多个生产者和消费者时也能生效呢答案很简单添加更多的车站图一个生产者和两个消费者的每个线程都等着下一趟列车装货卸货然后把列车送到下一站在生产者往列车上装货时消费者在从列车上卸货列车周而复始地从一个车站转到另一个车站为了测试单一生产者多消费者的情况我创建了一个有个车站的测试一个车站属于一个生产者而另外个车站属于消费者结果是列车数量列车容量延迟纳秒列车数量列车容量延迟纳秒如你所见即便有个工作线程测试给出的结果也相当好辆容量为个的列车吞吐量为在测试期间所有内核的负载都是图在测试有个车站的期间的使用情况在玩这个算法时我几乎忘了我最初的目标提升多生产者单消费者情况下的性能图三个生产者和一个消费者的我创建了个生产者和个消费者的新测试每辆列车一站一站地转圈而每个生产者只给每辆车装容量的货消费者取出每辆车上三个生产者给出的全部三项货物性能测试给出的平均结果如下所示列车秒延迟纳秒结果相当棒生产者和消费者工作的速度超过了为了填补差异下面给出相同情况下的结果个生产者和个消费者下面是另一个批量消息的测试条消息每批最后是用带实现的在场景下的测试结果如你所见方式的平均吞吐量是而在同样的情况下的最好结果只有至于最好的结果只有算法为事件批处理提供了一种可以显著增加吞吐量的简易办法通过调整列车容量或列车数量很容易达成想要的吞吐量延迟另外当同一个线程可以用来消费消息处理它们并向环中返回结果时通过混合生产者和消费者也能用来处理复杂的情况图混合生产者和消费者的最后我会提供一个经过优化的超高吞吐量单生产者单消费者测试图单个生产者和单个消费者的它的平均结果为吞吐量超过每秒亿次操作延迟为微秒如你所见本文开头描述的那个规模相同的单线程测试的结果是每秒你自己想想结论是什么吧我希望将来再写一篇文章阐明如何用和接口支持算法用来处理不同的生产者和消费者组合敬请关注原文英文链接',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E5%B9%B6%E5%8F%91/" itemprop="url">多线程-并发</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">Java里快如闪电的线程间通讯</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:42.000Z" title="发表于 2024-10-31 22:01:42">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.285Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/"><header><a class="post-meta-categories" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E5%B9%B6%E5%8F%91/" itemprop="url">多线程-并发</a><h1 id="CrawlerTitle" itemprop="name headline">Java里快如闪电的线程间通讯</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:42.000Z" title="发表于 2024-10-31 22:01:42">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.285Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><p>这个故事源自一个很简单的想法：创建一个对开发人员友好的、简单轻量的线程间通讯框架，完全不用锁、同步器、信号量、等待和通知，在 Java 里开发一个轻量、无锁的线程内通讯框架；并且也没有队列、消息、事件或任何其他并发专用的术语或工具。</p>
+<p>只用普通的老式 Java 接口实现 POJO 的通讯。</p>
+<p>它可能跟 <a target="_blank" rel="noopener" href="http://doc.akka.io/docs/akka/snapshot/scala/typed-actors.html">Akka 的类型化 actor</a> 类似，但作为一个必须超级轻量，并且要针对单台多核计算机进行优化的新框架，那个可能有点过了。</p>
+<p>当 actor 跨越不同 JVM 实例（在同一台机器上，或分布在网络上的不同机器上）的进程边界时，Akka 框架很善于处理进程间的通讯。</p>
+<p>但对于那种只需要线程间通讯的小型项目而言，用 Akka 类型化 actor 可能有点儿像用牛刀杀鸡，不过类型化 actor 仍然是一种理想的实现方式。</p>
+<p>我花了几天时间，用动态代理，阻塞队列和缓存线程池创建了一个解决方案。</p>
+<p>图一是这个框架的高层次架构：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/30/10/301df76bfc77b10ad25eff1b27887210.png"></p>
+<p><strong>图 1 框架的高层次架构</strong></p>
+<p>SPSC 队列是指单一生产者 &#x2F; 单一消费者队列。MPSC 队列是指多生产者 &#x2F; 单一消费者队列。</p>
+<p>派发线程负责接收 Actor 线程发送的消息，并把它们派发到对应的 SPSC 队列中去。</p>
+<p>接收到消息的 Actor 线程用其中的数据调用相应的 actor 实例中的方法。借助其他 actor 的代理，actor 实例可以将消息发送到 MPSC 队列中，然后消息会被发送给目标 actor 线程。</p>
+<p>我创建了一个简单的例子来测试，就是下面这个打乒乓球的程序：</p>
+<pre><code>public interface PlayerA (
+  void pong(long ball); // 发完就忘的方法调用 
+&#125;
+public interface PlayerB &#123;   
+  void ping(PlayerA playerA, long ball); // 发完就忘的方法调用 
+&#125;    
+public class PlayerAImpl implements PlayerA &#123;    
+  @Override    
+  public void pong(long ball) &#123;    
+  &#125;    
+&#125;
+public class PlayerBImpl implements PlayerB &#123;   
+  @Override    
+  public void ping(PlayerA playerA, long ball) &#123;    
+    playerA.pong(ball);    
+  &#125;    
+&#125;
+public class PingPongExample &#123;   
+  public void testPingPong() &#123;
+    // 管理器隐藏了线程间通讯的复杂性 
+    // 控制 actor 代理，actor 实现和线程  
+    ActorManager manager = new ActorManager();
+    // 在管理器内注册 actor 实现 
+    manager.registerImpl(PlayerAImpl.class);    
+    manager.registerImpl(PlayerBImpl.class);
+    // 创建 actor 代理。代理会将方法调用转换成内部消息。 
+    // 会在线程间发给特定的 actor 实例。    
+    PlayerA playerA = manager.createActor(PlayerA.class);    
+    PlayerB playerB = manager.createActor(PlayerB.class);    
+    for(int i = 0; i &lt; 1000000; i++) &#123;    
+       playerB.ping(playerA, i);     
+   &#125;    
+&#125;
+</code></pre>
+<p>经过测试，速度大约在每秒 500,000 次乒 &#x2F; 乓左右；还不错吧。然而跟单线程的运行速度比起来，我突然就感觉没那么好了。在 <a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/singlethread/SingleThread.java">单线程</a> 中运行的代码每秒速度能达到20 亿 (2,681,850,373)！</p>
+<p>居然差了 5,000 多倍。太让我失望了。在大多数情况下，单线程代码的效果都比多线程代码更高效。</p>
+<p>我开始找原因，想看看我的乒乓球运动员们为什么这么慢。经过一番调研和测试，我发现是阻塞队列的问题，我用来在 actor 间传递消息的队列影响了性能。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/e6/fc/e6332b1d60915793a6bd7a7624cda9fc.png"></p>
+<p><strong>图 2: 只有一个生产者和一个消费者的<strong><strong>SPSC</strong></strong>队列</strong></p>
+<p>所以我发起了一场竞赛，要将它换成 Java 里最快的队列。我发现了 Nitsan Wakart 的 <a target="_blank" rel="noopener" href="http://psy-lob-saw.blogspot.com/">博客</a> 。他发了几篇文章介绍单一生产者&#x2F; 单一消费者(SPSC) 无锁队列的实现。这些文章受到了Martin Thompson 的演讲 <a target="_blank" rel="noopener" href="http://www.infoq.com/presentations/Lock-Free-Algorithms">终极性能的无锁算法</a>的启发。</p>
+<p>跟基于私有锁的队列相比，无锁队列的性能更优。在基于锁的队列中，当一个线程得到锁时，其它线程就要等着锁被释放。而在无锁的算法中，某个生产者线程生产消息时不会阻塞其它生产者线程，消费者也不会被其它读取队列的消费者阻塞。</p>
+<p>在 Martin Thompson 的演讲以及在 Nitsan 的博客中介绍的 SPSC 队列的性能简直令人难以置信—— <a target="_blank" rel="noopener" href="https://github.com/nitsanw/examples/blob/master/src/java/uk/co/real_logic/queues/QueuePerfTest.java">超过了100M ops&#x2F;sec</a> 。比JDK 的并发队列实现还要快10 倍 (在4 核的 Intel Core i7 上的性能大约在 8M ops&#x2F;sec 左右)。</p>
+<p>我怀着极大的期望，将所有 actor 上连接的链式阻塞队列都换成了无锁的 SPSC 队列。可惜，在吞吐量上的性能测试并没有像我预期的那样出现大幅提升。不过很快我就意识到，瓶颈并不在 SPSC 队列上，而是在多个生产者 &#x2F; 单一消费者 (MPSC) 那里。</p>
+<p>用 SPSC 队列做 MPSC 队列的任务并不那么简单；在做 put 操作时，多个生产者可能会覆盖掉彼此的值。SPSC 队列就没有控制多个生产者 put 操作的代码。所以即便换成最快的 SPSC 队列，也解决不了我的问题。</p>
+<p>为了处理多个生产者 &#x2F; 单一消费者的情况，我决定启用 <a target="_blank" rel="noopener" href="http://lmax-exchange.github.io/disruptor/">LMAX Disruptor</a> ——一个基于环形缓冲区的高性能进程间消息库。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/a5/75/a59b1142417dc642f447b347a23a4475.png"></p>
+<p><strong>图 3: 单一生产者和单一消费者的 LMAX Disruptor</strong></p>
+<p>借助 Disruptor，很容易实现低延迟、高吞吐量的线程间消息通讯。它还为生产者和消费者的不同组合提供了不同的用例。几个线程可以互不阻塞地读取环形缓冲中的消息：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/bc/c7/bc2b4047e23d17356c89d79ca9df0cc7.png"></p>
+<p><strong>图 4: 单一生产者和两个消费者的 LMAX Disruptor</strong></p>
+<p>下面是有多个生产者写入环形缓冲区，多个消费者从中读取消息的场景。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/a4/4e/a4f09bca250ce601ebfe4c433459704e.png"></p>
+<p><strong>图 5: 两个生产者和两个消费者的****LMAX Disruptor</strong></p>
+<p>经过对性能测试的快速搜索，我找到了 <a target="_blank" rel="noopener" href="https://github.com/asyncj/disruptor/blob/master/src/perftest/java/com/lmax/disruptor/sequenced/ThreeToOneSequencedThroughputTest.java">三个发布者和一个消费者的吞吐量测试</a>。 这个真是正合我意，它给出了下面这个结果：</p>
+<table><tbody><tr><td>&nbsp;</td><td><p>LinkedBlockingQueue</p></td><td><p>Disruptor</p></td></tr><tr><td><p>Run 0</p></td><td><p>4,550,625 ops/sec</p></td><td><p>11,487,650 ops/sec</p></td></tr><tr><td><p>Run 1</p></td><td><p>4,651,162 ops/sec</p></td><td><p>11,049,723 ops/sec</p></td></tr><tr><td><p>Run 2</p></td><td><p>4,404,316 ops/sec</p></td><td><p>11,142,061 ops/sec</p></td></tr></tbody></table>
+
+<p>在 3 个生产者 &#x2F;1 个 消费者场景下， Disruptor 要比 LinkedBlockingQueue 快两倍多。然而这跟我所期望的性能上提升 10 倍仍有很大差距。</p>
+<p>这让我觉得很沮丧，并且我的大脑一直在搜寻解决方案。就像命中注定一样，我最近不在跟人拼车上下班，而是改乘地铁了。突然灵光一闪，我的大脑开始将车站跟生产者消费者对应起来。在一个车站里，既有生产者（车和下车的人），也有消费者（同一辆车和上车的人）。</p>
+<p>我创建了 Railway 类，并用 AtomicLong 追踪从一站到下一站的列车。我先从简单的场景开始，只有一辆车的铁轨。</p>
+<pre><code>public class RailWay &#123;  
+ private final Train train = new Train();  
+ // stationNo 追踪列车并定义哪个车站接收到了列车 
+ private final AtomicInteger stationIndex = new AtomicInteger();
+// 会有多个线程访问这个方法，并等待特定车站上的列车 
+public Train waitTrainOnStation(final int stationNo) &#123;
+  
+   while (stationIndex.get() % stationCount != stationNo) &#123;
+    Thread.yield(); // 为保证高吞吐量的消息传递，这个是必须的。
+	           // 但在等待列车时它会消耗 CPU 周期 
+   &#125;  
+   // 只有站号等于 stationIndex.get() % stationCount 时，这个忙循环才会返回 
+
+   return train;
+ &#125;
+// 这个方法通过增加列车的站点索引将这辆列车移到下一站 
+  public void sendTrain() &#123;
+    stationIndex.getAndIncrement();
+   &#125;
+  &#125;
+</code></pre>
+<p>为了测试，我用的条件跟在 Disruptor 性能测试中用的一样，并且也是测的 SPSC 队列——测试在线程间传递 long 值。我创建了下面这个 Train 类，其中包含了一个 long 数组：</p>
+<pre><code>public class Train &#123;   
+  //   
+  public static int CAPACITY = 2*1024;
+  private final long[] goodsArray; // 传输运输货物的数组 
+
+  private int index;
+
+  public Train() &#123;   
+      goodsArray = new long[CAPACITY];     
+ &#125;
+
+ public int goodsCount() &#123; // 返回货物数量    
+  return index;    
+ &#125;    
+ public void addGoods(long i) &#123; // 向列车中添加条目    
+  goodsArray[index++] = i;    
+ &#125;    
+ public long getGoods(int i) &#123; // 从列车中移走条目    
+  index--;    
+  return goodsArray[i];    
+ &#125;    
+&#125;
+</code></pre>
+<p>然后我写了<a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/onetrain/RailWayTest.java">一个简单的测试</a> ：两个线程通过列车互相传递long 值。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/eb/e8/eb32f40e7e58fa25841125e098f9b0e8.png"></p>
+<p><strong>图 6: 使用单辆列车的单一生产者和单一消费者Railway</strong></p>
+<pre><code>public void testRailWay() &#123;   
+  final Railway railway = new Railway();    
+  final long n = 20000000000l;    
+  // 启动一个消费者进程 
+  new Thread() &#123;    
+   long lastValue = 0;
+   @Override   
+   public void run() &#123;    
+    while (lastValue &lt; n) &#123;    
+      Train train = railway.waitTrainOnStation(1); // 在#1 站等列车 
+      int count = train.goodsCount();    
+      for (int i = 0; i &lt; count; i++) &#123;    
+	lastValue = train.getGoods(i); // 卸货   
+      &#125;    
+      railway.sendTrain(); // 将当前列车送到第一站 
+     &#125;    
+   &#125;    
+ &#125;.start();
+
+final long start = System.nanoTime();
+long i = 0;   
+while (i &lt; n) &#123;    
+ Train train = railway.waitTrainOnStation(0); // 在#0 站等列车    
+ int capacity = train.getCapacity();    
+ for (int j = 0; j &lt; capacity; j++) &#123;    
+   train.addGoods((int)i++); // 将货物装到列车上 
+ &#125;    
+ railway.sendTrain();
+ if (i % 100000000 == 0) &#123; // 每隔 100M 个条目测量一次性能 
+    final long duration = System.nanoTime() - start;    
+    final long ops = (i * 1000L * 1000L * 1000L) / duration;    
+    System.out.format(&quot;ops/sec = %,d\n&quot;, ops);    
+    System.out.format(&quot;trains/sec = %,d\n&quot;, ops / Train.CAPACITY);    
+    System.out.format(&quot;latency nanos = %.3f%n\n&quot;, 
+    duration / (float)(i) * (float)Train.CAPACITY);    
+  &#125;    
+ &#125;    
+&#125;
+</code></pre>
+<p>在不同的列车容量下运行这个测试，结果惊着我了：</p>
+<table><tbody><tr><td><p>容量</p></td><td><p>吞吐量: ops/sec</p></td><td><p>延迟: ns</p></td></tr><tr><td><p>1</p></td><td><p>5,190,883</p></td><td><p><b>192.6</b></p></td></tr><tr><td><p>2</p></td><td><p>10,282,820</p></td><td><p>194.5</p></td></tr><tr><td><p>32</p></td><td><p>104,878,614</p></td><td><p>305.1</p></td></tr><tr><td><p>256</p></td><td><p>344,614,640</p></td><td><p>742. 9</p></td></tr><tr><td><p>2048</p></td><td><p>608,112,493</p></td><td><p>3,367.8</p></td></tr><tr><td><p>32768</p></td><td><p><b>767,028,751</b></p></td><td><p>42,720.7</p></td></tr></tbody></table>
+
+<p>在列车容量达到 32,768 时，两个线程传送消息的吞吐量达到了 767,028,751 ops&#x2F;sec。比 Nitsan 博客中的 SPSC 队列快了几倍。</p>
+<p>继续按铁路列车这个思路思考，我想知道如果有两辆列车会怎么样？我觉得应该能提高吞吐量，同时还能降低延迟。<a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/twotrains/RailwayTest.java">每个车站都会有它自己的列车</a>。当一辆列车在第一个车站装货时，第二辆列车会在第二个车站卸货，反之亦然。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/b8/2b/b8e76126e0d5ac2229a9ae6f06d8d42b.png"></p>
+<p><strong>图 7: 使用两辆列车的单一生产者和单一消费者Railway</strong></p>
+<p>下面是吞吐量的结果：</p>
+<table><tbody><tr><td><p>容量</p></td><td><p>吞吐量: ops/sec</p></td><td><p>延时: ns</p></td></tr><tr><td><p>1</p></td><td><p>7,492,684</p></td><td><p><b>133.5</b></p></td></tr><tr><td><p>2</p></td><td><p>14,754,786</p></td><td><p>135.5</p></td></tr><tr><td><p>32</p></td><td><p>174,227,656</p></td><td><p>183.7</p></td></tr><tr><td><p>256</p></td><td><p>613,555,475</p></td><td><p>417.2</p></td></tr><tr><td><p>2048</p></td><td><p><b>940,144,900</b></p></td><td><p>2,178.4</p></td></tr><tr><td><p>32768</p></td><td><p>797,806,764</p></td><td><p>41,072.6</p></td></tr></tbody></table>
+
+<p>结果是惊人的；比单辆列车的结果快了 1.4 倍多。列车容量为一时，延迟从 192.6 纳秒降低到 133.5 纳秒；这显然是一个令人鼓舞的迹象。</p>
+<p>因此我的实验还没结束。列车容量为 2048 的两个线程传递消息的延迟为 2,178.4 纳秒，这太高了。我在想如何降低它，创建一个有<a target="_blank" rel="noopener" href="https://github.com/asyncj/core/tree/master/api/src/main/java/com/asyncj/core/api/article/lotoftrains">很多辆列车</a> 的例子：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/cf/a5/cf2cfddf220866f27b4f23bf753fcba5.png"></p>
+<p><strong>图 8: 使用多辆列车的单一生产者和单一消费者Railway</strong></p>
+<p>我还把列车容量降到了 1 个 long 值，开始玩起了列车数量。下面是测试结果：</p>
+<table><tbody><tr><td><p>列车数量</p></td><td><p>吞吐量: ops/sec</p></td><td><p>延迟: ns</p></td></tr><tr><td><p>2</p></td><td><p>10,917,951</p></td><td><p>91.6</p></td></tr><tr><td><p>32</p></td><td><p>31,233,310</p></td><td><p>32.0</p></td></tr><tr><td><p>256</p></td><td><p>42,791,962</p></td><td><p>23.4</p></td></tr><tr><td><p>1024</p></td><td><p>53,220,057</p></td><td><p>18.8</p></td></tr><tr><td><p>32768</p></td><td><p>71,812,166</p></td><td><p><b>13.9</b></p></td></tr></tbody></table>
+
+<p>用 32,768 列车在线程间发送一个 long 值的延迟降低到了 13.9 纳秒。通过调整列车数量和列车容量，当延时不那么高，吞吐量不那么低时，吞吐量和延时就达到了最佳平衡。</p>
+<p>对于单一生产者和单一消费者 (SPSC) 而言，这些数值很棒；但我们怎么让它在有多个生产者和消费者时也能生效呢？答案很简单，添加更多的车站！</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/db/79/dbe4d8e0ccc22dccaa410bab8b33bd79.png"></p>
+<p><strong>图 9：一个生产者和两个消费者的Railway</strong></p>
+<p>每个线程都等着下一趟列车，装货 &#x2F; 卸货，然后把列车送到下一站。在生产者往列车上装货时，消费者在从列车上卸货。列车周而复始地从一个车站转到另一个车站。</p>
+<p>为了测试单一生产者 &#x2F; 多消费者 (SPMC) 的情况，我创建了一个<a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/eightstations/RailwayTest.java">有8 个车站的Railway 测试</a>。 一个车站属于一个生产者，而另外7 个车站属于消费者。结果是：</p>
+<p>列车数量 &#x3D; 256 ，列车容量 &#x3D; 32:</p>
+<p> ops&#x2F;sec &#x3D; <strong>116,604,397</strong>     延迟（纳秒） &#x3D; 274.4</p>
+<p>列车数量 &#x3D; 32，列车容量 &#x3D; 256:</p>
+<p> ops&#x2F;sec &#x3D; <strong>432,055,469</strong>     延迟（纳秒） &#x3D; 592.5</p>
+<p>如你所见，即便有 8 个工作线程，测试给出的结果也相当好 – 32 辆容量为 256 个 long 的列车吞吐量为 432,055,469 ops&#x2F;sec。在测试期间，所有 CPU 内核的负载都是 100%。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/92/df/92005b5ee96bc7434e21bf37ed6fd5df.png"></p>
+<p><strong>图 10：在测试有8个车站的Railway 期间的CPU 使用情况</strong></p>
+<p>在玩这个 Railway 算法时，我几乎忘了我最初的目标：提升多生产者 &#x2F; 单消费者情况下的性能。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/49/92/4979ade6566afdbbaa86a33420a79c92.png"></p>
+<p><strong>图 11：三个生产者和一个消费者的 Railway</strong></p>
+<p>我创建了 <a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/mpsclatency/ThreeProducersOneConsumerRailwayTest.java">3 个生产者和 1 个消费者的</a>新测试。每辆列车一站一站地转圈，而每个生产者只给每辆车装 1&#x2F;3 容量的货。消费者取出每辆车上三个生产者给出的全部三项货物。性能测试给出的平均结果如下所示：</p>
+<p> ops&#x2F;sec &#x3D; 162,597,109  列车 &#x2F; 秒 &#x3D; 54,199,036     延迟（纳秒） &#x3D; 18.5</p>
+<p>结果相当棒。生产者和消费者工作的速度超过了 160M ops&#x2F;sec。</p>
+<p>为了填补差异，下面给出相同情况下的 Disruptor 结果 - <a target="_blank" rel="noopener" href="https://github.com/asyncj/disruptor/blob/master/src/perftest/java/com/lmax/disruptor/sequenced/ThreeToOneSequencedThroughputTest.java">3 个生产者和 1 个消费者</a>：</p>
+<p>Run 0, Disruptor&#x3D;11,467,889 ops&#x2F;sec<br>Run 1, Disruptor&#x3D;11,280,315 ops&#x2F;sec<br>Run 2, Disruptor&#x3D;11,286,681 ops&#x2F;sec<br>Run 3, Disruptor&#x3D;11,254,924 ops&#x2F;sec</p>
+<p>下面是另一个<a target="_blank" rel="noopener" href="https://github.com/asyncj/disruptor/blob/master/src/perftest/java/com/lmax/disruptor/sequenced/ThreeToOneSequencedBatchThroughputTest.java">批量消息的Disruptor 3P:1C 测试</a> (10 条消息每批)：</p>
+<p>Run 0, Disruptor&#x3D;116,009,280 ops&#x2F;sec<br>Run 1, Disruptor&#x3D;128,205,128 ops&#x2F;sec<br>Run 2, Disruptor&#x3D;101,317,122 ops&#x2F;sec<br>Run 3, Disruptor&#x3D;98,716,683 ops&#x2F;sec;</p>
+<p>最后是用带 LinkedBlockingQueue 实现的 Disruptor 在 3P:1C 场景下的测试结果：</p>
+<p>Run 0, BlockingQueue&#x3D;4,546,281 ops&#x2F;sec<br>Run 1, BlockingQueue&#x3D;4,508,769 ops&#x2F;sec<br>Run 2, BlockingQueue&#x3D;4,101,386 ops&#x2F;sec<br>Run 3, BlockingQueue&#x3D;4,124,561 ops&#x2F;sec</p>
+<p>如你所见，Railway 方式的平均吞吐量是 162,597,109 ops&#x2F;sec，而 Disruptor 在同样的情况下的最好结果只有 128,205,128 ops&#x2F;sec。至于 LinkedBlockingQueue，最好的结果只有 4,546,281 ops&#x2F;sec。</p>
+<p>Railway 算法为事件批处理提供了一种可以显著增加吞吐量的简易办法。通过调整列车容量或列车数量，很容易达成想要的吞吐量 &#x2F; 延迟。</p>
+<p>另外， 当同一个线程可以用来消费消息，处理它们并向环中返回结果时，通过混合生产者和消费者，Railway 也能用来处理复杂的情况：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/3d/ea/3d483d26f0220a62581bfc788cb613ea.png"></p>
+<p><strong>图 12: 混合生产者和消费者的Railway</strong></p>
+<p>最后，我会提供一个经过优化的<a target="_blank" rel="noopener" href="https://github.com/asyncj/core/blob/master/api/src/main/java/com/asyncj/core/api/article/ultrahighthroughput/UltraHighThroughputRawRailwayTest.java">超高吞吐量</a> 单生产者&#x2F; 单消费者测试：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://static001.infoq.cn/resource/image/96/e1/967d6fea4ee354730fa9d5e1a881e5e1.png"></p>
+<p><strong>图 13：单个生产者和单个消费者的Railway</strong></p>
+<p>它的平均结果为：吞吐量超过每秒 15 亿 (1,569,884,271) 次操作，延迟为 1.3 微秒。如你所见，本文开头描述的那个规模相同的单线程测试的结果是每秒 2,681,850,373。</p>
+<p>你自己想想结论是什么吧。</p>
+<p>我希望将来再写一篇文章，阐明如何用 Queue 和 BlockingQueue 接口支持 Railway 算法，用来处理不同的生产者和消费者组合。敬请关注。</p>
+<p><strong>原文英文链接：</strong> <a target="_blank" rel="noopener" href="http://www.infoq.com/articles/High-Performance-Java-Inter-Thread-Communications">Inter-thread communications in Java at the speed of light</a></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/')">Java里快如闪电的线程间通讯</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Java里快如闪电的线程间通讯&amp;url=https://tushu.info/archives/Java-li-kuai-ru-shan-dian-de-xian-cheng/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Java-shen-du-li-xian-yi-Java-zi-jie-dai/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java深度历险（一）——Java字节代码的操纵</div></div></a></div><div class="next-post pull-right"><a href="/archives/Checking-Table-she-ji-mo-shi-cong-gai/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Checking Table 设计模式 - 从概念、建模、设计到实现——兼谈基于业务需求驱动的设计模式创新</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

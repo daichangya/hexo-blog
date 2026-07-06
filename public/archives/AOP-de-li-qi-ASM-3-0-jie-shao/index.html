@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>AOP 的利器：ASM 3.0 介绍 | 代老师的博客</title><meta name="keywords" content="aop"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="AOP 的利器：ASM 3.0 介绍"><meta name="application-name" content="AOP 的利器：ASM 3.0 介绍"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="AOP 的利器：ASM 3.0 介绍"><meta property="og:url" content="https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="引言什么是 ASM ？ASM 是一个 Java 字节码操控框架。它能被用来动态生成类或者增强既有类的功能。ASM 可以直接产生二进制 class 文件，也可以在类被加载入 Java 虚拟机之前动态改变类行为。Java class 被存储在严格格式定义的 .class 文件里，这些类文件拥有足够的元数"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="引言什么是 ASM ？ASM 是一个 Java 字节码操控框架。它能被用来动态生成类或者增强既有类的功能。ASM 可以直接产生二进制 class 文件，也可以在类被加载入 Java 虚拟机之前动态改变类行为。Java class 被存储在严格格式定义的 .class 文件里，这些类文件拥有足够的元数"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'AOP 的利器：ASM 3.0 介绍',
+  postAI: '',
+  pageFillDescription: '引言, 什么是 ASM ？, 为什么要动态生成 Java 类？, 图 1. ASM – AOP, 为什么选择 ASM ？, Java 类文件概述, 图 2. ASM – Javac 流程, 图 3. ASM – Java 类文件, ASM 3.0 编程框架, 图 4. ASM – 时序图, 使用 ASM3.0 进行 AOP 编程, 将动态生成类改造成原始类 Account 的子类, 小结, 表 1. AOP 底层技术比较, 相关主题引言什么是是一个字节码操控框架它能被用来动态生成类或者增强既有类的功能可以直接产生二进制文件也可以在类被加载入虚拟机之前动态改变类行为被存储在严格格式定义的文件里这些类文件拥有足够的元数据来解析类中的所有元素类名称方法属性以及字节码指令从类文件中读入信息后能够改变类行为分析类信息甚至能够根据用户要求生成新类与和不同提供了更为现代的编程模型对于来说被描述为一棵树使用模式遍历整个二进制结构事件驱动的处理方式使得用户只需要关注于对其编程有意义的部分而不必了解类文件格式的所有细节框架提供了默认的处理这一切为什么要动态生成类动态生成类与密切相关的的初衷在于软件设计世界中存在这么一类代码零散而又耦合零散是由于一些公有的功能诸如著名的例子分散在所有模块之中同时改变功能又会影响到所有的模块出现这样的缺陷很大程度上是由于传统的面向对象编程注重以继承关系为代表的纵向关系而对于拥有相同功能或者说方面的模块之间的横向关系不能很好地表达例如目前有一个既有的银行管理系统包括等对象现在要加入一个安全检查模块对已有类的所有操作之前都必须进行一次安全检查图然而是代表不同的事务派生自不同的父类很难在高层上加入关于的共有功能对于没有多继承的来说更是如此传统的解决方案是使用模式它可以在一定程度上改善耦合而功能仍旧是分散的每个需要的类都必须要派生一个每个需要的方法都要被包装下面我们以类为例看一下首先我们有一个类其静态方法执行安全检查功能另一个是类若想对加入对调用标准的需要先定义一个类的接口然后把原来的类定义为一个实现类定义一个类的并包装方法在这个简单的例子里改造一个类的一个方法还好如果是变动整个模块很快就会演化成另一个噩梦动态改变类就是要解决的问题提供一种得到系统支持的可编程的方法自动化地生成或者增强代码这种技术已经广泛应用于最新的框架内如等为什么选择最直接的改造类的方法莫过于直接改写文件规范详细说明了文件的格式直接编辑字节码确实可以改变类的行为直到今天还有一些高手们使用最原始的工具如这样的编辑器对文件动手术是的这是最直接的方法但是要求使用者对文件的格式了熟于心小心地推算出想改造的函数相对文件首部的偏移量同时重新计算文件的校验码以通过虚拟机的安全机制中提供的包也可以提供类似的功能启动时往虚拟机中挂上一个用户定义的程序可以在装入特定类的时候改变特定类的字节码从而改变该类的行为但是其缺点也是明显的包是在整个虚拟机上挂了一个钩子程序每次装入一个新类的时候都必须执行一遍这段程序即使这个类不需要改变直接改变字节码事实上类似于直接改写文件无论是调用还是都必须提供新类的字节码也就是说同直接改写文件一样使用也必须了解想改造的方法相对类首部的偏移量才能在适当的位置上插入新的代码尽管可以改造类但事实上更适用于监控和控制虚拟机的行为一种比较理想且流行的方法是使用我们仍旧使用上面的例子给类加上功能首先编程是面向接口的下面我们会看到并不负责实例化对象和模式一样要把定义成一个接口然后在里实现接口接着实现一个方法被调用的时候虚拟机都会实际调用这个的方法最后在应用程序中指定生成代理对象其不足之处在于是面向接口的所有使用的对象都必须定义一个接口而且用这些对象的代码也必须是对接口编程的生成的对象是接口一致的而不是对象一致的例子中生成的是实现接口的对象而不是的子类这对于软件架构设计尤其对于既有软件系统是有一定掣肘的毕竟是通过反射实现的必须在效率上付出代价有实验数据表明调用反射比一般的函数开销至少要大倍而且从程序实现上可以看出对的所有方法调用都要通过使用反射的方法因此对于性能关键的应用使用是需要精心考虑的以避免反射成为整个应用的瓶颈能够通过改造既有类直接生成需要的代码增强的代码是硬编码在新生成的类文件内部的没有反射带来性能上的付出同时与编程不同不需要为增强代码而新定义一个接口生成的代码可以覆盖原来的类或者是原始类的子类它是一个普通的类而不是类甚至可以在应用程序的类框架中拥有自己的位置派生自己的子类相比于其他流行的字节码操纵工具更小更快具有类似于或者的功能而只有大小而后者分别有和同时同样类转换的负载如果是的话需要而需要或者更多已经被广泛应用于一系列项目等和也通过另一个更高层一些的自动代码生成工具使用了类文件概述所谓类文件就是通常用编译器产生的文件这些文件具有严格定义的格式为了更好的理解首先对类文件格式作一点简单的介绍源文件经过编译器编译之后将会生成对应的二进制文件如下图所示每个合法的类文件都具备精确的定义而正是这种精确的定义才使得虚拟机得以正确读取和解释所有的类文件图流程类文件是位字节的二进制流数据项按顺序存储在文件中相邻的项之间没有间隔这使得文件变得紧凑减少存储空间在类文件中包含了许多大小不同的项由于每一项的结构都有严格规定这使得文件能够从头到尾被顺利地解析下面让我们来看一下类文件的内部结构以便对此有个大致的认识例如一个最简单的程序经过编译后得到的类文件大致是图类文件从上图中可以看到一个类文件大致可以归为个项该项存放了一个类文件的魔数和版本信息一个类文件的前个字节被称为它的魔数每个正确的类文件都是以开头的这样保证了虚拟机能很轻松的分辨出文件和非文件该项存放了类文件的版本信息它对于一个文件具有重要的意义因为技术一直在发展所以类文件的格式也处在不断变化之中类文件的版本信息让虚拟机知道如何去读取并处理该类文件该项存放了类中各种文字字符串类名方法名和接口名称变量以及对外部类的引用信息等常量虚拟机必须为每一个被装载的类维护一个常量池常量池中存储了相应类型所用到的所有类型字段和方法的符号引用因此它在的动态链接中起到了核心的作用常量池的大小平均占到了整个类大小的左右该项指明了该文件中定义的是类还是接口一个文件中只能有一个类或接口同时还指名了类或接口的访问标志如等信息指向表示该类全限定名称的字符串常量的指针指向表示父类全限定名称的字符串常量的指针一个指针数组存放了该类或父类实现的所有接口名称的字符串常量的指针以上三项所指向的常量特别是前两项在我们用从已有类派生新类时一般需要修改将类名称改为子类名称将父类改为派生前的类名称如果有必要增加新的实现接口该项对类或接口中声明的字段进行了细致的描述需要注意的是列表中仅列出了本类或接口中的字段并不包括从超类和父接口继承而来的字段该项对类或接口中声明的方法进行了细致的描述例如方法的名称参数和返回值类型等需要注意的是列表里仅存放了本类或本接口中的方法并不包括从超类和父接口继承而来的方法使用进行编程通常是通过调整中的指令来实现的该项存放了在该文件中类或接口所定义的属性的基本信息事实上使用动态生成类不需要像早年的一样熟知文件的每一段以及它们的功能长度偏移量以及编码方式会给我们照顾好这一切的我们只要告诉要改动什么就可以了当然我们首先得知道要改什么对类文件格式了解的越多我们就能更好地使用这个利器编程框架通过树这种数据结构来表示复杂的字节码结构并利用模型来对树进行遍历在遍历过程中对字节码进行修改所谓的模型类似于简单的设计模式因为需要处理字节码结构是固定的所以不需要专门抽象出一种接口而只需要提供接口所谓模式和模式有点类似它们都被用来遍历一些复杂的数据结构相当于用户派出的代表深入到算法内部由算法安排访问行程代表可以更换但对算法流程无法干涉因此是被动的这也是它和模式由用户主动调遣算法方式的最大的区别在中提供了一个类这个类可以直接由字节数组或由文件间接的获得字节码数据它能正确的分析字节码构建出抽象的树在内存中表示字节码它会调用方法这个方法接受一个实现了接口的对象实例作为参数然后依次调用接口的各个方法字节码空间上的偏移被转换成事件时间上调用的先后所谓事件是指对各种不同函数的调用知道如何调用各种函数在这个过程中用户无法对操作进行干涉所以遍历的算法是确定的用户可以做的是提供不同的来对字节码树进行不同的修改会产生一些子过程比如会返回一个实现接口的实例会返回一个实现接口的实例完成子过程后控制返回到父过程继续访问下一节点因此对于来说其内部顺序访问是有一定要求的实际上用户还可以不通过类自行手工控制这个流程只要按照一定的顺序各个事件被先后正确的调用最后就能生成可以被正确加载的字节码当然获得更大灵活性的同时也加大了调整字节码的复杂度各个通过职责链模式可以非常简单的封装对字节码的各种修改而无须关注字节码的字节偏移因为这些实现细节对于用户都被隐藏了用户要做的只是覆写相应的函数类实现了接口所定义的所有函数当新建一个对象的时候需要传入一个实现了接口的对象作为职责链中的下一个访问者这些函数的默认实现就是简单的把调用委派给这个对象然后依次传递下去形成职责链当用户需要对字节码进行调整时只需从类派生出一个子类覆写需要修改的方法完成相应功能后再把调用传递下去这样用户无需考虑字节偏移就可以很方便的控制字节码每个类的派生类可以仅封装单一功能比如删除某函数修改字段可见性等等然后再加入到职责链中这样耦合更小重用的概率也更大但代价是产生很多小对象而且职责链的层次太长的话也会加大系统调用的开销用户需要在低耦合和高效率之间作出权衡用户可以通过控制职责链中事件的过程对类文件进行如下操作删除类的字段方法指令只需在职责链传递过程中中断委派不访问相应的方法即可比如删除方法时只需直接返回而不是返回由方法返回的对象修改类字段方法的名字或修饰符在职责链传递过程中替换调用参数增加新的类方法字段的最终的目的是生成可以被正常装载的文件因此其框架结构为客户提供了一个生成字节码的工具类它实现了接口而且含有一个函数返回生成的字节码的字节流将字节流写回文件即可生产调整后的文件一般它都作为职责链的终点把所有事件的先后调用时间上的先后最终转换成字节码的位置的调整空间上的前后如下例综上所述的时序图如下图时序图使用进行编程我们还是用上面的例子给类加上的功能与编程不同不需要将声明成接口可以仍旧是一个实现类将直接在类上动手术给类的方法首部加上对的调用首先我们将从继承一个类是框架提供的一个默认类负责沟通和如果想要改变处读入的类然后从处输出可以重写相应的函数这里为了改变类的方法我们将重写方法的下一个这里我们将传入负责改写后代码的输出重写访问到方法时给出自定义实际改写方法内容对于方法使用自定义实际改写方法内容下一步就是定义一个继承自的在方法首部插入对的调用其中读到每个方法的首部时调用在这个重写方法里我们用插入了安全检查功能最后我们将集成上面定义的和产生修改后的类文件执行完这段程序后我们会得到一个新的文件如果我们使用下面代码使用这个我们会得到下面的输出也就是说在原来的内容执行之前进行了检查将动态生成类改造成原始类的子类上面给出的例子是直接改造类本身的从此类的方法必须进行检查但事实上我们有时仍希望保留原来的类因此把生成类定义为原始类的子类是更符合原则的做法下面介绍如何将改造后的类定义为的子类其中主要有两项工作改变将其命名为将其父类指定为改变构造函数将其中对父类构造函数的调用转换为对构造函数的调用在类中将重写方法改变类命名改变父类这里是改进方法增加对构造函数的处理这里将负责把的构造函数改造成其子类的构造函数调用父类的构造函数时改写父类为最后演示一下如何在运行时产生并装入产生的我们定义一个类作为一个类工厂负责产生有安全检查的类静态方法在运行时动态生成一个加上了安全检查的子类著名的和框架就是使用这种技术实现了的无损注入小结最后我们比较一下和其他实现的底层技术表底层技术比较底层技术功能性能面向接口编程编程难度直接改写文件完全控制类无明显性能代价不要求高要求对文件结构和字节码有深刻了解完全控制类无论是否改写每个类装入时都要执行程序不要求高要求对文件结构和字节码有深刻了解只能改写反射引入性能代价要求低几乎能完全控制类无明显性能代价不要求中能操纵需要改写部分的字节码相关主题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:36',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/aop/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>aop</span></a></span></div></div><h1 class="post-title" itemprop="name headline">AOP 的利器：ASM 3.0 介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.358Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/"><header><a href="/tags/aop/" tabindex="-1" itemprop="url">aop</a><h1 id="CrawlerTitle" itemprop="name headline">AOP 的利器：ASM 3.0 介绍</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:50.000Z" title="发表于 2024-10-31 22:01:50">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.358Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></header><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><h3 id="什么是-ASM-？"><a href="#什么是-ASM-？" class="headerlink" title="什么是 ASM ？"></a>什么是 ASM ？</h3><p>ASM 是一个 Java 字节码操控框架。它能被用来动态生成类或者增强既有类的功能。ASM 可以直接产生二进制 class 文件，也可以在类被加载入 Java 虚拟机之前动态改变类行为。Java class 被存储在严格格式定义的 .class 文件里，这些类文件拥有足够的元数据来解析类中的所有元素：类名称、方法、属性以及 Java 字节码（指令）。ASM 从类文件中读入信息后，能够改变类行为，分析类信息，甚至能够根据用户要求生成新类。</p>
+<p>与 BCEL 和 SERL 不同，ASM 提供了更为现代的编程模型。对于 ASM 来说，Java class 被描述为一棵树；使用 “Visitor” 模式遍历整个二进制结构；事件驱动的处理方式使得用户只需要关注于对其编程有意义的部分，而不必了解 Java 类文件格式的所有细节：ASM 框架提供了默认的 “response taker”处理这一切。</p>
+<h3 id="为什么要动态生成-Java-类？"><a href="#为什么要动态生成-Java-类？" class="headerlink" title="为什么要动态生成 Java 类？"></a>为什么要动态生成 Java 类？</h3><p>动态生成 Java 类与 AOP 密切相关的。AOP 的初衷在于软件设计世界中存在这么一类代码，零散而又耦合：零散是由于一些公有的功能（诸如著名的 log 例子）分散在所有模块之中；同时改变 log 功能又会影响到所有的模块。出现这样的缺陷，很大程度上是由于传统的 面向对象编程注重以继承关系为代表的“纵向”关系，而对于拥有相同功能或者说方面 （Aspect）的模块之间的“横向”关系不能很好地表达。例如，目前有一个既有的银行管理系统，包括 Bank、Customer、Account、Invoice 等对象，现在要加入一个安全检查模块， 对已有类的所有操作之前都必须进行一次安全检查。</p>
+<h5 id="图-1-ASM-–-AOP"><a href="#图-1-ASM-–-AOP" class="headerlink" title="图 1. ASM – AOP"></a>图 1. ASM – AOP</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.ibm.com/developerworks/cn/java/j-lo-asm30/fig001.jpg" alt="图 1. ASM – AOP"></p>
+<p>然而 Bank、Customer、Account、Invoice 是代表不同的事务，派生自不同的父类，很难在高层上加入关于 Security Checker 的共有功能。对于没有多继承的 Java 来说，更是如此。传统的解决方案是使用 Decorator 模式，它可以在一定程度上改善耦合，而功能仍旧是分散的 —— 每个需要 Security Checker 的类都必须要派生一个 Decorator，每个需要 Security Checker 的方法都要被包装（wrap）。下面我们以 <code>Account</code>类为例看一下 Decorator：</p>
+<p>首先，我们有一个 <code>SecurityChecker</code>类，其静态方法 <code>checkSecurity</code>执行安全检查功能：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class SecurityChecker &#123;</span><br><span class="line">    public static void checkSecurity() &#123;</span><br><span class="line">        System.out.println(&quot;SecurityChecker.checkSecurity ...&quot;);</span><br><span class="line">        //TODO real security check</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一个是 <code>Account</code>类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Account &#123;</span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        System.out.println(&quot;operation...&quot;);</span><br><span class="line">        //TODO real operation</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若想对 <code>operation</code>加入对 <code>SecurityCheck.checkSecurity()</code>调用，标准的 Decorator 需要先定义一个 <code>Account</code>类的接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Account &#123;</span><br><span class="line">    void operation();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后把原来的 <code>Account</code>类定义为一个实现类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class AccountImpl extends Account&#123;</span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        System.out.println(&quot;operation...&quot;);</span><br><span class="line">        //TODO real operation</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义一个 <code>Account</code>类的 Decorator，并包装 <code>operation</code>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AccountWithSecurityCheck implements Account &#123;    </span><br><span class="line">    private  Account account;</span><br><span class="line">    public AccountWithSecurityCheck (Account account) &#123;</span><br><span class="line">        this.account = account;</span><br><span class="line">    &#125;</span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        SecurityChecker.checkSecurity();</span><br><span class="line">        account.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个简单的例子里，改造一个类的一个方法还好，如果是变动整个模块，Decorator 很快就会演化成另一个噩梦。动态改变 Java 类就是要解决 AOP 的问题，提供一种得到系统支持的可编程的方法，自动化地生成或者增强 Java 代码。这种技术已经广泛应用于最新的 Java 框架内，如 Hibernate，Spring 等。</p>
+<h3 id="为什么选择-ASM-？"><a href="#为什么选择-ASM-？" class="headerlink" title="为什么选择 ASM ？"></a>为什么选择 ASM ？</h3><p>最直接的改造 Java 类的方法莫过于直接改写 class 文件。Java 规范详细说明了 class 文件的格式，直接编辑字节码确实可以改变 Java 类的行为。直到今天，还有一些 Java 高手们使用最原始的工具，如 UltraEdit 这样的编辑器对 class 文件动手术。是的，这是最直接的方法，但是要求使用者对 Java class 文件的格式了熟于心：小心地推算出想改造的函数相对文件首部的偏移量，同时重新计算 class 文件的校验码以通过 Java 虚拟机的安全机制。</p>
+<p>Java 5 中提供的 Instrument 包也可以提供类似的功能：启动时往 Java 虚拟机中挂上一个用户定义的 hook 程序，可以在装入特定类的时候改变特定类的字节码，从而改变该类的行为。但是其缺点也是明显的：</p>
+<ul>
+<li>Instrument 包是在整个虚拟机上挂了一个钩子程序，每次装入一个新类的时候，都必须执行一遍这段程序，即使这个类不需要改变。</li>
+<li>直接改变字节码事实上类似于直接改写 class 文件，无论是调用 <code>ClassFileTransformer. transform(ClassLoader loader, String className, Class classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer)</code>，还是 <code>Instrument.redefineClasses(ClassDefinition[] definitions)</code>，都必须提供新 Java 类的字节码。也就是说，同直接改写 class 文件一样，使用 Instrument 也必须了解想改造的方法相对类首部的偏移量，才能在适当的位置上插入新的代码。</li>
+</ul>
+<p>尽管 Instrument 可以改造类，但事实上，Instrument 更适用于监控和控制虚拟机的行为。</p>
+<p>一种比较理想且流行的方法是使用 <code>java.lang.ref.proxy</code>。我们仍旧使用上面的例子，给 <code>Account</code>类加上 checkSecurity 功能 :</p>
+<p>首先，Proxy 编程是面向接口的。下面我们会看到，Proxy 并不负责实例化对象，和 Decorator 模式一样，要把 <code>Account</code>定义成一个接口，然后在 <code>AccountImpl</code>里实现 <code>Account</code>接口，接着实现一个 <code>InvocationHandler``Account</code>方法被调用的时候，虚拟机都会实际调用这个 <code>InvocationHandler</code>的 <code>invoke</code>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class SecurityProxyInvocationHandler implements InvocationHandler &#123;</span><br><span class="line">    private Object proxyedObject;</span><br><span class="line">    public SecurityProxyInvocationHandler(Object o) &#123;</span><br><span class="line">        proxyedObject = o;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    public Object invoke(Object object, Method method, Object[] arguments)</span><br><span class="line">        throws Throwable &#123;            </span><br><span class="line">        if (object instanceof Account &amp;&amp; method.getName().equals(&quot;opertaion&quot;)) &#123;</span><br><span class="line">            SecurityChecker.checkSecurity();</span><br><span class="line">        &#125;</span><br><span class="line">        return method.invoke(proxyedObject, arguments);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，在应用程序中指定 <code>InvocationHandler</code>生成代理对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Account account = (Account) Proxy.newProxyInstance(</span><br><span class="line">        Account.class.getClassLoader(),</span><br><span class="line">        new Class[] &#123; Account.class &#125;,</span><br><span class="line">        new SecurityProxyInvocationHandler(new AccountImpl())</span><br><span class="line">    );</span><br><span class="line">    account.function();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其不足之处在于：</p>
+<ul>
+<li>Proxy 是面向接口的，所有使用 Proxy 的对象都必须定义一个接口，而且用这些对象的代码也必须是对接口编程的：Proxy 生成的对象是接口一致的而不是对象一致的：例子中 <code>Proxy.newProxyInstance</code>生成的是实现 <code>Account</code>接口的对象而不是 <code>AccountImpl</code>的子类。这对于软件架构设计，尤其对于既有软件系统是有一定掣肘的。</li>
+<li>Proxy 毕竟是通过反射实现的，必须在效率上付出代价：有实验数据表明，调用反射比一般的函数开销至少要大 10 倍。而且，从程序实现上可以看出，对 proxy class 的所有方法调用都要通过使用反射的 invoke 方法。因此，对于性能关键的应用，使用 proxy class 是需要精心考虑的，以避免反射成为整个应用的瓶颈。</li>
+</ul>
+<p>ASM 能够通过改造既有类，直接生成需要的代码。增强的代码是硬编码在新生成的类文件内部的，没有反射带来性能上的付出。同时，ASM 与 Proxy 编程不同，不需要为增强代码而新定义一个接口，生成的代码可以覆盖原来的类，或者是原始类的子类。它是一个普通的 Java 类而不是 proxy 类，甚至可以在应用程序的类框架中拥有自己的位置，派生自己的子类。</p>
+<p>相比于其他流行的 Java 字节码操纵工具，ASM 更小更快。ASM 具有类似于 BCEL 或者 SERP 的功能，而只有 33k 大小，而后者分别有 350k 和 150k。同时，同样类转换的负载，如果 ASM 是 60% 的话，BCEL 需要 700%，而 SERP 需要 1100% 或者更多。</p>
+<p>ASM 已经被广泛应用于一系列 Java 项目：AspectWerkz、AspectJ、BEA WebLogic、IBM AUS、OracleBerkleyDB、Oracle TopLink、Terracotta、RIFE、EclipseME、Proactive、Speedo、Fractal、EasyBeans、BeanShell、Groovy、Jamaica、CGLIB、dynaop、Cobertura、JDBCPersistence、JiP、SonarJ、Substance L&amp;F、Retrotranslator 等。Hibernate 和 Spring 也通过 cglib，另一个更高层一些的自动代码生成工具使用了 ASM。</p>
+<h2 id="Java-类文件概述"><a href="#Java-类文件概述" class="headerlink" title="Java 类文件概述"></a>Java 类文件概述</h2><p>所谓 Java 类文件，就是通常用 javac 编译器产生的 .class 文件。这些文件具有严格定义的格式。为了更好的理解 ASM，首先对 Java 类文件格式作一点简单的介绍。Java 源文件经过 javac 编译器编译之后，将会生成对应的二进制文件（如下图所示）。每个合法的 Java 类文件都具备精确的定义，而正是这种精确的定义，才使得 Java 虚拟机得以正确读取和解释所有的 Java 类文件。</p>
+<h5 id="图-2-ASM-–-Javac-流程"><a href="#图-2-ASM-–-Javac-流程" class="headerlink" title="图 2. ASM – Javac 流程"></a>图 2. ASM – Javac 流程</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.ibm.com/developerworks/cn/java/j-lo-asm30/fig002.jpg" alt="图 2. ASM – Javac 流程"></p>
+<p>Java 类文件是 8 位字节的二进制流。数据项按顺序存储在 class 文件中，相邻的项之间没有间隔，这使得 class 文件变得紧凑，减少存储空间。在 Java 类文件中包含了许多大小不同的项，由于每一项的结构都有严格规定，这使得 class 文件能够从头到尾被顺利地解析。下面让我们来看一下 Java 类文件的内部结构，以便对此有个大致的认识。</p>
+<p>例如，一个最简单的 Hello World 程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class HelloWorld &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello world&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过 javac 编译后，得到的类文件大致是：</p>
+<h5 id="图-3-ASM-–-Java-类文件"><a href="#图-3-ASM-–-Java-类文件" class="headerlink" title="图 3. ASM – Java 类文件"></a>图 3. ASM – Java 类文件</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.ibm.com/developerworks/cn/java/j-lo-asm30/fig003.jpg" alt="图 3. ASM – Java 类文件"></p>
+<p>从上图中可以看到，一个 Java 类文件大致可以归为 10 个项：</p>
+<ul>
+<li>**Magic：**该项存放了一个 Java 类文件的魔数（magic number）和版本信息。一个 Java 类文件的前 4 个字节被称为它的魔数。每个正确的 Java 类文件都是以 0xCAFEBABE 开头的，这样保证了 Java 虚拟机能很轻松的分辨出 Java 文件和非 Java 文件。</li>
+<li>**Version：**该项存放了 Java 类文件的版本信息，它对于一个 Java 文件具有重要的意义。因为 Java 技术一直在发展，所以类文件的格式也处在不断变化之中。类文件的版本信息让虚拟机知道如何去读取并处理该类文件。</li>
+<li>**Constant Pool：**该项存放了类中各种文字字符串、类名、方法名和接口名称、final 变量以及对外部类的引用信息等常量。虚拟机必须为每一个被装载的类维护一个常量池，常量池中存储了相应类型所用到的所有类型、字段和方法的符号引用，因此它在 Java 的动态链接中起到了核心的作用。常量池的大小平均占到了整个类大小的 60% 左右。</li>
+<li>**Access_flag：**该项指明了该文件中定义的是类还是接口（一个 class 文件中只能有一个类或接口），同时还指名了类或接口的访问标志，如 public，private, abstract 等信息。</li>
+<li>**This Class：**指向表示该类全限定名称的字符串常量的指针。</li>
+<li>**Super Class：**指向表示父类全限定名称的字符串常量的指针。</li>
+<li>**Interfaces：**一个指针数组，存放了该类或父类实现的所有接口名称的字符串常量的指针。以上三项所指向的常量，特别是前两项，在我们用 ASM 从已有类派生新类时一般需要修改：将类名称改为子类名称；将父类改为派生前的类名称；如果有必要，增加新的实现接口。</li>
+<li>**Fields：**该项对类或接口中声明的字段进行了细致的描述。需要注意的是，fields 列表中仅列出了本类或接口中的字段，并不包括从超类和父接口继承而来的字段。</li>
+<li>**Methods：**该项对类或接口中声明的方法进行了细致的描述。例如方法的名称、参数和返回值类型等。需要注意的是，methods 列表里仅存放了本类或本接口中的方法，并不包括从超类和父接口继承而来的方法。使用 ASM 进行 AOP 编程，通常是通过调整 Method 中的指令来实现的。</li>
+<li>**Class attributes：**该项存放了在该文件中类或接口所定义的属性的基本信息。</li>
+</ul>
+<p>事实上，使用 ASM 动态生成类，不需要像早年的 class hacker 一样，熟知 class 文件的每一段，以及它们的功能、长度、偏移量以及编码方式。ASM 会给我们照顾好这一切的，我们只要告诉 ASM 要改动什么就可以了 —— 当然，我们首先得知道要改什么：对类文件格式了解的越多，我们就能更好地使用 ASM 这个利器。</p>
+<h2 id="ASM-3-0-编程框架"><a href="#ASM-3-0-编程框架" class="headerlink" title="ASM 3.0 编程框架"></a>ASM 3.0 编程框架</h2><p>ASM 通过树这种数据结构来表示复杂的字节码结构，并利用 Push 模型来对树进行遍历，在遍历过程中对字节码进行修改。所谓的 Push 模型类似于简单的 Visitor 设计模式，因为需要处理字节码结构是固定的，所以不需要专门抽象出一种 Vistable 接口，而只需要提供 Visitor 接口。所谓 Visitor 模式和 Iterator 模式有点类似，它们都被用来遍历一些复杂的数据结构。Visitor 相当于用户派出的代表，深入到算法内部，由算法安排访问行程。Visitor 代表可以更换，但对算法流程无法干涉，因此是被动的，这也是它和 Iterator 模式由用户主动调遣算法方式的最大的区别。</p>
+<p>在 ASM 中，提供了一个 <code>ClassReader</code>类，这个类可以直接由字节数组或由 class 文件间接的获得字节码数据，它能正确的分析字节码，构建出抽象的树在内存中表示字节码。它会调用 <code>accept</code>方法，这个方法接受一个实现了 <code>ClassVisitor</code>接口的对象实例作为参数，然后依次调用 <code>ClassVisitor</code>接口的各个方法。字节码空间上的偏移被转换成 visit 事件时间上调用的先后，所谓 visit 事件是指对各种不同 visit 函数的调用，<code>ClassReader</code>知道如何调用各种 visit 函数。在这个过程中用户无法对操作进行干涉，所以遍历的算法是确定的，用户可以做的是提供不同的 Visitor 来对字节码树进行不同的修改。<code>ClassVisitor</code>会产生一些子过程，比如 <code>visitMethod</code>会返回一个实现 <code>MethordVisitor</code>接口的实例，<code>visitField</code>会返回一个实现 <code>FieldVisitor</code>接口的实例，完成子过程后控制返回到父过程，继续访问下一节点。因此对于 <code>ClassReader</code>来说，其内部顺序访问是有一定要求的。实际上用户还可以不通过 <code>ClassReader</code>类，自行手工控制这个流程，只要按照一定的顺序，各个 visit 事件被先后正确的调用，最后就能生成可以被正确加载的字节码。当然获得更大灵活性的同时也加大了调整字节码的复杂度。</p>
+<p>各个 <code>ClassVisitor</code>通过职责链 （Chain-of-responsibility） 模式，可以非常简单的封装对字节码的各种修改，而无须关注字节码的字节偏移，因为这些实现细节对于用户都被隐藏了，用户要做的只是覆写相应的 visit 函数。</p>
+<p><code>ClassAdaptor</code>类实现了 <code>ClassVisitor</code>接口所定义的所有函数，当新建一个 <code>ClassAdaptor</code>对象的时候，需要传入一个实现了 <code>ClassVisitor</code>接口的对象，作为职责链中的下一个访问者 （Visitor），这些函数的默认实现就是简单的把调用委派给这个对象，然后依次传递下去形成职责链。当用户需要对字节码进行调整时，只需从 <code>ClassAdaptor</code>类派生出一个子类，覆写需要修改的方法，完成相应功能后再把调用传递下去。这样，用户无需考虑字节偏移，就可以很方便的控制字节码。</p>
+<p>每个 <code>ClassAdaptor</code>类的派生类可以仅封装单一功能，比如删除某函数、修改字段可见性等等，然后再加入到职责链中，这样耦合更小，重用的概率也更大，但代价是产生很多小对象，而且职责链的层次太长的话也会加大系统调用的开销，用户需要在低耦合和高效率之间作出权衡。用户可以通过控制职责链中 visit 事件的过程，对类文件进行如下操作：</p>
+<ol>
+<li><p>删除类的字段、方法、指令：只需在职责链传递过程中中断委派，不访问相应的 visit 方法即可，比如删除方法时只需直接返回 <code>null</code>，而不是返回由 <code>visitMethod</code>方法返回的 <code>MethodVisitor</code>对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class DelLoginClassAdapter extends ClassAdapter &#123;</span><br><span class="line">    public DelLoginClassAdapter(ClassVisitor cv) &#123;</span><br><span class="line">        super(cv);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public MethodVisitor visitMethod(final int access, final String name,</span><br><span class="line">        final String desc, final String signature, final String[] exceptions) &#123;</span><br><span class="line">        if (name.equals(&quot;login&quot;)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return cv.visitMethod(access, name, desc, signature, exceptions);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改类、字段、方法的名字或修饰符：在职责链传递过程中替换调用参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class AccessClassAdapter extends ClassAdapter &#123;</span><br><span class="line">    public AccessClassAdapter(ClassVisitor cv) &#123;</span><br><span class="line">        super(cv);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public FieldVisitor visitField(final int access, final String name,</span><br><span class="line">       final String desc, final String signature, final Object value) &#123;</span><br><span class="line">       int privateAccess = Opcodes.ACC_PRIVATE;</span><br><span class="line">       return cv.visitField(privateAccess, name, desc, signature, value);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加新的类、方法、字段</p>
+</li>
+</ol>
+<p>ASM 的最终的目的是生成可以被正常装载的 class 文件，因此其框架结构为客户提供了一个生成字节码的工具类 —— <code>ClassWriter</code>。它实现了 <code>ClassVisitor</code>接口，而且含有一个 <code>toByteArray()</code>函数，返回生成的字节码的字节流，将字节流写回文件即可生产调整后的 class 文件。一般它都作为职责链的终点，把所有 visit 事件的先后调用（时间上的先后），最终转换成字节码的位置的调整（空间上的前后），如下例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ClassWriter  classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">ClassAdaptor delLoginClassAdaptor = new DelLoginClassAdapter(classWriter);</span><br><span class="line">ClassAdaptor accessClassAdaptor = new AccessClassAdaptor(delLoginClassAdaptor);</span><br><span class="line">    </span><br><span class="line">ClassReader classReader = new ClassReader(strFileName);</span><br><span class="line">classReader.accept(classAdapter, ClassReader.SKIP_DEBUG);</span><br></pre></td></tr></table></figure>
+
+<p>综上所述，ASM 的时序图如下：</p>
+<h5 id="图-4-ASM-–-时序图"><a href="#图-4-ASM-–-时序图" class="headerlink" title="图 4. ASM – 时序图"></a>图 4. ASM – 时序图</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.ibm.com/developerworks/cn/java/j-lo-asm30/fig004.jpg" alt="图 4. ASM – 时序图"></p>
+<h2 id="使用-ASM3-0-进行-AOP-编程"><a href="#使用-ASM3-0-进行-AOP-编程" class="headerlink" title="使用 ASM3.0 进行 AOP 编程"></a>使用 ASM3.0 进行 AOP 编程</h2><p>我们还是用上面的例子，给 <code>Account</code>类加上 security check 的功能。与 proxy 编程不同，ASM 不需要将 <code>Account</code>声明成接口，<code>Account</code>可以仍旧是一个实现类。ASM 将直接在 <code>Account</code>类上动手术，给 <code>Account</code>类的 <code>operation</code>方法首部加上对 <code>SecurityChecker.checkSecurity</code>的调用。</p>
+<p>首先，我们将从 <code>ClassAdapter</code>继承一个类。<code>ClassAdapter</code>是 ASM 框架提供的一个默认类，负责沟通 <code>ClassReader</code>和 <code>ClassWriter</code>。如果想要改变 <code>ClassReader</code>处读入的类，然后从 <code>ClassWriter</code>处输出，可以重写相应的 <code>ClassAdapter</code>函数。这里，为了改变 <code>Account</code>类的 <code>operation</code> 方法，我们将重写 <code>visitMethdod</code>方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class AddSecurityCheckClassAdapter extends ClassAdapter &#123;</span><br><span class="line"> </span><br><span class="line">    public AddSecurityCheckClassAdapter(ClassVisitor cv) &#123;</span><br><span class="line">        //Responsechain 的下一个 ClassVisitor，这里我们将传入 ClassWriter，</span><br><span class="line">        // 负责改写后代码的输出</span><br><span class="line">        super(cv);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    // 重写 visitMethod，访问到 &quot;operation&quot; 方法时，</span><br><span class="line">    // 给出自定义 MethodVisitor，实际改写方法内容</span><br><span class="line">    public MethodVisitor visitMethod(final int access, final String name,</span><br><span class="line">        final String desc, final String signature, final String[] exceptions) &#123;</span><br><span class="line">        MethodVisitor mv = cv.visitMethod(access, name, desc, signature,exceptions);</span><br><span class="line">        MethodVisitor wrappedMv = mv;</span><br><span class="line">        if (mv != null) &#123;</span><br><span class="line">            // 对于 &quot;operation&quot; 方法</span><br><span class="line">            if (name.equals(&quot;operation&quot;)) &#123;</span><br><span class="line">                // 使用自定义 MethodVisitor，实际改写方法内容</span><br><span class="line">                wrappedMv = new AddSecurityCheckMethodAdapter(mv);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return wrappedMv;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下一步就是定义一个继承自 <code>MethodAdapter</code>的 <code>AddSecurityCheckMethodAdapter</code>，在“<code>operation</code>”方法首部插入对 <code>SecurityChecker.checkSecurity()</code>的调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class AddSecurityCheckMethodAdapter extends MethodAdapter &#123;</span><br><span class="line">    public AddSecurityCheckMethodAdapter(MethodVisitor mv) &#123;</span><br><span class="line">        super(mv);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public void visitCode() &#123;</span><br><span class="line">        visitMethodInsn(Opcodes.INVOKESTATIC, &quot;SecurityChecker&quot;,</span><br><span class="line">           &quot;checkSecurity&quot;, &quot;()V&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>ClassReader</code>读到每个方法的首部时调用 <code>visitCode()</code>，在这个重写方法里，我们用 <code>visitMethodInsn(Opcodes.INVOKESTATIC, &quot;SecurityChecker&quot;,&quot;checkSecurity&quot;, &quot;()V&quot;);</code>插入了安全检查功能。</p>
+<p>最后，我们将集成上面定义的 <code>ClassAdapter</code>，<code>ClassReader</code>和 <code>ClassWriter</code>产生修改后的 <code>Account</code>类文件 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileOutputStream;</span><br><span class="line">import org.objectweb.asm.*;</span><br><span class="line">    </span><br><span class="line">public class Generator&#123;</span><br><span class="line">    public static void main() throws Exception &#123;</span><br><span class="line">        ClassReader cr = new ClassReader(&quot;Account&quot;);</span><br><span class="line">        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">        ClassAdapter classAdapter = new AddSecurityCheckClassAdapter(cw);</span><br><span class="line">        cr.accept(classAdapter, ClassReader.SKIP_DEBUG);</span><br><span class="line">        byte[] data = cw.toByteArray();</span><br><span class="line">        File file = new File(&quot;Account.class&quot;);</span><br><span class="line">        FileOutputStream fout = new FileOutputStream(file);</span><br><span class="line">        fout.write(data);</span><br><span class="line">        fout.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行完这段程序后，我们会得到一个新的 Account.class 文件，如果我们使用下面代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Account account = new Account();</span><br><span class="line">        account.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用这个 Account，我们会得到下面的输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SecurityChecker.checkSecurity ...</span><br><span class="line">operation...</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，在 <code>Account</code>原来的 <code>operation</code>内容执行之前，进行了 <code>SecurityChecker.checkSecurity()</code>检查。</p>
+<h3 id="将动态生成类改造成原始类-Account-的子类"><a href="#将动态生成类改造成原始类-Account-的子类" class="headerlink" title="将动态生成类改造成原始类 Account 的子类"></a>将动态生成类改造成原始类 Account 的子类</h3><p>上面给出的例子是直接改造 <code>Account</code>类本身的，从此 <code>Account</code>类的 <code>operation</code>方法必须进行 checkSecurity 检查。但事实上，我们有时仍希望保留原来的 <code>Account</code>类，因此把生成类定义为原始类的子类是更符合 AOP 原则的做法。下面介绍如何将改造后的类定义为 <code>Account</code>的子类 <code>Account$EnhancedByASM</code>。其中主要有两项工作 :</p>
+<ul>
+<li>改变 Class Description, 将其命名为 <code>Account$EnhancedByASM</code>，将其父类指定为 <code>Account</code>。</li>
+<li>改变构造函数，将其中对父类构造函数的调用转换为对 <code>Account</code>构造函数的调用。</li>
+</ul>
+<p>在 <code>AddSecurityCheckClassAdapter</code>类中，将重写 <code>visit</code>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void visit(final int version, final int access, final String name,</span><br><span class="line">        final String signature, final String superName,</span><br><span class="line">        final String[] interfaces) &#123;</span><br><span class="line">    String enhancedName = name + &quot;$EnhancedByASM&quot;;  // 改变类命名</span><br><span class="line">    enhancedSuperName = name; // 改变父类，这里是”Account”</span><br><span class="line">    super.visit(version, access, enhancedName, signature,</span><br><span class="line">    enhancedSuperName, interfaces);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改进 <code>visitMethod</code>方法，增加对构造函数的处理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public MethodVisitor visitMethod(final int access, final String name,</span><br><span class="line">    final String desc, final String signature, final String[] exceptions) &#123;</span><br><span class="line">    MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);</span><br><span class="line">    MethodVisitor wrappedMv = mv;</span><br><span class="line">    if (mv != null) &#123;</span><br><span class="line">        if (name.equals(&quot;operation&quot;)) &#123;</span><br><span class="line">            wrappedMv = new AddSecurityCheckMethodAdapter(mv);</span><br><span class="line">        &#125; else if (name.equals(&quot;&lt;init&gt;&quot;)) &#123;</span><br><span class="line">            wrappedMv = new ChangeToChildConstructorMethodAdapter(mv,</span><br><span class="line">                enhancedSuperName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return wrappedMv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里 <code>ChangeToChildConstructorMethodAdapter</code>将负责把 <code>Account</code>的构造函数改造成其子类 <code>Account$EnhancedByASM</code>的构造函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class ChangeToChildConstructorMethodAdapter extends MethodAdapter &#123;</span><br><span class="line">    private String superClassName;</span><br><span class="line"> </span><br><span class="line">    public ChangeToChildConstructorMethodAdapter(MethodVisitor mv,</span><br><span class="line">        String superClassName) &#123;</span><br><span class="line">        super(mv);</span><br><span class="line">        this.superClassName = superClassName;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public void visitMethodInsn(int opcode, String owner, String name,</span><br><span class="line">        String desc) &#123;</span><br><span class="line">        // 调用父类的构造函数时</span><br><span class="line">        if (opcode == Opcodes.INVOKESPECIAL &amp;&amp; name.equals(&quot;&lt;init&gt;&quot;)) &#123;</span><br><span class="line">            owner = superClassName;</span><br><span class="line">        &#125;</span><br><span class="line">        super.visitMethodInsn(opcode, owner, name, desc);// 改写父类为 superClassName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后演示一下如何在运行时产生并装入产生的 <code>Account$EnhancedByASM</code>。 我们定义一个 <code>Util</code> 类，作为一个类工厂负责产生有安全检查的 <code>Account</code>类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class SecureAccountGenerator &#123;</span><br><span class="line"> </span><br><span class="line">    private static AccountGeneratorClassLoader classLoader =</span><br><span class="line">        new AccountGeneratorClassLoade();</span><br><span class="line">     </span><br><span class="line">    private static Class secureAccountClass;</span><br><span class="line">     </span><br><span class="line">    public Account generateSecureAccount() throws ClassFormatError,</span><br><span class="line">        InstantiationException, IllegalAccessException &#123;</span><br><span class="line">        if (null == secureAccountClass) &#123;           </span><br><span class="line">            ClassReader cr = new ClassReader(&quot;Account&quot;);</span><br><span class="line">            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);</span><br><span class="line">            ClassAdapter classAdapter = new AddSecurityCheckClassAdapter(cw);</span><br><span class="line">            cr.accept(classAdapter, ClassReader.SKIP_DEBUG);</span><br><span class="line">            byte[] data = cw.toByteArray();</span><br><span class="line">            secureAccountClass = classLoader.defineClassFromClassFile(</span><br><span class="line">               &quot;Account$EnhancedByASM&quot;,data);</span><br><span class="line">        &#125;</span><br><span class="line">        return (Account) secureAccountClass.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    private static class AccountGeneratorClassLoader extends ClassLoader &#123;</span><br><span class="line">        public Class defineClassFromClassFile(String className,</span><br><span class="line">            byte[] classFile) throws ClassFormatError &#123;</span><br><span class="line">            return defineClass(&quot;Account$EnhancedByASM&quot;, classFile, 0,</span><br><span class="line">            classFile.length());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>静态方法 <code>SecureAccountGenerator.generateSecureAccount()</code>在运行时动态生成一个加上了安全检查的 <code>Account</code>子类。著名的 Hibernate 和 Spring 框架，就是使用这种技术实现了 AOP 的“无损注入”。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>最后，我们比较一下 ASM 和其他实现 AOP 的底层技术：</p>
+<h5 id="表-1-AOP-底层技术比较"><a href="#表-1-AOP-底层技术比较" class="headerlink" title="表 1. AOP 底层技术比较"></a>表 1. AOP 底层技术比较</h5><table>
+<thead>
+<tr>
+<th>AOP 底层技术</th>
+<th>功能</th>
+<th>性能</th>
+<th>面向接口编程</th>
+<th>编程难度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接改写 class 文件</td>
+<td>完全控制类</td>
+<td>无明显性能代价</td>
+<td>不要求</td>
+<td>高，要求对 class 文件结构和 Java 字节码有深刻了解</td>
+</tr>
+<tr>
+<td>JDK Instrument</td>
+<td>完全控制类</td>
+<td>无论是否改写，每个类装入时都要执行 hook 程序</td>
+<td>不要求</td>
+<td>高，要求对 class 文件结构和 Java 字节码有深刻了解</td>
+</tr>
+<tr>
+<td>JDK Proxy</td>
+<td>只能改写 method</td>
+<td>反射引入性能代价</td>
+<td>要求</td>
+<td>低</td>
+</tr>
+<tr>
+<td>ASM</td>
+<td>几乎能完全控制类</td>
+<td>无明显性能代价</td>
+<td>不要求</td>
+<td>中，能操纵需要改写部分的 Java 字节码</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="相关主题"><a href="#相关主题" class="headerlink" title="相关主题"></a>相关主题</h4><ul>
+<li>Download <a target="_blank" rel="noopener" href="http://forge.objectweb.org/projects/asm/">ASM 3.0.</a></li>
+<li><a target="_blank" rel="noopener" href="http://asm.objectweb.org/doc/tutorial-asm-2.0.html">Tutorial for ASM 2.0</a> ,the latest document version for How to use ASM.</li>
+<li>In <a target="_blank" rel="noopener" href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.html">Java VM Spec</a>, get detailed information of the Java Class File format.</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/')">AOP 的利器：ASM 3.0 介绍</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=AOP 的利器：ASM 3.0 介绍&amp;url=https://tushu.info/archives/AOP-de-li-qi-ASM-3-0-jie-shao/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/aop/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>aop<span class="tagsPageCount">4</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Difference-between-lock-and-monitor/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Difference between lock and monitor – Java Concurrency</div></div></a></div><div class="next-post pull-right"><a href="/archives/zen-me-lian-jie-Redis/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">怎么链接Redis</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/archives/Java-Agent-shi-yong-zhi-nan/" title="Java Agent 使用指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">Java Agent 使用指南</div></div></a></div><div><a href="/archives/Spring-AOP-shi-xian-yuan-li-yu-CGLIB/" title="Spring AOP实现原理与CGLIB应用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">Spring AOP实现原理与CGLIB应用</div></div></a></div><div><a href="/archives/shi-yong-ASM-shi-xian-Java-yu-yan-de/" title="使用 ASM 实现 Java 语言的“多重继承”"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">使用 ASM 实现 Java 语言的“多重继承”</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-ASM-%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是 ASM ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Java-%E7%B1%BB%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">为什么要动态生成 Java 类？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE-1-ASM-%E2%80%93-AOP"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">图 1. ASM – AOP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-ASM-%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">为什么选择 ASM ？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E7%B1%BB%E6%96%87%E4%BB%B6%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">Java 类文件概述</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE-2-ASM-%E2%80%93-Javac-%E6%B5%81%E7%A8%8B"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">图 2. ASM – Javac 流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE-3-ASM-%E2%80%93-Java-%E7%B1%BB%E6%96%87%E4%BB%B6"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">图 3. ASM – Java 类文件</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASM-3-0-%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6"><span class="toc-number">3.</span> <span class="toc-text">ASM 3.0 编程框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%BE-4-ASM-%E2%80%93-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">图 4. ASM – 时序图</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ASM3-0-%E8%BF%9B%E8%A1%8C-AOP-%E7%BC%96%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">使用 ASM3.0 进行 AOP 编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90%E7%B1%BB%E6%94%B9%E9%80%A0%E6%88%90%E5%8E%9F%E5%A7%8B%E7%B1%BB-Account-%E7%9A%84%E5%AD%90%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">将动态生成类改造成原始类 Account 的子类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8-1-AOP-%E5%BA%95%E5%B1%82%E6%8A%80%E6%9C%AF%E6%AF%94%E8%BE%83"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">表 1. AOP 底层技术比较</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E4%B8%BB%E9%A2%98"><span class="toc-number">5.0.1.</span> <span class="toc-text">相关主题</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

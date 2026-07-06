@@ -1,0 +1,643 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Netty 常见面试题 | 代老师的博客</title><meta name="keywords" content="netty"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Netty 常见面试题"><meta name="application-name" content="Netty 常见面试题"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Netty 常见面试题"><meta property="og:url" content="https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="基础篇1、TCP协议TCP（传输控制协议，Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层协议，广泛用于需要数据传输保证的网络通信中。它通过一系列复杂的机制来确保数据从一端发送到另一端的完整性和正确顺序。下面详细讲解TCP的核心概念和机制。 1"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="基础篇1、TCP协议TCP（传输控制协议，Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层协议，广泛用于需要数据传输保证的网络通信中。它通过一系列复杂的机制来确保数据从一端发送到另一端的完整性和正确顺序。下面详细讲解TCP的核心概念和机制。 1"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Netty 常见面试题',
+  postAI: '',
+  pageFillDescription: '基础篇, 1、TCP协议, 1. TCP特性, 2. TCP报文格式, 3. TCP连接的建立与终止, a. 三次握手（连接建立）, b. 四次挥手（连接终止）, 4. TCP可靠性机制, a. 序列号和确认应答, b. 重传机制, c. 滑动窗口, 5. TCP流量控制, 6. TCP拥塞控制, 7. 常见应用, 总结, 2、TCP、UDP的区别？, 设计目的和工作方式, 可靠性和开销, 应用场景, 3、Netty的粘包x2F拆包是怎么处理的有哪些实现？, 4、 Netty 高性能表现在哪些方面？, 5、 详细说一下 Netty 高性能表现在哪些方面？, 1. 异步非阻塞 Ix2FO 模型, 2. 零拷贝（Zero-Copy）技术, 3. 高效的内存管理机制, 4. 灵活高效的线程模型, 5. 支持多种传输协议, 6. 高效的消息处理机制, 7. 支持异步连接与重连, 8. 高度可定制和扩展性, 9. 低延迟, 10. 跨平台支持, 总结, 6、BIO、NIO和AIO的区别, 1. BIO（Blocking Ix2FO阻塞式 Ix2FO）, 特点, 缺点, 适用场景, 2. NIO（Non-blocking Ix2FO非阻塞 Ix2FO）, 特点, 优点, 缺点, 适用场景, 3. AIO（Asynchronous Ix2FO异步非阻塞 Ix2FO）, 特点, 优点, 缺点, 适用场景, BIO、NIO 和 AIO 的比较总结, 选择 Ix2FO 模型的依据基础篇协议传输控制协议是一种面向连接的可靠的基于字节流的传输层协议广泛用于需要数据传输保证的网络通信中它通过一系列复杂的机制来确保数据从一端发送到另一端的完整性和正确顺序下面详细讲解的核心概念和机制特性面向连接在数据传输之前必须建立起连接通过三次握手确认通信双方的状态传输结束后连接会通过四次挥手关闭可靠传输确保所有数据包按顺序无误地传送到目的地使用校验和序列号确认应答等机制来达到可靠传输流量控制通过滑动窗口协议能够动态调整发送端的数据发送速率防止接收端缓冲区溢出拥塞控制在检测到网络拥塞时会自动降低传输速度避免进一步加重拥塞报文格式报文段由以下几部分组成源端口号位发送方的应用程序端口目标端口号位接收方的应用程序端口序列号位标识该报文段在整个数据流中的位置用于确保数据按顺序到达确认号位用于确认接收到的数据表示下一次希望接收到的数据的序列号数据偏移位表示头部的长度标志位位包含多个标志用于控制连接状态和数据传输过程窗口大小位用于流量控制表示接收方的接收窗口大小校验和位用于检测数据在传输过程中是否发生错误紧急指针位与标志位结合使用指出紧急数据的结束位置选项可变长度字段常用于指定最大报文段大小等信息连接的建立与终止三次握手连接建立三次握手是协议用于建立可靠连接的过程第一次握手客户端发送一个同步包到服务器表示请求建立连接并附带初始序列号第二次握手服务器收到包后回复一个包表示同意建立连接并发送自己的初始序列号第三次握手客户端收到服务器的包后发送一个确认包至此双方的连接建立成功四次挥手连接终止四次挥手用于安全关闭连接第一次挥手客户端发送包表示结束数据传输第二次挥手服务器收到包后发送包表示确认第三次挥手服务器发送包表示它也准备关闭连接第四次挥手客户端发送包表示确认至此连接正式关闭可靠性机制序列号和确认应答每个报文段都有一个唯一的序列号接收方在收到报文段后会通过包告知发送方自己期望的下一个序列号通过这种确认应答机制能够确保数据包按顺序到达并且如果发生丢包可以重传重传机制如果发送方发送数据后没有在规定时间内收到确认应答会认为该报文段丢失并自动重传该数据重传机制通过超时重传和快速重传来实现超时重传如果在预定时间内没有收到数据将被重发快速重传接收方如果收到失序的报文会连续发送相同的告诉发送方某个报文段未收到发送方可提前重传而无需等待超时滑动窗口使用滑动窗口机制来控制数据的传输速率窗口表示接收方能够接收而不需要确认的最大数据量发送方根据接收方提供的窗口大小来控制发送的数据量发送窗口发送方能同时发送的最大数据量接收窗口接收方能接受并缓存的最大数据量流量控制通过滑动窗口机制实现流量控制确保发送方不会超出接收方的处理能力每当接收方发送时它会携带自己的可用窗口大小发送方根据这个窗口调整发送速率拥塞控制拥塞控制是为了防止网络拥堵而设计的一系列算法主要包括慢启动刚开始时以较小的速率发送数据逐渐加快直到检测到网络的可用容量拥塞避免一旦发现拥塞发送速率会减慢并逐步提高直到再次检测到拥塞快速重传和快速恢复在检测到数据丢失时快速重传未收到的报文段并通过快速恢复算法快速恢复到较高的传输速率常见应用适用于对可靠性要求高的场景例如文件传输如电子邮件传输如网页浏览如远程登录如总结通过复杂的连接建立可靠性保证流量控制和拥塞控制等机制提供了可靠的数据传输它适合那些需要确保数据完整性和顺序的场景虽然其复杂性使得传输效率不如但在可靠性至关重要的应用中是首选如果你对的某些机制或实现细节有更深入的兴趣欢迎进一步讨论的区别与区别总结传输控制协议和用户数据报协议都是协议族中的核心协议用于在网络上传输数据但它们在设计目的工作方式可靠性开销等方面存在显著的差异设计目的和工作方式是一个面向连接的协议它提供可靠的面向字节流的服务在发送数据之前需要通过三次握手建立一个连接以确保数据能够可靠地传输还提供了流量控制拥塞控制等机制以避免网络拥塞和数据丢失是一个全双工协议即数据可以在两个方向上同时传输是一个无连接的协议它提供不可靠的面向报文的服务在发送数据之前不需要建立连接因此具有较低的延迟和较少的开销不保证数据包的顺序完整性或可靠性也不提供流量控制或拥塞控制是一个简单的协议通常用于那些对实时性要求较高但对数据可靠性要求不高的应用如视频流实时通信等可靠性和开销通过确认机制重传机制序列号机制等确保数据的可靠传输由于需要建立连接维护状态信息进行流量控制和拥塞控制等的开销相对较大不保证数据的可靠传输因此开销较小适用于对实时性要求高但对数据可靠性要求不高的场景应用场景文件传输如文件下载等电子邮件远程登录网页浏览大多数需要可靠数据传输的应用视频流如实时通信如即时消息网络游戏因为需要低延迟查询虽然也使用但是主要的传输方式某些对实时性要求高但对数据可靠性要求不高的应用综上所述和各有优缺点适用于不同的应用场景在选择使用哪个协议时需要根据具体的应用需求和网络环境进行权衡的粘包拆包是怎么处理的有哪些实现半包粘包通常是指在网络传输中数据流被拆分成多个包传输导致接收方无法正确解析数据这通常发生在数据量大于缓冲区的情况下为了解决半包粘包的问题提供了多种解码器来帮助正确地拆分和组合数据一种常用的解决方案是使用它可以基于换行符来拆分数据在中添加如果使用的是定长消息可以使用假设消息长度固定为字节对于变长消息可以使用这种方式通常在消息前增加长度字段解码器构造函数参数说明最大帧长度长度字段的偏移量长度字段的长度长度调整值一般为以上解码器可以帮助你处理半包粘包问题确保数据的完整性和准确性在编写自定义的解码器时需要注意解码器的顺序和如何处理缓冲区溢出的数据高性能表现在哪些方面线程模型通过多线程反应器模式在应用层实现异步非阻塞异步事件驱动架构用最少的资源做更多的事内存零拷贝尽量减少不必要的内存拷贝实现了更高效率的传输内存池设计申请的内存可以重用主要指直接内存内部实现是用一颗二叉查找树管理内存分配情况对象池设计对象可以重用主要指非常频繁的对象如并且对象池使用无锁架构性能非常高无锁编程串形化处理读写避免使用锁带来的性能开销高性能序列化协议支持等高性能序列化协议详细说一下高性能表现在哪些方面作为一个高性能的网络应用框架其高性能体现在多个方面包括模型的优化内存管理线程模型以及对协议的支持等以下是高性能的具体表现异步非阻塞模型基础基于的非阻塞框架使用了异步非阻塞的网络通信模型这使得单个线程能够同时处理多个连接相比传统的阻塞可以更高效地处理大量并发请求减少了线程资源的占用多路复用通过和模式可以在一个线程中同时监控多个通道从而提高了操作的吞吐量这种多路复用机制避免了为每个连接创建线程的高开销高效的事件处理采用事件驱动的模型通过机制将不同的事件和业务处理逻辑分开使得事件可以被高效分发和处理零拷贝技术减少数据复制内部采用了零拷贝技术使数据在用户态和内核态之间的传输不再需要多次复制通过和数据可以直接从内核态传输到目标通道极大减少了内存的消耗和数据处理时间优化文件传输性能在大文件的传输中通过零拷贝技术避免了不必要的中间内存拷贝操作大大提升了文件性能特别是在需要高吞吐量的应用场景中如文件服务器或大数据传输高效的内存管理机制内存池提供了内存池内存池通过预分配内存块并重复使用避免频繁的内存分配和回收这样不仅降低了的压力还减少了内存碎片的产生显著提升了内存管理的效率的优化的比原生的更加灵活和高效提供了动态扩展读写分离等特性提升了数据读写操作的效率此外支持池化管理进一步提升了内存分配效率灵活高效的线程模型可扩展的线程模型提供了灵活的线程模型选择包括单线程模型多线程模型和主从多线程模型开发者可以根据实际需求选择合适的线程模型从而优化系统的并发处理能力机制的是处理操作的核心它通过事件循环机制负责处理所有网络事件和任务调度一个可以管理多个每个的操作都由管理从而实现高效的事件处理异步任务执行允许异步执行定时任务和普通任务不仅能处理事件还能处理业务逻辑任务提升了系统的响应能力和并发处理能力支持多种传输协议丰富的协议支持支持多种传输协议如等由于这些协议都是高度优化的实现在处理不同协议时都能保持高性能尤其在长连接和等高并发场景下表现突出自定义协议处理提供了方便的接口允许开发者自定义协议解析和处理开发者可以通过扩展的框架来处理定制的高效协议高效的消息处理机制流水线机制的提供了责任链模式的处理结构消息可以通过多个按顺序处理这样可以将复杂的消息处理过程拆分为多个简单的步骤减少了耦合度并且可以方便地进行并行处理提升性能粘包与拆包处理在网络编程中粘包和拆包是常见的问题提供了多种编解码器如可以高效地处理数据流中的粘包拆包问题确保消息处理的完整性和高效性支持异步连接与重连异步连接管理的异步连接处理机制使得客户端或服务器端在发起连接或接受连接时不会阻塞可以并行处理多个连接从而提高连接的建立速度和处理能力断线重连提供了对断线重连的支持应用可以在连接断开时自动重新连接确保服务的可用性和稳定性特别适合长连接的应用场景高度可定制和扩展性模块化设计的设计高度模块化开发者可以根据具体的业务需求选择不同的组件来实现定制化的网络应用这种设计使得系统可以更灵活地扩展减少了不必要的性能开销高可扩展性能够通过优化线程池和数量来横向扩展适应从单节点到多节点集群的架构保证在大规模分布式系统中依然能保持高性能低延迟快速响应通过异步事件驱动机制和零拷贝技术大幅降低了请求处理的延迟能够在高并发场景下快速响应网络事件可预测的性能在极限负载下依然能够保持较为稳定和可预测的性能表现这使其特别适用于对延迟敏感的系统比如金融交易在线游戏等跨平台支持操作系统级别优化针对不同的操作系统如进行了特定的优化充分利用操作系统提供的高效能力如下的从而提升了性能跨平台兼容性的跨平台特性使得它能够在不同的操作系统上保持一致的高性能表现适合大规模分布式系统的部署总结的高性能主要体现在其异步非阻塞模型零拷贝技术内存池管理高效的线程模型以及灵活的协议支持等方面这些特性使得能够在处理大量并发连接和高吞吐量的数据传输时表现出色特别适合高性能低延迟的网络应用场景和的区别和是中三种不同的模型适用于不同的网络编程需求和场景它们的主要区别体现在数据处理方式线程模型以及性能和应用场景上阻塞式特点同步阻塞在模型中操作如读取或写入会阻塞当前线程直到操作完成一个线程只能处理一个连接如果有多个连接需要处理通常会为每个连接分配一个独立的线程简单易用编程模式较为简单适合处理一些小规模低并发的场景每个线程负责处理单个客户端请求操作的执行过程是线性顺序的代码比较容易编写和理解缺点资源浪费由于每个线程都需要独立处理一个操作大量的连接会导致大量线程的创建和销毁浪费系统资源低并发性能在高并发环境下模型效率低下因为线程数量随着并发连接的增加而增加线程上下文切换的开销会非常大适用场景适合小规模低并发的应用比如传统的阻塞式服务器应用简单的客户端服务器模型只有少数用户需要连接时非阻塞特点同步非阻塞引入了非阻塞操作通道可以在不阻塞线程的情况下执行读写操作如果数据还没有准备好线程不会被阻塞而是会立即返回这使得一个线程可以处理多个连接多路复用模型通过进行多路复用一个可以监控多个通道的事件如连接读写从而让少量的线程处理大量的并发连接缓冲区使用来处理数据的读写数据是以块的方式进行传输而不是像那样逐字节操作优点高并发性能通过非阻塞和机制一个线程可以处理多个客户端连接极大地提升了系统的并发处理能力资源节省不需要为每个连接创建一个独立的线程可以减少系统的线程资源占用避免线程上下文切换的开销缺点编程复杂度高编程模型相比更复杂开发者需要处理异步操作事件驱动和缓冲区管理等问题非阻塞问题虽然提供了非阻塞的操作但如果处理不当可能导致轮询过多的事件影响性能适用场景高并发场景例如即时通讯系统大规模服务器消息中间件等长连接大量客户端并发连接的应用程序如聊天室游戏服务器异步非阻塞特点异步非阻塞是引入的异步模型它在操作上不仅是非阻塞的而且是完全异步的也就是说当线程发起一个操作后可以立即返回系统会在操作完成后通过回调机制通知线程处理结果回调机制使用回调函数来处理事件当某个操作完成时操作系统会自动触发相应的回调函数线程不需要手动去检查操作是否完成优点高效的并发处理在处理大量连接时能够充分利用操作系统的异步能力避免了线程阻塞和频繁的轮询操作具有非常高的并发处理能力资源使用更少由于所有操作都是异步执行模型的线程资源消耗非常小适合超高并发环境下的应用缺点操作系统依赖的底层依赖操作系统的支持不同的操作系统对异步支持程度不同这导致在某些平台上的性能可能无法达到预期编程复杂度高与和相比的编程模型更加复杂开发者需要处理回调和异步流程管理复杂性较高适用场景超高并发场景尤其是需要处理大量连接且对性能要求极高的应用例如高频交易系统大规模分布式系统长时间的操作例如大型文件传输大型数据库操作等和的比较总结特性模型同步阻塞同步非阻塞异步非阻塞并发处理能力低高最高线程模型每个连接一个线程单线程处理多个连接少量线程处理大量连接性能低高最高编程复杂度低中等高适用场景低并发小规模应用高并发密集型应用超高并发密集型和长时操作系统资源消耗高中等低依赖平台支持低低高选择模型的依据如果你的应用是简单的低并发的并且开发时间紧张可以选择因为它的实现简单适合小型系统如果你的应用需要高并发处理能力特别是在处理大量连接时可以选择它在性能和资源使用上比更加出色适合高并发场景如果你的应用需要极高的并发处理能力并且操作系统对异步的支持比较好那么可以选择尤其适合处理长时间的操作和超高并发场景同步并阻塞服务器实现模式为一个连接一个线程即客户端有连接请求时服务器端就需要启动一个线程进行处理如果这个连接不做任何事情会造成不必要的线程开销当然可以通过线程池机制改善方式适用于连接数目比较小且固定的架构这种方式对服务器资源要求比较高并发局限于应用中以前的唯一选择但程序直观简单易理解同步非阻塞服务器实现模式为一个请求一个线程即客户端发送的连接请求都会注册到多路复用器上多路复用器轮询到连接有请求时才启动一个线程进行处理方式适用于连接数目多且连接比较短轻操作的架构比如聊天服务器并发局限于应用中编程比较复杂开始支持异步非阻塞服务器实现模式为一个有效请求一个线程客户端的请求都是由先完成了再通知服务器应用去启动线程进行处理方式使用于连接数目多且连接比较长重操作的架构比如相册服务器充分调用参与并发操作编程比较复杂开始支持',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/netty/" itemprop="url">netty</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/netty/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>netty</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Netty 常见面试题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:04.000Z" title="发表于 2024-10-31 22:02:04">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.198Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/"><header><a class="post-meta-categories" href="/categories/netty/" itemprop="url">netty</a><a href="/tags/netty/" tabindex="-1" itemprop="url">netty</a><h1 id="CrawlerTitle" itemprop="name headline">Netty 常见面试题</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:04.000Z" title="发表于 2024-10-31 22:02:04">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.198Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="1、TCP协议"><a href="#1、TCP协议" class="headerlink" title="1、TCP协议"></a>1、TCP协议</h2><p>TCP（传输控制协议，<strong>Transmission Control Protocol</strong>）是一种面向连接的、可靠的、基于字节流的传输层协议，广泛用于需要数据传输保证的网络通信中。它通过一系列复杂的机制来确保数据从一端发送到另一端的完整性和正确顺序。下面详细讲解TCP的核心概念和机制。</p>
+<h3 id="1-TCP特性"><a href="#1-TCP特性" class="headerlink" title="1. TCP特性"></a>1. <strong>TCP特性</strong></h3><ul>
+<li><strong>面向连接</strong>：在数据传输之前，必须建立起连接，通过“三次握手”确认通信双方的状态。传输结束后，连接会通过“四次挥手”关闭。</li>
+<li><strong>可靠传输</strong>：TCP确保所有数据包按顺序、无误地传送到目的地，使用校验和、序列号、确认应答等机制来达到可靠传输。</li>
+<li><strong>流量控制</strong>：通过滑动窗口协议，TCP能够动态调整发送端的数据发送速率，防止接收端缓冲区溢出。</li>
+<li><strong>拥塞控制</strong>：TCP在检测到网络拥塞时，会自动降低传输速度，避免进一步加重拥塞。</li>
+</ul>
+<h3 id="2-TCP报文格式"><a href="#2-TCP报文格式" class="headerlink" title="2. TCP报文格式"></a>2. <strong>TCP报文格式</strong></h3><p>TCP报文段（segment）由以下几部分组成：</p>
+<ul>
+<li><strong>源端口号</strong>（16位）：发送方的应用程序端口。</li>
+<li><strong>目标端口号</strong>（16位）：接收方的应用程序端口。</li>
+<li><strong>序列号</strong>（32位）：标识该报文段在整个数据流中的位置，用于确保数据按顺序到达。</li>
+<li><strong>确认号</strong>（32位）：用于确认接收到的数据，表示下一次希望接收到的数据的序列号。</li>
+<li><strong>数据偏移</strong>（4位）：表示TCP头部的长度。</li>
+<li><strong>标志位</strong>（6位）：包含多个标志（URG、ACK、PSH、RST、SYN、FIN），用于控制连接状态和数据传输过程。</li>
+<li><strong>窗口大小</strong>（16位）：用于流量控制，表示接收方的接收窗口大小。</li>
+<li><strong>校验和</strong>（16位）：用于检测数据在传输过程中是否发生错误。</li>
+<li><strong>紧急指针</strong>（16位）：与URG标志位结合使用，指出紧急数据的结束位置。</li>
+<li><strong>选项</strong>：可变长度字段，常用于指定最大报文段大小（MSS）等信息。</li>
+</ul>
+<h3 id="3-TCP连接的建立与终止"><a href="#3-TCP连接的建立与终止" class="headerlink" title="3. TCP连接的建立与终止"></a>3. <strong>TCP连接的建立与终止</strong></h3><h4 id="a-三次握手（连接建立）"><a href="#a-三次握手（连接建立）" class="headerlink" title="a. 三次握手（连接建立）"></a>a. <strong>三次握手（连接建立）</strong></h4><p>三次握手是TCP协议用于建立可靠连接的过程。</p>
+<ul>
+<li><strong>第一次握手</strong>：客户端发送一个SYN（同步）包到服务器，表示请求建立连接，并附带初始序列号。</li>
+<li><strong>第二次握手</strong>：服务器收到SYN包后，回复一个SYN-ACK包，表示同意建立连接，并发送自己的初始序列号。</li>
+<li><strong>第三次握手</strong>：客户端收到服务器的SYN-ACK包后，发送一个ACK确认包，至此，双方的连接建立成功。</li>
+</ul>
+<h4 id="b-四次挥手（连接终止）"><a href="#b-四次挥手（连接终止）" class="headerlink" title="b. 四次挥手（连接终止）"></a>b. <strong>四次挥手（连接终止）</strong></h4><p>四次挥手用于安全关闭TCP连接。</p>
+<ul>
+<li><strong>第一次挥手</strong>：客户端发送FIN包，表示结束数据传输。</li>
+<li><strong>第二次挥手</strong>：服务器收到FIN包后，发送ACK包，表示确认。</li>
+<li><strong>第三次挥手</strong>：服务器发送FIN包，表示它也准备关闭连接。</li>
+<li><strong>第四次挥手</strong>：客户端发送ACK包，表示确认，至此连接正式关闭。</li>
+</ul>
+<h3 id="4-TCP可靠性机制"><a href="#4-TCP可靠性机制" class="headerlink" title="4. TCP可靠性机制"></a>4. <strong>TCP可靠性机制</strong></h3><h4 id="a-序列号和确认应答"><a href="#a-序列号和确认应答" class="headerlink" title="a. 序列号和确认应答"></a>a. <strong>序列号和确认应答</strong></h4><p>每个TCP报文段都有一个唯一的序列号，接收方在收到报文段后会通过ACK包告知发送方自己期望的下一个序列号。通过这种确认应答机制，TCP能够确保数据包按顺序到达，并且如果发生丢包可以重传。</p>
+<h4 id="b-重传机制"><a href="#b-重传机制" class="headerlink" title="b. 重传机制"></a>b. <strong>重传机制</strong></h4><p>如果发送方发送数据后没有在规定时间内收到确认应答，TCP会认为该报文段丢失，并自动重传该数据。重传机制通过<strong>超时重传</strong>和<strong>快速重传</strong>来实现。</p>
+<ul>
+<li><strong>超时重传</strong>：如果在预定时间内没有收到ACK，数据将被重发。</li>
+<li><strong>快速重传</strong>：接收方如果收到失序的报文，会连续发送相同的ACK，告诉发送方某个报文段未收到，发送方可提前重传而无需等待超时。</li>
+</ul>
+<h4 id="c-滑动窗口"><a href="#c-滑动窗口" class="headerlink" title="c. 滑动窗口"></a>c. <strong>滑动窗口</strong></h4><p>TCP使用滑动窗口机制来控制数据的传输速率。窗口表示接收方能够接收而不需要确认的最大数据量，发送方根据接收方提供的窗口大小来控制发送的数据量。</p>
+<ul>
+<li><strong>发送窗口</strong>：发送方能同时发送的最大数据量。</li>
+<li><strong>接收窗口</strong>：接收方能接受并缓存的最大数据量。</li>
+</ul>
+<h3 id="5-TCP流量控制"><a href="#5-TCP流量控制" class="headerlink" title="5. TCP流量控制"></a>5. <strong>TCP流量控制</strong></h3><p>TCP通过滑动窗口机制实现流量控制，确保发送方不会超出接收方的处理能力。每当接收方发送ACK时，它会携带自己的可用窗口大小，发送方根据这个窗口调整发送速率。</p>
+<h3 id="6-TCP拥塞控制"><a href="#6-TCP拥塞控制" class="headerlink" title="6. TCP拥塞控制"></a>6. <strong>TCP拥塞控制</strong></h3><p>拥塞控制是TCP为了防止网络拥堵而设计的一系列算法，主要包括：</p>
+<ul>
+<li><strong>慢启动</strong>：刚开始时，TCP以较小的速率发送数据，逐渐加快直到检测到网络的可用容量。</li>
+<li><strong>拥塞避免</strong>：一旦发现拥塞，发送速率会减慢，并逐步提高，直到再次检测到拥塞。</li>
+<li><strong>快速重传和快速恢复</strong>：在检测到数据丢失时，快速重传未收到的报文段，并通过快速恢复算法快速恢复到较高的传输速率。</li>
+</ul>
+<h3 id="7-常见应用"><a href="#7-常见应用" class="headerlink" title="7. 常见应用"></a>7. <strong>常见应用</strong></h3><p>TCP适用于对可靠性要求高的场景，例如：</p>
+<ul>
+<li><strong>文件传输</strong>（如FTP）</li>
+<li><strong>电子邮件传输</strong>（如SMTP）</li>
+<li><strong>网页浏览</strong>（如HTTP&#x2F;HTTPS）</li>
+<li><strong>远程登录</strong>（如SSH、Telnet）</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>TCP通过复杂的连接建立、可靠性保证、流量控制和拥塞控制等机制，提供了可靠的数据传输。它适合那些需要确保数据完整性和顺序的场景，虽然其复杂性使得传输效率不如UDP，但在可靠性至关重要的应用中，TCP是首选。</p>
+<p>如果你对TCP的某些机制或实现细节有更深入的兴趣，欢迎进一步讨论！</p>
+<h2 id="2、TCP、UDP的区别？"><a href="#2、TCP、UDP的区别？" class="headerlink" title="2、TCP、UDP的区别？"></a>2、TCP、UDP的区别？</h2><p><strong>TCP与UDP区别总结：</strong></p>
+<p>TCP（Transmission Control Protocol，传输控制协议）和UDP（User Datagram Protocol，用户数据报协议）都是TCP&#x2F;IP协议族中的核心协议，用于在网络上传输数据，但它们在设计目的、工作方式、可靠性、开销等方面存在显著的差异。</p>
+<h3 id="设计目的和工作方式"><a href="#设计目的和工作方式" class="headerlink" title="设计目的和工作方式"></a>设计目的和工作方式</h3><ul>
+<li><strong>TCP</strong>：<ul>
+<li>TCP是一个面向连接的协议，它提供可靠的、面向字节流的服务。</li>
+<li>在发送数据之前，TCP需要通过三次握手（SYN-SYN&#x2F;ACK-ACK）建立一个连接，以确保数据能够可靠地传输。</li>
+<li>TCP还提供了流量控制、拥塞控制等机制，以避免网络拥塞和数据丢失。</li>
+<li>TCP是一个全双工协议，即数据可以在两个方向上同时传输。</li>
+</ul>
+</li>
+<li><strong>UDP</strong>：<ul>
+<li>UDP是一个无连接的协议，它提供不可靠的、面向报文的服务。</li>
+<li>UDP在发送数据之前不需要建立连接，因此具有较低的延迟和较少的开销。</li>
+<li>UDP不保证数据包的顺序、完整性或可靠性，也不提供流量控制或拥塞控制。</li>
+<li>UDP是一个简单的协议，通常用于那些对实时性要求较高，但对数据可靠性要求不高的应用，如视频流、实时通信等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="可靠性和开销"><a href="#可靠性和开销" class="headerlink" title="可靠性和开销"></a>可靠性和开销</h3><ul>
+<li><strong>TCP</strong>：<ul>
+<li>TCP通过确认机制、重传机制、序列号机制等确保数据的可靠传输。</li>
+<li>由于需要建立连接、维护状态信息、进行流量控制和拥塞控制等，TCP的开销相对较大。</li>
+</ul>
+</li>
+<li><strong>UDP</strong>：<ul>
+<li>UDP不保证数据的可靠传输，因此开销较小。</li>
+<li>UDP适用于对实时性要求高，但对数据可靠性要求不高的场景。</li>
+</ul>
+</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li><strong>TCP</strong>：<ul>
+<li>文件传输（如FTP、HTTP文件下载等）</li>
+<li>电子邮件（SMTP）</li>
+<li>远程登录（Telnet）</li>
+<li>网页浏览（HTTP）</li>
+<li>大多数需要可靠数据传输的应用。</li>
+</ul>
+</li>
+<li><strong>UDP</strong>：<ul>
+<li>视频流（如RTSP、RTMP）</li>
+<li>实时通信（如VoIP、即时消息）</li>
+<li>网络游戏（因为需要低延迟）</li>
+<li>DNS查询（虽然DNS也使用TCP，但UDP是主要的传输方式）</li>
+<li>某些对实时性要求高，但对数据可靠性要求不高的应用。</li>
+</ul>
+</li>
+</ul>
+<p>综上所述，TCP和UDP各有优缺点，适用于不同的应用场景。在选择使用哪个协议时，需要根据具体的应用需求和网络环境进行权衡。</p>
+<h2 id="3、Netty的粘包-拆包是怎么处理的，有哪些实现？"><a href="#3、Netty的粘包-拆包是怎么处理的，有哪些实现？" class="headerlink" title="3、Netty的粘包&#x2F;拆包是怎么处理的，有哪些实现？"></a>3、Netty的粘包&#x2F;拆包是怎么处理的，有哪些实现？</h2><p>Netty 半包粘包通常是指在网络传输中，TCP 数据流被拆分成多个包传输，导致接收方无法正确解析数据。这通常发生在数据量大于TCP缓冲区的情况下。</p>
+<p>为了解决半包粘包的问题，Netty 提供了多种解码器来帮助正确地拆分和组合数据。</p>
+<p>一种常用的解决方案是使用<code>LineBasedFrameDecoder</code>，它可以基于换行符(\n)来拆分数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在pipeline中添加LineBasedFrameDecoder</span></span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">LineBasedFrameDecoder</span>(<span class="number">1024</span>));</span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">StringDecoder</span>(CharsetUtil.UTF_8));</span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">YourBusinessLogicHandler</span>());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果使用的是定长消息，可以使用<code>FixedLengthFrameDecoder</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设消息长度固定为10字节</span></span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">FixedLengthFrameDecoder</span>(<span class="number">10</span>));</span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">StringDecoder</span>(CharsetUtil.UTF_8));</span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">YourBusinessLogicHandler</span>());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>对于变长消息，可以使用<code>LengthFieldBasedFrameDecoder</code>，这种方式通常在消息前增加长度字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 解码器构造函数参数说明：</span></span><br><span class="line"><span class="comment">// 1. 最大帧长度</span></span><br><span class="line"><span class="comment">// 2. 长度字段的偏移量</span></span><br><span class="line"><span class="comment">// 3. 长度字段的长度</span></span><br><span class="line"><span class="comment">// 4. 长度调整值（一般为0）</span></span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">LengthFieldBasedFrameDecoder</span>(<span class="number">1024</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">pipeline.addLast(<span class="keyword">new</span> <span class="title class_">YourBusinessLogicHandler</span>());</span><br></pre></td></tr></table></figure>
+
+<p>以上解码器可以帮助你处理半包粘包问题，确保数据的完整性和准确性。在编写自定义的解码器时，需要注意解码器的顺序和如何处理TCP缓冲区溢出的数据。</p>
+<h2 id="4、-Netty-高性能表现在哪些方面？"><a href="#4、-Netty-高性能表现在哪些方面？" class="headerlink" title="4、 Netty 高性能表现在哪些方面？"></a>4、 Netty 高性能表现在哪些方面？</h2><ul>
+<li>IO 线程模型：通过多线程Reactor反应器模式，在应用层实现异步非阻塞（异步事件驱动）架构，用最少的资源做更多的事。</li>
+<li>内存零拷贝：尽量减少不必要的内存拷贝，实现了更高效率的传输。</li>
+<li>内存池设计：申请的内存可以重用，主要指直接内存。内部实现是用一颗二叉查找树管理内存分配情况。 </li>
+<li>对象池设计：Java对象可以重用，主要指Minior GC非常频繁的对象，如ByteBuffer。并且，<strong>对象池使用无锁架构</strong>，性能非常高。 </li>
+<li>mpsc无锁编程：串形化处理读写, 避免使用锁带来的性能开销。</li>
+<li>高性能序列化协议：支持 protobuf 等高性能序列化协议。</li>
+</ul>
+<h2 id="5、-详细说一下-Netty-高性能表现在哪些方面？"><a href="#5、-详细说一下-Netty-高性能表现在哪些方面？" class="headerlink" title="5、 详细说一下 Netty 高性能表现在哪些方面？"></a>5、 详细说一下 Netty 高性能表现在哪些方面？</h2><p>Netty 作为一个高性能的网络应用框架，其高性能体现在多个方面，包括 I&#x2F;O 模型的优化、内存管理、线程模型、以及对协议的支持等。以下是 Netty 高性能的具体表现：</p>
+<h3 id="1-异步非阻塞-I-O-模型"><a href="#1-异步非阻塞-I-O-模型" class="headerlink" title="1. 异步非阻塞 I&#x2F;O 模型"></a>1. <strong>异步非阻塞 I&#x2F;O 模型</strong></h3><ul>
+<li><strong>NIO 基础</strong>：Netty 基于 Java 的 NIO（非阻塞 I&#x2F;O）框架，使用了异步非阻塞的网络通信模型，这使得单个线程能够同时处理多个连接。相比传统的 BIO（阻塞 I&#x2F;O），Netty 可以更高效地处理大量并发请求，减少了线程资源的占用。</li>
+<li><strong>多路复用</strong>：通过 <code>Selector</code> 和 <code>Reactor</code> 模式，Netty 可以在一个线程中同时监控多个通道（<code>Channel</code>），从而提高了 I&#x2F;O 操作的吞吐量。这种多路复用机制避免了为每个连接创建线程的高开销。</li>
+<li><strong>高效的 I&#x2F;O 事件处理</strong>：Netty 采用事件驱动的模型，通过 <code>ChannelPipeline</code> 机制将不同的 I&#x2F;O 事件和业务处理逻辑分开，使得事件可以被高效分发和处理。</li>
+</ul>
+<h3 id="2-零拷贝（Zero-Copy）技术"><a href="#2-零拷贝（Zero-Copy）技术" class="headerlink" title="2. 零拷贝（Zero-Copy）技术"></a>2. <strong>零拷贝（Zero-Copy）技术</strong></h3><ul>
+<li><strong>减少数据复制</strong>：Netty 内部采用了零拷贝技术，使数据在用户态和内核态之间的传输不再需要多次复制。通过 <code>FileChannel.transferTo()</code> 和 <code>Direct ByteBuffer</code>，数据可以直接从内核态传输到目标通道，极大减少了内存的消耗和数据处理时间。</li>
+<li><strong>优化文件传输性能</strong>：在大文件的传输中，Netty 通过零拷贝技术避免了不必要的中间内存拷贝操作，大大提升了文件 I&#x2F;O 性能，特别是在需要高吞吐量的应用场景中（如文件服务器或大数据传输）。</li>
+</ul>
+<h3 id="3-高效的内存管理机制"><a href="#3-高效的内存管理机制" class="headerlink" title="3. 高效的内存管理机制"></a>3. <strong>高效的内存管理机制</strong></h3><ul>
+<li><strong>内存池（Memory Pooling）</strong>：Netty 提供了 <code>ByteBuf</code> 内存池，内存池通过预分配内存块并重复使用，避免频繁的内存分配和回收。这样不仅降低了 GC 的压力，还减少了内存碎片的产生，显著提升了内存管理的效率。</li>
+<li><strong><code>ByteBuf</code> 的优化</strong>：Netty 的 <code>ByteBuf</code> 比 Java 原生的 <code>ByteBuffer</code> 更加灵活和高效。<code>ByteBuf</code> 提供了动态扩展、读写分离等特性，提升了数据读写操作的效率。此外，<code>ByteBuf</code> 支持池化管理，进一步提升了内存分配效率。</li>
+</ul>
+<h3 id="4-灵活高效的线程模型"><a href="#4-灵活高效的线程模型" class="headerlink" title="4. 灵活高效的线程模型"></a>4. <strong>灵活高效的线程模型</strong></h3><ul>
+<li><strong>可扩展的线程模型</strong>：Netty 提供了灵活的线程模型选择，包括单线程模型、多线程模型和主从多线程模型。开发者可以根据实际需求选择合适的线程模型，从而优化系统的并发处理能力。</li>
+<li><strong><code>EventLoop</code> 机制</strong>：Netty 的 <code>EventLoop</code> 是处理 I&#x2F;O 操作的核心，它通过事件循环机制负责处理所有网络事件和任务调度。一个 <code>EventLoop</code> 可以管理多个 <code>Channel</code>，每个 <code>Channel</code> 的 I&#x2F;O 操作都由 <code>EventLoop</code> 管理，从而实现高效的事件处理。</li>
+<li><strong>异步任务执行</strong>：Netty 允许异步执行定时任务和普通任务，不仅能处理 I&#x2F;O 事件，还能处理业务逻辑任务，提升了系统的响应能力和并发处理能力。</li>
+</ul>
+<h3 id="5-支持多种传输协议"><a href="#5-支持多种传输协议" class="headerlink" title="5. 支持多种传输协议"></a>5. <strong>支持多种传输协议</strong></h3><ul>
+<li><strong>丰富的协议支持</strong>：Netty 支持多种传输协议，如 TCP、UDP、HTTP、WebSocket、SSL&#x2F;TLS 等。由于这些协议都是高度优化的实现，Netty 在处理不同协议时都能保持高性能，尤其在 TCP 长连接和 WebSocket 等高并发场景下表现突出。</li>
+<li><strong>自定义协议处理</strong>：Netty 提供了方便的 <code>ChannelHandler</code> 接口，允许开发者自定义协议解析和处理。开发者可以通过扩展 Netty 的框架来处理定制的高效协议。</li>
+</ul>
+<h3 id="6-高效的消息处理机制"><a href="#6-高效的消息处理机制" class="headerlink" title="6. 高效的消息处理机制"></a>6. <strong>高效的消息处理机制</strong></h3><ul>
+<li><strong>流水线机制（Pipeline）</strong>：Netty 的 <code>ChannelPipeline</code> 提供了责任链模式的处理结构，消息可以通过多个 <code>ChannelHandler</code> 按顺序处理。这样可以将复杂的消息处理过程拆分为多个简单的步骤，减少了耦合度，并且可以方便地进行并行处理，提升性能。</li>
+<li><strong>粘包与拆包处理</strong>：在网络编程中，粘包和拆包是常见的问题。Netty 提供了多种编解码器，如 <code>LengthFieldBasedFrameDecoder</code>，可以高效地处理数据流中的粘包、拆包问题，确保消息处理的完整性和高效性。</li>
+</ul>
+<h3 id="7-支持异步连接与重连"><a href="#7-支持异步连接与重连" class="headerlink" title="7. 支持异步连接与重连"></a>7. <strong>支持异步连接与重连</strong></h3><ul>
+<li><strong>异步连接管理</strong>：Netty 的异步连接处理机制使得客户端或服务器端在发起连接或接受连接时不会阻塞，可以并行处理多个连接，从而提高连接的建立速度和处理能力。</li>
+<li><strong>断线重连</strong>：Netty 提供了对断线重连的支持，应用可以在连接断开时自动重新连接，确保服务的可用性和稳定性，特别适合长连接的应用场景。</li>
+</ul>
+<h3 id="8-高度可定制和扩展性"><a href="#8-高度可定制和扩展性" class="headerlink" title="8. 高度可定制和扩展性"></a>8. <strong>高度可定制和扩展性</strong></h3><ul>
+<li><strong>模块化设计</strong>：Netty 的设计高度模块化，开发者可以根据具体的业务需求选择不同的组件来实现定制化的网络应用。这种设计使得系统可以更灵活地扩展，减少了不必要的性能开销。</li>
+<li><strong>高可扩展性</strong>：Netty 能够通过优化线程池和 <code>Channel</code> 数量来横向扩展，适应从单节点到多节点集群的架构，保证在大规模分布式系统中依然能保持高性能。</li>
+</ul>
+<h3 id="9-低延迟"><a href="#9-低延迟" class="headerlink" title="9. 低延迟"></a>9. <strong>低延迟</strong></h3><ul>
+<li><strong>快速响应</strong>：Netty 通过异步 I&#x2F;O、事件驱动机制和零拷贝技术大幅降低了请求处理的延迟，能够在高并发场景下快速响应网络事件。</li>
+<li><strong>可预测的性能</strong>：在极限负载下，Netty 依然能够保持较为稳定和可预测的性能表现，这使其特别适用于对延迟敏感的系统，比如金融交易、在线游戏等。</li>
+</ul>
+<h3 id="10-跨平台支持"><a href="#10-跨平台支持" class="headerlink" title="10. 跨平台支持"></a>10. <strong>跨平台支持</strong></h3><ul>
+<li><strong>操作系统级别优化</strong>：Netty 针对不同的操作系统（如 Windows、Linux）进行了特定的优化，充分利用操作系统提供的高效 I&#x2F;O 能力（如 Linux 下的 <code>epoll</code>），从而提升了性能。</li>
+<li><strong>跨平台兼容性</strong>：Netty 的跨平台特性使得它能够在不同的操作系统上保持一致的高性能表现，适合大规模分布式系统的部署。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>Netty 的高性能主要体现在其异步非阻塞 I&#x2F;O 模型、零拷贝技术、内存池管理、高效的线程模型、以及灵活的协议支持等方面。这些特性使得 Netty 能够在处理大量并发连接和高吞吐量的数据传输时表现出色，特别适合高性能、低延迟的网络应用场景。</p>
+<h2 id="6、BIO、NIO和AIO的区别"><a href="#6、BIO、NIO和AIO的区别" class="headerlink" title="6、BIO、NIO和AIO的区别"></a>6、BIO、NIO和AIO的区别</h2><p>BIO、NIO 和 AIO 是 Java 中三种不同的 I&#x2F;O 模型，适用于不同的网络编程需求和场景。它们的主要区别体现在数据处理方式、线程模型、以及性能和应用场景上。</p>
+<h3 id="1-BIO（Blocking-I-O，阻塞式-I-O）"><a href="#1-BIO（Blocking-I-O，阻塞式-I-O）" class="headerlink" title="1. BIO（Blocking I&#x2F;O，阻塞式 I&#x2F;O）"></a>1. <strong>BIO（Blocking I&#x2F;O，阻塞式 I&#x2F;O）</strong></h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h4><ul>
+<li><strong>同步阻塞</strong>：在 BIO 模型中，I&#x2F;O 操作（如读取或写入）会阻塞当前线程，直到操作完成。一个线程只能处理一个连接，如果有多个连接需要处理，通常会为每个连接分配一个独立的线程。</li>
+<li><strong>简单易用</strong>：BIO 编程模式较为简单，适合处理一些小规模、低并发的场景。每个线程负责处理单个客户端请求，I&#x2F;O 操作的执行过程是线性顺序的，代码比较容易编写和理解。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h4><ul>
+<li><strong>资源浪费</strong>：由于每个线程都需要独立处理一个 I&#x2F;O 操作，大量的连接会导致大量线程的创建和销毁，浪费系统资源。</li>
+<li><strong>低并发性能</strong>：在高并发环境下，BIO 模型效率低下，因为线程数量随着并发连接的增加而增加，线程上下文切换的开销会非常大。</li>
+</ul>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h4><ul>
+<li>适合小规模、低并发的应用，比如传统的阻塞式服务器应用。</li>
+<li>简单的客户端&#x2F;服务器模型，只有少数用户需要连接时。</li>
+</ul>
+<h3 id="2-NIO（Non-blocking-I-O，非阻塞-I-O）"><a href="#2-NIO（Non-blocking-I-O，非阻塞-I-O）" class="headerlink" title="2. NIO（Non-blocking I&#x2F;O，非阻塞 I&#x2F;O）"></a>2. <strong>NIO（Non-blocking I&#x2F;O，非阻塞 I&#x2F;O）</strong></h3><h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a><strong>特点</strong></h4><ul>
+<li><strong>同步非阻塞</strong>：NIO 引入了非阻塞 I&#x2F;O 操作，通道（<code>Channel</code>）可以在不阻塞线程的情况下执行读写操作。如果数据还没有准备好，线程不会被阻塞，而是会立即返回，这使得一个线程可以处理多个连接。</li>
+<li><strong>多路复用（Selector 模型）</strong>：NIO 通过 <code>Selector</code> 进行多路复用，一个 <code>Selector</code> 可以监控多个通道的事件（如连接、读、写），从而让少量的线程处理大量的并发连接。</li>
+<li><strong>缓冲区（Buffer）</strong>：NIO 使用 <code>Buffer</code> 来处理数据的读写，数据是以块的方式进行传输，而不是像 BIO 那样逐字节操作。</li>
+</ul>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h4><ul>
+<li><strong>高并发性能</strong>：通过非阻塞和 <code>Selector</code> 机制，一个线程可以处理多个客户端连接，极大地提升了系统的并发处理能力。</li>
+<li><strong>资源节省</strong>：NIO 不需要为每个连接创建一个独立的线程，可以减少系统的线程资源占用，避免线程上下文切换的开销。</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a><strong>缺点</strong></h4><ul>
+<li><strong>编程复杂度高</strong>：NIO 编程模型相比 BIO 更复杂，开发者需要处理异步操作、事件驱动和缓冲区管理等问题。</li>
+<li><strong>非阻塞I&#x2F;O问题</strong>：虽然NIO提供了非阻塞的I&#x2F;O操作，但如果处理不当，可能导致轮询过多的事件，影响性能。</li>
+</ul>
+<h4 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h4><ul>
+<li>高并发场景，例如即时通讯系统、大规模服务器、消息中间件等。</li>
+<li>长连接、大量客户端并发连接的应用程序，如聊天室、游戏服务器。</li>
+</ul>
+<h3 id="3-AIO（Asynchronous-I-O，异步非阻塞-I-O）"><a href="#3-AIO（Asynchronous-I-O，异步非阻塞-I-O）" class="headerlink" title="3. AIO（Asynchronous I&#x2F;O，异步非阻塞 I&#x2F;O）"></a>3. <strong>AIO（Asynchronous I&#x2F;O，异步非阻塞 I&#x2F;O）</strong></h3><h4 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a><strong>特点</strong></h4><ul>
+<li><strong>异步非阻塞</strong>：AIO 是 Java 7 引入的异步 I&#x2F;O 模型，它在 I&#x2F;O 操作上不仅是非阻塞的，而且是完全异步的。也就是说，当线程发起一个 I&#x2F;O 操作后，可以立即返回，系统会在操作完成后通过回调机制通知线程处理结果。</li>
+<li><strong>回调机制</strong>：AIO 使用回调函数来处理 I&#x2F;O 事件。当某个 I&#x2F;O 操作完成时，操作系统会自动触发相应的回调函数，线程不需要手动去检查操作是否完成。</li>
+</ul>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h4><ul>
+<li><strong>高效的并发处理</strong>：AIO 在处理大量连接时，能够充分利用操作系统的异步能力，避免了线程阻塞和频繁的轮询操作，具有非常高的并发处理能力。</li>
+<li><strong>资源使用更少</strong>：由于所有 I&#x2F;O 操作都是异步执行，AIO 模型的线程资源消耗非常小，适合超高并发环境下的应用。</li>
+</ul>
+<h4 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a><strong>缺点</strong></h4><ul>
+<li><strong>操作系统依赖</strong>：AIO 的底层依赖操作系统的支持，不同的操作系统对异步 I&#x2F;O 支持程度不同，这导致在某些平台上 AIO 的性能可能无法达到预期。</li>
+<li><strong>编程复杂度高</strong>：与 BIO 和 NIO 相比，AIO 的编程模型更加复杂，开发者需要处理回调和异步流程，管理复杂性较高。</li>
+</ul>
+<h4 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h4><ul>
+<li>超高并发场景，尤其是需要处理大量连接且对性能要求极高的应用，例如高频交易系统、大规模分布式系统。</li>
+<li>长时间的 I&#x2F;O 操作，例如大型文件传输、大型数据库操作等。</li>
+</ul>
+<h3 id="BIO、NIO-和-AIO-的比较总结"><a href="#BIO、NIO-和-AIO-的比较总结" class="headerlink" title="BIO、NIO 和 AIO 的比较总结"></a><strong>BIO、NIO 和 AIO 的比较总结</strong></h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>BIO</th>
+<th>NIO</th>
+<th>AIO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I&#x2F;O 模型</td>
+<td>同步阻塞</td>
+<td>同步非阻塞</td>
+<td>异步非阻塞</td>
+</tr>
+<tr>
+<td>并发处理能力</td>
+<td>低</td>
+<td>高</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>线程模型</td>
+<td>每个连接一个线程</td>
+<td>单线程处理多个连接</td>
+<td>少量线程处理大量连接</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>低</td>
+<td>高</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>编程复杂度</td>
+<td>低</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>低并发、小规模应用</td>
+<td>高并发、I&#x2F;O密集型应用</td>
+<td>超高并发、I&#x2F;O密集型和长时操作</td>
+</tr>
+<tr>
+<td>系统资源消耗</td>
+<td>高</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>依赖平台支持</td>
+<td>低</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<h3 id="选择-I-O-模型的依据"><a href="#选择-I-O-模型的依据" class="headerlink" title="选择 I&#x2F;O 模型的依据"></a><strong>选择 I&#x2F;O 模型的依据</strong></h3><ul>
+<li>如果你的应用是简单的、低并发的，并且开发时间紧张，可以选择 <strong>BIO</strong>，因为它的实现简单，适合小型系统。</li>
+<li>如果你的应用需要高并发处理能力，特别是在处理大量连接时，可以选择 <strong>NIO</strong>，它在性能和资源使用上比 BIO 更加出色，适合高并发场景。</li>
+<li>如果你的应用需要极高的并发处理能力，并且操作系统对异步 I&#x2F;O 的支持比较好，那么可以选择 <strong>AIO</strong>，尤其适合处理长时间的 I&#x2F;O 操作和超高并发场景。</li>
+</ul>
+<p><strong>BIO:</strong> 同步并阻塞 ，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然可以通过线程池机制改善。BIO方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4以前的唯一选择，但程序直观简单易理解。</p>
+<p><strong>NIO:</strong> 同步非阻塞 ，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有I&#x2F;O请求时才启动一个线程进行处理。NIO方式适用于连接数目多且连接比较短（轻操作）的架构，比如聊天服务器，并发局限于应用中，编程比较复杂，JDK1.4开始支持。</p>
+<p><strong>AIO:</strong> 异步非阻塞 ，服务器实现模式为一个有效请求一个线程，客户端的I&#x2F;O请求都是由OS先完成了再通知服务器应用去启动线程进行处理.AIO方式使用于连接数目多且连接比较长（重操作）的架构，比如相册服务器，充分调用OS参与并发操作，编程比较复杂，JDK7开始支持。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/')">Netty 常见面试题</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Netty 常见面试题&amp;url=https://tushu.info/archives/Netty-chang-jian-mian-shi-ti/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/netty/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>netty<span class="tagsPageCount">4</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Netty-chang-jian-mian-shi-wen-ti-2/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Netty常见面试问题2</div></div></a></div><div class="next-post pull-right"><a href="/archives/2025-Mac-dian-nao-Jdk-Maven-Idea-de-an/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2025 Mac电脑Jdk,Maven,Idea的安装与配置,Spring boot项目创建</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/archives/Netty-chang-jian-mian-shi-wen-ti-2/" title="Netty常见面试问题2"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">Netty常见面试问题2</div></div></a></div><div><a href="/archives/Netty-you-na-xie-nei-cun-guan-li-zu/" title="Netty有那些内存管理组件可以替换"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">Netty有那些内存管理组件可以替换</div></div></a></div><div><a href="/archives/zen-me-shi-yong-Netty-shi-xian-yi-ge/" title="怎么使用Netty实现一个Tomcat"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">怎么使用Netty实现一个Tomcat</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81TCP%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.1.</span> <span class="toc-text">1、TCP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-TCP%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. TCP特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. TCP报文格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%BB%BA%E7%AB%8B%E4%B8%8E%E7%BB%88%E6%AD%A2"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. TCP连接的建立与终止</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%88%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%EF%BC%89"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">a. 三次握手（连接建立）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%88%E8%BF%9E%E6%8E%A5%E7%BB%88%E6%AD%A2%EF%BC%89"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">b. 四次挥手（连接终止）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. TCP可靠性机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E5%BA%8F%E5%88%97%E5%8F%B7%E5%92%8C%E7%A1%AE%E8%AE%A4%E5%BA%94%E7%AD%94"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">a. 序列号和确认应答</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">b. 重传机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">c. 滑动窗口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. TCP流量控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.6.</span> <span class="toc-text">6. TCP拥塞控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.7.</span> <span class="toc-text">7. 常见应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.8.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81TCP%E3%80%81UDP%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">2、TCP、UDP的区别？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E7%9B%AE%E7%9A%84%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">设计目的和工作方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%92%8C%E5%BC%80%E9%94%80"><span class="toc-number">1.2.2.</span> <span class="toc-text">可靠性和开销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.3.</span> <span class="toc-text">应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81Netty%E7%9A%84%E7%B2%98%E5%8C%85-%E6%8B%86%E5%8C%85%E6%98%AF%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E7%9A%84%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">3、Netty的粘包&#x2F;拆包是怎么处理的，有哪些实现？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81-Netty-%E9%AB%98%E6%80%A7%E8%83%BD%E8%A1%A8%E7%8E%B0%E5%9C%A8%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">4、 Netty 高性能表现在哪些方面？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81-%E8%AF%A6%E7%BB%86%E8%AF%B4%E4%B8%80%E4%B8%8B-Netty-%E9%AB%98%E6%80%A7%E8%83%BD%E8%A1%A8%E7%8E%B0%E5%9C%A8%E5%93%AA%E4%BA%9B%E6%96%B9%E9%9D%A2%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">5、 详细说一下 Netty 高性能表现在哪些方面？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BC%82%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E-I-O-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 异步非阻塞 I&#x2F;O 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9B%B6%E6%8B%B7%E8%B4%9D%EF%BC%88Zero-Copy%EF%BC%89%E6%8A%80%E6%9C%AF"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 零拷贝（Zero-Copy）技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AB%98%E6%95%88%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 高效的内存管理机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%81%B5%E6%B4%BB%E9%AB%98%E6%95%88%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.4.</span> <span class="toc-text">4. 灵活高效的线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%94%AF%E6%8C%81%E5%A4%9A%E7%A7%8D%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.5.5.</span> <span class="toc-text">5. 支持多种传输协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%AB%98%E6%95%88%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.5.6.</span> <span class="toc-text">6. 高效的消息处理机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%94%AF%E6%8C%81%E5%BC%82%E6%AD%A5%E8%BF%9E%E6%8E%A5%E4%B8%8E%E9%87%8D%E8%BF%9E"><span class="toc-number">1.5.7.</span> <span class="toc-text">7. 支持异步连接与重连</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E9%AB%98%E5%BA%A6%E5%8F%AF%E5%AE%9A%E5%88%B6%E5%92%8C%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">1.5.8.</span> <span class="toc-text">8. 高度可定制和扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E4%BD%8E%E5%BB%B6%E8%BF%9F"><span class="toc-number">1.5.9.</span> <span class="toc-text">9. 低延迟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%94%AF%E6%8C%81"><span class="toc-number">1.5.10.</span> <span class="toc-text">10. 跨平台支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">1.5.11.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81BIO%E3%80%81NIO%E5%92%8CAIO%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.6.</span> <span class="toc-text">6、BIO、NIO和AIO的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-BIO%EF%BC%88Blocking-I-O%EF%BC%8C%E9%98%BB%E5%A1%9E%E5%BC%8F-I-O%EF%BC%89"><span class="toc-number">1.6.1.</span> <span class="toc-text">1. BIO（Blocking I&#x2F;O，阻塞式 I&#x2F;O）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.6.1.3.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-NIO%EF%BC%88Non-blocking-I-O%EF%BC%8C%E9%9D%9E%E9%98%BB%E5%A1%9E-I-O%EF%BC%89"><span class="toc-number">1.6.2.</span> <span class="toc-text">2. NIO（Non-blocking I&#x2F;O，非阻塞 I&#x2F;O）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-1"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-number">1.6.2.3.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-number">1.6.2.4.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-AIO%EF%BC%88Asynchronous-I-O%EF%BC%8C%E5%BC%82%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9E-I-O%EF%BC%89"><span class="toc-number">1.6.3.</span> <span class="toc-text">3. AIO（Asynchronous I&#x2F;O，异步非阻塞 I&#x2F;O）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9-2"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-number">1.6.3.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-number">1.6.3.3.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-number">1.6.3.4.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BIO%E3%80%81NIO-%E5%92%8C-AIO-%E7%9A%84%E6%AF%94%E8%BE%83%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.4.</span> <span class="toc-text">BIO、NIO 和 AIO 的比较总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9-I-O-%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BE%9D%E6%8D%AE"><span class="toc-number">1.6.5.</span> <span class="toc-text">选择 I&#x2F;O 模型的依据</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

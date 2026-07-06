@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Java高级面试指南 - 多线程 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Java高级面试指南 - 多线程"><meta name="application-name" content="Java高级面试指南 - 多线程"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Java高级面试指南 - 多线程"><meta property="og:url" content="https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="第一个问题：请解释一下 Java 中线程的生命周期有哪些阶段？Java 中线程的生命周期可分为以下几个明确的阶段：一、新建状态（New）：当通过 new Thread() 等方式创建一个线程对象时，线程处于新建状态。此时线程仅仅是在 JVM 中被分配了内存空间，还未真正启动执行。 二、就绪状态（Ru"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg"><meta name="description" content="第一个问题：请解释一下 Java 中线程的生命周期有哪些阶段？Java 中线程的生命周期可分为以下几个明确的阶段：一、新建状态（New）：当通过 new Thread() 等方式创建一个线程对象时，线程处于新建状态。此时线程仅仅是在 JVM 中被分配了内存空间，还未真正启动执行。 二、就绪状态（Ru"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Java高级面试指南 - 多线程',
+  postAI: '',
+  pageFillDescription: '第一个问题请解释一下中线程的生命周期有哪些阶段中线程的生命周期可分为以下几个明确的阶段一新建状态当通过等方式创建一个线程对象时线程处于新建状态此时线程仅仅是在中被分配了内存空间还未真正启动执行二就绪状态当调用线程对象的方法后线程进入就绪状态处于就绪状态的线程已经具备了运行的条件正在等待调度器分配时间片来执行在这个状态下线程随时可能被选中并开始执行三运行状态当调度器将时间片分配给一个就绪状态的线程时该线程进入运行状态开始执行其方法中的代码在运行状态下线程会一直执行直到被以下情况中断线程主动让出时间片比如调用了方法线程因等待资源而进入阻塞或等待状态线程执行完毕四阻塞状态当线程在运行过程中试图获取一个被其他线程持有的锁时或者等待其他线程的特定操作完成时会进入阻塞状态例如当一个线程调用了方法或代码块而其他线程已经持有了该锁当前线程就会进入阻塞状态等待锁的释放五等待状态当线程调用了对象的方法时会进入等待状态处于等待状态的线程会一直等待直到其他线程调用该对象的或方法来唤醒它这种状态通常用于线程之间的协作六计时等待状态当线程调用了带超时时间参数的方法如等会进入计时等待状态在这种状态下线程会等待一段时间如果在超时时间到达之前被唤醒或者等待的条件满足线程会退出计时等待状态如果超时时间到达仍未被唤醒线程也会自动退出计时等待状态七终止状态当线程的方法执行完毕或者因异常而退出时线程进入终止状态一旦线程进入终止状态就不能再重新启动综上所述线程的生命周期是一个复杂但有规律可循的过程理解这些状态对于编写高效可靠的多线程程序至关重要优点非常全面且准确地阐述了线程生命周期的各个阶段每个阶段都有详细的解释和说明语言表达清晰专业逻辑严谨举例恰当有助于更好地理解各个状态打分原因回答全面深入准确语言表达优秀举例恰当故可以给到分第二个问题在中如何实现线程之间的通信在中实现线程之间通信主要有以下几种方式一使用共享变量结合方法首先创建一个共享对象多个线程可以访问这个对象当一个线程需要等待某个条件满足时它可以在同步代码块中调用共享对象的方法进入等待状态另一个线程在满足特定条件后可以在同步代码块中调用共享对象的或方法来唤醒等待的线程例如假设有一个生产者消费者问题生产者线程生产数据并存入共享缓冲区当缓冲区已满时生产者线程调用方法等待消费者线程取走数据消费者线程从缓冲区取出数据当缓冲区为空时消费者线程调用方法等待生产者线程生产数据当生产者生产了数据后调用方法通知等待的消费者线程当消费者取走数据后调用方法通知等待的生产者线程使用这种方式需要注意以下几点和方法必须在同步代码块中调用且调用者必须持有共享对象的锁避免出现虚假唤醒的情况通常在方法的循环条件中再次判断等待的条件是否满足二使用管道流和的管道流可以实现两个线程之间的数据传输可以创建一对管道输入流和输出流一个线程向输出流写入数据另一个线程从输入流读取数据例如一个线程作为发送方将数据写入另一个线程作为接收方从读取数据这种方式适用于需要在两个线程之间直接传输数据的场景三使用阻塞队列提供了多种阻塞队列实现如等一个线程可以向阻塞队列中添加元素另一个线程从队列中取出元素当队列为空时取元素的线程会被阻塞直到有元素被添加当队列已满时添加元素的线程会被阻塞直到有元素被取出这种方式非常方便不需要手动处理线程的等待和唤醒并且可以有效地控制线程之间的生产和消费速度综上所述根据不同的应用场景可以选择合适的方式来实现线程之间的通信以确保多线程程序的正确运行和高效性优点全面详细地阐述了三种实现线程通信的方式包括具体的使用方法示例以及注意事项语言表达清晰专业逻辑严谨打分原因回答非常全面深入准确对每种方式都进行了详细的解释和说明并且给出了注意事项语言表达优秀故可以给到分第三个问题请解释一下中线程的同步机制有哪些在中线程的同步机制主要有以下几种一关键字用于方法声明时称为同步方法被修饰的方法在同一时刻只能被一个线程访问确保了方法内代码执行的原子性和可见性例如一个银行账户类的取款方法如果被修饰那么在一个线程执行取款操作时其他线程不能同时进入这个方法避免了出现数据不一致的情况用于代码块时称为同步代码块通过指定一个对象作为锁只有获得这个对象锁的线程才能进入同步代码块执行代码这种方式更加灵活可以根据具体需求选择不同的锁对象减少锁的粒度提高并发性能二类它是引入的一种更加灵活的同步机制与相比它具有以下优点支持尝试获取锁可中断地获取锁等高级功能例如在一个可能被中断的场景中可以使用方法当线程在等待锁的过程中被其他线程中断时会抛出异常从而可以优雅地处理中断可以实现公平锁和非公平锁公平锁会按照线程请求锁的顺序来分配锁保证等待时间最长的线程优先获得锁非公平锁则不保证这种顺序可能会导致某些线程等待时间较长但在高并发情况下能提供更好的性能三原子类等提供了一系列原子类用于在多线程环境下对基本数据类型进行原子操作例如类提供了原子性的自增自减等方法无需使用传统的同步机制就能保证操作的原子性这些原子类通过底层的硬件指令如操作来实现原子性比使用锁的方式更加高效四关键字关键字主要用于保证变量的可见性和禁止指令重排序当一个变量被声明为时编译器和处理器会确保对这个变量的读写操作不会被优化并且对该变量的修改会立即被其他线程看到例如在一个多线程环境下一个标志变量用于控制线程的执行状态如果不使用关键字可能会出现线程之间无法及时看到变量变化的情况综上所述提供了多种强大的线程同步机制开发人员可以根据具体的应用场景选择合适的同步方式以确保多线程程序的正确性和性能优点非常全面地阐述了中四种主要的线程同步机制包括关键字类原子类和关键字对每种同步机制都进行了详细的解释包括使用方法优点和适用场景语言表达清晰专业逻辑严谨打分原因回答全面深入准确对每种同步机制都进行了详细的阐述和分析语言表达优秀故可以给到分第四个问题在多线程环境下如何避免死锁的发生在多线程环境下可通过以下几种方式有效避免死锁的发生一避免资源竞争精心设计程序架构尽可能减少不同线程对同一资源的同时访问需求例如对于数据的处理可以采用分批次分时间段的方式进行避免多个线程在同一时刻争抢同一数据资源考虑使用无锁的数据结构和算法比如中的原子操作类如等可以在不使用锁的情况下实现对基本数据类型和引用类型的原子性操作并发容器如等也能在多线程环境下高效地进行数据存储和访问减少对传统同步机制的依赖从而降低资源竞争的可能性二资源顺序竞争确定一个全局的资源获取顺序如果多个线程需要获取多个不同的资源确保所有线程都按照相同的顺序去请求这些资源例如假设有资源和规定所有线程必须先获取再获取最后获取这样可以避免形成循环等待的情况从而防止死锁可以通过创建一个资源分配器类来管理资源的分配顺序确保线程按照规定的顺序获取资源在代码中明确指定资源获取的顺序当线程需要获取多个资源时在代码中显式地按照固定的顺序去请求资源例如使用块时确保对资源的锁定顺序一致如果可能的话可以将资源的获取封装在一个方法中以保证所有线程都以相同的方式获取资源三超时机制在获取资源时设置超时时间当一个线程尝试获取资源时如果在规定的时间内无法成功获取到资源就放弃并释放已经获取的资源然后稍后再尝试这样可以避免一个线程无限期地等待资源而导致死锁例如使用的类时可以调用方法来尝试在指定的时间内获取锁如果超时时间到达仍未获取到锁就返回线程可以进行其他操作或者稍后再尝试获取锁定期检查线程的状态如果一个线程在获取资源时超时可能需要进行一些额外的处理如记录日志通知管理员或者采取其他恢复措施同时可以设置一个监控线程定期检查所有线程的状态及时发现并处理可能出现的死锁情况四死锁检测和恢复定期检测系统中是否存在死锁可以通过构建资源分配图或者使用专门的死锁检测算法来判断是否存在循环等待的情况如果检测到死锁可以采取一些恢复措施如终止一个或多个线程释放它们持有的资源以打破死锁状态在设计系统时考虑提供一种手动干预的方式以便在出现死锁时能够快速恢复例如可以提供一个管理界面允许管理员查看线程状态资源分配情况并手动终止特定的线程或释放资源综上所述通过综合运用这些方法可以在多线程环境下有效地避免死锁的发生确保程序的稳定运行和高效性优点全面且深入地阐述了四种避免死锁的方法包括避免资源竞争资源顺序竞争超时机制和死锁检测与恢复对每种方法都进行了详细的解释和说明包括具体的实现方式示例以及注意事项语言表达清晰专业逻辑严谨打分原因回答非常全面深入准确对每种避免死锁的方法都进行了详细的阐述和分析语言表达优秀故可以给到分第五个问题请举例说明在中如何使用线程池来提高性能在中使用线程池可以从多个方面显著提高性能一多线程执行任务提升效率对于大规模数据处理或复杂计算任务将其拆分为多个小任务分配给线程池中的不同线程同时执行例如在图像渲染场景中把一幅大图像分割成多个小区域每个线程负责渲染一个区域这样可以极大地缩短渲染时间因为多个线程可以充分利用多核处理器的优势并行地处理任务从而提高整体的处理速度在网络请求处理中当有大量并发请求时使用线程池可以快速响应每个请求线程池中的线程可以同时处理多个请求避免了单个请求的阻塞等待提高了系统的吞吐量二减少线程创建和销毁开销每次创建和销毁线程都需要消耗系统资源包括时间和内存空间而线程池中的线程是预先创建好的可以重复利用当一个任务完成后线程不会被立即销毁而是回到线程池中等待下一个任务这样就避免了频繁创建和销毁线程带来的开销提高了资源利用率例如在一个高并发的服务器中如果每次请求都创建一个新线程那么在大量请求同时到达时系统可能会因为创建过多线程而耗尽资源而使用线程池可以有效地管理线程的数量确保系统在高负载情况下也能稳定运行三合理设置线程池参数核心线程数根据任务的类型和系统的资源情况来设置核心线程数如果任务是密集型的即主要消耗资源进行计算那么核心线程数可以设置为与处理器核心数相等避免过多的线程竞争资源如果任务是密集型的即主要等待操作完成那么可以设置较多的核心线程数充分利用等待的时间来执行其他任务最大线程数考虑系统的负载情况和资源限制来设置最大线程数当任务队列已满且有新任务提交时线程池会创建新的线程直到达到最大线程数如果设置得过高可能会导致系统资源耗尽如果设置得过低可能无法充分利用系统的处理能力例如在一个数据库查询系统中可以根据数据库的连接数和系统的内存容量来合理设置最大线程数任务队列选择合适的任务队列类型和长度常见的任务队列有有界队列和无界队列有界队列可以防止任务过多导致内存溢出但如果队列已满可能需要采取合适的任务拒绝策略无界队列可以容纳无限多的任务但可能会导致系统内存耗尽根据任务的特点和系统的资源情况选择合适的任务队列类型并合理设置队列长度任务拒绝策略当线程池无法接受新任务时需要选择合适的任务拒绝策略常见的拒绝策略有丢弃最老的任务抛出异常由调用者线程执行任务等根据实际应用场景选择合适的拒绝策略以确保系统的稳定性和可靠性四监控和管理线程池使用监控工具实时监测线程池的运行状态包括当前活跃线程数已完成任务数排队任务数任务执行时间等指标通过监控可以及时发现线程池的性能瓶颈和问题并采取相应的措施进行优化定期对线程池进行性能调优根据系统的负载变化和任务特点调整线程池的参数例如在系统负载高峰期可以适当增加线程池的大小在负载较低时可以减少线程池的大小以节省系统资源综上所述通过合理地使用线程池并从多方面进行优化可以极大地提高应用程序的性能优点全面且深入地阐述了使用线程池提高性能的四个方面包括多线程执行任务减少线程创建销毁开销合理设置参数以及监控管理线程池对每个方面都进行了详细的解释和举例说明使回答更加具体和易于理解语言表达清晰专业逻辑严谨打分原因回答非常全面深入准确对使用线程池提高性能的各个方面都进行了详细的阐述和分析语言表达优秀故可以给到分',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-07-03 14:30:38',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" itemprop="url">面试指南</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">Java高级面试指南 - 多线程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:53.000Z" title="发表于 2024-10-31 22:01:53">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.314Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/"><header><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" itemprop="url">面试指南</a><h1 id="CrawlerTitle" itemprop="name headline">Java高级面试指南 - 多线程</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:53.000Z" title="发表于 2024-10-31 22:01:53">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.314Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></header><p><strong>第一个问题：请解释一下 Java 中线程的生命周期有哪些阶段？</strong><br>Java 中线程的生命周期可分为以下几个明确的阶段：<br><strong>一、新建状态（New）</strong>：当通过 new Thread() 等方式创建一个线程对象时，线程处于新建状态。此时线程仅仅是在 JVM 中被分配了内存空间，还未真正启动执行。</p>
+<p><strong>二、就绪状态（Runnable）</strong>：当调用线程对象的 start() 方法后，线程进入就绪状态。处于就绪状态的线程已经具备了运行的条件，正在等待 JVM 调度器分配 CPU 时间片来执行。在这个状态下，线程随时可能被选中并开始执行。</p>
+<p><strong>三、运行状态（Running）</strong>：当 JVM 调度器将 CPU 时间片分配给一个就绪状态的线程时，该线程进入运行状态，开始执行其 run() 方法中的代码。在运行状态下，线程会一直执行，直到被以下情况中断：</p>
+<ol>
+<li>线程主动让出 CPU 时间片，比如调用了 Thread.yield() 方法。</li>
+<li>线程因等待资源而进入阻塞或等待状态。</li>
+<li>线程执行完毕。</li>
+</ol>
+<p><strong>四、阻塞状态（Blocked）</strong>：当线程在运行过程中试图获取一个被其他线程持有的锁时，或者等待其他线程的特定操作完成时，会进入阻塞状态。例如，当一个线程调用了 synchronized 方法或代码块，而其他线程已经持有了该锁，当前线程就会进入阻塞状态等待锁的释放。</p>
+<p><strong>五、等待状态（Waiting）</strong>：当线程调用了对象的 wait() 方法时，会进入等待状态。处于等待状态的线程会一直等待，直到其他线程调用该对象的 notify() 或 notifyAll() 方法来唤醒它。这种状态通常用于线程之间的协作。</p>
+<p><strong>六、计时等待状态（Timed Waiting）</strong>：当线程调用了带超时时间参数的方法，如 Thread.sleep(long millis)、Object.wait(long timeout) 等，会进入计时等待状态。在这种状态下，线程会等待一段时间，如果在超时时间到达之前被唤醒，或者等待的条件满足，线程会退出计时等待状态；如果超时时间到达仍未被唤醒，线程也会自动退出计时等待状态。</p>
+<p><strong>七、终止状态（Terminated）</strong>：当线程的 run() 方法执行完毕，或者因异常而退出时，线程进入终止状态。一旦线程进入终止状态，就不能再重新启动。</p>
+<p>综上所述，Java 线程的生命周期是一个复杂但有规律可循的过程，理解这些状态对于编写高效、可靠的多线程程序至关重要。”</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>非常全面且准确地阐述了 Java 线程生命周期的各个阶段，每个阶段都有详细的解释和说明。</li>
+<li>语言表达清晰、专业，逻辑严谨。</li>
+<li>举例恰当，有助于更好地理解各个状态。</li>
+</ul>
+<p><strong>打分原因</strong>：回答全面、深入、准确，语言表达优秀，举例恰当，故可以给到 10 分。</p>
+<p><strong>第二个问题：在 Java 中，如何实现线程之间的通信？</strong><br>“在 Java 中，实现线程之间通信主要有以下几种方式：<br><separator></separator><br><strong>一、使用共享变量结合 wait&#x2F;notify 方法</strong>：<br>首先创建一个共享对象，多个线程可以访问这个对象。当一个线程需要等待某个条件满足时，它可以在同步代码块中调用共享对象的 wait 方法进入等待状态。另一个线程在满足特定条件后，可以在同步代码块中调用共享对象的 notify 或 notifyAll 方法来唤醒等待的线程。<br>例如，假设有一个生产者-消费者问题，生产者线程生产数据并存入共享缓冲区，当缓冲区已满时，生产者线程调用 wait 方法等待消费者线程取走数据。消费者线程从缓冲区取出数据，当缓冲区为空时，消费者线程调用 wait 方法等待生产者线程生产数据。当生产者生产了数据后，调用 notifyAll 方法通知等待的消费者线程；当消费者取走数据后，调用 notifyAll 方法通知等待的生产者线程。<br>使用这种方式需要注意以下几点：</p>
+<ol>
+<li>wait、notify 和 notifyAll 方法必须在同步代码块中调用，且调用者必须持有共享对象的锁。</li>
+<li>避免出现虚假唤醒的情况，通常在 wait 方法的循环条件中再次判断等待的条件是否满足。</li>
+</ol>
+<p><strong>二、使用管道流（PipedInputStream 和 PipedOutputStream）</strong>：<br>Java 的管道流可以实现两个线程之间的数据传输。可以创建一对管道输入流和输出流，一个线程向输出流写入数据，另一个线程从输入流读取数据。<br>例如，一个线程作为发送方，将数据写入 PipedOutputStream，另一个线程作为接收方，从 PipedInputStream 读取数据。这种方式适用于需要在两个线程之间直接传输数据的场景。</p>
+<p><strong>三、使用阻塞队列（BlockingQueue）</strong>：<br>Java 提供了多种阻塞队列实现，如 ArrayBlockingQueue、LinkedBlockingQueue 等。一个线程可以向阻塞队列中添加元素，另一个线程从队列中取出元素。当队列为空时，取元素的线程会被阻塞，直到有元素被添加；当队列已满时，添加元素的线程会被阻塞，直到有元素被取出。<br>这种方式非常方便，不需要手动处理线程的等待和唤醒，并且可以有效地控制线程之间的生产和消费速度。</p>
+<p>综上所述，根据不同的应用场景，可以选择合适的方式来实现 Java 线程之间的通信，以确保多线程程序的正确运行和高效性。”</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>全面详细地阐述了三种实现线程通信的方式，包括具体的使用方法、示例以及注意事项。</li>
+<li>语言表达清晰、专业，逻辑严谨。</li>
+</ul>
+<p><strong>打分原因</strong>：回答非常全面、深入、准确，对每种方式都进行了详细的解释和说明，并且给出了注意事项，语言表达优秀，故可以给到 10 分。</p>
+<p><strong>第三个问题：请解释一下 Java 中线程的同步机制有哪些？</strong><br>“在 Java 中，线程的同步机制主要有以下几种：</p>
+<p><strong>一、synchronized 关键字</strong>：</p>
+<ol>
+<li>用于方法声明时，称为同步方法。被 synchronized 修饰的方法在同一时刻只能被一个线程访问，确保了方法内代码执行的原子性和可见性。例如，一个银行账户类的取款方法如果被 synchronized 修饰，那么在一个线程执行取款操作时，其他线程不能同时进入这个方法，避免了出现数据不一致的情况。</li>
+<li>用于代码块时，称为同步代码块。通过指定一个对象作为锁，只有获得这个对象锁的线程才能进入同步代码块执行代码。这种方式更加灵活，可以根据具体需求选择不同的锁对象，减少锁的粒度，提高并发性能。</li>
+</ol>
+<p><strong>二、ReentrantLock 类</strong>：<br>它是 Java 5 引入的一种更加灵活的同步机制。与 synchronized 相比，它具有以下优点：</p>
+<ol>
+<li>支持尝试获取锁（tryLock）、可中断地获取锁（lockInterruptibly）等高级功能。例如，在一个可能被中断的场景中，可以使用 lockInterruptibly 方法，当线程在等待锁的过程中被其他线程中断时，会抛出 InterruptedException 异常，从而可以优雅地处理中断。</li>
+<li>可以实现公平锁和非公平锁。公平锁会按照线程请求锁的顺序来分配锁，保证等待时间最长的线程优先获得锁；非公平锁则不保证这种顺序，可能会导致某些线程等待时间较长，但在高并发情况下能提供更好的性能。</li>
+</ol>
+<p><strong>三、原子类（AtomicInteger、AtomicLong 等）</strong>：<br>Java 提供了一系列原子类，用于在多线程环境下对基本数据类型进行原子操作。例如，AtomicInteger 类提供了原子性的自增（incrementAndGet）、自减（decrementAndGet）等方法，无需使用传统的同步机制就能保证操作的原子性。这些原子类通过底层的硬件指令（如 CAS 操作）来实现原子性，比使用锁的方式更加高效。</p>
+<p><strong>四、volatile 关键字</strong>：<br>volatile 关键字主要用于保证变量的可见性和禁止指令重排序。当一个变量被声明为 volatile 时，编译器和处理器会确保对这个变量的读写操作不会被优化，并且对该变量的修改会立即被其他线程看到。例如，在一个多线程环境下，一个标志变量用于控制线程的执行状态，如果不使用 volatile 关键字，可能会出现线程之间无法及时看到变量变化的情况。</p>
+<p>综上所述，Java 提供了多种强大的线程同步机制，开发人员可以根据具体的应用场景选择合适的同步方式，以确保多线程程序的正确性和性能。”</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>非常全面地阐述了 Java 中四种主要的线程同步机制，包括 synchronized 关键字、ReentrantLock 类、原子类和 volatile 关键字。</li>
+<li>对每种同步机制都进行了详细的解释，包括使用方法、优点和适用场景。</li>
+<li>语言表达清晰、专业，逻辑严谨。</li>
+</ul>
+<p><strong>打分原因</strong>：回答全面、深入、准确，对每种同步机制都进行了详细的阐述和分析，语言表达优秀，故可以给到 10 分。</p>
+<p><strong>第四个问题：在多线程环境下，如何避免死锁的发生？</strong><br>“在多线程环境下，可通过以下几种方式有效避免死锁的发生：</p>
+<p><strong>一、避免资源竞争</strong>：</p>
+<ul>
+<li>精心设计程序架构，尽可能减少不同线程对同一资源的同时访问需求。例如，对于数据的处理，可以采用分批次、分时间段的方式进行，避免多个线程在同一时刻争抢同一数据资源。</li>
+<li>考虑使用无锁的数据结构和算法。比如，Java 中的原子操作类（如 AtomicInteger、AtomicReference 等）可以在不使用锁的情况下实现对基本数据类型和引用类型的原子性操作。并发容器（如 ConcurrentHashMap、ConcurrentLinkedQueue 等）也能在多线程环境下高效地进行数据存储和访问，减少对传统同步机制的依赖，从而降低资源竞争的可能性。</li>
+</ul>
+<p><strong>二、资源顺序竞争</strong>：</p>
+<ul>
+<li>确定一个全局的资源获取顺序。如果多个线程需要获取多个不同的资源，确保所有线程都按照相同的顺序去请求这些资源。例如，假设有资源 A、B 和 C，规定所有线程必须先获取 A，再获取 B，最后获取 C。这样可以避免形成循环等待的情况，从而防止死锁。可以通过创建一个资源分配器类来管理资源的分配顺序，确保线程按照规定的顺序获取资源。</li>
+<li>在代码中明确指定资源获取的顺序。当线程需要获取多个资源时，在代码中显式地按照固定的顺序去请求资源。例如，使用 synchronized 块时，确保对资源的锁定顺序一致。如果可能的话，可以将资源的获取封装在一个方法中，以保证所有线程都以相同的方式获取资源。</li>
+</ul>
+<p><strong>三、超时机制</strong>：</p>
+<ul>
+<li>在获取资源时设置超时时间。当一个线程尝试获取资源时，如果在规定的时间内无法成功获取到资源，就放弃并释放已经获取的资源，然后稍后再尝试。这样可以避免一个线程无限期地等待资源而导致死锁。例如，使用 Java 的 ReentrantLock 类时，可以调用 tryLock(long timeout, TimeUnit unit) 方法来尝试在指定的时间内获取锁。如果超时时间到达仍未获取到锁，就返回 false，线程可以进行其他操作或者稍后再尝试获取锁。</li>
+<li>定期检查线程的状态。如果一个线程在获取资源时超时，可能需要进行一些额外的处理，如记录日志、通知管理员或者采取其他恢复措施。同时，可以设置一个监控线程，定期检查所有线程的状态，及时发现并处理可能出现的死锁情况。</li>
+</ul>
+<p><strong>四、死锁检测和恢复</strong>：</p>
+<ul>
+<li>定期检测系统中是否存在死锁。可以通过构建资源分配图或者使用专门的死锁检测算法来判断是否存在循环等待的情况。如果检测到死锁，可以采取一些恢复措施，如终止一个或多个线程，释放它们持有的资源，以打破死锁状态。</li>
+<li>在设计系统时，考虑提供一种手动干预的方式，以便在出现死锁时能够快速恢复。例如，可以提供一个管理界面，允许管理员查看线程状态、资源分配情况，并手动终止特定的线程或释放资源。</li>
+</ul>
+<p>综上所述，通过综合运用这些方法，可以在多线程环境下有效地避免死锁的发生，确保程序的稳定运行和高效性。”</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>全面且深入地阐述了四种避免死锁的方法，包括避免资源竞争、资源顺序竞争、超时机制和死锁检测与恢复。</li>
+<li>对每种方法都进行了详细的解释和说明，包括具体的实现方式、示例以及注意事项。</li>
+<li>语言表达清晰、专业，逻辑严谨。</li>
+</ul>
+<p><strong>打分原因</strong>：回答非常全面、深入、准确，对每种避免死锁的方法都进行了详细的阐述和分析，语言表达优秀，故可以给到 10 分。</p>
+<p><strong>第五个问题：请举例说明在 Java 中如何使用线程池来提高性能？</strong></p>
+<p>“在 Java 中，使用线程池可以从多个方面显著提高性能：</p>
+<p><strong>一、多线程执行任务提升效率</strong>：</p>
+<ul>
+<li>对于大规模数据处理或复杂计算任务，将其拆分为多个小任务，分配给线程池中的不同线程同时执行。例如在图像渲染场景中，把一幅大图像分割成多个小区域，每个线程负责渲染一个区域，这样可以极大地缩短渲染时间。因为多个线程可以充分利用多核处理器的优势，并行地处理任务，从而提高整体的处理速度。</li>
+<li>在网络请求处理中，当有大量并发请求时，使用线程池可以快速响应每个请求。线程池中的线程可以同时处理多个请求，避免了单个请求的阻塞等待，提高了系统的吞吐量。</li>
+</ul>
+<p><strong>二、减少线程创建和销毁开销</strong>：</p>
+<ul>
+<li>每次创建和销毁线程都需要消耗系统资源，包括 CPU 时间和内存空间。而线程池中的线程是预先创建好的，可以重复利用。当一个任务完成后，线程不会被立即销毁，而是回到线程池中等待下一个任务。这样就避免了频繁创建和销毁线程带来的开销，提高了资源利用率。</li>
+<li>例如在一个高并发的 Web 服务器中，如果每次请求都创建一个新线程，那么在大量请求同时到达时，系统可能会因为创建过多线程而耗尽资源。而使用线程池可以有效地管理线程的数量，确保系统在高负载情况下也能稳定运行。</li>
+</ul>
+<p><strong>三、合理设置线程池参数</strong>：</p>
+<ul>
+<li><strong>核心线程数</strong>：根据任务的类型和系统的资源情况来设置核心线程数。如果任务是 CPU 密集型的，即主要消耗 CPU 资源进行计算，那么核心线程数可以设置为与处理器核心数相等，避免过多的线程竞争 CPU 资源。如果任务是 I&#x2F;O 密集型的，即主要等待 I&#x2F;O 操作完成，那么可以设置较多的核心线程数，充分利用等待 I&#x2F;O 的时间来执行其他任务。</li>
+<li><strong>最大线程数</strong>：考虑系统的负载情况和资源限制来设置最大线程数。当任务队列已满且有新任务提交时，线程池会创建新的线程直到达到最大线程数。如果设置得过高，可能会导致系统资源耗尽；如果设置得过低，可能无法充分利用系统的处理能力。例如在一个数据库查询系统中，可以根据数据库的连接数和系统的内存容量来合理设置最大线程数。</li>
+<li><strong>任务队列</strong>：选择合适的任务队列类型和长度。常见的任务队列有有界队列和无界队列。有界队列可以防止任务过多导致内存溢出，但如果队列已满，可能需要采取合适的任务拒绝策略。无界队列可以容纳无限多的任务，但可能会导致系统内存耗尽。根据任务的特点和系统的资源情况选择合适的任务队列类型，并合理设置队列长度。</li>
+<li><strong>任务拒绝策略</strong>：当线程池无法接受新任务时，需要选择合适的任务拒绝策略。常见的拒绝策略有丢弃最老的任务、抛出异常、由调用者线程执行任务等。根据实际应用场景选择合适的拒绝策略，以确保系统的稳定性和可靠性。</li>
+</ul>
+<p><strong>四、监控和管理线程池</strong>：</p>
+<ul>
+<li>使用监控工具实时监测线程池的运行状态，包括当前活跃线程数、已完成任务数、排队任务数、任务执行时间等指标。通过监控可以及时发现线程池的性能瓶颈和问题，并采取相应的措施进行优化。</li>
+<li>定期对线程池进行性能调优，根据系统的负载变化和任务特点调整线程池的参数。例如，在系统负载高峰期，可以适当增加线程池的大小；在负载较低时，可以减少线程池的大小，以节省系统资源。</li>
+</ul>
+<p>综上所述，通过合理地使用线程池，并从多方面进行优化，可以极大地提高 Java 应用程序的性能。”</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>全面且深入地阐述了使用线程池提高性能的四个方面，包括多线程执行任务、减少线程创建销毁开销、合理设置参数以及监控管理线程池。</li>
+<li>对每个方面都进行了详细的解释和举例说明，使回答更加具体和易于理解。</li>
+<li>语言表达清晰、专业，逻辑严谨。</li>
+</ul>
+<p><strong>打分原因</strong>：回答非常全面、深入、准确，对使用线程池提高性能的各个方面都进行了详细的阐述和分析，语言表达优秀，故可以给到 10 分。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/')">Java高级面试指南 - 多线程</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Java高级面试指南 - 多线程&amp;url=https://tushu.info/archives/Java-gao-ji-mian-shi-zhi-nan-duo-xian/&amp;pic=https://mdanimage.oss-cn-shenzhen.aliyuncs.com/JavaInterview01.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Java-ji-chu-mian-shi-zhi-nan-yi/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java基础面试指南一</div></div></a></div><div class="next-post pull-right"><a href="/archives/30-fen-zhong-Python-pa-chong-jiao-cheng/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">30 分钟 Python 爬虫教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

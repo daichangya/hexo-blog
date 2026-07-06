@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>OpenClaw架构解析：AI工程师的实战学习范本 | 代老师的博客</title><meta name="keywords" content="OpenClaw,AI架构,智能体"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="OpenClaw架构解析：AI工程师的实战学习范本"><meta name="application-name" content="OpenClaw架构解析：AI工程师的实战学习范本"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="OpenClaw架构解析：AI工程师的实战学习范本"><meta property="og:url" content="https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="大家好～ 今天给大家拆解一款极具参考价值的个人AI助手——OpenClaw（改名前Moltbot&amp;#x2F;Clawdbot），深入它的底层架构，看看其中藏着哪些AI工程师能直接借鉴的实战思路。 我深入研究了OpenClaw的架构设计，以及它处理智能体执行、工具调用、浏览器操作等功能的底层逻辑，发现"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="大家好～ 今天给大家拆解一款极具参考价值的个人AI助手——OpenClaw（改名前Moltbot&amp;#x2F;Clawdbot），深入它的底层架构，看看其中藏着哪些AI工程师能直接借鉴的实战思路。 我深入研究了OpenClaw的架构设计，以及它处理智能体执行、工具调用、浏览器操作等功能的底层逻辑，发现"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'OpenClaw架构解析：AI工程师的实战学习范本',
+  postAI: '',
+  pageFillDescription: '一、从技术本质定义OpenClaw, 二、核心架构全解析（从发消息到收回复）, 1. 渠道适配器：消息的预处理中转站, 2. 网关服务：系统的核心枢纽, 3. 智能体运行器：AI能力的承载者, 4. 大模型API调用：结果的生成环节, 5. 智能体循环：工具调用的核心循环, 6. 回复通路：结果的反馈与留存, 三、OpenClaw的记忆管理机制（不做金鱼式AI）, 两套记忆存储系统, 混合检索方案（向量+关键词）, 技术实现细节（可直接借鉴）, 简洁却高效的记忆同步与生成, 四、核心竞争力：电脑操作能力（OpenClaw的护城河）, 五、安全机制设计（或说是否真的安全？）, 1. 命令白名单机制, 2. 预授权安全命令, 3. 危险命令默认拦截, 六、浏览器工具亮点：语义快照技术, 最后总结大家好今天给大家拆解一款极具参考价值的个人助手改名前深入它的底层架构看看其中藏着哪些工程师能直接借鉴的实战思路我深入研究了的架构设计以及它处理智能体执行工具调用浏览器操作等功能的底层逻辑发现其中蕴藏着诸多值得工程师借鉴的设计思路与实践经验弄懂的底层工作原理不仅能让我们更透彻地理解这套系统的整体设计和核心能力更重要的是能清晰把握它的优势领域与短板不足我最初展开这项研究只是出于个人好奇想探究是如何管理记忆数据的以及它的运行可靠性究竟如何今天就为大家拆解的表层核心工作机制全程干货建议收藏慢慢看一从技术本质定义大家都知道是一款个人智能助手既可本地部署运行也能通过大模型调用在手机上就能轻松操作使用但它的技术本质究竟是什么的核心是一个基于开发的命令行界面应用划重点它既非开发的项目也不是应用更不是传统的网页应用它作为一个独立运行的进程主要实现以下大核心功能在本地设备运行并启动网关服务处理所有渠道的连接请求电报等调用各类大模型本地大模型等本地执行各类工具命令实现用户在电脑上的各类操作需求二核心架构全解析从发消息到收回复为了更通俗地解释其架构设计我以用户向发送消息到用户收到回复的全流程为例拆解具体执行步骤一看就懂当你在即时通讯工具中向发送指令后系统会依次执行以下个环节渠道适配器消息的预处理中转站渠道适配器会接收你的消息并进行预处理核心是标准化消息格式提取附件关键设计不同的即时通讯工具电报等和输入流都配有专属的适配器避免格式混乱网关服务系统的核心枢纽网关服务是整个系统的任务会话协调中心核心作用有两个接收预处理后的消息将其精准分发至对应的会话支持处理多个重叠的请求避免冲突这里有个非常值得借鉴的设计基于通道的命令队列每个会话都有专属的执行通道保证单个会话的操作有序执行而低风险可并行的任务如定时任务则可在并行通道中运行兼顾效率这个设计彻底规避了传统异步等待代码的混乱嵌套问题要知道过度并行化会严重降低系统可靠性还会引发大量难以调试的核心设计原则默认序列化执行显式声明并行执行但凡做过智能体开发的工程师想必都有过类似的踩坑经历这一思路也与公司在别再构建多智能体系统博文中的核心观点不谋而合举个反例如果为每个智能体简单配置异步执行最终只会得到一堆交错混乱的执行结果日志杂乱无章无法追溯若多个智能体共享状态还需时刻警惕竞态条件的问题的优化的点在于将通道设计为队列的上层抽象把序列化执行作为默认架构而非后期补充的优化这一设计直接改变了开发思维从思考我需要为哪些内容加锁转变为思考哪些操作并行执行是安全的极大降低了开发复杂度智能体运行器能力的承载者这是真正承载能力的核心模块全程自动化处理核心工作有件事自动匹配适配的大模型匹配对应的密钥若当前密钥失效自动将该配置标记为冷却状态尝试下一个主模型调用失败时自动降级至备用模型保证可用性动态拼接系统提示词重点细节智能体运行器会结合可用工具技能记忆数据动态拼接系统提示词再加入会话历史记录存储在文件中生成完整的大模型输入内容除此之外它还会调用上下文窗口守卫模块校验是否有足够的上下文空间若上下文即将占满系统会要么对会话内容进行压缩总结上下文要么优雅地终止请求避免崩溃大模型调用结果的生成环节这一环节主要负责实际的大模型调用核心亮点有两个以流式方式返回结果提升用户体验对不同大模型提供商的做了抽象封装实现调用层统一后续切换模型无需大幅修改代码补充若所调用的大模型支持该模块还能触发深度思考功能提升回复的准确性智能体循环工具调用的核心循环这是实现复杂操作的关键环节逻辑很简单若大模型返回的是工具调用指令会在本地执行该指令并将执行结果添加至会话中这一过程不断循环直到大模型返回最终文本回复或达到最大循环次数默认约次划重点的核心亮点电脑操作能力就是在这个环节实现的回复通路结果的反馈与留存这一环节的逻辑十分标准核心是反馈留存反馈回复内容通过原输入渠道如微信电报反馈给用户保证体验连贯留存会话数据被持久化存储在文件中文件中每一行都是一个对象包含用户消息工具调用记录执行结果回复等全量信息而这也是实现记忆功能的核心方式基于会话的记忆以上就是的基础架构流程接下来我们聚焦个最关键的核心组件拆解其中的设计亮点三的记忆管理机制不做金鱼式没有完善的记忆系统一款助手的能力就会像金鱼一样转瞬即忘通过两套系统实现了高效的记忆管理设计简洁却实用两套记忆存储系统会话记忆前文提到的格式会话记录文件存储每一次会话的全量信息长期记忆存储在文件或文件夹中的格式记忆文件用于长期留存关键信息混合检索方案向量关键词采用向量检索关键词匹配的混合方案兼顾语义匹配的灵活性和关键词匹配的精准性这是非常实用的设计举个例子搜索认证漏洞时既能检索到提及认证问题的文档语义匹配捕捉同义表达也能精准匹配到包含该精确短语的内容关键词匹配锁定核心技术实现细节可直接借鉴向量检索基于实现无需额外部署复杂的向量数据库降低部署成本关键词检索依托的扩展插件实现轻量化且高效嵌入向量生成提供商支持自定义配置适配不同的大模型需求简洁却高效的记忆同步与生成两个关键设计保证记忆的及时性和简洁性智能同步文件监视器检测到记忆文件变化时自动触发同步更新无需手动操作自动生成记忆文件由智能体通过标准的文件写入工具生成无需专属的记忆写入智能体只需直接向路径写入内容即可补充新会话启动时系统会自动抓取上一次会话内容生成格式的总结存入长期记忆实现记忆的连贯的记忆系统设计异常简洁与我们在中实现的工作流记忆高度相似无需记忆合并也没有月度周度的记忆压缩操作这种简洁性见仁见智但我始终推崇可解释的简洁设计远优于混乱复杂的嵌套式设计另外一个特点的记忆会永久保存且新旧记忆的权重基本一致不存在所谓的遗忘曲线四核心竞争力电脑操作能力的护城河最核心的优势就是能直接操作你的电脑这也是它的核心护城河之一其实现逻辑很直观但设计很严谨核心逻辑为智能体赋予较高的电脑操作权限风险由用户自行承担通过执行工具在种环境中运行命令沙箱环境默认命令在容器中运行隔离本地环境降低风险本地主机直接在用户的电脑上运行适合需要调用本地资源的操作远程设备在联网的远程终端运行实现远程控制除了命令执行还内置了类核心工具覆盖大部分电脑操作需求文件系统工具支持读写编辑各类文件轻松处理本地文档浏览器工具基于开发核心特性是语义快照后文详细说进程管理工具支持后台长期运行命令终止进程等管控电脑运行状态五安全机制设计或说是否真的安全开放电脑操作权限安全必然是核心关注点的安全设计参考了的思路核心是白名单管控危险命令拦截命令白名单机制设计了命令白名单用户可对命令进行类授权操作操作时会弹出提示单次允许永久允许拒绝白名单配置文件示例预授权安全命令一些基础的安全命令如已被系统预授权可直接运行无需用户额外批准提升使用效率危险命令默认拦截系统会默认拦截所有危险的语法结构从源头规避风险示例如下这些命令会在执行前被直接拒绝以下命令在执行前会被直接拒绝总结的安全设计核心原则是在用户授权的范围内赋予智能体最大的自主操作能力兼顾安全性和灵活性六浏览器工具亮点语义快照技术的浏览器工具没有采用传统的截图方式而是用了一种更高效的设计语义快照核心定义基于页面的可访问性树生成的文本化页面表征简单说就是用文本描述页面的所有元素而非图片展示这一设计带来了大显著优势尤其适合处理轻量化一张普通网页截图约而语义快照不足大幅节省存储和传输成本低令牌消耗文本形式的快照令牌消耗仅为图片的几分之一降低大模型调用成本易解析可直接识别文本描述的元素按钮文本框等无需进行图像识别提升操作效率通用性强不受页面样式分辨率影响适配所有网页最后总结的架构设计整体给人的感觉是简洁实用可落地没有复杂的冗余设计每一个模块都有明确的目标尤其适合工程师借鉴学习核心可借鉴的个点序列化优先的队列设计规避并行带来的可靠性问题简洁高效的混合记忆系统兼顾轻量化和实用性安全可控的电脑操作权限管控平衡灵活性和安全性对于工程师来说研究这类成熟的开源项目可本地部署远比单纯看理论文档更有收获看懂它的底层实现能帮我们更快地规避踩坑提升自己的系统设计能力',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-06 11:36:04',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%9E%B6%E6%9E%84/" itemprop="url">AI架构</a><i class="anzhiyufont anzhiyu-icon-angle-right post-meta-separator"></i><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%9E%B6%E6%9E%84/%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/" itemprop="url">技术解析</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/OpenClaw/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>OpenClaw</span></a><a class="article-meta__tags" href="/tags/AI%E6%9E%B6%E6%9E%84/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>AI架构</span></a><a class="article-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>智能体</span></a></span></div></div><h1 class="post-title" itemprop="name headline">OpenClaw架构解析：AI工程师的实战学习范本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-06T03:36:04.257Z" title="更新于 2026-07-06 11:36:04">2026-07-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/"><header><a class="post-meta-categories" href="/categories/AI%E6%9E%B6%E6%9E%84/" itemprop="url">AI架构</a><a class="post-meta-categories" href="/categories/AI%E6%9E%B6%E6%9E%84/%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/" itemprop="url">技术解析</a><a href="/tags/OpenClaw/" tabindex="-1" itemprop="url">OpenClaw</a><a href="/tags/AI%E6%9E%B6%E6%9E%84/" tabindex="-1" itemprop="url">AI架构</a><a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" tabindex="-1" itemprop="url">智能体</a><h1 id="CrawlerTitle" itemprop="name headline">OpenClaw架构解析：AI工程师的实战学习范本</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time><time itemprop="dateCreated datePublished" datetime="2026-07-06T03:36:04.257Z" title="更新于 2026-07-06 11:36:04">2026-07-06</time></header><p>大家好～ 今天给大家拆解一款极具参考价值的个人AI助手——OpenClaw（改名前Moltbot&#x2F;Clawdbot），深入它的底层架构，看看其中藏着哪些AI工程师能直接借鉴的实战思路。</p>
+<p>我深入研究了OpenClaw的架构设计，以及它处理智能体执行、工具调用、浏览器操作等功能的底层逻辑，发现其中蕴藏着诸多值得AI工程师借鉴的设计思路与实践经验。</p>
+<p>弄懂OpenClaw的底层工作原理，不仅能让我们更透彻地理解这套系统的整体设计和核心能力，更重要的是，能清晰把握它的优势领域与短板不足。</p>
+<p>我最初展开这项研究，只是出于个人好奇：想探究OpenClaw是如何管理记忆数据的，以及它的运行可靠性究竟如何。</p>
+<p>今天，就为大家拆解OpenClaw的表层核心工作机制，全程干货，建议收藏慢慢看～</p>
+<hr>
+<h2 id="一、从技术本质定义OpenClaw"><a href="#一、从技术本质定义OpenClaw" class="headerlink" title="一、从技术本质定义OpenClaw"></a>一、从技术本质定义OpenClaw</h2><p>大家都知道，OpenClaw是一款个人智能助手，既可本地部署运行，也能通过大模型API调用，在手机上就能轻松操作使用。但它的<strong>技术本质究竟是什么</strong>？</p>
+<p><strong>OpenClaw的核心，是一个基于TypeScript开发的命令行界面（CLI）应用。</strong></p>
+<p><strong>划重点</strong>：它既非Python开发的项目，也不是Next.js应用，更不是传统的网页应用。</p>
+<p>它作为一个独立运行的进程，主要实现以下<strong>4大核心功能</strong>：</p>
+<ol>
+<li>在本地设备运行，并启动网关服务处理所有渠道的连接请求（电报、WhatsApp、Slack等）</li>
+<li>调用各类大模型API（Anthropic、OpenAI、本地大模型等）</li>
+<li>本地执行各类工具命令</li>
+<li>实现用户在电脑上的各类操作需求</li>
+</ol>
+<hr>
+<h2 id="二、核心架构全解析（从发消息到收回复）"><a href="#二、核心架构全解析（从发消息到收回复）" class="headerlink" title="二、核心架构全解析（从发消息到收回复）"></a>二、核心架构全解析（从发消息到收回复）</h2><p>为了更通俗地解释其架构设计，我以用户向OpenClaw发送消息到用户收到回复的全流程为例，拆解具体执行步骤，一看就懂～</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://images.jsdiff.com/OpenClaw.jpeg" alt="OpenClaw.jpeg"></p>
+<p>当你在即时通讯工具中向OpenClaw发送指令后，系统会依次执行以下<strong>6个环节</strong>：</p>
+<h3 id="1-渠道适配器：消息的“预处理中转站”"><a href="#1-渠道适配器：消息的“预处理中转站”" class="headerlink" title="1. 渠道适配器：消息的“预处理中转站”"></a>1. 渠道适配器：消息的“预处理中转站”</h3><p>渠道适配器会接收你的消息并进行预处理，核心是<strong>标准化消息格式、提取附件</strong>。</p>
+<p><strong>关键设计</strong>：不同的即时通讯工具（电报、WhatsApp等）和输入流，都配有专属的适配器，避免格式混乱。</p>
+<h3 id="2-网关服务：系统的“核心枢纽”"><a href="#2-网关服务：系统的“核心枢纽”" class="headerlink" title="2. 网关服务：系统的“核心枢纽”"></a>2. 网关服务：系统的“核心枢纽”</h3><p>网关服务是整个系统的<strong>任务&#x2F;会话协调中心</strong>，核心作用有两个：</p>
+<p>① 接收预处理后的消息，将其精准分发至对应的会话；② 支持处理多个重叠的请求，避免冲突。</p>
+<p>这里有个<strong>非常值得借鉴的设计</strong>——<strong>基于通道的命令队列</strong>：</p>
+<p>每个会话都有专属的执行通道，保证单个会话的操作有序执行；而低风险、可并行的任务（如定时任务），则可在并行通道中运行，兼顾效率。</p>
+<p>这个设计彻底规避了传统异步&#x2F;等待（async&#x2F;await）代码的混乱嵌套问题——要知道，过度并行化会严重降低系统可靠性，还会引发大量难以调试的bug。</p>
+<blockquote>
+<p><strong>核心设计原则</strong>：默认序列化执行，显式声明并行执行</p>
+</blockquote>
+<p>但凡做过智能体开发的工程师，想必都有过类似的踩坑经历。这一思路，也与Cognition公司在《别再构建多智能体系统》博文中的核心观点不谋而合。</p>
+<p>举个反例：如果为每个智能体简单配置异步执行，最终只会得到一堆交错混乱的执行结果——日志杂乱无章、无法追溯；若多个智能体共享状态，还需时刻警惕竞态条件的问题。</p>
+<p><strong>OpenClaw的优化的点在于</strong>：将“通道”设计为队列的上层抽象，把“序列化执行”作为默认架构（而非后期补充的优化）。</p>
+<p>这一设计直接改变了开发思维：从思考“我需要为哪些内容加锁？”，转变为思考“哪些操作并行执行是安全的？”，极大降低了开发复杂度。</p>
+<h3 id="3-智能体运行器：AI能力的“承载者”"><a href="#3-智能体运行器：AI能力的“承载者”" class="headerlink" title="3. 智能体运行器：AI能力的“承载者”"></a>3. 智能体运行器：AI能力的“承载者”</h3><p>这是真正承载AI能力的核心模块，全程自动化处理，核心工作有<strong>4件事</strong>：</p>
+<p>① 自动匹配适配的大模型；② 匹配对应的API密钥（若当前密钥失效，自动将该配置标记为冷却状态，尝试下一个）；③ 主模型调用失败时，自动降级至备用模型，保证可用性；④ 动态拼接系统提示词。</p>
+<p><strong>重点细节</strong>：智能体运行器会结合可用工具、技能、记忆数据，动态拼接系统提示词，再加入会话历史记录（存储在.jsonl文件中），生成完整的大模型输入内容。</p>
+<p>除此之外，它还会调用“上下文窗口守卫模块”，校验是否有足够的上下文空间——若上下文即将占满，系统会要么对会话内容进行压缩（总结上下文），要么优雅地终止请求，避免崩溃。</p>
+<h3 id="4-大模型API调用：结果的“生成环节”"><a href="#4-大模型API调用：结果的“生成环节”" class="headerlink" title="4. 大模型API调用：结果的“生成环节”"></a>4. 大模型API调用：结果的“生成环节”</h3><p>这一环节主要负责实际的大模型调用，核心亮点有两个：</p>
+<p>① 以<strong>流式方式返回结果</strong>，提升用户体验；② 对不同大模型提供商的API做了抽象封装，实现调用层统一，后续切换模型无需大幅修改代码。</p>
+<blockquote>
+<p><strong>补充</strong>：若所调用的大模型支持，该模块还能触发“深度思考”功能，提升回复的准确性。</p>
+</blockquote>
+<h3 id="5-智能体循环：工具调用的“核心循环”"><a href="#5-智能体循环：工具调用的“核心循环”" class="headerlink" title="5. 智能体循环：工具调用的“核心循环”"></a>5. 智能体循环：工具调用的“核心循环”</h3><p>这是OpenClaw实现复杂操作的关键环节，逻辑很简单：</p>
+<p>若大模型返回的是工具调用指令，OpenClaw会在本地执行该指令，并将执行结果添加至会话中；这一过程不断循环，直到大模型返回最终文本回复，或达到最大循环次数（默认约20次）。</p>
+<p><strong>划重点</strong>：OpenClaw的核心亮点——电脑操作能力，就是在这个环节实现的。</p>
+<h3 id="6-回复通路：结果的“反馈与留存”"><a href="#6-回复通路：结果的“反馈与留存”" class="headerlink" title="6. 回复通路：结果的“反馈与留存”"></a>6. 回复通路：结果的“反馈与留存”</h3><p>这一环节的逻辑十分标准，核心是“<strong>反馈+留存</strong>”：</p>
+<p>① 反馈：回复内容通过原输入渠道（如微信、电报）反馈给用户，保证体验连贯；② 留存：会话数据被持久化存储在.jsonl文件中，文件中每一行都是一个JSON对象，包含用户消息、工具调用记录、执行结果、AI回复等全量信息。</p>
+<p>而这，也是OpenClaw实现记忆功能的核心方式——<strong>基于会话的记忆</strong>。</p>
+<p>以上就是OpenClaw的基础架构流程，接下来我们聚焦3个最关键的核心组件，拆解其中的设计亮点。</p>
+<hr>
+<h2 id="三、OpenClaw的记忆管理机制（不做“金鱼式”AI）"><a href="#三、OpenClaw的记忆管理机制（不做“金鱼式”AI）" class="headerlink" title="三、OpenClaw的记忆管理机制（不做“金鱼式”AI）"></a>三、OpenClaw的记忆管理机制（不做“金鱼式”AI）</h2><p>没有完善的记忆系统，一款AI助手的能力就会像金鱼一样转瞬即忘。OpenClaw通过两套系统，实现了高效的记忆管理，设计简洁却实用。</p>
+<h3 id="两套记忆存储系统"><a href="#两套记忆存储系统" class="headerlink" title="两套记忆存储系统"></a>两套记忆存储系统</h3><p>① <strong>会话记忆</strong>：前文提到的JSONL格式会话记录文件，存储每一次会话的全量信息；② <strong>长期记忆</strong>：存储在<code>MEMORY.md</code>文件或<code>memory/</code>文件夹中的Markdown格式记忆文件，用于长期留存关键信息。</p>
+<h3 id="混合检索方案（向量-关键词）"><a href="#混合检索方案（向量-关键词）" class="headerlink" title="混合检索方案（向量+关键词）"></a>混合检索方案（向量+关键词）</h3><p>OpenClaw采用<strong>向量检索+关键词匹配的混合方案</strong>，兼顾语义匹配的灵活性和关键词匹配的精准性，这是非常实用的设计。</p>
+<p><strong>举个例子</strong>：搜索“认证漏洞（authentication bug）”时，既能检索到提及“认证问题（auth issues）”的文档（语义匹配，捕捉同义表达），也能精准匹配到包含该精确短语的内容（关键词匹配，锁定核心）。</p>
+<h3 id="技术实现细节（可直接借鉴）"><a href="#技术实现细节（可直接借鉴）" class="headerlink" title="技术实现细节（可直接借鉴）"></a>技术实现细节（可直接借鉴）</h3><p>① 向量检索：基于SQLite实现，无需额外部署复杂的向量数据库，降低部署成本；② 关键词检索：依托SQLite的扩展插件FTS5实现，轻量化且高效；③ 嵌入向量：生成提供商支持自定义配置，适配不同的大模型需求。</p>
+<h3 id="简洁却高效的记忆同步与生成"><a href="#简洁却高效的记忆同步与生成" class="headerlink" title="简洁却高效的记忆同步与生成"></a>简洁却高效的记忆同步与生成</h3><p>两个关键设计，保证记忆的及时性和简洁性：</p>
+<p>① 智能同步：文件监视器检测到记忆文件变化时，自动触发同步更新，无需手动操作；② 自动生成：记忆文件由智能体通过标准的文件写入工具生成，无需专属的记忆写入API——智能体只需直接向<code>memory/*.md</code>路径写入内容即可。</p>
+<blockquote>
+<p><strong>补充</strong>：新会话启动时，系统会自动抓取上一次会话内容，生成Markdown格式的总结，存入长期记忆，实现记忆的连贯。</p>
+</blockquote>
+<p><strong>OpenClaw的记忆系统设计异常简洁</strong>，与我们在CamelAIOrg中实现的工作流记忆高度相似：无需记忆合并，也没有月度&#x2F;周度的记忆压缩操作。</p>
+<p>这种简洁性见仁见智，但我始终推崇——可解释的简洁设计，远优于混乱复杂的嵌套式设计。</p>
+<blockquote>
+<p>另外一个特点：OpenClaw的记忆会永久保存，且新旧记忆的权重基本一致，不存在所谓的“遗忘曲线”。</p>
+</blockquote>
+<hr>
+<h2 id="四、核心竞争力：电脑操作能力（OpenClaw的“护城河”）"><a href="#四、核心竞争力：电脑操作能力（OpenClaw的“护城河”）" class="headerlink" title="四、核心竞争力：电脑操作能力（OpenClaw的“护城河”）"></a>四、核心竞争力：电脑操作能力（OpenClaw的“护城河”）</h2><p>OpenClaw最核心的优势，就是能<strong>直接操作你的电脑</strong>——这也是它的核心护城河之一。其实现逻辑很直观，但设计很严谨。</p>
+<p><strong>核心逻辑</strong>：OpenClaw为智能体赋予较高的电脑操作权限（风险由用户自行承担），通过“执行工具（exec tool）”，在3种环境中运行Shell命令：</p>
+<ol>
+<li><strong>沙箱环境</strong>（默认）：命令在Docker容器中运行，隔离本地环境，降低风险；</li>
+<li><strong>本地主机</strong>：直接在用户的电脑上运行，适合需要调用本地资源的操作；</li>
+<li><strong>远程设备</strong>：在联网的远程终端运行，实现远程控制。</li>
+</ol>
+<p>除了Shell命令执行，OpenClaw还内置了<strong>3类核心工具</strong>，覆盖大部分电脑操作需求：</p>
+<p>① <strong>文件系统工具</strong>：支持读、写、编辑各类文件，轻松处理本地文档；</p>
+<p>② <strong>浏览器工具</strong>：基于Playwright开发，核心特性是“语义快照”（后文详细说）；</p>
+<p>③ <strong>进程管理工具</strong>：支持后台长期运行命令、终止进程等，管控电脑运行状态。</p>
+<hr>
+<h2 id="五、安全机制设计（或说“是否真的安全？”）"><a href="#五、安全机制设计（或说“是否真的安全？”）" class="headerlink" title="五、安全机制设计（或说“是否真的安全？”）"></a>五、安全机制设计（或说“是否真的安全？”）</h2><p>开放电脑操作权限，安全必然是核心关注点。OpenClaw的安全设计，参考了Claude Code的思路，核心是“<strong>白名单管控+危险命令拦截</strong>”。</p>
+<h3 id="1-命令白名单机制"><a href="#1-命令白名单机制" class="headerlink" title="1. 命令白名单机制"></a>1. 命令白名单机制</h3><p>OpenClaw设计了命令白名单，用户可对命令进行3类授权操作（操作时会弹出提示）：<strong>单次允许、永久允许、拒绝</strong>。</p>
+<p>白名单配置文件示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// ~/.clawdbot/exec-approvals.json</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;agents&quot;: &#123;</span><br><span class="line">        &quot;main&quot;: &#123;</span><br><span class="line">          &quot;allowlist&quot;: [</span><br><span class="line">            &#123; &quot;pattern&quot;: &quot;/usr/bin/npm&quot;, &quot;lastUsedAt&quot;: 1706644800 &#125;,</span><br><span class="line">            &#123; &quot;pattern&quot;: &quot;/opt/homebrew/bin/git&quot;, &quot;lastUsedAt&quot;: 1706644900 &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-预授权安全命令"><a href="#2-预授权安全命令" class="headerlink" title="2. 预授权安全命令"></a>2. 预授权安全命令</h3><p>一些基础的安全命令（如<code>jq</code>、<code>grep</code>、<code>cut</code>、<code>sort</code>、<code>uniq</code>、<code>head</code>、<code>tail</code>、<code>tr</code>、<code>wc</code>），已被系统预授权，可直接运行，无需用户额外批准，提升使用效率。</p>
+<h3 id="3-危险命令默认拦截"><a href="#3-危险命令默认拦截" class="headerlink" title="3. 危险命令默认拦截"></a>3. 危险命令默认拦截</h3><p>系统会默认拦截所有危险的Shell语法结构，从源头规避风险，示例如下（这些命令会在执行前被直接拒绝）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 以下命令在执行前会被直接拒绝：</span><br><span class="line">    # these get rejected before execution:</span><br><span class="line">    npm install $(cat /etc/passwd)     # command substitution</span><br><span class="line">    cat file &gt; /etc/hosts              # redirection</span><br><span class="line">    rm -rf / || echo &quot;failed&quot;          # chained with ||</span><br><span class="line">    (sudo rm -rf /)                    # subshell</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong>：OpenClaw的安全设计核心原则是——在用户授权的范围内，赋予智能体最大的自主操作能力，兼顾安全性和灵活性。</p>
+<hr>
+<h2 id="六、浏览器工具亮点：语义快照技术"><a href="#六、浏览器工具亮点：语义快照技术" class="headerlink" title="六、浏览器工具亮点：语义快照技术"></a>六、浏览器工具亮点：语义快照技术</h2><p>OpenClaw的浏览器工具，没有采用传统的截图方式，而是用了一种更高效的设计——<strong>语义快照</strong>。</p>
+<p><strong>核心定义</strong>：基于页面的可访问性树（ARIA）生成的文本化页面表征，简单说就是“用文本描述页面的所有元素”，而非图片展示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- button &quot;Sign In&quot; [ref=1]</span><br><span class="line">    - textbox &quot;Email&quot; [ref=2]</span><br><span class="line">    - textbox &quot;Password&quot; [ref=3]</span><br><span class="line">    - link &quot;Forgot password?&quot; [ref=4]</span><br><span class="line">    - heading &quot;Welcome back&quot;</span><br><span class="line">    - list</span><br><span class="line">      - listitem &quot;Dashboard&quot;</span><br><span class="line">      - listitem &quot;Settings&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这一设计带来了<strong>4大显著优势</strong>，尤其适合AI处理：</p>
+<p>① <strong>轻量化</strong>：一张普通网页截图约5MB，而语义快照不足50KB，大幅节省存储和传输成本；</p>
+<p>② <strong>低令牌消耗</strong>：文本形式的快照，令牌消耗仅为图片的几分之一，降低大模型调用成本；</p>
+<p>③ <strong>易解析</strong>：AI可直接识别文本描述的元素（按钮、文本框等），无需进行图像识别，提升操作效率；</p>
+<p>④ <strong>通用性强</strong>：不受页面样式、分辨率影响，适配所有网页。</p>
+<hr>
+<h2 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h2><p>OpenClaw的架构设计，整体给人的感觉是“<strong>简洁、实用、可落地</strong>”——没有复杂的冗余设计，每一个模块都有明确的目标，尤其适合AI工程师借鉴学习。</p>
+<p><strong>核心可借鉴的3个点</strong>：</p>
+<ol>
+<li><strong>序列化优先的队列设计</strong>，规避并行带来的可靠性问题；</li>
+<li><strong>简洁高效的混合记忆系统</strong>，兼顾轻量化和实用性；</li>
+<li><strong>安全可控的电脑操作权限管控</strong>，平衡灵活性和安全性。</li>
+</ol>
+<p>对于AI工程师来说，研究这类成熟的开源项目（OpenClaw可本地部署），远比单纯看理论文档更有收获——看懂它的底层实现，能帮我们更快地规避踩坑，提升自己的系统设计能力。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/')">OpenClaw架构解析：AI工程师的实战学习范本</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=OpenClaw架构解析：AI工程师的实战学习范本&amp;url=https://tushu.info/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/OpenClaw/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>OpenClaw<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/AI%E6%9E%B6%E6%9E%84/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>AI架构<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>智能体<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2026/03/11/dclaw-first-day/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">DClaw 的第一天：从诞生到拥有自己的邮箱</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-03-11</div><div class="title">DClaw 的第一天：从诞生到拥有自己的邮箱</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%8E%E6%8A%80%E6%9C%AF%E6%9C%AC%E8%B4%A8%E5%AE%9A%E4%B9%89OpenClaw"><span class="toc-number">1.</span> <span class="toc-text">一、从技术本质定义OpenClaw</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E5%85%A8%E8%A7%A3%E6%9E%90%EF%BC%88%E4%BB%8E%E5%8F%91%E6%B6%88%E6%81%AF%E5%88%B0%E6%94%B6%E5%9B%9E%E5%A4%8D%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、核心架构全解析（从发消息到收回复）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B8%A0%E9%81%93%E9%80%82%E9%85%8D%E5%99%A8%EF%BC%9A%E6%B6%88%E6%81%AF%E7%9A%84%E2%80%9C%E9%A2%84%E5%A4%84%E7%90%86%E4%B8%AD%E8%BD%AC%E7%AB%99%E2%80%9D"><span class="toc-number">2.1.</span> <span class="toc-text">1. 渠道适配器：消息的“预处理中转站”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BD%91%E5%85%B3%E6%9C%8D%E5%8A%A1%EF%BC%9A%E7%B3%BB%E7%BB%9F%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E6%9E%A2%E7%BA%BD%E2%80%9D"><span class="toc-number">2.2.</span> <span class="toc-text">2. 网关服务：系统的“核心枢纽”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%99%BA%E8%83%BD%E4%BD%93%E8%BF%90%E8%A1%8C%E5%99%A8%EF%BC%9AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E2%80%9C%E6%89%BF%E8%BD%BD%E8%80%85%E2%80%9D"><span class="toc-number">2.3.</span> <span class="toc-text">3. 智能体运行器：AI能力的“承载者”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E8%B0%83%E7%94%A8%EF%BC%9A%E7%BB%93%E6%9E%9C%E7%9A%84%E2%80%9C%E7%94%9F%E6%88%90%E7%8E%AF%E8%8A%82%E2%80%9D"><span class="toc-number">2.4.</span> <span class="toc-text">4. 大模型API调用：结果的“生成环节”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%99%BA%E8%83%BD%E4%BD%93%E5%BE%AA%E7%8E%AF%EF%BC%9A%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E7%9A%84%E2%80%9C%E6%A0%B8%E5%BF%83%E5%BE%AA%E7%8E%AF%E2%80%9D"><span class="toc-number">2.5.</span> <span class="toc-text">5. 智能体循环：工具调用的“核心循环”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%9B%9E%E5%A4%8D%E9%80%9A%E8%B7%AF%EF%BC%9A%E7%BB%93%E6%9E%9C%E7%9A%84%E2%80%9C%E5%8F%8D%E9%A6%88%E4%B8%8E%E7%95%99%E5%AD%98%E2%80%9D"><span class="toc-number">2.6.</span> <span class="toc-text">6. 回复通路：结果的“反馈与留存”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81OpenClaw%E7%9A%84%E8%AE%B0%E5%BF%86%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%8D%E5%81%9A%E2%80%9C%E9%87%91%E9%B1%BC%E5%BC%8F%E2%80%9DAI%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、OpenClaw的记忆管理机制（不做“金鱼式”AI）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E5%A5%97%E8%AE%B0%E5%BF%86%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.</span> <span class="toc-text">两套记忆存储系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%91%E9%87%8F-%E5%85%B3%E9%94%AE%E8%AF%8D%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">混合检索方案（向量+关键词）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82%EF%BC%88%E5%8F%AF%E7%9B%B4%E6%8E%A5%E5%80%9F%E9%89%B4%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">技术实现细节（可直接借鉴）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%B4%81%E5%8D%B4%E9%AB%98%E6%95%88%E7%9A%84%E8%AE%B0%E5%BF%86%E5%90%8C%E6%AD%A5%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.4.</span> <span class="toc-text">简洁却高效的记忆同步与生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%A0%B8%E5%BF%83%E7%AB%9E%E4%BA%89%E5%8A%9B%EF%BC%9A%E7%94%B5%E8%84%91%E6%93%8D%E4%BD%9C%E8%83%BD%E5%8A%9B%EF%BC%88OpenClaw%E7%9A%84%E2%80%9C%E6%8A%A4%E5%9F%8E%E6%B2%B3%E2%80%9D%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">四、核心竞争力：电脑操作能力（OpenClaw的“护城河”）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E8%AE%BE%E8%AE%A1%EF%BC%88%E6%88%96%E8%AF%B4%E2%80%9C%E6%98%AF%E5%90%A6%E7%9C%9F%E7%9A%84%E5%AE%89%E5%85%A8%EF%BC%9F%E2%80%9D%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">五、安全机制设计（或说“是否真的安全？”）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%91%BD%E4%BB%A4%E7%99%BD%E5%90%8D%E5%8D%95%E6%9C%BA%E5%88%B6"><span class="toc-number">5.1.</span> <span class="toc-text">1. 命令白名单机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%84%E6%8E%88%E6%9D%83%E5%AE%89%E5%85%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">5.2.</span> <span class="toc-text">2. 预授权安全命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%B1%E9%99%A9%E5%91%BD%E4%BB%A4%E9%BB%98%E8%AE%A4%E6%8B%A6%E6%88%AA"><span class="toc-number">5.3.</span> <span class="toc-text">3. 危险命令默认拦截</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E5%85%B7%E4%BA%AE%E7%82%B9%EF%BC%9A%E8%AF%AD%E4%B9%89%E5%BF%AB%E7%85%A7%E6%8A%80%E6%9C%AF"><span class="toc-number">6.</span> <span class="toc-text">六、浏览器工具亮点：语义快照技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">最后总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>OHC Java堆外缓存详解与应用 | 代老师的博客</title><meta name="keywords" content="内存"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="OHC Java堆外缓存详解与应用"><meta name="application-name" content="OHC Java堆外缓存详解与应用"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="OHC Java堆外缓存详解与应用"><meta property="og:url" content="https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="1、背景　　在当前微服务体系架构中，有很多服务例如，在 特征组装 与 排序等场景都需要有大量的数据支撑，快速读取这些数据对提升整个服务于的性能起着至关重要的作用。 　　缓存在各大系统中应用非常广泛。尤其是业务程序所依赖的数据可能在各种类型的数据库上(mysql、hive 等)，那么如果想要获取到这些"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="1、背景　　在当前微服务体系架构中，有很多服务例如，在 特征组装 与 排序等场景都需要有大量的数据支撑，快速读取这些数据对提升整个服务于的性能起着至关重要的作用。 　　缓存在各大系统中应用非常广泛。尤其是业务程序所依赖的数据可能在各种类型的数据库上(mysql、hive 等)，那么如果想要获取到这些"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'OHC Java堆外缓存详解与应用',
+  postAI: '',
+  pageFillDescription: '1、背景, 2、OHC 简介, 2.1、堆内和堆外, 2.2、OHC 的特性, 2.3、使用示例, 3、OHC 的底层原理, 3.1、整体架构, 3.2、OHCacheLinkedImpl, 3.3、段的实现：OffHeapLinkedMap, 3.4、空间分配, 4、方案选型与应用, 4.1、适用于OHC存储的数据, 4.2、序列化工具的选择, 4.3、生产环境的配置, 4.4、线上表现, 4.5、实践优化, 5、线上配置参数, 6、总结背景在当前微服务体系架构中有很多服务例如在特征组装与排序等场景都需要有大量的数据支撑快速读取这些数据对提升整个服务于的性能起着至关重要的作用缓存在各大系统中应用非常广泛尤其是业务程序所依赖的数据可能在各种类型的数据库上等那么如果想要获取到这些数据需要通过网络来访问再加上往往数据量又很庞大网络传输的耗时自然会增加系统的相应时间为了降低相应时间业务程序可以将从数据库中读取到的部分数据缓存在本地服务器可以很方便快速的直接使用缓存框架基于语言实现并以类库的形式供其他程序调用是一种以单机模式运行的堆外缓存简介缓存的分类与实现机制多种多样包括单机缓存与分布式缓存等等具体到应用又可以分为堆内缓存和堆外缓存全称为即堆外缓存是一款基于的堆外缓存框架是年针对开发的缓存框架后来从项目中独立出来成为单独的类库其项目地址为堆内和堆外程序运行时由虚拟机管理的内存区域称为堆垃圾收集器会扫描堆内空间识别应用程序已经不再使用的对象并释放其空间这个过程称为堆内缓存顾名思义是指将数据缓存在堆内的机制比如就可以用作简单的堆内缓存由于垃圾收集器需要扫描堆并且在扫描时需要暂停应用线程因此缓存数据过多会导致开销增大从而影响应用程序性能与堆内空间不同堆外空间不影响由应用程序自身负责分配与释放内存因此当缓存数据量较大达到以上级别时可以使用堆外缓存来提升性能的特性相对于持久化数据库可用的内存空间更少速度也更快因此通常将访问频繁的数据放入堆外内存进行缓存并保证缓存的时效性主要具有以下特性来满足需求数据存储在堆外不影响支持为每个缓存项设置过期时间支持配置逐出策略能够维护大量的缓存条目百万量级以上支持异步加载缓存读写速度在微秒级别具有低延迟容量大不影响的特性并且支持使用方根据自身业务需求进行灵活配置使用示例在项目中使用主要包括以下步骤在项目中引入如果使用来管理依赖可以将的坐标添加到到项目的文件中是将对象序列化后存储在堆外因此用户需要实现类会运用其实现类来序列化和反序列化对象例如以下例子是对进行的序列化实现计算字符串序列化后占用的空间需要序列化存储的字符串序列化后的字节数设置字符串长度限制设置字符串长度限制将字符串对象序列化到中是管理的堆外内存区域的映射需要序列化的对象序列化后的存储空间得到字符串对象编码的字节数组用前位记录数组长度对堆外缓存的字符串进行反序列化字节数组所在的字符串对象判断字节数组的长度读取字节数组返回字符串对象将的实现类作为参数传递给的构造函数来创建使用的相关方法来读写缓存见第点中的使用示例的底层原理整体架构以的方式供其他程序调用其接口定义了可调用的方法对于缓存来说最常用的是和方法针对不同的使用场景提供了两种的实现以上两种实现均把所有条目缓存在堆外堆内通过指向堆外的地址指针对缓存条目进行管理其中实现为每个键值对分别分配堆外内存适合中大型键值对实现为每个段分配堆外内存适用于存储小型键值对由于实现仍然处于实验阶段所以我们选择实现在线上使用后续介绍也以实现为例其整体架构及内存分布如下图所示下文将分别介绍其功能是堆外缓存的具体实现类其主要成员包括段数组序列化器与反序列化器中包含多个段每个段用来表示同时将对象序列化成字节数组存储在堆外在该过程中需要使用用户自定义的的主要工作流程如下计算的值根据值计算段号确定其所处的从中获取该键值对的堆外内存指针对于操作从指针所指向的堆外内存读取把反序列化成对象对于操作把对象序列化成并写入指针所指向的堆外内存段的实现在中每个段用来表示段中包含多个分桶每个桶是一个链表链表中的元素即是缓存条目的堆外地址指针的主要作用是根据值找到键值对的堆外地址指针在查找指针时先根据值计算出桶号然后找到该桶的第一个元素然后沿着第一个元素按顺序线性查找空间分配的实现为每个键值对分别分配堆外内存因此键值对实际是零散地分布在堆外提供了和这两个分配器分别使用和分配堆外内存用户可以通过配置来使用其中一种会把和序列化成存储到堆外如所述用户需要通过实现来自定义类完成序列化和反序列化因此占用的空间实际取决于用户自定义的序列化方法除了和本身占用的空间还会对进行位对齐比如用户计算出占用个字节会将其对齐到个字节另外对于每个键值对需要额外的个字节来维护偏移量等元数据因此对于每个键值对占用的堆外空间为每个条目占用堆外内存占用内存位对齐占用内存字节方案选型与应用适用于存储的数据针对我们线上常用的缓存集群和来进行线上数据存储这三种存储方式的特性分别如下因为不同存储方式的特性差别较大我们会根据具体场景来从中选择特征组装与排序引擎所需的数据主要分为离线数据和实时数据均使用作为主库离线数据由定时算法任务生成后写入一般按照小时级或者天级进行更新并通过和定时从同步到供使用实时数据则根据用户行为进行在线更新通常使用任务实时计算后直接写入对于离线数据其更新周期比较长非常适合使用缓存到服务所在服务器本地比如在进行排序时的历史点击率是非常重要的特征数据特别是其最近几天的点击率这种以天为单位更新的离线特征如果使用缓存到本地则可以避免读取的网络开销节省排序阶段耗时对于实时数据其更新受用户实时行为影响下次更新时间是不确定的比如用户对某个目的地的偏好程度这种数据随着用户在端不断进行点击而更新这种实时数据不会使用缓存到本地否则可能会导致本地缓存和主库的数据不一致即使进行缓存也应该设置较小的过期时间比如秒级或者分钟级尽量保证数据的实时性和准确性其他数据比如站内的高热数据和兜底数据其数据量较小且可能频繁使用这种数据我们使用缓存到堆内以便于快速读取序列化工具的选择如上文所说是一款形式的缓存框架并且对和都提供了泛型支持因此使用方在创建对象时就需要确定和的类型一般使用场景中使用时设置为类型则设置为类型从而可以存储各种类型的对象由于需要把和序列化成字节数组存储到堆外因此需要选择合适的序列化工具对于类型的其序列化过程比较简单可以直接转换成格式的字节数组来表示对于类型的则选用了开源的作为序列化工具需要注意的是由于不是线程安全的可以搭配一起使用在使用时通常有两个地方用到序列化在存储每个键值对时会调用计算序列化后的内存空间占用从而申请堆外内存另外在真正写入堆外时会调用真正进行序列化因此务必在这两个方法中使用相同的序列化方法也就是说申请的堆外内存计算所得和实际占用的堆外内存要保持一致我们开始使用时在方法中使用计算序列化后的空间占用而在中则使用了结果发现计算的内存远远大于计算出来的导致为每个键值对申请了大量堆外内存却没有充分使用生产环境的配置支持大量配置选项供使用方根据自身业务场景进行选择这里介绍下在我们业务中相关参数的配置总容量最开始使用时我们设置的上限为左右随着业务的发展和数据量的增长逐渐增大到基本可以覆盖热点数据段数量一方面使用了分段锁多个线程访问同一个段时会导致竞争所以段数量不宜设置过小同时当段内条目数量达到一定负载时会自动段数量过小则会允许段内存储的条目数量增加从而可能导致段内频繁进行影响性能另一方面段的元数据是存储在堆内的过大的段数量会占用堆内空间因此应该在尽量减少的次数的前提下结合业务的等参数将段数量设置为较小的值哈希算法通过压测我们发现使用和时键值对的分布都比较均匀而的使用率相对较低因此使用作为哈希算法逐出算法选用的总容量基本已经覆盖了大部分热点数据并且很少出现偶发性或者周期性的批量操作因此选用了线上表现使用管理的单机堆外内存在左右可以缓存的条目为百万量级我们主要关注命中率读取和写入速度这几个指标方法会返回对象其中包含了命中率等指标当内存配置为时在我们的业务场景下缓存命中率可以稳定在以上同时我们在调用和方法时进行了日志记录的平均耗时稳定在微妙左右则需要微妙需要注意的是和的速度和缓存的键值对大小呈正相关趋势因此不建议缓存过大的内容可以通过配置项来限制存储的最大键值对发现单个条目超过该值时不会将其放入堆外缓存实践优化异步移除过期数据在的原始实现中读取键值对时会判断其是否过期如果过期则立即将其移除移除键值对是相对比较昂贵的操作可能会阻塞当前读取线程因此我们对其进行了异步改造读取键值对时如果发现其已经过期则会将其存入一个队列同时在后台加入了一个清理线程定期从队列里面读取过期内容并进行移除加锁方式优化本身是线程安全的因为每个段都有自己的锁在读取和写入时都会加锁其源代码中使用的是锁在更新失败时尝试挂起线程并重试每个线程都有自己的缓存当变量标记为脏时线程会更新缓存但是无论是否成功设置该值锁在每次调用变量时都会将其标记为脏数据这会导致在线程竞争激烈时性能下降使用锁可以尽量减少的次数从而提高性能线上配置参数相关的配置参数含义请参考中的内容这里只说一下用于设置的最大大小的单位可以使用如果没有设置该参数则默认值为意味着自己自动给选择最大大小从代码中可以看到默认是取的总结是一款实现的堆外缓存框架具有低时延不影响的特点适合存储大量缓存条目同时支持配置过期时间逐出算法等多个配置项同时我们注意到相对于另一款开源的缓存框架的中文资料相对较少我们在框架选型时也对两者进行了压测在我们业务场景下性能表现更好因此选择作为我们的主要缓存实现特别地对于推荐引擎这种依赖大量离线数据和实时数据的应用适合将离线数据进行本地缓存从而节省访问远程数据库的时间',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E5%86%85%E5%AD%98/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>内存</span></a></span></div></div><h1 class="post-title" itemprop="name headline">OHC Java堆外缓存详解与应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:00.000Z" title="发表于 2024-10-31 22:02:00">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.232Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/"><header><a href="/tags/%E5%86%85%E5%AD%98/" tabindex="-1" itemprop="url">内存</a><h1 id="CrawlerTitle" itemprop="name headline">OHC Java堆外缓存详解与应用</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:00.000Z" title="发表于 2024-10-31 22:02:00">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:37.232Z" title="更新于 2025-09-01 21:32:37">2025-09-01</time></header><h3 id="1、背景"><a href="#1、背景" class="headerlink" title="1、背景"></a>1、背景</h3><p>　　在当前微服务体系架构中，有很多服务例如，在 特征组装 与 排序等场景都需要有大量的数据支撑，快速读取这些数据对提升整个服务于的性能起着至关重要的作用。</p>
+<p>　　缓存在各大系统中应用非常广泛。尤其是业务程序所依赖的数据可能在各种类型的数据库上(mysql、hive 等)，那么如果想要获取到这些数据需要通过网络来访问。再加上往往数据量又很庞大，网络传输的耗时，自然会增加系统的相应时间。为了降低相应时间，业务程序可以将从数据库中读取到的部分数据，缓存在本地服务器可以很方便快速的直接使用。</p>
+<p>　　缓存框架OHC基于Java语言实现，并以类库的形式供其他Java程序调用，是一种以单机模式运行的堆外缓存。</p>
+<h3 id="2、OHC-简介"><a href="#2、OHC-简介" class="headerlink" title="2、OHC 简介"></a>2、OHC 简介</h3><p>　　缓存的分类与实现机制多种多样，包括单机缓存与分布式缓存等等。具体到JVM应用，又可以分为堆内缓存和堆外缓存。</p>
+<p>　　OHC 全称为 <strong>off-heap-cache</strong>，即堆外缓存，是一款基于Java 的 key-value 堆外缓存框架。</p>
+<p>　　OHC是2015年针对 Apache Cassandra 开发的缓存框架，后来从 Cassandra 项目中独立出来，成为单独的类库，其项目地址为：<a target="_blank" rel="noopener" href="https://github.com/snazy/ohc">https://github.com/snazy/ohc</a></p>
+<h4 id="2-1、堆内和堆外"><a href="#2-1、堆内和堆外" class="headerlink" title="2.1、堆内和堆外"></a>2.1、堆内和堆外</h4><p>　　Java程序运行时，由Java虚拟机（JVM）管理的内存区域称为堆（heap）。垃圾收集器会扫描堆内空间，识别应用程序已经不再使用的对象，并释放其空间，这个过程称为GC。</p>
+<p>　　堆内缓存，顾名思义，是指将数据缓存在堆内的机制，比如 HashMap 就可以用作简单的堆内缓存。由于垃圾收集器需要扫描堆，并且在扫描时需要暂停应用线程（stop-the-world，STW），因此，缓存数据过多会导致GC开销增大，从而影响应用程序性能。</p>
+<p> 　　与堆内空间不同，堆外空间不影响GC，由应用程序自身负责分配与释放内存。因此，当缓存数据量较大（达到G以上级别）时，可以使用堆外缓存来提升性能。</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200814094650951-2127551867.png"></p>
+<h4 id="2-2、OHC-的特性"><a href="#2-2、OHC-的特性" class="headerlink" title="2.2、OHC 的特性"></a>2.2、OHC 的特性</h4><p>　　相对于持久化数据库，可用的内存空间更少、速度也更快，因此通常将访问频繁的数据放入堆外内存进行缓存，并保证缓存的时效性。OHC主要具有以下特性来满足需求：</p>
+<ol>
+<li>数据存储在堆外，不影响GC</li>
+<li>支持为每个缓存项设置过期时间</li>
+<li>支持配置LRU、W-TinyLFU逐出策略</li>
+<li>能够维护大量的缓存条目（百万量级以上）</li>
+<li>支持异步加载缓存</li>
+<li>读写速度在微秒级别</li>
+</ol>
+<p>　　OHC具有低延迟、容量大、不影响GC的特性，并且支持使用方根据自身业务需求进行灵活配置。</p>
+<h4 id="2-3、使用示例"><a href="#2-3、使用示例" class="headerlink" title="2.3、使用示例"></a>2.3、使用示例</h4><p>　　在Java项目中使用OHC，主要包括以下步骤：</p>
+<p>　　1. 在项目中引入OHC。如果使用Maven来管理依赖，可以将OHC的坐标添加到到项目的POM文件中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.caffinitas.ohc&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;ohc-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;0.7.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>　　2. OHC是将Java对象序列化后存储在堆外，因此用户需要实现 org.caffinitas.ohc.CacheSerializer 类，OHC会运用其实现类来序列化和反序列化对象。例如，以下例子是对 string 进行的序列化实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">public class StringSerializer implements CacheSerializer&lt;String&gt; &#123;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 计算字符串序列化后占用的空间</span><br><span class="line">     *</span><br><span class="line">     * @param value 需要序列化存储的字符串</span><br><span class="line">     * @return 序列化后的字节数</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public int serializedSize(String value) &#123;</span><br><span class="line">        byte[] bytes = value.getBytes(Charsets.UTF_8);</span><br><span class="line"> </span><br><span class="line">        // 设置字符串长度限制，2^16 = 65536</span><br><span class="line">        if (bytes.length &gt; 65536)</span><br><span class="line">            throw new RuntimeException(&quot;encoded string too long: &quot; + bytes.length + &quot; bytes&quot;);</span><br><span class="line">        // 设置字符串长度限制，2^16 = 65536</span><br><span class="line">        return bytes.length + 2;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 将字符串对象序列化到 ByteBuffer 中，ByteBuffer是OHC管理的堆外内存区域的映射。</span><br><span class="line">     *</span><br><span class="line">     * @param value 需要序列化的对象</span><br><span class="line">     * @param buf   序列化后的存储空间</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void serialize(String value, ByteBuffer buf) &#123;</span><br><span class="line">        // 得到字符串对象UTF-8编码的字节数组</span><br><span class="line">        byte[] bytes = value.getBytes(Charsets.UTF_8);</span><br><span class="line">        // 用前16位记录数组长度</span><br><span class="line">        buf.put((byte) ((bytes.length &gt;&gt;&gt; 8) &amp; 0xFF));</span><br><span class="line">        buf.put((byte) ((bytes.length) &amp; 0xFF));</span><br><span class="line">        buf.put(bytes);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 对堆外缓存的字符串进行反序列化</span><br><span class="line">     *</span><br><span class="line">     * @param buf 字节数组所在的 ByteBuffer</span><br><span class="line">     * @return 字符串对象.</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public String deserialize(ByteBuffer buf) &#123;</span><br><span class="line">        // 判断字节数组的长度</span><br><span class="line">        int length = (((buf.get() &amp; 0xff) &lt;&lt; 8) + ((buf.get() &amp; 0xff)));</span><br><span class="line">        byte[] bytes = new byte[length];</span><br><span class="line">        // 读取字节数组</span><br><span class="line">        buf.get(bytes);</span><br><span class="line">        // 返回字符串对象</span><br><span class="line">        return new String(bytes, Charsets.UTF_8);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　3. 将CacheSerializer的实现类作为参数，传递给OHCache的构造函数来创建OHCache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import org.caffinitas.ohc.Eviction;</span><br><span class="line">import org.caffinitas.ohc.OHCache;</span><br><span class="line">import org.caffinitas.ohc.OHCacheBuilder;</span><br><span class="line"></span><br><span class="line">public class OffHeapCacheExample &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        OHCache&lt;String, String&gt; ohCache = OHCacheBuilder.&lt;String, String&gt;newBuilder()</span><br><span class="line">                .keySerializer(new StringSerializer())</span><br><span class="line">                .valueSerializer(new StringSerializer())</span><br><span class="line">                .eviction(Eviction.LRU)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        ohCache.put(&quot;hello&quot;, &quot;world&quot;);</span><br><span class="line">        System.out.println(ohCache.get(&quot;hello&quot;)); // world</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　4. 使用OHCache的相关方法（get、put）来读写缓存。见第 3 点中的使用示例。</p>
+<h3 id="3、OHC-的底层原理"><a href="#3、OHC-的底层原理" class="headerlink" title="3、OHC 的底层原理"></a>3、OHC 的底层原理</h3><h4 id="3-1、整体架构"><a href="#3-1、整体架构" class="headerlink" title="3.1、整体架构"></a>3.1、整体架构</h4><p>　　OHC 以 API 的方式供其他 Java 程序调用，其 org.caffinitas.ohc.OHCache 接口定义了可调用的方法。对于缓存来说，最常用的是 get 和 put 方法。针对不同的使用场景，OHC提供了两种OHCache的实现：</p>
+<p> 　　org.caffinitas.ohc.chunked.OHCacheChunkedImpl</p>
+<p> 　　org.caffinitas.ohc.linked.OHCacheLinkedImpl</p>
+<p> 　　以上两种实现均把所有条目缓存在堆外，堆内通过指向堆外的地址指针对缓存条目进行管理。</p>
+<p>　　其中，linked 实现为每个键值对分别分配堆外内存，适合中大型键值对。chunked 实现为每个段分配堆外内存，适用于存储小型键值对。由于 chunked 实现仍然处于实验阶段，所以我们选择 linked 实现在线上使用，后续介绍也以linked 实现为例，其整体架构及内存分布如下图所示，下文将分别介绍其功能。</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200813233535129-2145472773.png"></p>
+<h4 id="3-2、OHCacheLinkedImpl"><a href="#3-2、OHCacheLinkedImpl" class="headerlink" title="3.2、OHCacheLinkedImpl"></a>3.2、OHCacheLinkedImpl</h4><p>　　OHCacheLinkedImpl是堆外缓存的具体实现类，其主要成员包括：</p>
+<p> 　　　　段数组：OffHeapLinkedMap[]</p>
+<p> 　　　　序列化器与反序列化器：CacheSerializer</p>
+<p>　　OHCacheLinkedImpl 中包含多个段，每个段用 OffHeapLinkedMap 来表示。同时，OHCacheLinkedImpl 将Java对象序列化成字节数组存储在堆外，在该过程中需要使用用户自定义的 CacheSerializer。OHCacheLinkedImpl 的主要工作流程如下：</p>
+<p>　　 1、计算 key 的 hash值，根据 hash值 计算段号，确定其所处的 OffHeapLinkedMap</p>
+<p> 　　2、从 OffHeapLinkedMap 中获取该键值对的堆外内存指针</p>
+<p> 　　3、对于 get 操作，从指针所指向的堆外内存读取 byte[]，把 byte[] 反序列化成对象</p>
+<p> 　　4、对于 put 操作，把对象序列化成 byte[]，并写入指针所指向的堆外内存</p>
+<h4 id="3-3、段的实现：OffHeapLinkedMap"><a href="#3-3、段的实现：OffHeapLinkedMap" class="headerlink" title="3.3、段的实现：OffHeapLinkedMap"></a>3.3、段的实现：OffHeapLinkedMap</h4><p> 　　在OHC中，每个段用 OffHeapLinkedMap 来表示，段中包含多个分桶，每个桶是一个链表，链表中的元素即是缓存条目的堆外地址指针。OffHeapLinkedMap 的主要作用是根据 hash值 找到 键值对 的 堆外地址指针。在查找指针时，OffHeapLinkedMap 先根据 hash值 计算出 桶号，然后找到该桶的第一个元素，然后沿着第一个元素按顺序线性查找。</p>
+<h4 id="3-4、空间分配"><a href="#3-4、空间分配" class="headerlink" title="3.4、空间分配"></a>3.4、空间分配</h4><p>　　OHC 的 linked 实现为每个键值对分别分配堆外内存，因此键值对实际是零散地分布在堆外。</p>
+<p>　　OHC提供了JNANativeAllocator 和 UnsafeAllocator 这两个分配器，分别使用 Native.malloc(size) 和 Unsafe.allocateMemory(size) 分配堆外内存，用户可以通过配置来使用其中一种。</p>
+<p> 　　OHC 会把 key 和 value 序列化成 byte[] 存储到堆外，如2.3所述，用户需要通过实现 CacheSerializer 来自定义类完成 序列化 和 反序列化。因此，占用的空间实际取决于用户自定义的序列化方法。</p>
+<p>　　除了 key 和 value 本身占用的空间，OHC 还会对 key 进行 8位 对齐。比如用户计算出 key 占用 3个字节，OHC会将其对齐到8个字节。另外，对于每个键值对，OHC需要额外的64个字节来维护偏移量等元数据。因此，对于每个键值对占用的堆外空间为：</p>
+<p><a href="#">?</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每个条目占用堆外内存 = key占用内存(8位对齐) + value占用内存 + 64字节</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、方案选型与应用"><a href="#4、方案选型与应用" class="headerlink" title="4、方案选型与应用"></a>4、方案选型与应用</h3><h4 id="4-1、适用于OHC存储的数据"><a href="#4-1、适用于OHC存储的数据" class="headerlink" title="4.1、适用于OHC存储的数据"></a>4.1、适用于OHC存储的数据</h4><p>　　针对我们线上常用的缓存：Redis 集群、OHC 和 Guava 来进行线上数据存储，这三种存储方式的特性分别如下：</p>
+<p> 　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200813234802958-684438141.png"></p>
+<p>　　因为不同存储方式的特性差别较大，我们会根据具体场景来从中选择。特征组装与排序引擎所需的数据主要分为“离线数据” 和 “实时数据”，均使用Redis作为主库。离线数据由定时算法任务生成后写入HDFS，一般按照小时级或者天级进行更新，并通过 XXL Job 和 DataX 定时从 HDFS 同步到 Redis 供使用。实时数据则根据用户行为进行在线更新，通常使用 Flink 任务实时计算后直接写入 Redis。</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200813235031729-1207367275.png"></p>
+<p>　　对于离线数据，其更新周期比较长，非常适合使用OHC缓存到服务所在服务器本地。比如，在进行排序时，item的历史点击率是非常重要的特征数据，特别是其最近几天的点击率。这种以天为单位更新的离线特征，如果使用OHC缓存到本地，则可以避免读取Redis的网络开销，节省排序阶段耗时。</p>
+<p> 　　对于实时数据，其更新受用户实时行为影响，下次更新时间是不确定的。比如用户对某个目的地的偏好程度，这种数据随着用户在App端不断进行点击而更新。这种实时数据不会使用OHC缓存到本地，否则可能会导致 本地缓存 和 主库的数据不一致。即使进行缓存，也应该设置较小的过期时间（比如秒级或者分钟级），尽量保证数据的实时性和准确性。</p>
+<p> 　　其他数据，比如站内的高热数据 和 兜底数据，其数据量较小且可能频繁使用，这种数据我们使用 Guava 缓存到堆内，以便于快速读取。</p>
+<h4 id="4-2、序列化工具的选择"><a href="#4-2、序列化工具的选择" class="headerlink" title="4.2、序列化工具的选择"></a>4.2、序列化工具的选择</h4><p>　　如上文所说，OHC 是一款 key-value 形式的缓存框架，并且对 key 和 value 都提供了泛型支持。因此，使用方在创建 OHC对象时就需要确定 key 和 value 的类型。</p>
+<p> 　　一般使用场景中，使用OHC时 key 设置为 String 类型，value 则设置为 Object类型，从而可以存储各种类型的对象。由于 OHC 需要把 key 和 value 序列化成字节数组存储到堆外，因此需要选择合适的序列化工具。</p>
+<p>　　对于String类型的key，其序列化过程比较简单，可以直接转换成UTF-8格式的字节数组来表示。对于Object类型的 value，则选用了开源的 Kyro 作为序列化工具。需要注意的是，由于Kyro不是线程安全的，可以搭配ThreadLocal一起使用。</p>
+<p> 　　在使用OHC时，通常有两个地方用到序列化。在存储每个键值对时，会调用 CacheSerializer#serializedSize 计算序列化后的内存空间占用，从而申请堆外内存。另外，在真正写入堆外时，会调用 CacheSerializer#serialize 真正进行序列化。因此，务必在这两个方法中使用相同的序列化方法。</p>
+<p>　　也就是说，申请的堆外内存 (CacheSerializer#serializedSize 计算所得) 和 实际占用的堆外内存(CacheSerializer#serialize) 要保持一致。我们开始使用 OHC 时，在 CacheSerializer#serializedSize方法中使用com.twitter.common.objectsize.ObjectSizeCalculator 计算序列化后的空间占用，而在 CacheSerializer#serialize 中则使用了Kryo。结果发现 ObjectSizeCalculator 计算的内存远远大于Kyro计算出来的，导致为每个键值对申请了大量堆外内存却没有充分使用。</p>
+<h4 id="4-3、生产环境的配置"><a href="#4-3、生产环境的配置" class="headerlink" title="4.3、生产环境的配置"></a>4.3、生产环境的配置</h4><p>　　OHC支持大量配置选项，供使用方根据自身业务场景进行选择，这里介绍下在我们业务中相关参数的配置。</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200813235621526-1158204809.png"></p>
+<p> 　　总容量</p>
+<p>最开始使用OHC时，我们设置的上限为4G左右。随着业务的发展和数据量的增长，逐渐增大到10G，基本可以覆盖热点数据。</p>
+<p>　　段数量</p>
+<p>一方面，OHC使用了分段锁，多个线程访问同一个段时会导致竞争，所以段数量不宜设置过小。同时，当段内条目数量达到一定负载时 OHC 会自动 rehash，段数量过小则会允许段内存储的条目数量增加，从而可能导致段内频繁进行rehash，影响性能。另一方面，段的元数据是存储在堆内的，过大的段数量会占用堆内空间。因此，应该在尽量减少rehash的次数的前提下，结合业务的QPS等参数，将段数量设置为较小的值。</p>
+<p> 　　哈希算法</p>
+<p>通过压测，我们发现使用 CRC32、CRC32C 和 MURMUR3 时，键值对的分布都比较均匀，而 CRC32C 的 CPU使用率相对较低，因此使用 CRC32C 作为哈希算法。</p>
+<p> 　　逐出算法</p>
+<p>选用10G的总容量，基本已经覆盖了大部分热点数据，并且很少出现偶发性或者周期性的批量操作，因此选用了LRU。</p>
+<h4 id="4-4、线上表现"><a href="#4-4、线上表现" class="headerlink" title="4.4、线上表现"></a>4.4、线上表现</h4><p>　　使用OHC管理的单机堆外内存在 10G 左右，可以缓存的条目为 百万量级。我们主要关注 命中率、读取 和 写入速度 这几个指标。</p>
+<p>　　OHC#stats 方法会返回 OHCacheStats 对象，其中包含了命中率等指标。</p>
+<p>　　当内存配置为10G时，在我们的业务场景下，缓存命中率可以稳定在95%以上。同时，我们在调用 get 和 put 方法时，进行了日志记录，get 的平均耗时稳定在 20微妙 左右，put 则需要 100微妙。</p>
+<p>　　需要注意的是，get 和 put 的速度 和 缓存的键值对大小呈正相关趋势，因此不建议缓存过大的内容。可以通过org.caffinitas.ohc.maxEntrySize 配置项，来限制存储的最大键值对，OHC发现单个条目超过该值时不会将其放入堆外缓存。</p>
+<h4 id="4-5、实践优化"><a href="#4-5、实践优化" class="headerlink" title="4.5、实践优化"></a>4.5、实践优化</h4><p>　　(1)异步移除过期数据</p>
+<p> 　　在 OffHeapLinkedMap 的原始实现中，读取键值对 时 会判断其是否过期，如果过期则立即将其移除。移除键值对是相对比较 “昂贵” 的操作，可能会阻塞当前读取线程，因此我们对其进行了异步改造。读取键值对时，如果发现其已经过期，则会将其存入一个队列。同时，在后台加入了一个清理线程，定期从队列里面读取过期内容并进行移除。</p>
+<p> 　　(2)加锁方式优化</p>
+<p> 　　OHC本身是线程安全的，因为每个段都有自己的锁，在读取 和 写入时都会加锁。其源代码中使用的是 CAS锁（compare-and-set），在更新失败时尝试挂起线程并重试：</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200814000345976-1393840655.png"></p>
+<p> 　　每个线程都有自己的缓存，当变量标记为脏时线程会更新缓存。但是，无论是否成功设置该值，CAS锁在每次调用变量时都会将其标记为脏数据，这会导致在线程竞争激烈时性能下降。使用 CASC（compare-and-set-compare）锁可以尽量减少 CAS 的次数，从而提高性能：</p>
+<p>　　<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img2020.cnblogs.com/blog/980882/202008/980882-20200814000936624-327432864.png"></p>
+<h3 id="5、线上配置参数"><a href="#5、线上配置参数" class="headerlink" title="5、线上配置参数"></a>5、线上配置参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-XX:MaxDirectMemorySize=9g</span><br><span class="line">-Dorg.caffinitas.ohc.capacity=9126805504   # 5G=5368709120 7G=7516192768 8.5G=9126805504 </span><br><span class="line">-Dorg.caffinitas.ohc.maxEntrySize=2621440  # 10M</span><br><span class="line">-Dorg.caffinitas.ohc.segmentCount=1024</span><br><span class="line">-Dorg.caffinitas.ohc.hashAlgorighm=CRC32C</span><br><span class="line">-Dorg.caffinitas.ohc.eviction=W_TINY_LFU</span><br><span class="line">-Dorg.caffinitas.ohc.edenSize=0.1</span><br></pre></td></tr></table></figure>
+
+<p>　　相关的配置参数含义请参考 4.3 中的内容。这里只说一下：MaxDirectMemorySize</p>
+<p>　　-XX:MaxDirectMemorySize&#x3D;size 用于设置 New I&#x2F;O(<code>java.nio</code>)  direct-buffer allocations 的最大大小，size的单位可以使用 k&#x2F;K、m&#x2F;M、g&#x2F;G；</p>
+<p>　　如果没有设置该参数则默认值为0，意味着JVM自己自动给NIO direct-buffer allocations选择最大大小；</p>
+<p>　　从代码java.base&#x2F;jdk&#x2F;internal&#x2F;misc&#x2F;VM.java中可以看到默认是取的Runtime.getRuntime().maxMemory()</p>
+<h3 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h3><p>　　OHC是一款Java实现的堆外缓存框架，具有低时延、不影响GC的特点，适合存储大量缓存条目，同时支持配置过期时间、逐出算法等多个配置项。</p>
+<p>　　同时我们注意到，相对于另一款开源的缓存框架 ehcache，OHC的中文资料相对较少。我们在框架选型时也对两者进行了压测，OHC在我们业务场景下性能表现更好，因此选择 OHC作为我们的主要缓存实现。</p>
+<p>　　特别地，对于推荐引擎这种依赖大量 离线数据 和 实时数据的应用，OHC适合将离线数据进行本地缓存，从而节省访问远程数据库的时间。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/')">OHC Java堆外缓存详解与应用</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=OHC Java堆外缓存详解与应用&amp;url=https://tushu.info/archives/OHC-Java-dui-wai-huan-cun-xiang-jie-yu/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E5%86%85%E5%AD%98/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>内存<span class="tagsPageCount">3</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Recycler-dui-xiang-chi-fen-xi/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Recycler对象池分析</div></div></a></div><div class="next-post pull-right"><a href="/archives/Netty-ru-he-shi-xian-gao-xing-neng-nei/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Netty如何实现高性能内存管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/archives/dui-wai-huan-cun/" title="堆外缓存"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">堆外缓存</div></div></a></div><div><a href="/archives/dui-wai-nei-cun-de-hui-shou-ji-zhi-fen/" title="堆外内存的回收机制分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">堆外内存的回收机制分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">1、背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81OHC-%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">2、OHC 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E3%80%81%E5%A0%86%E5%86%85%E5%92%8C%E5%A0%86%E5%A4%96"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、堆内和堆外</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E3%80%81OHC-%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、OHC 的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3%E3%80%81%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、使用示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81OHC-%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">3、OHC 的底层原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1%E3%80%81%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、整体架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2%E3%80%81OHCacheLinkedImpl"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、OHCacheLinkedImpl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3%E3%80%81%E6%AE%B5%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%9AOffHeapLinkedMap"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、段的实现：OffHeapLinkedMap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4%E3%80%81%E7%A9%BA%E9%97%B4%E5%88%86%E9%85%8D"><span class="toc-number">3.4.</span> <span class="toc-text">3.4、空间分配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">4、方案选型与应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1%E3%80%81%E9%80%82%E7%94%A8%E4%BA%8EOHC%E5%AD%98%E5%82%A8%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、适用于OHC存储的数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2%E3%80%81%E5%BA%8F%E5%88%97%E5%8C%96%E5%B7%A5%E5%85%B7%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、序列化工具的选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3%E3%80%81%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、生产环境的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4%E3%80%81%E7%BA%BF%E4%B8%8A%E8%A1%A8%E7%8E%B0"><span class="toc-number">4.4.</span> <span class="toc-text">4.4、线上表现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5%E3%80%81%E5%AE%9E%E8%B7%B5%E4%BC%98%E5%8C%96"><span class="toc-number">4.5.</span> <span class="toc-text">4.5、实践优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E7%BA%BF%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">5、线上配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">6、总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>HAMT 简介 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="HAMT 简介"><meta name="application-name" content="HAMT 简介"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="HAMT 简介"><meta property="og:url" content="https://tushu.info/archives/HAMT-jian-jie/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="在之前的一个系列的文章里，我们从基本原理开始，一步步实现了基于 Vector Trie 的持久化 List 数据结构。 接下来将要研究的是使用 HAMT 这一数据结构实现持久化 Hash Table。 持久化数据结构简介 这篇文章里， 我们对比各种可以用来实现持久化数据结构的方案，详细介绍了 Vec"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="在之前的一个系列的文章里，我们从基本原理开始，一步步实现了基于 Vector Trie 的持久化 List 数据结构。 接下来将要研究的是使用 HAMT 这一数据结构实现持久化 Hash Table。 持久化数据结构简介 这篇文章里， 我们对比各种可以用来实现持久化数据结构的方案，详细介绍了 Vec"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/HAMT-jian-jie/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'HAMT 简介',
+  postAI: '',
+  pageFillDescription: 'Hash Table, HAMT 原理简介, 节点内部空间的压缩, 压缩 Trie 高度, 基本操作的实现, 查询操作, 加入操作, 删除操作, 持久化 HAMT, 总结在之前的一个系列的文章里我们从基本原理开始一步步实现了基于的持久化数据结构接下来将要研究的是使用这一数据结构实现持久化持久化数据结构简介这篇文章里我们对比各种可以用来实现持久化数据结构的方案详细介绍了这种数据结构说明了用它实现优势的全称是它和一样都利用了前缀树这种数据结构作为底层数据结构但是由于本身和之间性质的差别在很多方面进行了特别的处理接下来我们先从原始数据结构谈起逐步引出的设计原理是利用对象的值对所储存的键进行散列从而实现快速的插入删除和访问的数据结构在语言中的中的和和当中的都是的一种其基本原理是通过某一函数将对象映射在某一虚拟空间上的一个点并以此为依据将对象保存在内存上的固定位置上这样当需要访问这一对象时依然使用同一函数先计算出对象可能存在的位置并尝试取出关于和的概念不再赘述在这里我们主要需要着眼的是设计实现所需要处理的几个关键问题碰撞问题由于函数是通过将对象映射到某一数值的方式获得对对象的一个快速的描摹因此尽管我们可以断言值不同的的对象一定不同但是并不能保证具有相同值的对象一定相同因此在实际应用中遇到碰撞的问题就需要进行处理时间效率问题对于所有数据结构来说时间效率都是非常重要的考量因素从理论上来说的均摊时间复杂度很好但是仍然需要考虑在某些极端条件下面的执行性能以保证在各种情况下算法的时间效率不会退化空间效率问题一般来说我们不能将函数值域整个在内存中一次分配出来一来这样做在存入元素很少的情况下非常浪费二来我们构造的函数值域范围很大一般无法直接分配因此需要一种方法将空间使用压缩到合理的范围同时保持一定的空间效率并发同步问题和一样在现代多核盛行的计算环境内实现的并发安全性也是一个重要的考虑因素的插入访问和删除操作往往包含好连续的几步如果不能保证这些步骤在一起原子的完成就可能会产生无法预计的结果以上四点在实现的过程当中是互相联系的比如说碰撞问题就与时间效率和空间效率两个方面紧密相连一般来说碰撞越多的时间效率越差根据碰撞处理策略的不同还有可能影响空间效率反过来如果空间分配的比较多尽管空间效率下降但是往往可以缓解碰撞的概率因此改善时间效率并发同步问题也与上述问题紧密相连譬如说有的实现在空间不足时需要重新分配空间这一操作既耗时又包含很多的指令对于并发安全提出了很高的要求在以上四个方面都给出了自己的极佳的解决方案很多学者将其称为理想的实现在接下来介绍的原理之前我们先给出在本文中对函数的一些假定函数的值是类型函数的值域类型的范围对于两个不同的对象总可以找到一个函数使二者值不同原理简介之前介绍了实现的持久化如果将这种作为基础直接套用传统的实现方法其实就可以实现持久化的了但是这种解决方案在时间效率空间效率上都比较差和的一个区别在于当中保存的元素是散列和稀疏的不像那样从下标一直排列到然而只要把当中下标必须连续的限制条件去掉本身就变成了一种相对传统更好的容器下图表示的说明了这一点由上图可见在表示的中每个元素的值的范围是到此时当中只有两个元素其中一个值是另一个为在传统实现的当中我们需要分配一个长度的数组来保存而使用只需要个节点共计个单位的空间其它位置因为没有元素存在那些节点可以直接节省掉这说明应用树可以在节约空间效率方面具有很好的表现事实上依靠树我们可以直接把到既范围的空间表示出来而不用直接分配全部内存只有存在元素的分支会被按需地分配出来事实上树是线性空间上稀疏数组的一种很好的表示形式在引入树作为数组的稀疏表示之后我们已经大幅地提高空间效率并得到了不错的时间效率尽管查询树比直接访问数组更慢一些但是由于我们表示的空间足够宽广在实际应用中遇见碰撞的概率极低因此在时间效率上还是很有竞争力的至此在的基础上我们得到了通往的第一步将元素的值按位分割成固定宽度的序列在树上以这些序列按顺序查找元素应该存放的位置然而并不止步于此从图中容易看出我们还有两种优化方案可以达到更好的空间时间效率节约单个节点当中空间的浪费许多节点中仍然有非常多的空位设法将这些空位清除可以节省很多空间削减树的高度保存在树中的两个元素的值从第一位开始就不相同理论上只需要检查最前面的几位就可以区分只使用值中较高的比特位既可以节约空间又可以提高时间效率在这两个方向都提出了不错的优化方案节点内部空间的压缩如果我们依然使用固定个元素宽度的树节点那么必然可能出现由于存入的元素比较稀疏而存在大量空位的现象为此我们要对节点内部空间进行压缩压缩的方法是为每一个节点添加一个类型的字段当这个字段某一比特位值为代表在当前节点上对应的自节点出现了否则则代表没有出现我们保存子元素时不再保留空间的空闲位置而是将所有的子元素一个挨一个的紧密放置在存取时利用上一步添加的字段计算出所需的是哪一个子节点为了更清楚地解释上述做法下面的示意图来描绘了进行节点内部压缩前后的节点内部结构由上图可以看到虽然压缩后的节点多增加了一个用于保存的字段但是由于省略了个空置空间所以整体的内存消耗大大降低了要在压缩过的节点当中完成跟原来一样的查询逻辑我们要建立压缩前后节点之间的对应关系在未压缩的节点中由于每个自节点就在它序号所指定的内存位置所以我们可以直接用下标访问它在压缩过的节点中这一性质不再有效我们需要使用新增的字段将节点的内存位置计算出来由上图可以看到压缩前后子元素的相对顺序并没有改变仍然是按照从小到大的顺序排列起来的这一点非常重要根据这个性质我们可以给出如下的算法如果指定序号在字段中对应的比特位为表明并不存在给定序号的子元素因此可以立刻返回空值如果指定序号在字段中对应比特位为则元素存在且它在压缩后节点中的位置下标等于在其之前出现的子元素的数量第二条其实很好理解因为压缩后元素的相对顺序不变只是将空余空间剔除因此如果从零开始编号设在所查询子元素之前出现的元素数量为那么所查询子元素就是第个元素因此其下标恰好是利用和位运算我们可以快速的计算出的值譬如说我们要查询在原节点中下标为的元素首先我们看一下第位的值是否为方法是使用位运算其中是字段的值如果检查结果为说明元素存在我们进一步计算它的位置显然当前元素之前的元素数量就等于当中从到包含两端位比特位当中的数量我们首先用将那些位单独取出来并将其他位置设为其中得到的是到位全为其他位全为的一个整型值得到这个结果之后我们还需要把其中的的数量计算出来这一操作在计算机科学当中被称为进行这样的计算所得到的值又称为是一种非常常用的操作因此存在很多相关研究有的指令集如还添加了专门的指令用于执行这一操作除了直接使用指令集或者简单地逐个计数的快速计算有很多方法下面的代码给出了在类型上快速计算的一种实现方法关于的计算本文不再赘述相关内容可以参考上详细的介绍和计算方法的对比由于在当中是一个非常常用的操作因此他的性能对最终实现的的性能有显著的影响在实现时一定要根据目标平台的特点选择合适的实现方法可能的话应该直接使用指令集支持的指令进行计算在获得到子元素在压缩后节点的内存下标之后我们就可以像原来一样对节点进行查询访问了压缩高度在节点内部空间之外另一个可以节省空间的地方是树的高度前面在利用这个宽的值构造树将我们的对象放置在内存中索引起来那么一个容易想到的优化就是在不产生混淆的情况下我们没有必要一定使用值的每一个二进制位也就是说如果值的较高的一部分二进制位已经可以在我们的中唯一地标记这个对象了我们就不再利用后面的比特位下图展示了对树高度的压缩在左边的原始树中存放了值为和的两个对象中间是压缩高度的树我们看到由于当前中只有两个元素而这两个元素的值从最开始就是不一样的所以在压缩之后从高位开始第二位之后的值不再被使用同理在添加和删除新的对象的时候我们还需要动态地维护树的高度在合适的时候增加或者减少树的高度最右边的图展示了在中插入之后树的结构可以看到因为新的节点插入最高位两个比特位指代的对象出现了混淆不能唯一地确定一个对象因此我们要进一步地利用剩下的比特位来构造无混淆的树由于对的各种操作都是基于树上节点的访问对高度进行的压缩不单节约了内存空间也提高了查询和访问的性能基本操作的实现在熟悉了在原始的表示上做了哪些优化之后我们就可以给出在实现的上进行各种操作的基本思路了查询操作查询操作和在上进行查询没有太大的改变只是因为节点的空间被压缩之后需要先通过字段判断对应的位置是否存在子元素如果存在再通过计算得到子元素所在的实际位置在获得到子元素之后鉴于对的高度进行了压缩我们要先判断这个子元素是的子节点还是值元素本身对于我们将值包装成这样的一个值节点存放进去这样取出时就可以先判断的值是否相同以此决定是否真的取到了对象加入操作加入操作类似于查询操作对于给定的键值对我们先计算键的值然后从高位开始利用值沿着树向下查找此时存在四种情况查找到一个位置这个位置所保存的值对象代表的键和新插入的键相同则用新插入的值代替原来的值查找到一个子节点这个子节点再向下目标对象应该所在的位置没有元素此时只需申请一个新的宽度比当前子节点多的节点将原来子节点上的所有元素连带当前对象一一设置到新的子节点上维护好元素的顺序和的值即可查找到一个子节点这个子节点再向下目标对象所应该在的位置是一个值对象这时为这个值对象连带当前对象分配一个宽度为的子节点将原来的值对象和当前对象放置在新的节点中最后用新的节点在当前子节点中替换掉对应位置查找到一个子节点这个节点再向下目标对象所应该在的位置是另一个子节点则在那个子节点上递归进行上述操作在以上三种情况外还有一种情况即为出现值碰撞也就是说当前想要插入的值和当中某一个对象的值完全一样这样即使两个对象的值全部用尽也无法不混淆地存放两个对象这时就需要进行碰撞处理对于来说常见的碰撞处理有些类似于加盐的过程理论上来说一个良好设计的函数本身的碰撞概率就极小如果两个元素确实在某次计算中碰撞在两个元素上追加某段已知的固定数据再进行所得的结果极有可能不再碰撞因此我们可以利用这一特点当两个对象值相同我们追加一个值再进行一次利用得到的新值接着在上执行插入即可如果出现了两个不同的对象无论怎么都得到一样的值那么要么表明使用函数本身是有问题的要么说明容器的实现存在问题这时就应该直接报错了删除操作删除操作是加入操作的逆运算其基本原理也类似在删除时现在中找到对应的对象然后依次递归地删除在从子节点删除一个元素时我们也一样要分配一个新的子节点这个子节点的宽度比原来少之后将剩余的子元素按照规则放回新的子节点并维护字段的值最后用新的子节点替换原来的节点并递归向上进行一般来讲在递归时有如下几个情况在子节点进行删除操作之后子节点不再包含任何子元素则删除当前子节点并返回空当前子节点只剩下一个元素且这个元素为值元素则应该降低树的高度直接返回值元素当前子节点只剩下一个元素且这个元素是子节点则保留这个子节点回到上一个节点持久化由于本质上还是因此我们可以按照之前一样的策略来实现持久化简单来说还是在需要修改节点时不对原来的节点进行直接的修改而是生成新节点并复制节点到根的路径同样通过在节点中添加字段我们也可以在上实现以加快批量操作的速度总结在按照上述介绍的空间压缩方法和操作方法实现了之后还有一些问题需要注意从算法分析上来讲的各项操作时间复杂度都在常数级别内但是如前文所提仍需要注意等操作的时间花费尽量针对不同平台选用性能最高的实现方案不像传统的那样集中地分配大量空间而是在每次加入和删除时重新生成子节点并分配小块的空间因此内存申请的时间花费在这里不可以被忽略事实上表明的一般实现当中内存管理花费的时间是最显著的在这种情况下由容器自己维护一个内存池是必要的也就是说在每次生成新的节点时并不直接申请新的内存而是先从内存池当中尝试获取一个目标宽度的子节点同理在释放一个子节点的时候也是将节点返回给这一内存池线程安全的内存池的实现又是另外一个巨大的主题了这里也不再赘述的设计是针对像或这样完面向内存可以细力度控制数据结构在内存中布局的编程语言设计的因此在和这种比较远离硬件的编程语言上进行实现内存的痕迹和操作的性能均可能不能达到真正的理想状态近期有一篇名为的论文讨论了在上优化的实现有兴趣的读者可以进一步阅读',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:52:01',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url">数据结构</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">HAMT 简介</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:59.000Z" title="发表于 2024-10-31 22:01:59">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.249Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/HAMT-jian-jie/"><header><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url">数据结构</a><h1 id="CrawlerTitle" itemprop="name headline">HAMT 简介</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:59.000Z" title="发表于 2024-10-31 22:01:59">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.249Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></header><p>在之前的一个系列的文章里，我们从基本原理开始，一步步实现了基于 Vector Trie 的持久化 List 数据结构。 接下来将要研究的是使用 HAMT 这一数据结构实现持久化 Hash Table。</p>
+<p><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/HAMT-jian-jie/">持久化数据结构简介</a> 这篇文章里， 我们对比各种可以用来实现持久化数据结构的方案，详细介绍了 Vector Trie 这种数据结构，说明了用它实现 List 优势。 HAMT 的全称是 Hash Array Mapped Trie，它和 Vector Trie 一样，都利用了前缀树(Trie)这种数据结构作为底层数据结构， 但是由于 Map 本身和 List 之间性质的差别，HAMT 在很多方面进行了特别的处理。接下来我们先从原始 Hash Table 数据结构谈起， 逐步引出 HAMT 的设计原理。</p>
+<h2 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a><a href="#Hash_Table" title="Hash Table"></a>Hash Table</h2><p>Hash Table 是利用对象的 Hash 值对所储存的键进行散列从而实现快速的插入、删除和访问的数据结构。 在 Go 语言中的 <code>map</code>、Java 中的 <code>HashTable</code> 和 <code>HashMap</code> 和 Python 当中的 <code>dict</code> 都是 HashTable 的一种。 其基本原理是通过某一 Hash 函数将对象映射在某一虚拟空间上的一个点，并以此为依据将对象保存在内存上的固定位置上。 这样当需要访问这一对象时，依然使用同一 Hash 函数先计算出对象可能存在的位置，并尝试取出。</p>
+<p>关于 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hash_function">Hash</a> 和 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hash_table">Hash Table</a> 的概念不再赘述，在这里我们主要需要着眼的是设计实现 Hash Table 所需要处理的几个关键问题:</p>
+<ol>
+<li>Hash 碰撞问题: 由于 Hash 函数是通过将对象映射到某一数值的方式获得对对象的一个快速的描摹， 因此尽管我们可以断言 Hash 值不同的的对象一定不同，但是并不能保证具有相同 Hash 值的对象一定相同。 因此，在实际应用中遇到 Hash 碰撞的问题，就需要进行处理。</li>
+<li>时间效率问题: 对于所有数据结构来说，时间效率都是非常重要的考量因素。Hash Table 从理论上来说的均摊时间复杂度很好， 但是仍然需要考虑在某些极端条件下面的执行性能，以保证在各种情况下算法的时间效率不会退化。</li>
+<li>空间效率问题: 一般来说，我们不能将 Hash 函数值域整个在内存中一次分配出来。一来这样做在存入元素很少的情况下非常浪费， 二来我们构造的 Hash 函数值域范围很大，一般无法直接分配。因此需要一种方法将空间使用压缩到合理的范围， 同时保持一定的空间效率。</li>
+<li>并发同步问题: 和 List 一样，在现代多核盛行的计算环境内，Hash Table 实现的并发安全性也是一个重要的考虑因素。 Hash Table 的插入、访问和删除操作往往包含好连续的几步，如果不能保证这些步骤在一起原子的完成就可能会产生无法预计的结果。</li>
+</ol>
+<p>以上四点在实现 Hash Table 的过程当中是互相联系的。比如说 Hash 碰撞问题就与时间效率和空间效率两个方面紧密相连。 一般来说，Hash 碰撞越多，Hash Table 的时间效率越差。根据碰撞处理策略的不同，还有可能影响空间效率。 反过来，如果空间分配的比较多，尽管空间效率下降，但是往往可以缓解 Hash 碰撞的概率，因此改善时间效率。 并发同步问题也与上述问题紧密相连，譬如说有的 Hash Table 实现在空间不足时需要重新分配空间， 这一操作既耗时，又包含很多的指令，对于并发安全提出了很高的要求。</p>
+<p>HAMT 在以上四个方面都给出了自己的极佳的解决方案，很多学者将其称为理想(Ideal)的 Hash Table 实现。 在接下来介绍 HAMT 的原理之前，我们先给出在本文中对 Hash 函数的一些假定:</p>
+<ol>
+<li>Hash 函数的值是 <code>int32</code> 类型</li>
+<li>Hash 函数的值域 <code>int32</code> 类型的范围</li>
+<li>对于两个不同的对象，总可以找到一个 Hash 函数使二者 Hash 值不同</li>
+</ol>
+<h2 id="HAMT-原理简介"><a href="#HAMT-原理简介" class="headerlink" title="HAMT 原理简介"></a><a href="#HAMT__u539F_u7406_u7B80_u4ECB" title="HAMT 原理简介"></a>HAMT 原理简介</h2><p>之前介绍了 Vector Trie 实现的持久化 List，如果将这种 List 作为基础，直接套用传统 Hash Table 的实现方法， 其实就可以实现持久化的 HashMap 了。但是这种解决方案在时间效率、空间效率上都比较差。Hash Table 和 List 的一个区别在于 Hash Table 当中保存的元素是散列和稀疏的，不像 List 那样从下标 <code>0</code> 一直排列到 <code>n</code>。</p>
+<p>然而只要把 List 当中下标必须连续的限制条件去掉，Vector Trie 本身就变成了一种相对传统 Array 更好的容器。 下图表示的 Vector Trie 说明了这一点:</p>
+<p><a target="_blank" rel="noopener" href="https://io-meter.com/img/posts/variant-of-vector-trie.png" title="Variant of Vector Trie"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://io-meter.com/img/posts/variant-of-vector-trie.png" alt="Variant of Vector Trie"></a>Variant of Vector Trie</p>
+<p>由上图可见，在 Vector Trie 表示的 Hash Table 中，每个元素的 Hash 值的范围是 0 (<code>00 00 00 00</code>) 到 255 (<code>11 11 11 11</code>)。 此时 Hash Table 当中只有两个元素，其中一个 hash 值是 0，另一个为 255。在传统 Array 实现的 Hash Table 当中我们需要分配一个长度 256 的数组来保存。而使用 Trie 只需要 7 个节点，共计 28 个单位的空间。 其它位置因为没有元素存在，那些节点可以直接节省掉。</p>
+<p>这说明应用 Trie 树可以在节约空间效率方面具有很好的表现。事实上依靠 Trie 树我们可以直接把 0 到 232−1232−12^{32} - 1 (既<code>int32</code>) 范围的空间表示出来而不用直接分配全部内存——只有存在元素的分支会被按需地分配出来。事实上，Trie 树是线性空间上稀疏数组的一种很好的表示形式。</p>
+<p>在引入 Trie 树作为数组的稀疏表示之后，我们已经大幅地提高空间效率并得到了不错的时间效率。尽管查询 Trie 树比直接访问数组更慢一些，但是由于我们表示的 Hash 空间足够宽广，在实际应用中遇见碰撞的概率极低， 因此在时间效率上还是很有竞争力的。</p>
+<p>至此，在 Vector Trie 的基础上我们得到了通往 HAMT 的第一步：将元素的 Hash 值按位分割成固定宽度的序列，在 Trie 树上以这些序列按顺序查找元素应该存放的位置。然而 HAMT 并不止步于此，从图中容易看出， 我们还有两种优化方案可以达到更好的空间时间效率:</p>
+<ol>
+<li>节约单个节点当中空间的浪费: 许多 Trie 节点中仍然有非常多的空位，设法将这些空位清除可以节省很多空间。</li>
+<li>削减 Trie 树的高度: 保存在树中的两个元素的 Hash 值从第一位开始就不相同，理论上只需要检查最前面的几位就可以区分。 只使用 Hash 值中较高的比特位既可以节约空间，又可以提高时间效率。</li>
+</ol>
+<p>在这两个方向，HAMT 都提出了不错的优化方案。</p>
+<h2 id="节点内部空间的压缩"><a href="#节点内部空间的压缩" class="headerlink" title="节点内部空间的压缩"></a><a href="#u8282_u70B9_u5185_u90E8_u7A7A_u95F4_u7684_u538B_u7F29" title="节点内部空间的压缩"></a>节点内部空间的压缩</h2><p>如果我们依然使用固定 32 个元素宽度的 Trie 树节点，那么必然可能出现由于存入的元素比较稀疏而存在大量空位的现象， 为此我们要对节点内部空间进行压缩。压缩的方法是：</p>
+<ol>
+<li>为每一个节点添加一个 <code>int32</code> 类型的 Bit Map 字段，当这个字段某一比特位值为<code>1</code>代表在当前节点上对应的自节点出现了， 否则则代表没有出现</li>
+<li>我们保存子元素时不再保留空间的空闲位置，而是将所有的子元素一个挨一个的紧密放置， 在存取时利用上一步添加的字段计算出所需的是哪一个子节点。</li>
+</ol>
+<p>为了更清楚地解释上述做法，下面的示意图来描绘了进行节点内部压缩前后的节点内部结构:</p>
+<p><a target="_blank" rel="noopener" href="https://io-meter.com/img/posts/trie-node-compression.png" title="Trie Node Compression"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://io-meter.com/img/posts/trie-node-compression.png" alt="Trie Node Compression"></a>Trie Node Compression</p>
+<p>由上图可以看到，虽然压缩后的节点多增加了一个用于保存 Bit Map 的字段，但是由于省略了6个空置空间， 所以整体的内存消耗大大降低了。</p>
+<p>要在压缩过的节点当中完成跟原来一样的查询逻辑，我们要建立压缩前后节点之间的对应关系。 在未压缩的节点中，由于每个自节点就在它序号所指定的内存位置，所以我们可以直接用下标访问它， 在压缩过的节点中这一性质不再有效，我们需要使用新增的 Bit Map 字段将节点的内存位置计算出来。</p>
+<p>由上图可以看到，压缩前后子元素的相对顺序并没有改变，仍然是按照从小到大的顺序排列起来的， 这一点非常重要。根据这个性质，我们可以给出如下的算法：</p>
+<ol>
+<li>如果指定序号在 Bit Map 字段中对应的比特位为<code>0</code>，表明并不存在给定序号的子元素，因此可以立刻返回空值</li>
+<li>如果指定序号在 Bit Map 字段中对应比特位为<code>1</code>，则元素存在且它在压缩后节点中的位置下标等于在其之前出现的子元素的数量</li>
+</ol>
+<p>第二条其实很好理解，因为压缩后元素的相对顺序不变，只是将空余空间剔除，因此如果从零开始编号， 设在所查询子元素之前出现的元素数量为<code>n</code>，那么所查询子元素就是第<code>n+1</code>个元素。因此其下标恰好是<code>n</code>。 利用 Bit Map 和位运算我们可以快速的计算出<code>n</code>的值。</p>
+<p>譬如说，我们要查询在原节点中下标为<code>i</code>的元素，首先我们看一下 Bit Map 第 <code>i</code> 位的值是否为 <code>1</code>。 方法是使用位运算 <code>(B &gt;&gt; i) &amp; 1</code>，其中 <code>B</code> 是 Bit Map 字段的值。如果检查结果为 <code>1</code>，说明元素存在，我们进一步计算它的位置。</p>
+<p>显然，当前元素之前的元素数量<code>n</code>，就等于 Bit Map 当中从 <code>0</code> 到 <code>i - 1</code> (包含两端)位比特位当中 <code>1</code> 的数量， 我们首先用 <code>B &amp; ((1 &lt;&lt; i) - 1)</code> 将那些位单独取出来并将其他位置设为<code>0</code>。其中，<code>(i &lt;&lt; i) - 1</code> 得到的是 <code>0</code> 到 <code>i - 1</code> 位全为 <code>1</code>，其他位全为 <code>0</code> 的一个整型值。</p>
+<p>得到这个结果之后，我们还需要把其中的 <code>1</code> 的数量计算出来。这一操作在计算机科学当中被称为 Pop Count， 进行这样的计算所得到的值又称为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hamming_weight">Hamming Weight</a>。 Pop Count 是一种非常常用的操作，因此存在很多相关研究，有的 CPU 指令集(如 x86)还添加了专门的指令用于执行这一操作。</p>
+<p>除了直接使用指令集或者简单地逐个计数，Hamming Weight 的快速计算有很多方法，下面的代码给出了在 <code>int32</code> 类型上快速计算 Pop Count 的一种实现方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const uint32_t m1  = 0x55555555; //binary: 0101...</span><br><span class="line">const uint32_t m2  = 0x33333333; //binary: 00110011..</span><br><span class="line">const uint32_t m4  = 0x0f0f0f0f; //binary:  4 zeros,  4 ones ...</span><br><span class="line">const uint32_t m8  = 0x00ff00ff; //binary:  8 zeros,  8 ones ...</span><br><span class="line">const uint32_t m16 = 0x0000ffff; //binary: 16 zeros, 16 ones ...</span><br><span class="line"></span><br><span class="line">//This uses fewer arithmetic operations than any other known  </span><br><span class="line">//implementation on machines with slow multiplication.</span><br><span class="line">int popcount32(uint32_t x)</span><br><span class="line">&#123;</span><br><span class="line">    x -= (x &gt;&gt; 1) &amp; m1;             //put count of each 2 bits into those 2 bits</span><br><span class="line">    x = (x &amp; m2) + ((x &gt;&gt; 2) &amp; m2); //put count of each 4 bits into those 4 bits </span><br><span class="line">    x = (x + (x &gt;&gt; 4)) &amp; m4;        //put count of each 8 bits into those 8 bits </span><br><span class="line">    x += x &gt;&gt;  8;  //put count of each 16 bits into their lowest 8 bits</span><br><span class="line">    x += x &gt;&gt; 16;  //put count of each 32 bits into their lowest 8 bits</span><br><span class="line">    return x &amp; 0x7f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于 Pop Count 的计算本文不再赘述，相关内容可以参考 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hamming_weight">Wikipedia</a> 上详细的介绍和计算方法的对比。由于在 HAMT 当中 Pop Count 是一个非常常用的操作，因此他的性能对最终实现的 Hash Table 的性能有显著的影响，在实现 HAMT 时，一定要根据目标平台的特点，选择合适的实现方法，可能的话应该直接使用 CPU 指令集支持的指令进行计算。</p>
+<p>在获得到子元素在压缩后节点的内存下标之后，我们就可以像原来一样对节点进行查询访问了。</p>
+<h2 id="压缩-Trie-高度"><a href="#压缩-Trie-高度" class="headerlink" title="压缩 Trie 高度"></a><a href="#u538B_u7F29_Trie__u9AD8_u5EA6" title="压缩 Trie 高度"></a>压缩 Trie 高度</h2><p>在节点内部空间之外另一个可以节省空间的地方是 Trie 树的高度。 前面在利用这个 <code>int32</code> 宽的 Hash 值构造 Trie 树将我们的对象放置在内存中索引起来， 那么一个容易想到的优化就是在不产生混淆的情况下，我们没有必要一定使用 Hash 值的每一个二进制位。 也就是说，如果 Hash 值的较高的一部分二进制位已经可以在我们的 Hash Table 中唯一地标记这个对象了， 我们就不再利用后面的比特位。</p>
+<p>下图展示了对 Trie 树高度的压缩。在左边的原始 Trie 树中存放了 Hash 值为 <code>0</code>(<code>00 00 00 00</code>) 和 <code>127</code>(<code>01 11 11 11</code>)的两个对象，中间是压缩高度的 Trie 树， 我们看到，由于当前 Hash Table 中只有两个元素，而这两个元素的 Hash 值从最开始就是不一样的， 所以在压缩之后，从高位开始第二位之后的 Hash 值不再被使用。</p>
+<p><a target="_blank" rel="noopener" href="https://io-meter.com/img/posts/trie-height-compression.png" title="Trie Height Compression"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://io-meter.com/img/posts/trie-height-compression.png" alt="Trie Height Compression"></a>Trie Height Compression</p>
+<p>同理，在添加和删除新的对象的时候，我们还需要动态地维护树的高度，在合适的时候增加或者减少树的高度。 最右边的图展示了在 Hash Table 中插入 <code>79</code>(<code>01 00 11 11</code>)之后 Trie 树的结构。可以看到， 因为新的节点插入，最高位<code>01</code>两个比特位指代的对象出现了混淆，不能唯一地确定一个对象， 因此我们要进一步地利用剩下的比特位来构造无混淆的树。</p>
+<p>由于对 Trie 的各种操作都是基于树上节点的访问，对 Trie 高度进行的压缩不单节约了内存空间， 也提高了查询和访问的性能。</p>
+<h2 id="基本操作的实现"><a href="#基本操作的实现" class="headerlink" title="基本操作的实现"></a><a href="#u57FA_u672C_u64CD_u4F5C_u7684_u5B9E_u73B0" title="基本操作的实现"></a>基本操作的实现</h2><p>在熟悉了 HAMT 在原始的 Trie 表示上做了哪些优化之后，我们就可以给出在 HAMT 实现的 Hash Table 上进行各种操作的基本思路了。</p>
+<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a><a href="#u67E5_u8BE2_u64CD_u4F5C" title="查询操作"></a>查询操作</h3><p>查询操作和在 Trie 上进行查询没有太大的改变，只是因为节点的空间被压缩之后，需要先通过 Bit Map 字段 判断对应的位置是否存在子元素，如果存在，再通过 Pop Count 计算得到子元素所在的实际位置。 在获得到子元素之后，鉴于 HAMT 对 Trie 的高度进行了压缩，我们要先判断这个子元素是 Trie 的子节点还是值元素本身。对于 Hash Table，我们将值包装成<code>&lt;Key, Value&gt;</code>这样的一个值节点存放进去。 这样取出时就可以先判断 <code>Key</code> 的值是否相同，以此决定是否真的取到了对象。</p>
+<h3 id="加入操作"><a href="#加入操作" class="headerlink" title="加入操作"></a><a href="#u52A0_u5165_u64CD_u4F5C" title="加入操作"></a>加入操作</h3><p>加入操作类似于查询操作，对于给定的键值对，我们先计算键的 Hash 值，然后从高位开始利用 Hash 值。 沿着 Trie 树向下查找，此时存在四种情况：</p>
+<ol>
+<li>查找到一个位置，这个位置所保存的值对象代表的键和新插入的键相同，则用新插入的值代替原来的值</li>
+<li>查找到一个子节点，这个子节点再向下目标对象应该所在的位置没有元素，此时只需申请一个新的宽度比当前子节点多1的节点， 将原来子节点上的所有元素连带当前对象一一设置到新的子节点上，维护好元素的顺序和 Bit Map 的值即可</li>
+<li>查找到一个子节点，这个子节点再向下目标对象所应该在的位置是一个值对象，这时，为这个值对象连带当前对象分配一个宽度为2 的子节点，将原来的值对象和当前对象放置在新的节点中，最后用新的节点在当前子节点中替换掉对应位置</li>
+<li>查找到一个子节点，这个节点再向下目标对象所应该在的位置是另一个子节点，则在那个子节点上递归进行上述操作</li>
+</ol>
+<p>在以上三种情况外，还有一种情况即为出现 Hash 值碰撞。也就是说，当前想要插入的值和 Hash Table 当中某一个对象的 Hash 值完全一样，这样即使两个对象的 Hash 值全部用尽，也无法不混淆地存放两个对象。这时就需要进行碰撞处理。 对于 HAMT 来说，常见的碰撞处理有些类似于加盐 Hash 的过程。理论上来说，一个良好设计的 Hash 函数本身的碰撞概率就极小， 如果两个元素确实在某次计算中 Hash 碰撞，在两个元素上追加某段已知的固定数据，再进行 Hash 所得的结果极有可能不再碰撞。 因此我们可以利用这一特点，当两个对象 Hash 值相同，我们追加一个值，再进行一次 Hash，利用得到的新 Hash 值接着在 Trie 上执行插入即可。</p>
+<p>如果出现了两个不同的对象，无论怎么 Hash ，都得到一样的值，那么要么表明使用 Hash 函数本身是有问题的， 要么说明容器的实现存在问题。这时就应该直接报错了。</p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a><a href="#u5220_u9664_u64CD_u4F5C" title="删除操作"></a>删除操作</h3><p>删除操作是加入操作的逆运算，其基本原理也类似。在删除时，现在 Trie 中找到对应的对象，然后依次递归地删除。 在从子节点删除一个元素时，我们也一样要分配一个新的子节点，这个子节点的宽度比原来少1。 之后将剩余的子元素按照规则放回新的子节点并维护 Bit Map 字段的值。最后用新的子节点替换原来的节点并递归向上进行。 一般来讲，在递归时有如下几个情况：</p>
+<ol>
+<li>在子节点进行删除操作之后，子节点不再包含任何子元素，则删除当前子节点并返回空</li>
+<li>当前子节点只剩下一个元素，且这个元素为值元素，则应该降低树的高度，直接返回值元素</li>
+<li>当前子节点只剩下一个元素，且这个元素是子节点，则保留这个子节点，回到上一个节点</li>
+</ol>
+<h1 id="持久化-HAMT"><a href="#持久化-HAMT" class="headerlink" title="持久化 HAMT"></a><a href="#u6301_u4E45_u5316_HAMT" title="持久化 HAMT"></a>持久化 HAMT</h1><p>由于 HAMT 本质上还是 Trie，因此我们可以按照之前 Vector Trie 一样的策略来实现持久化。 简单来说还是在需要修改节点时，不对原来的节点进行直接的修改，而是生成新节点并复制节点到根的路径。 同样，通过在节点中添加 <code>id</code> 字段，我们也可以在 HAMT 上实现 Transient 以加快批量操作的速度。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a href="#u603B_u7ED3" title="总结"></a>总结</h1><p>在按照上述介绍的空间压缩方法和 Trie 操作方法实现了 HAMT 之后，还有一些问题需要注意：</p>
+<ol>
+<li>从算法分析上来讲，HAMT 的各项操作时间复杂度都在常数级别内，但是如前文所提，仍需要注意 Pop Count 等操作的时间花费，尽量针对不同平台选用性能最高的实现方案</li>
+<li>HAMT 不像传统的 Hash Table 那样集中地分配大量空间，而是在每次加入和删除时重新生成子节点并分配小块的空间， 因此内存申请的时间花费在这里不可以被忽略。事实上，Benchmark 表明 HAMT 的一般实现当中内存管理花费的时间是最显著的。 在这种情况下，由容器自己维护一个内存池是必要的。也就是说，在每次生成新的节点时，并不直接申请新的内存， 而是先从内存池当中尝试获取一个目标宽度的子节点。同理，在释放一个子节点的时候也是将节点返回给这一内存池。 线程安全的内存池的实现又是另外一个巨大的主题了，这里也不再赘述</li>
+<li>HAMT 的设计是针对像 C 或 C++ 这样完面向内存、可以细力度控制数据结构在内存中布局的编程语言设计的， 因此在 JVM 和 Golang 这种比较远离硬件的编程语言上进行实现，内存的痕迹和操作的性能均可能不能达到真正的理想状态。 近期有一篇名为 <a target="_blank" rel="noopener" href="https://michael.steindorfer.name/publications/oopsla15.pdf">Optimizing Hash-Array Mapped Tries for Fast and Lean Immutable JVM Collections</a> 的论文讨论了在 JVM 上优化 HAMT 的实现，有兴趣的读者可以进一步阅读。</li>
+</ol>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/HAMT-jian-jie/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/HAMT-jian-jie/')">HAMT 简介</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/HAMT-jian-jie/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=HAMT 简介&amp;url=https://tushu.info/archives/HAMT-jian-jie/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Java-she-ji-mo-shi-Reactor-mo-shi/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/design02.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java设计模式——Reactor模式</div></div></a></div><div class="next-post pull-right"><a href="/archives/H2-de-MVStore/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">H2的MVStore</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-Table"><span class="toc-number">1.</span> <span class="toc-text">Hash Table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HAMT-%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">HAMT 原理简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%86%85%E9%83%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.</span> <span class="toc-text">节点内部空间的压缩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-Trie-%E9%AB%98%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">压缩 Trie 高度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text">基本操作的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">5.1.</span> <span class="toc-text">查询操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">5.2.</span> <span class="toc-text">加入操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">5.3.</span> <span class="toc-text">删除操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96-HAMT"><span class="toc-number"></span> <span class="toc-text">持久化 HAMT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,1177 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Hive官方文档翻译——Hive Tutorial | 代老师的博客</title><meta name="keywords" content="hive"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Hive官方文档翻译——Hive Tutorial"><meta name="application-name" content="Hive官方文档翻译——Hive Tutorial"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Hive官方文档翻译——Hive Tutorial"><meta property="og:url" content="https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="概念什么是HiveHive是基于Apache Hadoop的数据仓库基础架构。Hadoop为商品硬件上的数据存储和处理提供了大规模的横向扩展和容错功能。 Hive旨在简化数据汇总，临时查询和分析大量数据的过程。它提供了SQL，使用户可以轻松地进行即席查询，摘要和数据分析。同时，Hive的SQL为用户"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="概念什么是HiveHive是基于Apache Hadoop的数据仓库基础架构。Hadoop为商品硬件上的数据存储和处理提供了大规模的横向扩展和容错功能。 Hive旨在简化数据汇总，临时查询和分析大量数据的过程。它提供了SQL，使用户可以轻松地进行即席查询，摘要和数据分析。同时，Hive的SQL为用户"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Hive官方文档翻译——Hive Tutorial',
+  postAI: '',
+  pageFillDescription: '概念, 什么是Hive, Hive不是什么, 入门, 数据单位, 类型系统, 基本类型, 复杂类型, 时间戳, 时间戳（ LocalDateTime语义）, 具有本地时区的时间戳（即时语义）, 与其他工具的比较, 内置的运算符和功能, 内置运算符, 内置功能, 语言能力, 用法与范例, 创建显示更改和删除表, 建立表格, 浏览表和分区, 修改表, 删除表和分区, 加载数据中, 查询和插入数据, 简单查询, 基于分区的查询, 加入, 集合体, 多表x2F文件插入, 动态分区插入, 插入本地文件, 采样, 联合所有, 阵列运算, 映射（关联数组）操作, 自定义映射x2F减少脚本, 联合团体概念什么是是基于的数据仓库基础架构为商品硬件上的数据存储和处理提供了大规模的横向扩展和容错功能旨在简化数据汇总临时查询和分析大量数据的过程它提供了使用户可以轻松地进行即席查询摘要和数据分析同时的为用户提供了多个位置以集成他们自己的功能以进行自定义分析例如用户定义函数不是什么不适用于在线交易处理最佳用于传统数据仓库任务入门有关设置和直线的详细信息请参阅指南有关的书籍列出了一些可能对入门也很有帮助的书籍在以下各节中我们提供有关系统功能的教程我们首先描述数据类型表和分区的概念与传统的关系型中的概念非常相似然后借助一些示例来说明的功能数据单位按粒度顺序数据组织为数据库命名空间的作用是避免表视图分区列等的命名冲突数据库还可以用于对一个用户或一组用户强制实施安全性表格具有相同架构的同类数据单元一个表的示例可以是表其中每一行可以包含以下列模式属于类型与查看该页面的时间戳相对应是类型用于标识查看该页面的用户属于类型用于捕获页面的位置其中个可捕获用户到达当前页面的页面位置属于类型用于捕获发出页面请求的地址分区每个表可以具有一个或多个分区键这些键确定数据的存储方式分区除了作为存储单元还允许用户有效地标识满足指定条件的行例如类型为的和类型为的分区键的每个唯一值定义表的一个分区例如来自的所有数据都是表的分区因此如果仅对的美国数据运行分析则可以仅对表的相关分区运行该查询从而大大加快了分析速度但是请注意仅因为分区名为并不意味着该分区包含该日期之后的全部或仅数据为方便起见分区以日期命名保证分区名称和数据内容之间的关系是用户的工作分区列是虚拟列存储桶或群集每个分区中的数据又可以根据表中某些列的哈希函数的值分为存储桶例如表可以按进行存储是表中除分区列之外的列之一这些可用于有效采样数据请注意不必对表进行分区或存储但是这些抽象使系统可以在查询处理期间修剪大量数据从而加快查询执行速度类型系统支持原始和复杂的数据类型如下所述有关其他信息请参见数据类型基本类型类型与表中的列关联支持以下基本类型整数个字节的整数字节整数字节整数字节整数布尔型布尔浮点数字单精度双倍双精度定点数用户定义的比例和精度的固定点值字符串类型指定字符集中的字符序列指定字符集中最大长度的字符序列具有定义长度的指定字符集中的字符序列日期和时间类型不带时区的日期和时间语义带有本地时区的时间戳精确到纳秒的时间点即时语义日期二进制类型字节序列这些类型按以下层次结构进行组织其中父级是所有子级实例的超类型此类型层次结构定义如何在查询语言中隐式转换类型允许从子类型到祖先类型的隐式转换因此当查询表达式期望类型为且数据类型为时如果类型是类型层次结构中类型的祖先则类型将隐式转换为类型请注意类型层次结构允许将隐式转换为可以使用强制转换运算符来进行显式类型转换如下面的内置函数部分所示复杂类型可以使用以下方法从原始类型和其他组合类型中构建复杂类型结构可以使用表示法访问类型内的元素例如对于类型则表达式访问字段映射键值元组使用表示法访问元素例如在包含从的映射组成的映射中可以使用访问值数组可索引列表数组中的元素必须具有相同的类型可以使用表示法访问元素其中是数组的索引从零开始例如对于具有元素的数组重新运行使用原始类型和用于创建复杂类型的构造可以创建具有任意嵌套级别的类型例如用户类型可以包含以下字段性别这是活跃的这是时间戳时间戳一直是造成混乱的根源因此我们尝试记录的预期语义时间戳语义的时间戳将日期和时间记录为年月日时分和秒没有时区无论本地时区如何这些时间戳始终具有相同的值例如时间戳值被分解为年月日小时分钟和秒字段但是没有可用的时区信息它不对应于任何特定时刻无论本地时区如何它将始终是相同的值除非您的应用程序始终使用否则对于大多数应用程序时间戳优先于本地时区当用户说某个事件是在时它始终是相对于某个时区的它表示一个时间点而不是任意时区中的具有本地时区的时间戳即时语义的即时时间戳定义了一个恒定的时间点无论从何处读取数据因此时间戳将通过本地时区进行调整以匹配原始时间点与其他工具的比较其他定义记录时间点以及编写者所在时区中的时区偏移量内置的运算符和功能下面列出的运算符和功能不一定是最新的和具有更多当前信息在或中使用以下命令显示最新文档不区分大小写所有关键字都不区分大小写包括运算符和函数的名称内置运算符关系运算符以下运算符比较传递的操作数并生成或值具体取决于操作数之间的比较是否成立关系运算符操作数类型描述关系运算符操作数类型描述所有原始类型如果表达式等于表达式则为否则为否则为所有原始类型如果表达式不等于表达式则为否则为否则为所有原始类型如果表达式小于表达式则为否则为否则为所有原始类型如果表达式小于或等于表达式则为否则为否则为所有原始类型如果表达式大于表达式则为否则为所有原始类型如果表达式大于或等于表达式则为否则为所有类型如果表达式的计算结果为则为否则为所有类型如果表达式的计算结果为则为否则为如果字符串与简单正则表达式匹配则为否则为逐个字符进行比较在中的字符与所述的任何字符类似于在正则表达式和中的字符的字符中所述的任意数量的匹配相似在正则表达式例如对求值而对求值对要转义请使用匹配一个字符如果数据包含分号并且您要搜索则需要转义如果或为则为如果的任何子字符串可能为空与正则表达式匹配请参见正则表达式语法则为否则为例如的计算结果为的计算结果也为与相同算术运算符以下运算符支持对操作数的各种常见算术运算它们都返回数字类型算术运算符操作数类型描述算术运算符操作数类型描述所有数字类型给出将和相加的结果结果的类型与操作数类型的公共父级在类型层次结构中相同例如因为每个整数都是浮点数因此是整数的包含类型因此和上的运算符将导致所有数字类型给出从减去的结果结果的类型与操作数类型的公共父级在类型层次结构中相同所有数字类型给出将和相乘的结果结果的类型与操作数类型的公共父级在类型层次结构中相同请注意如果乘法导致溢出则必须将其中一个运算符转换为类型层次结构中较高的类型所有数字类型给出从除以的结果结果的类型与操作数类型的公共父级在类型层次结构中相同如果操作数是整数类型则结果是除法的商所有数字类型给出除以的结果结果的类型与操作数类型的公共父级在类型层次结构中相同所有数字类型给出和的按位与的结果结果的类型与操作数类型的公共父级在类型层次结构中相同所有数字类型给出和的按位或的结果结果的类型与操作数类型的公共父级在类型层次结构中相同所有数字类型给出和的按位结果结果的类型与操作数类型的公共父级在类型层次结构中相同所有数字类型给出的按位的结果结果的类型与的类型相同逻辑运算符以下运算符为创建逻辑表达式提供支持它们都根据操作数的布尔值返回布尔值或逻辑运算符操作数类型描述逻辑运算符布尔值如果和均为则为否则为布尔值与和相同布尔值如果或或两者均为则为否则为布尔值与或相同布尔值如果为则为否则为布尔值与相同复杂类型上的运算符以下运算符提供了访问复杂类型上的元素的机制操作员操作数类型描述操作员操作数类型描述是一个数组是一个整数返回数组中的第个元素第一个元素的索引为例如如果是包含的数组则返回而返回酒吧是并且键的类型为例如如果是包含的映射则返回返回是一个结构返回的字段例如对于返回存储在的字段中的整数内置功能支持以下内置函数源代码中的函数列表语言能力的提供了基本的操作这些操作适用于表或分区这些操作是能够使用子句从表中过滤行可以使用子句从表中选择某些列在两个表之间进行等值联接的能力能够针对表中存储的数据评估多个列上的聚合能够将查询结果存储到另一个表中能够将表的内容下载到本地例如目录能够将查询结果存储在目录中能够管理表和分区创建删除和更改能够以自定义地图缩小作业选择的语言插入自定义脚本用法与范例注意以下许多示例已过时在中可以找到更多最新信息以下示例突出了系统的一些显着功能详细的查询测试用例集可以在查询测试用例中找到相应的结果可以在查询测试用例结果中找到创建显示更改和删除表加载数据中查询和插入数据创建显示更改和删除表有关创建显示更改和删除表的详细信息请参见数据定义语言建立表格创建上面提到的表的示例语句如下所示在此示例中使用相应的类型指定表的列注释可以附加在列级和表级此外子句定义的分区列与数据列不同实际上并未与数据一起存储以这种方式指定时假定文件中的数据使用作为字段定界符使用换行符作为行定界符来定界如果数据不是上述格式的数据则可以对字段定界符进行参数设置如下例所示由于行分隔符不是由而是由分隔符确定因此当前无法更改行分隔符将表存储在某些列上也是一个好主意以便可以针对数据集执行有效的采样查询如果没有存储分区仍然可以在表上进行随机采样但是效率不高因为查询必须扫描所有数据以下示例说明了在列上存储的表的情况在上面的示例中该表通过的哈希函数聚集到个存储桶中在每个存储桶中数据按的升序排序这样的组织允许用户在聚集列上进行高效采样在这种情况下为用户排序属性允许内部运算符在更好地评估查询的同时利用众所周知的数据结构在此示例中以与类型定义类似的方式指定组成表行的列注释可以附加在列级和表级此外子句定义的分区列与数据列不同实际上并未与数据一起存储子句指定用于存储桶的列以及要创建的存储桶数分隔行格式指定行如何在配置单元表中存储在定界格式的情况下这指定了字段的终止方式集合数组或映射中的项目的终止方式以及映射键的终止方式表示此数据以二进制格式使用存储在上表名和列名不区分大小写浏览表和分区列出仓库中的现有表其中有很多可能比您想要浏览的更多列出前缀为的表该模式遵循正则表达式语法因此句点是通配符列出表分区如果该表不是分区表则将引发错误列出表的列和列类型列出表的列和所有其他属性这会打印很多信息但也不会以漂亮的格式显示通常用于调试列出分区的列和所有其他属性这还会打印很多通常用于调试的信息修改表将现有表重命名为新名称如果具有新名称的表已经存在则返回错误重命名现有表的列确保使用相同的列类型并为每个现有列包括一个条目要将列添加到现有表请注意架构的更改例如添加列会在表是分区表的情况下保留表的旧分区的架构所有访问这些列并在旧分区上运行的查询都隐式地为这些列返回空值或指定的默认值在以后的版本中我们可以使假设某些值的行为与在特定分区中未找到该列的情况下抛出错误相反删除表和分区删除表相当简单将该表放下将隐式删除该表上已建立的所有索引这是将来的功能关联的命令是删除分区更改表以删除分区请注意此表或分区的任何数据将被删除并且可能无法恢复加载数据中有多种方法可以将数据加载到表中用户可以创建一个指向中指定位置的外部表在这种特定用法中用户可以使用放置或复制命令将文件复制到指定位置并创建一个指向该位置的表以及所有相关的行格式信息完成此操作后用户可以转换数据并将其插入任何其他表中例如如果文件包含年月日提供的用逗号分隔的页面视图并且需要将其加载到适当分区中的表中则可以按照以下命令顺序进行操作实现这一目标由于限制此代码导致错误失败终止符行现在仅支持换行符令牌附近遇到错误看到允许其他字符由线打开行分隔符不是其他抛出错误打开在上面的示例中在目标表中为数组和映射类型插入了空值但如果指定了正确的行格式则它们也可能来自外部表如果中已经存在旧数据用户想要在其中放置一些元数据以便可以使用查询和操作该数据则此方法很有用此外系统还支持语法可以将本地文件系统中文件中的数据直接加载到表中其中输入数据格式与表格式相同如果已经包含美国的数据则我们不需要任何其他过滤如上例所示在这种情况下可以使用以下语法完成加载参数可以使用目录在这种情况下将加载目录中的所有文件单个文件名或通配符在这种情况下将所有匹配的文件上载如果参数是一个目录则它不能包含子目录同样通配符必须仅与文件名匹配如果输入文件非常大则用户可以决定对数据进行并行加载使用外部的工具将文件放入后可以使用以下语法将数据加载到表中对于这些示例假设文件中的和字段为空字段有关将数据加载到表中的更多信息请参见数据操作语言有关创建外部表的另一个示例请参见外部表查询和插入数据简单查询基于分区的查询加入集合体多表文件插入动态分区插入插入本地文件采样联合所有阵列运算映射关联数组操作自定义映射减少脚本联合团体查询操作记录在中而插入操作记录在将数据从查询插入表和从查询将数据写入文件系统中简单查询对于所有活动用户可以使用以下形式的查询请注意与不同我们总是将结果插入表中稍后我们将说明用户如何检查这些结果甚至将其转储到本地文件中您还可以在或中运行以下查询这将在内部重写为一些临时文件并显示在客户端基于分区的查询系统根据分区列上的子句条件自动确定要在查询中使用的分区例如为了获取域引用的月份的所有可以编写以下查询请注意此处使用因为该表上面是使用定义的如果您给分区命名不同请不要期望发挥您的想法加入为了获得年月日的人口统计细分按性别需要在列上连接表和表如下面的查询所示这可以通过联接来完成为了进行外部联接用户可以使用或关键字限定联接以指示外部联接的类型保留的左侧保留的右侧或两侧保留例如为了在上面的查询中进行完全外部联接相应的语法应类似于以下查询为了检查另一个表中是否存在键用户可以使用如以下示例所示为了联接多个表用户可以使用以下语法请注意仅支持等联接另外最好将最大的表放在连接的最右侧以获取最佳性能集合体为了按性别计算不同用户的数量可以编写以下查询可以同时进行多个聚合但是任何两个聚合都不能具有不同的列例如尽管以下可能但是不允许以下查询多表文件插入聚合或简单选择的输出可以进一步发送到多个表中甚至可以发送到文件然后可以使用实用程序对其进行操作例如如果与性别细分一起需要按年龄查找唯一页面浏览的细分则可以通过以下查询来完成第一个子句将第一个的结果发送到表而第二个子句将结果发送到文件动态分区插入在前面的示例中用户必须知道要插入哪个分区并且只能在一个语句中插入一个分区如果要加载到多个分区则必须使用多插入语句如下所示为了将数据加载到特定日期的所有国家地区分区中您必须在输入数据中为每个国家地区添加一条插入语句这非常不方便因为您必须先了解输入数据中存在的国家地区列表并事先创建分区如果列表更改了另一天则必须修改插入以及分区创建由于每个插入语句都可以转换为作业因此效率也不高动态分区插入或多分区插入旨在通过动态确定在扫描输入表时应创建和填充哪些分区来解决此问题这是新增功能仅从版本开始可用在动态分区插入中将评估输入列的值以确定应将此行插入哪个分区如果尚未创建该分区它将自动创建该分区使用此功能您只需一个插入语句即可创建并填充所有必要的分区另外由于只有一个语句所以只有一个对应的作业与多次插入的情况相比这可以显着提高性能并减少集群的工作量以下是使用一个插入语句将数据加载到所有国家地区分区的示例与多插入语句有一些语法差异国家地区出现在规范中但没有关联的值在这种情况下是动态分区列另一方面具有与其关联的值这意味着它是静态分区列如果列是动态分区列则其值将来自输入列当前我们仅允许动态分区列成为子句中的最后一列因为分区列顺序指示其层次结构顺序意味着是根分区而是子分区您不能使用指定分区子句因为这意味着您需要使用任何日期更新所有分区并且其国家子分区为在语句中添加了一个附加的列这是动态分区列的相应输入列请注意您不需要为静态分区列添加输入列因为它的值在子句中是已知的请注意动态分区值是通过排序而不是名称来选择的并被用作子句的最后一列动态分区插入语句的语义当动态分区列中已经存在非空分区时例如在某些根分区下存在如果动态分区插入看到相同的值例如它将被覆盖输入数据中这符合插入覆盖的语义但是如果分区值未出现在输入数据中则现有分区将不会被覆盖由于分区与中的目录相对应因此分区值必须符合路径格式中的中具有特殊含义的任何字符例如都将以进行转义后跟个字节的值如果输入列的类型不同于则其值将首先转换为以用于构造路径如果输入列的值为或空字符串则该行将被放入一个特殊分区其名称由配置单元参数控制默认值为基本上该分区将包含其值不是有效分区名称的所有坏行这种方法的警告是如果您将它们选择为则不良值将丢失并由代替是一种允许用户指定错误文件以保留输入分区列值的解决方案动态分区插入可能会占用大量资源因为它可能会在短时间内生成大量分区为了使自己安全我们定义了三个参数默认值为是每个映射器或化简器可以创建的最大动态分区如果一个映射器或缩减器创建的阈值多于该阈值则会从映射器缩减器中引发致命错误通过计数器并且整个工作将被杀死默认值为是一个可以创建的动态分区的总数如果每个映射器缩减器未超过限制但动态分区的总数未超过限制则在将中间数据移至最终目标之前作业结束时会引发异常默认值为是所有映射器和化简器创建的最大文件总数每当创建新文件时每个映射器还原器都会更新计数器从而实现此目的如果总数超过将引发致命错误并杀死作业我们要防止动态分区插入的另一种情况是用户可能无意中将所有分区指定为动态分区而没有指定一个静态分区而最初的意图是仅覆盖一个根分区的子分区我们定义另一个参数以防止出现全动态分区情况在严格模式下您必须至少指定一个静态分区默认模式为严格模式另外我们有一个参数来控制是否允许动态分区之前的默认值为及更高版本的默认值为在中动态分区插入不适用于或因此它在内部关闭了合并参数支持在动态分区插入中合并文件有关详细信息请参见故障排除和最佳实践如上所述特定的映射器缩减程序创建的动态分区过多可能会引发致命错误并且作业将被杀死错误消息看起来像这样的问题是一个映射器将随机获取一组行并且不同的国家地区对的数量很可能会超过的限制解决该问题的一种方法是按映射器中的动态分区列对行进行分组然后将其分配到将创建动态分区的在这种情况下不同动态分区的数量将大大减少上面的示例查询可以重写为该查询将生成一个作业而不是仅作业子句将转换为映射器的计划并且输出将基于对的值分配给子句将在化简器中转换为计划并写入动态分区附加文档动态分区的设计文档原始设计文件动态分区插入动态分区与猪一起使用的用法插入本地文件在某些情况下您可能希望将输出写入本地文件以便可以将其加载到电子表格中这可以通过以下命令完成采样采样子句允许用户为数据样本而不是整个表编写查询当前采样是在语句的子句中指定的列上完成的在以下示例中我们从表的个存储桶中选择第三个存储桶通常语法如下所示必须是表创建时指定的表中存储桶数量的倍数或除数如果模块等于则确定所选的桶因此在上面的示例中以下子句会挑选第三个和第个桶桶的编号从开始另一方面子句会从第三个桶中挑出一半联合所有该语言还支持全部联合例如如果我们假设有两个不同的表来跟踪哪个用户发布了视频并且哪个用户发布了评论则以下查询将全部联合的结果与表结合起来以创建所有视频发布和评论发布事件的单个注释流阵列运算表中的数组列可以如下假设的类型为即它是整数数组则用户可以通过其索引在数组中获得特定元素如以下命令所示选择表达式将获取数组中的第三项用户还可以使用函数获得数组的长度如下所示映射关联数组操作映射提供类似于关联数组的集合目前只能以编程方式创建此类结构我们将尽快扩展就当前示例而言假定的类型为即它是从字符串到字符串的关联数组相应地以下查询可用于从表中选择属性与数组类似函数也可用于获取地图中的元素数如以下查询所示自定义映射减少脚本用户还可以使用语言本身支持的功能在数据流中插入自己的自定义映射器和简化器例如为了运行自定义映射器脚本和自定义归约器脚本用户可以发出以下命令该命令使用子句嵌入映射器和归约器脚本请注意在输入用户脚本之前列将被转换为字符串并由分隔并且用户脚本的标准输出将被视为分隔的字符串列用户脚本可以将调试信息输出为标准错误这将显示在的任务详细信息页面上样例地图脚本当然对于更一般的选择转换和都是语法糖内部查询也可以这样编写无模式映射减少如果在之后没有子句则假定脚本的输出包含两部分在第一个选项卡之前则在第一个选项卡之后请注意这与指定键值不同因为在这种情况下如果存在多个选项卡则值将仅包含第一个选项卡和第二个选项卡之间的部分这样我们允许用户迁移旧的脚本而无需了解地图输出的架构用户仍然需要知道输出模式因为它必须与我们要插入的表中的内容匹配分发方式和排序方式用户可以指定分发方式和排序方式而不是指定群集方式因此分区列和排序列可以不同通常的情况是分区列是排序列的前缀但这不是必需的联合团体在使用的用户社区中共同分组是一种相当常见的操作其中将来自多个表的数据发送到自定义的约简器以便按表中某些列的值对行进行分组使用运算符和规范可以通过以下方式在查询语言中实现假设我们想将列上的和表中的行进行分组并将它们发送到自定义则用户可以使用以下语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:30:38',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/hive/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>hive</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Hive官方文档翻译——Hive Tutorial</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:56.000Z" title="发表于 2024-10-31 22:01:56">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.403Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/"><header><a href="/tags/hive/" tabindex="-1" itemprop="url">hive</a><h1 id="CrawlerTitle" itemprop="name headline">Hive官方文档翻译——Hive Tutorial</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:56.000Z" title="发表于 2024-10-31 22:01:56">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:30:38.403Z" title="更新于 2026-07-03 14:30:38">2026-07-03</time></header><h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="什么是Hive"><a href="#什么是Hive" class="headerlink" title="什么是Hive"></a>什么是Hive</h2><p>Hive是基于<a target="_blank" rel="noopener" href="http://hadoop.apache.org/">Apache Hadoop</a>的数据仓库基础架构。Hadoop为商品硬件上的数据存储和处理提供了大规模的横向扩展和容错功能。</p>
+<p>Hive旨在简化数据汇总，临时查询和分析大量数据的过程。它提供了SQL，使用户可以轻松地进行即席查询，摘要和数据分析。同时，Hive的SQL为用户提供了多个位置，以集成他们自己的功能以进行自定义分析，例如用户定义函数（UDF）。  </p>
+<h2 id="Hive不是什么"><a href="#Hive不是什么" class="headerlink" title="Hive不是什么"></a>Hive不是什么</h2><p>Hive不适用于在线交易处理。  最佳用于传统数据仓库任务。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>有关设置Hive，HiveServer2和直线的详细信息，请参阅 <a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/GettingStarted">GettingStarted</a>指南。</p>
+<p><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/Books+about+Hive">有关Hive的书籍</a>列出了一些可能对Hive入门也很有帮助的书籍。</p>
+<p>在以下各节中，我们提供有关系统功能的教程。我们首先描述数据类型，表和分区的概念（与传统的关系型DBMS中的概念非常相似），然后借助一些示例来说明Hive的功能。</p>
+<h2 id="数据单位"><a href="#数据单位" class="headerlink" title="数据单位"></a>数据单位</h2><p>按粒度顺序-Hive数据组织为：</p>
+<ul>
+<li><strong>数据库</strong>：命名空间的作用是避免表，视图，分区，列等的命名冲突。数据库还可以用于对一个用户或一组用户强制实施安全性。</li>
+<li><strong>表格</strong>：具有相同架构的同类数据单元。一个表的示例可以是page_views表，其中每一行可以包含以下列（模式）：<ul>
+<li><code>timestamp</code>—属于INT类型，与查看该页面的UNIX时间戳相对应。</li>
+<li><code>userid</code> —是BIGINT类型，用于标识查看该页面的用户。</li>
+<li><code>page_url—</code>属于STRING类型，用于捕获页面的位置。</li>
+<li><code>referer_url—</code>其中STRING个可捕获用户到达当前页面的页面位置。</li>
+<li><code>IP—</code>属于STRING类型，用于捕获发出页面请求的IP地址。</li>
+</ul>
+</li>
+<li><strong>分区</strong>：每个表可以具有一个或多个分区键，这些键确定数据的存储方式。分区-除了作为存储单元-还允许用户有效地标识满足指定条件的行；例如，类型为STRING的date_partition和类型为STRING的country_partition。分区键的每个唯一值定义表的一个分区。例如，来自“ 2009-12-23”的所有“ US”数据都是page_views表的分区。因此，如果仅对2009-12-23的“美国”数据运行分析，则可以仅对表的相关分区运行该查询，从而大大加快了分析速度。但是请注意，仅因为分区名为2009-12-23并不意味着该分区包含该日期之后的全部或仅数据。为方便起见，分区以日期命名；保证分区名称和数据内容之间的关系是用户的工作！分区列是虚拟列，</li>
+<li><strong>存储桶</strong>（或<strong>群集</strong>）：每个分区中的数据又可以根据表中某些列的哈希函数的值分为存储桶。例如，page_views表可以按userid进行存储，userid是page_view表中除分区列之外的列之一。这些可用于有效采样数据。</li>
+</ul>
+<p>请注意，不必对表进行分区或存储，但是这些抽象使系统可以在查询处理期间修剪大量数据，从而加快查询执行速度。</p>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>Hive支持原始和复杂的数据类型，如下所述。有关其他信息，请参见<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Types">Hive数据类型</a>。</p>
+<h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><ul>
+<li>类型与表中的列关联。支持以下基本类型：</li>
+<li>整数<ul>
+<li>TINYINT — 1个字节的整数</li>
+<li>SMALLINT — 2字节整数</li>
+<li>INT — 4字节整数</li>
+<li>BIGINT — 8字节整数</li>
+</ul>
+</li>
+<li>布尔型<ul>
+<li>布尔- TRUE &#x2F; FALSE</li>
+</ul>
+</li>
+<li>浮点数字<ul>
+<li>FLOAT -单精度</li>
+<li>双倍—双精度</li>
+</ul>
+</li>
+<li>定点数<ul>
+<li>DECIMAL —用户定义的比例和精度的固定点值</li>
+</ul>
+</li>
+<li>字符串类型<ul>
+<li>STRING —指定字符集中的字符序列</li>
+<li>VARCHAR —指定字符集中最大长度的字符序列</li>
+<li>CHAR —具有定义长度的指定字符集中的字符序列</li>
+</ul>
+</li>
+<li>日期和时间类型<ul>
+<li>TIMESTAMP —不带时区的日期和时间（“ LocalDateTime”语义）</li>
+<li>带有本地时区的时间戳 —精确到纳秒的时间点（“即时”语义）</li>
+<li>DATE -日期</li>
+</ul>
+</li>
+<li>二进制类型<ul>
+<li>BINARY —字节序列</li>
+</ul>
+</li>
+</ul>
+<p>这些类型按以下层次结构进行组织（其中父级是所有子级实例的超类型）：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/image_1594296186301.png" alt="image.png"></p>
+<p>此类型层次结构定义如何在查询语言中隐式转换类型。允许从子类型到祖先类型的隐式转换。因此，当查询表达式期望类型为1且数据类型为2时，如果类型1是类型层次结构中类型2的祖先，则类型2将隐式转换为类型1。请注意，类型层次结构允许将STRING隐式转换为DOUBLE。</p>
+<p>可以使用<a href="#Tutorial-BuiltInFunctions">强制</a>转换运算符来进行显式类型转换，如下面的“ <a href="#Tutorial-BuiltInFunctions">内置函数”</a>部分所示。</p>
+<h3 id="复杂类型"><a href="#复杂类型" class="headerlink" title="复杂类型"></a>复杂类型</h3><p>可以使用以下方法从原始类型和其他组合类型中构建复杂类型：</p>
+<ul>
+<li>结构：可以使用DOT（。）表示法访问类型内的元素。例如，对于类型STRUCT {a INT; b INT}，则表达式ca访问a字段</li>
+<li>映射（键值元组）：使用[‘element name’]表示法访问元素。例如，在包含从’group’-&gt; gid的映射组成的映射M中，可以使用M [‘group’]访问gid值</li>
+<li>数组（可索引列表）：数组中的元素必须具有相同的类型。可以使用[n]表示法访问元素，其中n是数组的索引（从零开始）。例如，对于具有元素[‘a’，’b’，’c’]的数组A，A [1]重新运行’b’。</li>
+</ul>
+<p>使用原始类型和用于创建复杂类型的构造，可以创建具有任意嵌套级别的类型。例如，用户类型可以包含以下字段：</p>
+<ul>
+<li>性别-这是STRING。</li>
+<li>活跃的-这是BOOLEAN。</li>
+</ul>
+<h3 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h3><p>时间戳一直是造成混乱的根源，因此我们尝试记录Hive的预期语义。  </p>
+<h4 id="时间戳（“-LocalDateTime”语义）"><a href="#时间戳（“-LocalDateTime”语义）" class="headerlink" title="时间戳（“ LocalDateTime”语义）"></a>时间戳（“ LocalDateTime”语义）</h4><p>Java的“ LocalDateTime”时间戳将日期和时间记录为年，月，日，时，分和秒，没有时区。无论本地时区如何，这些时间戳始终具有相同的值。  </p>
+<p>例如，时间戳值“ 2014-12-12 12:34:56”被分解为年，月，日，小时，分钟和秒字段，但是没有可用的时区信息。它不对应于任何特定时刻。无论本地时区如何，它将始终是相同的值。除非您的应用程序始终使用UTC，否则对于大多数应用程序，时间戳优先于本地时区。当用户说某个事件是在10:00时，它始终是相对于某个时区的，它表示一个时间点，而不是任意时区中的10:00。</p>
+<h4 id="具有本地时区的时间戳（“即时”语义）"><a href="#具有本地时区的时间戳（“即时”语义）" class="headerlink" title="具有本地时区的时间戳（“即时”语义）"></a>具有本地时区的时间戳（“即时”语义）</h4><p>Java的“即时”时间戳定义了一个恒定的时间点，无论从何处读取数据。因此，时间戳将通过本地时区进行调整以匹配原始时间点。  </p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Value in America&#x2F;Los_Angeles</th>
+<th>Value in America&#x2F;New_York</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Type</td>
+<td>Value in America&#x2F;Los_Angeles</td>
+<td>Value in America&#x2F;New_York</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>2014-12-12 12:34:56</td>
+<td>2014-12-12 12:34:56</td>
+</tr>
+<tr>
+<td>timestamp with local time zone</td>
+<td>2014-12-12 12:34:56</td>
+<td>2014-12-12 15:34:56</td>
+</tr>
+</tbody></table>
+<h4 id="与其他工具的比较"><a href="#与其他工具的比较" class="headerlink" title="与其他工具的比较"></a>与其他工具的比较</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>SQL 2003</th>
+<th>Oracle</th>
+<th>Sybase</th>
+<th>Postgres</th>
+<th>MySQL</th>
+<th>Microsoft SQL</th>
+<th>IBM DB2</th>
+<th>Presto</th>
+<th>Snowflake</th>
+<th>Hive &gt;&#x3D; 3.1</th>
+<th>Iceberg</th>
+<th>Spark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>SQL 2003</td>
+<td>Oracle</td>
+<td>Sybase</td>
+<td>Postgres</td>
+<td>MySQL</td>
+<td>Microsoft SQL</td>
+<td>IBM DB2</td>
+<td>Presto</td>
+<td>Snowflake</td>
+<td>Hive &gt;&#x3D; 3.1</td>
+<td>Iceberg</td>
+<td>Spark</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Local</td>
+<td>Local</td>
+<td>Local</td>
+<td>Local</td>
+<td>Instant</td>
+<td>Other</td>
+<td>Local</td>
+<td>Local</td>
+<td>Local</td>
+<td>Local</td>
+<td>Local</td>
+<td>Instant</td>
+</tr>
+<tr>
+<td>timestamp with local time zone</td>
+<td></td>
+<td>Instant</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Instant</td>
+<td>Instant</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp with time zone</td>
+<td>Offset</td>
+<td>Offset</td>
+<td>Offset</td>
+<td>Instant</td>
+<td></td>
+<td></td>
+<td>Offset</td>
+<td>Offset</td>
+<td>Offset</td>
+<td></td>
+<td>Instant</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp without time zone</td>
+<td>Local</td>
+<td>Local</td>
+<td></td>
+<td>Local</td>
+<td></td>
+<td></td>
+<td>Local</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>其他定义：</p>
+<ul>
+<li>Offset&#x3D;记录时间点以及编写者所在时区中的时区偏移量。</li>
+</ul>
+<h2 id="内置的运算符和功能"><a href="#内置的运算符和功能" class="headerlink" title="内置的运算符和功能"></a>内置的运算符和功能</h2><p>下面列出的运算符和功能不一定是最新的。（<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF">Hive Operators和UDF</a>具有更多当前信息。）在<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93NewCommandLineShell">Beeline</a>或Hive <a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Cli">CLI中</a>，使用以下命令显示最新文档：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SHOW FUNCTIONS;</code></div><div class="line number2 index1 alt1"><code class="java plain">DESCRIBE FUNCTION &lt;function_name&gt;;</code></div><div class="line number3 index2 alt2"><code class="java plain">DESCRIBE FUNCTION EXTENDED &lt;function_name&gt;;</code></div></div></td></tr></tbody></table>
+
+<p>不区分大小写</p>
+<p>所有Hive关键字都不区分大小写，包括Hive运算符和函数的名称。</p>
+<h3 id="内置运算符"><a href="#内置运算符" class="headerlink" title="内置运算符"></a>内置运算符</h3><ul>
+<li><strong>关系运算符</strong>-以下运算符比较传递的操作数并生成TRUE或FALSE值，具体取决于操作数之间的比较是否成立。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>关系运算符</th>
+<th>操作数类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关系运算符</td>
+<td>操作数类型</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>A &#x3D; B</td>
+<td>所有原始类型</td>
+<td>如果表达式A等于表达式B，则为TRUE；否则为。否则为FALSE</td>
+</tr>
+<tr>
+<td>A！&#x3D; B</td>
+<td>所有原始类型</td>
+<td>如果表达式A 不等于表达式B，则为TRUE；否则为。否则为FALSE</td>
+</tr>
+<tr>
+<td>A &lt;B</td>
+<td>所有原始类型</td>
+<td>如果表达式A小于表达式B，则为TRUE；否则为。否则为FALSE</td>
+</tr>
+<tr>
+<td>A &lt;&#x3D; B</td>
+<td>所有原始类型</td>
+<td>如果表达式A小于或等于表达式B，则为TRUE；否则为。否则为FALSE</td>
+</tr>
+<tr>
+<td>A&gt; B</td>
+<td>所有原始类型</td>
+<td>如果表达式A大于表达式B，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>A&gt; &#x3D; B</td>
+<td>所有原始类型</td>
+<td>如果表达式A大于或等于表达式B，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>A IS NULL</td>
+<td>所有类型</td>
+<td>如果表达式A的计算结果为NULL，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>A IS NOT NULL</td>
+<td>所有类型</td>
+<td>如果表达式A的计算结果为NULL，则为FALSE，否则为TRUE</td>
+</tr>
+<tr>
+<td>A LIKE B</td>
+<td>strings</td>
+<td>如果字符串A与SQL简单正则表达式B匹配，则为TRUE，否则为FALSE。逐个字符进行比较。在B中的_字符与所述的任何字符（类似于。在POSIX正则表达式），和B中的％字符的字符中所述的任意数量的匹配（相似。*在POSIX正则表达式）。例如，’foobar’ LIKE ‘foo’对FALSE ‘foobar’ LIKE ‘foo___‘求值，而对TRUE求值，对’foobar’ LIKE ‘foo%’。要转义％，请使用\（％匹配一个％字符）。如果数据包含分号，并且您要搜索，则需要转义，columnValue LIKE ‘a\;b’</td>
+</tr>
+<tr>
+<td>A RLIKE B</td>
+<td>strings</td>
+<td>如果A或B为NULL，则为NULL，如果A的任何子字符串（可能为空）与Java正则表达式B匹配（请参见Java正则表达式语法），则为TRUE ，否则为FALSE。例如，’foobar’rlike’foo’的计算结果为TRUE，’foobar’rlike’^ f。* r $’的计算结果也为TRUE。</td>
+</tr>
+<tr>
+<td>A REGEXP B</td>
+<td>strings</td>
+<td>与RLIKE相同</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>算术运算符</strong>—以下运算符支持对操作数的各种常见算术运算。它们都返回数字类型。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>算术运算符</th>
+<th>操作数类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>算术运算符</td>
+<td>操作数类型</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>A + B</td>
+<td>所有数字类型</td>
+<td>给出将A和B相加的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同，例如，因为每个整数都是浮点数。因此，float是整数的包含类型，因此float和int上的+运算符将导致float。</td>
+</tr>
+<tr>
+<td>A-B</td>
+<td>所有数字类型</td>
+<td>给出从A减去B的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。</td>
+</tr>
+<tr>
+<td>A * B</td>
+<td>所有数字类型</td>
+<td>给出将A和B相乘的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。请注意，如果乘法导致溢出，则必须将其中一个运算符转换为类型层次结构中较高的类型。</td>
+</tr>
+<tr>
+<td>A &#x2F; B</td>
+<td>所有数字类型</td>
+<td>给出从A除以B的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。如果操作数是整数类型，则结果是除法的商。</td>
+</tr>
+<tr>
+<td>A％B</td>
+<td>所有数字类型</td>
+<td>给出A除以B的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。</td>
+</tr>
+<tr>
+<td>A＆B</td>
+<td>所有数字类型</td>
+<td>给出A和B的按位与的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。</td>
+</tr>
+<tr>
+<td>A | B</td>
+<td>所有数字类型</td>
+<td>给出A和B的按位或的结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。</td>
+</tr>
+<tr>
+<td>A ^ B</td>
+<td>所有数字类型</td>
+<td>给出A和B的按位XOR结果。结果的类型与操作数类型的公共父级（在类型层次结构中）相同。</td>
+</tr>
+<tr>
+<td>〜A</td>
+<td>所有数字类型</td>
+<td>给出A的按位NOT的结果。结果的类型与A的类型相同。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>逻辑运算符</strong> -以下运算符为创建逻辑表达式提供支持。它们都根据操作数的布尔值返回布尔值TRUE或FALSE。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>逻辑运算符</th>
+<th>操作数类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>逻辑运算符</td>
+<td>Operands types</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>A AND B</td>
+<td>布尔值</td>
+<td>如果A和B均为TRUE，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>A &amp;&amp; B</td>
+<td>布尔值</td>
+<td>与A和B相同</td>
+</tr>
+<tr>
+<td>A OR B</td>
+<td>布尔值</td>
+<td>如果A或B或两者均为TRUE，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>A || B</td>
+<td>布尔值</td>
+<td>与A或B相同</td>
+</tr>
+<tr>
+<td>NOT A</td>
+<td>布尔值</td>
+<td>如果A为FALSE，则为TRUE，否则为FALSE</td>
+</tr>
+<tr>
+<td>！A</td>
+<td>布尔值</td>
+<td>与NOT A相同</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>复杂类型上</strong>的运算符—以下运算符提供了访问复杂类型上的元素的机制</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>操作员</th>
+<th>操作数类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作员</td>
+<td>操作数类型</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>A[n]</td>
+<td>A是一个数组，n是一个整数</td>
+<td>返回数组A中的第n个元素。第一个元素的索引为0，例如，如果A是包含[‘foo’，’bar’]的数组，则A [0]返回’foo’，而A [1]返回’酒吧’</td>
+</tr>
+<tr>
+<td>M[key]</td>
+<td>M是Map &lt;K，V&gt;并且键的类型为K</td>
+<td>例如，如果M是包含{‘f’-&gt;’foo’，’b’-&gt;’bar’，’all’-&gt;’foobar’} 的映射，则返回M [‘all’]返回’foobar’</td>
+</tr>
+<tr>
+<td>S.x</td>
+<td>S是一个结构</td>
+<td>返回S的x字段，例如，对于struct foobar {int foo，int bar} foobar.foo返回存储在struct的foo字段中的整数。</td>
+</tr>
+</tbody></table>
+<h3 id="内置功能"><a href="#内置功能" class="headerlink" title="内置功能"></a>内置功能</h3><ul>
+<li>Hive支持以下内置函数：（<br><a target="_blank" rel="noopener" href="http://svn.apache.org/viewvc/hive/trunk/ql/src/java/org/apache/hadoop/hive/ql/exec/FunctionRegistry.java?view=markup">源代码中的函数列表：FunctionRegistry.java）</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Return Type</th>
+<th>Function Name (Signature)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Return Type</td>
+<td>Function Name (Signature)</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>round(double a)</td>
+<td>returns the rounded BIGINT value of the double</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>floor(double a)</td>
+<td>returns the maximum BIGINT value that is equal or less than the double</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>ceil(double a)</td>
+<td>returns the minimum BIGINT value that is equal or greater than the double</td>
+</tr>
+<tr>
+<td>double</td>
+<td>rand(), rand(int seed)</td>
+<td>returns a random number (that changes from row to row). Specifiying the seed will make sure the generated random number sequence is deterministic.</td>
+</tr>
+<tr>
+<td>string</td>
+<td>concat(string A, string B,...)</td>
+<td>returns the string resulting from concatenating B after A. For example, concat(‘foo’, ‘bar’) results in ‘foobar’. This function accepts arbitrary number of arguments and return the concatenation of all of them.</td>
+</tr>
+<tr>
+<td>string</td>
+<td>substr(string A, int start)</td>
+<td>returns the substring of A starting from start position till the end of string A. For example, substr(‘foobar’, 4) results in ‘bar’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>substr(string A, int start, int length)</td>
+<td>returns the substring of A starting from start position with the given length, for example, substr(‘foobar’, 4, 2) results in ‘ba’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>upper(string A)</td>
+<td>returns the string resulting from converting all characters of A to upper case, for example, upper(‘fOoBaR’) results in ‘FOOBAR’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>ucase(string A)</td>
+<td>Same as upper</td>
+</tr>
+<tr>
+<td>string</td>
+<td>lower(string A)</td>
+<td>returns the string resulting from converting all characters of B to lower case, for example, lower(‘fOoBaR’) results in ‘foobar’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>lcase(string A)</td>
+<td>Same as lower</td>
+</tr>
+<tr>
+<td>string</td>
+<td>trim(string A)</td>
+<td>returns the string resulting from trimming spaces from both ends of A, for example, trim(‘ foobar ‘) results in ‘foobar’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>ltrim(string A)</td>
+<td>returns the string resulting from trimming spaces from the beginning(left hand side) of A. For example, ltrim(‘ foobar ‘) results in ‘foobar ‘</td>
+</tr>
+<tr>
+<td>string</td>
+<td>rtrim(string A)</td>
+<td>returns the string resulting from trimming spaces from the end(right hand side) of A. For example, rtrim(‘ foobar ‘) results in ‘ foobar’</td>
+</tr>
+<tr>
+<td>string</td>
+<td>regexp_replace(string A, string B, string C)</td>
+<td>returns the string resulting from replacing all substrings in B that match the Java regular expression syntax(See Java regular expressions syntax) with C. For example, regexp_replace(‘foobar’, ‘oo|ar’, ) returns ‘fb’</td>
+</tr>
+<tr>
+<td>int</td>
+<td>size(Map&lt;K.V&gt;)</td>
+<td>returns the number of elements in the map type</td>
+</tr>
+<tr>
+<td>int</td>
+<td>size(Array<T>)</td>
+<td>returns the number of elements in the array type</td>
+</tr>
+<tr>
+<td>value of <type></td>
+<td>cast(<expr> as <type>)</td>
+<td>converts the results of the expression expr to <type>, for example, cast(‘1’ as BIGINT) will convert the string ‘1’ to it integral representation. A null is returned if the conversion does not succeed.</td>
+</tr>
+<tr>
+<td>string</td>
+<td>from_unixtime(int unixtime)</td>
+<td>convert the number of seconds from the UNIX epoch (1970-01-01 00:00:00 UTC) to a string representing the timestamp of that moment in the current system time zone in the format of “1970-01-01 00:00:00”</td>
+</tr>
+<tr>
+<td>string</td>
+<td>to_date(string timestamp)</td>
+<td>Return the date part of a timestamp string: to_date(“1970-01-01 00:00:00”) &#x3D; “1970-01-01”</td>
+</tr>
+<tr>
+<td>int</td>
+<td>year(string date)</td>
+<td>Return the year part of a date or a timestamp string: year(“1970-01-01 00:00:00”) &#x3D; 1970, year(“1970-01-01”) &#x3D; 1970</td>
+</tr>
+<tr>
+<td>int</td>
+<td>month(string date)</td>
+<td>Return the month part of a date or a timestamp string: month(“1970-11-01 00:00:00”) &#x3D; 11, month(“1970-11-01”) &#x3D; 11</td>
+</tr>
+<tr>
+<td>int</td>
+<td>day(string date)</td>
+<td>Return the day part of a date or a timestamp string: day(“1970-11-01 00:00:00”) &#x3D; 1, day(“1970-11-01”) &#x3D; 1</td>
+</tr>
+<tr>
+<td>string</td>
+<td>get_json_object(string json_string, string path)</td>
+<td>Extract json object from a json string based on json path specified, and return json string of the extracted json object. It will return null if the input json string is invalid.</td>
+</tr>
+</tbody></table>
+<h2 id="语言能力"><a href="#语言能力" class="headerlink" title="语言能力"></a>语言能力</h2><p><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual">Hive的SQL</a>提供了基本的SQL操作。这些操作适用于表或分区。这些操作是：</p>
+<ul>
+<li>能够使用WHERE子句从表中过滤行。</li>
+<li>可以使用SELECT子句从表中选择某些列。</li>
+<li>在两个表之间进行等值联接的能力。</li>
+<li>能够针对表中存储的数据评估多个“ group by”列上的聚合。</li>
+<li>能够将查询结果存储到另一个表中。</li>
+<li>能够将表的内容下载到本地（例如，nfs）目录。</li>
+<li>能够将查询结果存储在hadoop dfs目录中。</li>
+<li>能够管理表和分区（创建，删除和更改）。</li>
+<li>能够以自定义地图&#x2F;缩小作业选择的语言插入自定义脚本。</li>
+</ul>
+<h1 id="用法与范例"><a href="#用法与范例" class="headerlink" title="用法与范例"></a>用法与范例</h1><p>**注意：以下许多示例已过时。在<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual">LanguageManual中</a>可以找到更多最新信息 。  **</p>
+<p>以下示例突出了系统的一些显着功能。详细的查询测试用例集可以在<a target="_blank" rel="noopener" href="http://svn.apache.org/viewvc/hive/trunk/ql/src/test/queries/clientpositive/">Hive查询测试用例中</a>找到，相应的结果可以在<a target="_blank" rel="noopener" href="http://svn.apache.org/viewvc/hive/trunk/ql/src/test/results/clientpositive/">查询测试用例结果中找到</a>。</p>
+<p>&#x2F;<em>&lt;![CDATA[*&#x2F; div.rbtoc1594295362251 {padding: 0px;} div.rbtoc1594295362251 ul {list-style: disc;margin-left: 0px;} div.rbtoc1594295362251 li {margin-left: 0px;padding-left: 0px;} &#x2F;*]]&gt;</em>&#x2F;</p>
+<ul>
+<li><a href="#Tutorial-Creating,Showing,Altering,andDroppingTables">创建，显示，更改和删除表</a></li>
+<li><a href="#Tutorial-LoadingData">加载数据中</a></li>
+<li><a href="#Tutorial-QueryingandInsertingData">查询和插入数据</a></li>
+</ul>
+<h2 id="创建，显示，更改和删除表"><a href="#创建，显示，更改和删除表" class="headerlink" title="创建，显示，更改和删除表"></a>创建，显示，更改和删除表</h2><p>有关创建，显示，更改和删除表的详细信息，请参见<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL">Hive数据定义语言</a>。</p>
+<h3 id="建立表格"><a href="#建立表格" class="headerlink" title="建立表格"></a>建立表格</h3><p>创建上面提到的page_view表的示例语句如下所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">CREATE TABLE page_view(viewTime INT, userid BIGINT,</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_url STRING, referrer_url STRING,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">ip STRING COMMENT </code><code class="java string">'IP Address of the User'</code><code class="java plain">)</code></div><div class="line number4 index3 alt1"><code class="java plain">COMMENT </code><code class="java string">'This is the page view table'</code></div><div class="line number5 index4 alt2"><code class="java plain">PARTITIONED BY(dt STRING, country STRING)</code></div><div class="line number6 index5 alt1"><code class="java plain">STORED AS SEQUENCEFILE;</code></div></div></td></tr></tbody></table>
+
+<p>在此示例中，使用相应的类型指定表的列。注释可以附加在列级和表级。此外，partitioned by子句定义的分区列与数据列不同，实际上并未与数据一起存储。以这种方式指定时，假定文件中的数据使用ASCII 001（ctrl-A）作为字段定界符，使用换行符作为行定界符来定界。</p>
+<p>如果数据不是上述格式的数据，则可以对字段定界符进行参数设置，如下例所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">CREATE TABLE page_view(viewTime INT, userid BIGINT,</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_url STRING, referrer_url STRING,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">ip STRING COMMENT </code><code class="java string">'IP Address of the User'</code><code class="java plain">)</code></div><div class="line number4 index3 alt1"><code class="java plain">COMMENT </code><code class="java string">'This is the page view table'</code></div><div class="line number5 index4 alt2"><code class="java plain">PARTITIONED BY(dt STRING, country STRING)</code></div><div class="line number6 index5 alt1"><code class="java plain">ROW FORMAT DELIMITED</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FIELDS TERMINATED BY </code><code class="java string">'1'</code></div><div class="line number8 index7 alt1"><code class="java plain">STORED AS SEQUENCEFILE;</code></div></div></td></tr></tbody></table>
+
+<p>由于行分隔符不是由Hive而是由Hadoop分隔符确定，因此当前无法更改行分隔符。</p>
+<p>将表存储在某些列上也是一个好主意，以便可以针对数据集执行有效的采样查询。如果没有存储分区，仍然可以在表上进行随机采样，但是效率不高，因为查询必须扫描所有数据。以下示例说明了在userid列上存储的page_view表的情况：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">CREATE TABLE page_view(viewTime INT, userid BIGINT,</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_url STRING, referrer_url STRING,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">ip STRING COMMENT </code><code class="java string">'IP Address of the User'</code><code class="java plain">)</code></div><div class="line number4 index3 alt1"><code class="java plain">COMMENT </code><code class="java string">'This is the page view table'</code></div><div class="line number5 index4 alt2"><code class="java plain">PARTITIONED BY(dt STRING, country STRING)</code></div><div class="line number6 index5 alt1"><code class="java plain">CLUSTERED BY(userid) SORTED BY(viewTime) INTO </code><code class="java value">32</code> <code class="java plain">BUCKETS</code></div><div class="line number7 index6 alt2"><code class="java plain">ROW FORMAT DELIMITED</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FIELDS TERMINATED BY </code><code class="java string">'1'</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">COLLECTION ITEMS TERMINATED BY </code><code class="java string">'2'</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">MAP KEYS TERMINATED BY </code><code class="java string">'3'</code></div><div class="line number11 index10 alt2"><code class="java plain">STORED AS SEQUENCEFILE;</code></div></div></td></tr></tbody></table>
+
+<p>在上面的示例中，该表通过userid的哈希函数聚集到32个存储桶中。在每个存储桶中，数据按viewTime的升序排序。这样的组织允许用户在聚集列上进行高效采样-在这种情况下为用户ID。排序属性允许内部运算符在更好地评估查询的同时利用众所周知的数据结构。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">CREATE TABLE page_view(viewTime INT, userid BIGINT,</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_url STRING, referrer_url STRING,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">friends ARRAY&lt;BIGINT&gt;, properties MAP&lt;STRING, STRING&gt;</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">ip STRING COMMENT </code><code class="java string">'IP Address of the User'</code><code class="java plain">)</code></div><div class="line number5 index4 alt2"><code class="java plain">COMMENT </code><code class="java string">'This is the page view table'</code></div><div class="line number6 index5 alt1"><code class="java plain">PARTITIONED BY(dt STRING, country STRING)</code></div><div class="line number7 index6 alt2"><code class="java plain">CLUSTERED BY(userid) SORTED BY(viewTime) INTO </code><code class="java value">32</code> <code class="java plain">BUCKETS</code></div><div class="line number8 index7 alt1"><code class="java plain">ROW FORMAT DELIMITED</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FIELDS TERMINATED BY </code><code class="java string">'1'</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">COLLECTION ITEMS TERMINATED BY </code><code class="java string">'2'</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">MAP KEYS TERMINATED BY </code><code class="java string">'3'</code></div><div class="line number12 index11 alt1"><code class="java plain">STORED AS SEQUENCEFILE;</code></div></div></td></tr></tbody></table>
+
+<p>在此示例中，以与类型定义类似的方式指定组成表行的列。注释可以附加在列级和表级。此外，partitioned by子句定义的分区列与数据列不同，实际上并未与数据一起存储。CLUSTERED BY子句指定用于存储桶的列以及要创建的存储桶数。分隔行格式指定行如何在配置单元表中存储。在定界格式的情况下，这指定了字段的终止方式，集合（数组或映射）中的项目的终止方式以及映射键的终止方式。STORED AS SEQUENCEFILE表示此数据以二进制格式（使用hadoop SequenceFiles）存储在hdfs上。</p>
+<p>表名和列名不区分大小写。</p>
+<h3 id="浏览表和分区"><a href="#浏览表和分区" class="headerlink" title="浏览表和分区"></a>浏览表和分区</h3><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SHOW TABLES;</code></div></div></td></tr></tbody></table>
+
+<p>列出仓库中的现有表；其中有很多，可能比您想要浏览的更多。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SHOW TABLES </code><code class="java string">'page.*'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>列出前缀为“ page”的表。该模式遵循Java正则表达式语法（因此句点是通配符）。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SHOW PARTITIONS page_view;</code></div></div></td></tr></tbody></table>
+
+<p>列出表分区。如果该表不是分区表，则将引发错误。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">DESCRIBE page_view;</code></div></div></td></tr></tbody></table>
+
+<p>列出表的列和列类型。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">DESCRIBE EXTENDED page_view;</code></div></div></td></tr></tbody></table>
+
+<p>列出表的列和所有其他属性。这会打印很多信息，但也不会以漂亮的格式显示。通常用于调试。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">DESCRIBE EXTENDED page_view PARTITION (ds=</code><code class="java string">'2008-08-08'</code><code class="java plain">);</code></div></div></td></tr></tbody></table>
+
+<p>列出分区的列和所有其他属性。这还会打印很多通常用于调试的信息。</p>
+<h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><p>将现有表重命名为新名称。如果具有新名称的表已经存在，则返回错误：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">ALTER TABLE old_table_name RENAME TO new_table_name;</code></div></div></td></tr></tbody></table>
+
+<p>重命名现有表的列。确保使用相同的列类型，并为每个现有列包括一个条目：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">ALTER TABLE old_table_name REPLACE COLUMNS (col1 TYPE, ...);</code></div></div></td></tr></tbody></table>
+
+<p>要将列添加到现有表：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">ALTER TABLE tab1 ADD COLUMNS (c1 INT COMMENT </code><code class="java string">'a new int column'</code><code class="java plain">, c2 STRING DEFAULT </code><code class="java string">'def val'</code><code class="java plain">);</code></div></div></td></tr></tbody></table>
+
+<p>请注意，架构的更改（例如添加列）会在表是分区表的情况下保留表的旧分区的架构。所有访问这些列并在旧分区上运行的查询都隐式地为这些列返回空值或指定的默认值。</p>
+<p>在以后的版本中，我们可以使假设某些值的行为与在特定分区中未找到该列的情况下抛出错误相反。</p>
+<h3 id="删除表和分区"><a href="#删除表和分区" class="headerlink" title="删除表和分区"></a>删除表和分区</h3><p>删除表相当简单。将该表放下将隐式删除该表上已建立的所有索引（这是将来的功能）。关联的命令是：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">DROP TABLE pv_users;</code></div></div></td></tr></tbody></table>
+
+<p>删除分区。更改表以删除分区。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">ALTER TABLE pv_users DROP PARTITION (ds=</code><code class="java string">'2008-08-08'</code><code class="java plain">)</code></div></div></td></tr></tbody></table>
+
+<ul>
+<li>请注意，此表或分区的任何数据将被删除并且可能无法恢复。*</li>
+</ul>
+<h2 id="加载数据中"><a href="#加载数据中" class="headerlink" title="加载数据中"></a>加载数据中</h2><p>有多种方法可以将数据加载到Hive表中。用户可以创建一个指向<a target="_blank" rel="noopener" href="http://hadoop.apache.org/common/docs/current/hdfs_design.html">HDFS中</a>指定位置的外部表。在这种特定用法中，用户可以使用HDFS放置或复制命令将文件复制到指定位置，并创建一个指向该位置的表以及所有相关的行格式信息。完成此操作后，用户可以转换数据并将其插入任何其他Hive表中。例如，如果文件&#x2F;tmp&#x2F;pv_2008-06-08.txt包含2008年6月8日提供的用逗号分隔的页面视图，并且需要将其加载到适当分区中的page_view表中，则可以按照以下命令顺序进行操作实现这一目标：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">CREATE EXTERNAL TABLE page_view_stg(viewTime INT, userid BIGINT,</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_url STRING, referrer_url STRING,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">ip STRING COMMENT </code><code class="java string">'IP Address of the User'</code><code class="java plain">,</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">country STRING COMMENT </code><code class="java string">'country of origination'</code><code class="java plain">)</code></div><div class="line number5 index4 alt2"><code class="java plain">COMMENT </code><code class="java string">'This is the staging page view table'</code></div><div class="line number6 index5 alt1"><code class="java plain">ROW FORMAT DELIMITED FIELDS TERMINATED BY </code><code class="java string">'44'</code> <code class="java plain">LINES TERMINATED BY </code><code class="java string">'12'</code></div><div class="line number7 index6 alt2"><code class="java plain">STORED AS TEXTFILE</code></div><div class="line number8 index7 alt1"><code class="java plain">LOCATION </code><code class="java string">'/user/data/staging/page_view'</code><code class="java plain">;</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="java plain">hadoop dfs -put /tmp/pv_2008-</code><code class="java value">06</code><code class="java plain">-</code><code class="java value">08</code><code class="java plain">.txt /user/data/staging/page_view</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="java plain">FROM page_view_stg pvs</code></div><div class="line number13 index12 alt2"><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'US'</code><code class="java plain">)</code></div><div class="line number14 index13 alt1"><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip</code></div><div class="line number15 index14 alt2"><code class="java plain">WHERE pvs.country = </code><code class="java string">'US'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>*由于LINES TERMINATED BY限制，此代码导致错误</p>
+<p>失败：SemanticException 6:67终止符行现在仅支持换行符’\ n’。令牌“ 12”附近遇到错误</p>
+<p>看到 <a target="_blank" rel="noopener" href="https://issues.apache.org/jira/browse/HIVE-5999"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21140&avatarType=issuetype">HIVE-5999</a> - 允许其他字符TERMINATED由线 打开     <a target="_blank" rel="noopener" href="https://issues.apache.org/jira/browse/HIVE-11996"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://issues.apache.org/jira/secure/viewavatar?size=xsmall&avatarId=21133&avatarType=issuetype">HIVE-11996</a> - 行分隔符不是’\ n’其他抛出Hive错误。 打开  </p>
+<p>在上面的示例中，在目标表中为数组和映射类型插入了空值，但如果指定了正确的行格式，则它们也可能来自外部表。</p>
+<p>如果HDFS中已经存在旧数据，用户想要在其中放置一些元数据，以便可以使用Hive查询和操作该数据，则此方法很有用。</p>
+<p>此外，系统还支持语法，可以将本地文件系统中文件中的数据直接加载到Hive表中，其中输入数据格式与表格式相同。如果&#x2F;tmp&#x2F;pv_2008-06-08_us.txt已经包含美国的数据，则我们不需要任何其他过滤，如上例所示。在这种情况下，可以使用以下语法完成加载：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">LOAD DATA LOCAL INPATH /tmp/pv_2008-</code><code class="java value">06</code><code class="java plain">-08_us.txt INTO TABLE page_view PARTITION(date=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'US'</code><code class="java plain">)</code></div></div></td></tr></tbody></table>
+
+<p>path参数可以使用目录（在这种情况下，将加载目录中的所有文件），单个文件名或通配符（在这种情况下，将所有匹配的文件上载）。如果参数是一个目录，则它不能包含子目录。同样，通配符必须仅与文件名匹配。</p>
+<p>如果输入文件&#x2F;tmp&#x2F;pv_2008-06-08_us.txt非常大，则用户可以决定对数据进行并行加载（使用Hive外部的工具）。将文件放入HDFS后，可以使用以下语法将数据加载到Hive表中：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">LOAD DATA INPATH </code><code class="java string">'/user/data/pv_2008-06-08_us.txt'</code> <code class="java plain">INTO TABLE page_view PARTITION(date=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'US'</code><code class="java plain">)</code></div></div></td></tr></tbody></table>
+
+<p>对于这些示例，假设input.txt文件中的array和map字段为空字段。</p>
+<p>有关将数据加载到Hive表中的更多信息，请参见<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML">Hive数据操作语言</a>；有关创建<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ExternalTables">外部表</a>的另一个示例，请参见外部表。</p>
+<h2 id="查询和插入数据"><a href="#查询和插入数据" class="headerlink" title="查询和插入数据"></a>查询和插入数据</h2><p>&#x2F;<em>&lt;![CDATA[*&#x2F; div.rbtoc1594295362265 {padding: 0px;} div.rbtoc1594295362265 ul {list-style: disc;margin-left: 0px;} div.rbtoc1594295362265 li {margin-left: 0px;padding-left: 0px;} &#x2F;*]]&gt;</em>&#x2F;</p>
+<ul>
+<li><a href="#Tutorial-SimpleQuery">简单查询</a></li>
+<li><a href="#Tutorial-PartitionBasedQuery">基于分区的查询</a></li>
+<li><a href="#Tutorial-Joins">加入</a></li>
+<li><a href="#Tutorial-Aggregations">集合体</a></li>
+<li><a href="#Tutorial-MultiTable/FileInserts">多表&#x2F;文件插入</a></li>
+<li><a href="#Tutorial-Dynamic-PartitionInsert">动态分区插入</a></li>
+<li><a href="#Tutorial-InsertingintoLocalFiles">插入本地文件</a></li>
+<li><a href="#Tutorial-Sampling">采样</a></li>
+<li><a href="#Tutorial-UnionAll">联合所有</a></li>
+<li><a href="#Tutorial-ArrayOperations">阵列运算</a></li>
+<li><a href="#Tutorial-Map(AssociativeArrays)Operations">映射（关联数组）操作</a></li>
+<li><a href="#Tutorial-CustomMap/ReduceScripts">自定义映射&#x2F;减少脚本</a></li>
+<li><a href="#Tutorial-Co-Groups">联合团体</a></li>
+</ul>
+<p>Hive查询操作记录在<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Select">Select中</a>，而插入操作记录在<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML#LanguageManualDML-InsertingdataintoHiveTablesfromqueries">将数据从查询插入Hive表</a>和<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML#LanguageManualDML-InsertingdataintoHiveTablesfromqueries">从查询</a><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML#LanguageManualDML-Writingdataintothefilesystemfromqueries">将数据写入文件系统中</a>。</p>
+<h3 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h3><p>对于所有活动用户，可以使用以下形式的查询：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE user_active</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT user.*</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM user</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE user.active = </code><code class="java value">1</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>请注意，与SQL不同，我们总是将结果插入表中。稍后我们将说明用户如何检查这些结果，甚至将其转储到本地文件中。您还可以在<a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93NewCommandLineShell">Beeline</a> 或Hive <a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Cli">CLI中</a>运行以下查询 ：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SELECT user.*</code></div><div class="line number2 index1 alt1"><code class="java plain">FROM user</code></div><div class="line number3 index2 alt2"><code class="java plain">WHERE user.active = </code><code class="java value">1</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>这将在内部重写为一些临时文件，并显示在Hive客户端。</p>
+<h3 id="基于分区的查询"><a href="#基于分区的查询" class="headerlink" title="基于分区的查询"></a>基于分区的查询</h3><p>系统根据分区列上的where子句条件自动确定要在查询中使用的分区。例如，为了获取域xyz.com引用的03&#x2F;2008月份的所有page_views，可以编写以下查询：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE xyz_com_page_views</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT page_views.*</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM page_views</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE page_views.date &gt;= </code><code class="java string">'2008-03-01'</code> <code class="java plain">AND page_views.date &lt;= </code><code class="java string">'2008-03-31'</code> <code class="java plain">AND</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">page_views.referrer_url like </code><code class="java string">'%xyz.com'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>请注意，此处使用page_views.date，因为该表（上面）是使用PARTITIONED BY（date DATETIME，country STRING）定义的；如果您给分区命名不同，请不要期望.date发挥您的想法！</p>
+<h3 id="加入"><a href="#加入" class="headerlink" title="加入"></a>加入</h3><p>为了获得2008年3月3日page_view的人口统计细分（按性别），需要在userid列上连接page_view表和user表。如下面的查询所示，这可以通过联接来完成：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_users</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv.*, u.gender, u.age</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM user u JOIN page_view pv ON (pv.userid = u.id)</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE pv.date = </code><code class="java string">'2008-03-03'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>为了进行外部联接，用户可以使用LEFT OUTER，RIGHT OUTER或FULL OUTER关键字限定联接，以指示外部联接的类型（保留的左侧，保留的右侧或两侧保留）。例如，为了在上面的查询中进行完全外部联接，相应的语法应类似于以下查询：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_users</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv.*, u.gender, u.age</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM user u FULL OUTER JOIN page_view pv ON (pv.userid = u.id)</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE pv.date = </code><code class="java string">'2008-03-03'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>为了检查另一个表中是否存在键，用户可以使用LEFT SEMI JOIN，如以下示例所示。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_users</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT u.*</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM user u LEFT SEMI JOIN page_view pv ON (pv.userid = u.id)</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE pv.date = </code><code class="java string">'2008-03-03'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>为了联接多个表，用户可以使用以下语法：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_friends</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv.*, u.gender, u.age, f.friends</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM page_view pv JOIN user u ON (pv.userid = u.id) JOIN friend_list f ON (u.id = f.uid)</code></div><div class="line number4 index3 alt1"><code class="java plain">WHERE pv.date = </code><code class="java string">'2008-03-03'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>请注意，Hive仅支持<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Join_(SQL)#Equi-join">等联接</a>。另外，最好将最大的表放在连接的最右侧，以获取最佳性能。</p>
+<h3 id="集合体"><a href="#集合体" class="headerlink" title="集合体"></a>集合体</h3><p>为了按性别计算不同用户的数量，可以编写以下查询：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_gender_sum</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv_users.gender, count (DISTINCT pv_users.userid)</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM pv_users</code></div><div class="line number4 index3 alt1"><code class="java plain">GROUP BY pv_users.gender;</code></div></div></td></tr></tbody></table>
+
+<p>可以同时进行多个聚合，但是任何两个聚合都不能具有不同的DISTINCT列。例如，尽管以下可能</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_gender_agg</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv_users.gender, count(DISTINCT pv_users.userid), count(*), sum(DISTINCT pv_users.userid)</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM pv_users</code></div><div class="line number4 index3 alt1"><code class="java plain">GROUP BY pv_users.gender;</code></div></div></td></tr></tbody></table>
+
+<p>但是，不允许以下查询</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_gender_agg</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv_users.gender, count(DISTINCT pv_users.userid), count(DISTINCT pv_users.ip)</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM pv_users</code></div><div class="line number4 index3 alt1"><code class="java plain">GROUP BY pv_users.gender;</code></div></div></td></tr></tbody></table>
+
+<h3 id="多表-文件插入"><a href="#多表-文件插入" class="headerlink" title="多表&#x2F;文件插入"></a>多表&#x2F;文件插入</h3><p>聚合或简单选择的输出可以进一步发送到多个表中，甚至可以发送到hadoop dfs文件（然后可以使用hdfs实用程序对其进行操作）。例如，如果与性别细分一起，需要按年龄查找唯一页面浏览的细分，则可以通过以下查询来完成：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM pv_users</code></div><div class="line number2 index1 alt1"><code class="java plain">INSERT OVERWRITE TABLE pv_gender_sum</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pv_users.gender, count_distinct(pv_users.userid)</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">GROUP BY pv_users.gender</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java plain">INSERT OVERWRITE DIRECTORY </code><code class="java string">'/user/data/tmp/pv_age_sum'</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pv_users.age, count_distinct(pv_users.userid)</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">GROUP BY pv_users.age;</code></div></div></td></tr></tbody></table>
+
+<p>第一个insert子句将第一个group by的结果发送到Hive表，而第二个insert子句将结果发送到hadoop dfs文件。</p>
+<h3 id="动态分区插入"><a href="#动态分区插入" class="headerlink" title="动态分区插入"></a>动态分区插入</h3><p>在前面的示例中，用户必须知道要插入哪个分区，并且只能在一个insert语句中插入一个分区。如果要加载到多个分区，则必须使用多插入语句，如下所示。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM page_view_stg pvs</code></div><div class="line number2 index1 alt1"><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'US'</code><code class="java plain">)</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip WHERE pvs.country = </code><code class="java string">'US'</code></div><div class="line number4 index3 alt1"><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'CA'</code><code class="java plain">)</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip WHERE pvs.country = </code><code class="java string">'CA'</code></div><div class="line number6 index5 alt1"><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country=</code><code class="java string">'UK'</code><code class="java plain">)</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip WHERE pvs.country = </code><code class="java string">'UK'</code><code class="java plain">;</code></div></div></td></tr></tbody></table>
+
+<p>为了将数据加载到特定日期的所有国家&#x2F;地区分区中，您必须在输入数据中为每个国家&#x2F;地区添加一条插入语句。这非常不方便，因为您必须先了解输入数据中存在的国家&#x2F;地区列表，并事先创建分区。如果列表更改了另一天，则必须修改插入DML以及分区创建DDL。由于每个插入语句都可以转换为MapReduce作业，因此效率也不高。</p>
+<p><em><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML#LanguageManualDML-DynamicPartitionInserts">动态分区插入</a></em>（或多分区插入）旨在通过动态确定在扫描输入表时应创建和填充哪些分区来解决此问题。这是新增功能，仅从0.6.0版本开始可用。在动态分区插入中，将评估输入列的值，以确定应将此行插入哪个分区。如果尚未创建该分区，它将自动创建该分区。使用此功能，您只需一个插入语句即可创建并填充所有必要的分区。另外，由于只有一个insert语句，所以只有一个对应的MapReduce作业。与多次插入的情况相比，这可以显着提高性能并减少Hadoop集群的工作量。</p>
+<p>以下是使用一个插入语句将数据加载到所有国家&#x2F;地区分区的示例：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM page_view_stg pvs</code></div><div class="line number2 index1 alt1"><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt=</code><code class="java string">'2008-06-08'</code><code class="java plain">, country)</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip, pvs.country</code></div></div></td></tr></tbody></table>
+
+<p>与多插入语句有一些语法差异：</p>
+<ul>
+<li>国家&#x2F;地区出现在PARTITION规范中，但没有关联的值。在这种情况下，country是<em>动态分区列</em>。另一方面，ds具有与其关联的值，这意味着它是<em>静态分区列</em>。如果列是动态分区列，则其值将来自输入列。当前，我们仅允许动态分区列成为partition子句中的最后一列，因为分区列顺序指示其层次结构顺序（意味着dt是根分区，而country是子分区）。您不能使用（dt，country &#x3D;’US’）指定分区子句，因为这意味着您需要使用任何日期更新所有分区，并且其国家子分区为’US’。</li>
+<li>在select语句中添加了一个附加的pvs.country列。这是动态分区列的相应输入列。请注意，您不需要为静态分区列添加输入列，因为它的值在PARTITION子句中是已知的。请注意，动态分区值是通过排序而不是名称来选择的，并被用作select子句的最后一列。</li>
+</ul>
+<p>动态分区插入语句的语义：</p>
+<ul>
+<li><p>当动态分区列中已经存在非空分区时（例如，在某些ds根分区下存在country &#x3D;’CA’），如果动态分区插入看到相同的值（例如’CA’），它将被覆盖。 ）输入数据中。这符合“插入覆盖”的语义。但是，如果分区值“ CA”未出现在输入数据中，则现有分区将不会被覆盖。</p>
+</li>
+<li><p>由于Hive分区与HDFS中的目录相对应，因此分区值必须符合HDFS路径格式（Java中的URI）。URI中具有特殊含义的任何字符（例如’％’，’：’，’&#x2F;‘，’＃’）都将以’％’进行转义，后跟2个字节的ASCII值。</p>
+</li>
+<li><p>如果输入列的类型不同于STRING，则其值将首先转换为STRING以用于构造HDFS路径。</p>
+</li>
+<li><p>如果输入列的值为NULL或空字符串，则该行将被放入一个特殊分区，其名称由配置单元参数hive.exec.default.partition.name控制。默认值为<code>HIVE_DEFAULT_PARTITION</code>{ <em>}</em>。基本上，该分区将包含其值不是有效分区名称的所有“坏”行。这种方法的警告是，如果您将它们选择为Hive ，则不良值将丢失，并由<code>HIVE_DEFAULT_PARTITION</code>{ *}*代替。JIRA HIVE-1309是一种允许用户指定“错误文件”以保留输入分区列值的解决方案。</p>
+</li>
+<li><p>动态分区插入可能会占用大量资源，因为它可能会在短时间内生成大量分区。为了使自己安全，我们定义了三个参数：</p>
+<ul>
+<li><strong>hive.exec.max.dynamic.partitions.pernode</strong>（默认值为100）是每个映射器或化<strong>简</strong>器可以创建的最大动态分区。如果一个映射器或缩减器创建的阈值多于该阈值，则会从映射器&#x2F;缩减器中引发致命错误（通过计数器），并且整个工作将被杀死。</li>
+<li><strong>hive.exec.max.dynamic.partitions</strong>（默认值为1000）是一个DML可以创建的动态分区的总数。如果每个映射器&#x2F;缩减器未超过限制，但动态分区的总数未超过限制，则在将中间数据移至最终目标之前，作业结束时会引发异常。</li>
+<li><strong>hive.exec.max.created.files</strong>（默认值为100000）是所有映射器和化<strong>简</strong>器创建的最大文件总数。每当创建新文件时，每个映射器&#x2F;还原器都会更新Hadoop计数器，从而实现此目的。如果总数超过hive.exec.max.created.files，将引发致命错误并杀死作业。</li>
+</ul>
+</li>
+<li><p>我们要防止动态分区插入的另一种情况是，用户可能无意中将所有分区指定为动态分区，而没有指定一个静态分区，而最初的意图是仅覆盖一个根分区的子分区。我们定义另一个参数hive.exec.dynamic.partition.mode &#x3D; strict以防止出现全动态分区情况。在严格模式下，您必须至少指定一个静态分区。默认模式为严格模式。另外，我们有一个参数hive.exec.dynamic.partition &#x3D; true &#x2F; false来控制是否允许动态分区。Hive 0.9.0之前的默认值为false，Hive 0.9.0及更高版本的默认值为true。</p>
+</li>
+<li><p>在Hive 0.6中，动态分区插入不适用于hive.merge.mapfiles &#x3D; true或hive.merge.mapredfiles &#x3D; true，因此它在内部关闭了合并参数。Hive 0.7支持在动态分区插入中合并文件（有关详细信息，请参见JIRA HIVE-1307）。</p>
+</li>
+</ul>
+<p>故障排除和最佳实践：</p>
+<ul>
+<li><p>如上所述，特定的映射器&#x2F;缩减程序创建的动态分区过多，可能会引发致命错误，并且作业将被杀死。错误消息看起来像：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">beeline&gt; set hive.exec.dynamic.partition.mode=nonstrict;</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">beeline&gt; FROM page_view_stg pvs</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt, country)</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip,</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">from_unixtimestamp(pvs.viewTime, </code><code class="java string">'yyyy-MM-dd'</code><code class="java plain">) ds, pvs.country;</code></div><div class="line number6 index5 alt1"><code class="java plain">...</code></div><div class="line number7 index6 alt2"><code class="java value">2010</code><code class="java plain">-</code><code class="java value">05</code><code class="java plain">-</code><code class="java value">07</code> <code class="java value">11</code><code class="java plain">:</code><code class="java value">10</code><code class="java plain">:</code><code class="java value">19</code><code class="java plain">,</code><code class="java value">816</code> <code class="java plain">Stage-</code><code class="java value">1</code> <code class="java plain">map = </code><code class="java value">0</code><code class="java plain">%,&nbsp; reduce = </code><code class="java value">0</code><code class="java plain">%</code></div><div class="line number8 index7 alt1"><code class="java plain">[Fatal Error] Operator FS_28 (id=</code><code class="java value">41</code><code class="java plain">): fatal error. Killing the job.</code></div><div class="line number9 index8 alt2"><code class="java plain">Ended Job = job_201005052204_28178 with errors</code></div><div class="line number10 index9 alt1"><code class="java plain">...</code></div></div></td></tr></tbody></table>
+
+<p>这样的问题是，一个映射器将随机获取一组行，并且不同的（dt，国家&#x2F;地区）对的数量很可能会超过hive.exec.max.dynamic.partitions.pernode的限制。解决该问题的一种方法是按映射器中的动态分区列对行进行分组，然后将其分配到将创建动态分区的reducer。在这种情况下，不同动态分区的数量将大大减少。上面的示例查询可以重写为：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">beeline&gt; set hive.exec.dynamic.partition.mode=nonstrict;</code></div><div class="line number2 index1 alt1"><code class="java plain">beeline&gt; FROM page_view_stg pvs</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">INSERT OVERWRITE TABLE page_view PARTITION(dt, country)</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT pvs.viewTime, pvs.userid, pvs.page_url, pvs.referrer_url, </code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, pvs.ip,</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">from_unixtimestamp(pvs.viewTime, </code><code class="java string">'yyyy-MM-dd'</code><code class="java plain">) ds, pvs.country</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">DISTRIBUTE BY ds, country;</code></div></div></td></tr></tbody></table>
+
+<p>该查询将生成一个MapReduce作业，而不是仅Map作业。SELECT子句将转换为映射器的计划，并且输出将基于（ds，country）对的值分配给reduce。INSERT子句将在化简器中转换为计划，并写入动态分区。</p>
+</li>
+</ul>
+<p>附加文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/DynamicPartitions">动态分区的设计文档</a><ul>
+<li><a target="_blank" rel="noopener" href="https://issues.apache.org/jira/secure/attachment/12437909/dp_design.txt">原始设计文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://issues.apache.org/jira/browse/HIVE-936">HIVE-936</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DML#LanguageManualDML-DynamicPartitionInserts">Hive DML：动态分区插入</a></li>
+<li><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HCatalog+DynamicPartitions">HCatalog动态分区</a><ul>
+<li><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HCatalog+DynamicPartitions#HCatalogDynamicPartitions-UsagewithPig">与猪一起使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/Hive/HCatalog+DynamicPartitions#HCatalogDynamicPartitions-UsagefromMapReduce">MapReduce的用法</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="插入本地文件"><a href="#插入本地文件" class="headerlink" title="插入本地文件"></a>插入本地文件</h3><p>在某些情况下，您可能希望将输出写入本地文件，以便可以将其加载到excel电子表格中。这可以通过以下命令完成：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE LOCAL DIRECTORY </code><code class="java string">'/tmp/pv_gender_sum'</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv_gender_sum.*</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM pv_gender_sum;</code></div></div></td></tr></tbody></table>
+
+<h3 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h3><p>采样子句允许用户为数据样本而不是整个表编写查询。当前，采样是在CREATE TABLE语句的CLUSTERED BY子句中指定的列上完成的。在以下示例中，我们从pv_gender_sum表的32个存储桶中选择第三个存储桶：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_gender_sum_sample</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv_gender_sum.*</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM pv_gender_sum TABLESAMPLE(BUCKET </code><code class="java value">3</code> <code class="java plain">OUT OF </code><code class="java value">32</code><code class="java plain">);</code></div></div></td></tr></tbody></table>
+
+<p>通常，TABLESAMPLE语法如下所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">TABLESAMPLE(BUCKET x OUT OF y)</code></div></div></td></tr></tbody></table>
+
+<p>y必须是表创建时指定的表中存储桶数量的倍数或除数。如果bucket_number模块y等于x，则确定所选的桶。因此，在上面的示例中，以下tablesample子句</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">TABLESAMPLE(BUCKET </code><code class="java value">3</code> <code class="java plain">OUT OF </code><code class="java value">16</code><code class="java plain">)</code></div></div></td></tr></tbody></table>
+
+<p>会挑选第三个和第19个桶。桶的编号从0开始。</p>
+<p>另一方面，tablesample子句</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">TABLESAMPLE(BUCKET </code><code class="java value">3</code> <code class="java plain">OUT OF </code><code class="java value">64</code> <code class="java plain">ON userid)</code></div></div></td></tr></tbody></table>
+
+<p>会从第三个桶中挑出一半。</p>
+<h3 id="联合所有"><a href="#联合所有" class="headerlink" title="联合所有"></a>联合所有</h3><p>该语言还支持全部联合，例如，如果我们假设有两个不同的表来跟踪哪个用户发布了视频并且哪个用户发布了评论，则以下查询将全部联合的结果与user表结合起来以创建所有视频发布和评论发布事件的单个注释流：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE TABLE actions_users</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT u.id, actions.date</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM (</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT av.uid AS uid</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM action_video av</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHERE av.date = </code><code class="java string">'2008-06-03'</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">UNION ALL</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT ac.uid AS uid</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM action_comment ac</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">WHERE ac.date = </code><code class="java string">'2008-06-03'</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">) actions JOIN users u ON(u.id = actions.uid);</code></div></div></td></tr></tbody></table>
+
+<h3 id="阵列运算"><a href="#阵列运算" class="headerlink" title="阵列运算"></a>阵列运算</h3><p>表中的数组列可以如下：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="sql keyword">CREATE</code> <code class="sql keyword">TABLE</code> <code class="sql plain">array_table (int_array_column ARRAY&lt;</code><code class="sql keyword">INT</code><code class="sql plain">&gt;);</code></div></div></td></tr></tbody></table>
+
+<p>假设pv.friends的类型为ARRAY <INT>（即它是整数数组），则用户可以通过其索引在数组中获得特定元素，如以下命令所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SELECT pv.friends[</code><code class="java value">2</code><code class="java plain">]</code></div><div class="line number2 index1 alt1"><code class="java plain">FROM page_views pv;</code></div></div></td></tr></tbody></table>
+
+<p>选择表达式将获取pv.friends数组中的第三项。</p>
+<p>用户还可以使用size函数获得数组的长度，如下所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SELECT pv.userid, size(pv.friends)</code></div><div class="line number2 index1 alt1"><code class="java plain">FROM page_view pv;</code></div></div></td></tr></tbody></table>
+
+<h3 id="映射（关联数组）操作"><a href="#映射（关联数组）操作" class="headerlink" title="映射（关联数组）操作"></a>映射（关联数组）操作</h3><p>映射提供类似于关联数组的集合。目前只能以编程方式创建此类结构。我们将尽快扩展。就当前示例而言，假定pv.properties的类型为map &lt;String，String&gt;，即它是从字符串到字符串的关联数组。相应地，以下查询：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">INSERT OVERWRITE page_views_map</code></div><div class="line number2 index1 alt1"><code class="java plain">SELECT pv.userid, pv.properties[</code><code class="java string">'page type'</code><code class="java plain">]</code></div><div class="line number3 index2 alt2"><code class="java plain">FROM page_views pv;</code></div></div></td></tr></tbody></table>
+
+<p>可用于从page_views表中选择“ page_type”属性。</p>
+<p>与数组类似，size函数也可用于获取地图中的元素数，如以下查询所示：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SELECT size(pv.properties)</code></div><div class="line number2 index1 alt1"><code class="java plain">FROM page_view pv;</code></div></div></td></tr></tbody></table>
+
+<h3 id="自定义映射-减少脚本"><a href="#自定义映射-减少脚本" class="headerlink" title="自定义映射&#x2F;减少脚本"></a>自定义映射&#x2F;减少脚本</h3><p>用户还可以使用Hive语言本身支持的功能，在数据流中插入自己的自定义映射器和简化器。例如，为了运行自定义映射器脚本map_script和自定义归约器脚本reduce_script，用户可以发出以下命令，该命令使用TRANSFORM子句嵌入映射器和归约器脚本。</p>
+<p>请注意，在输入用户脚本之前，列将被转换为字符串并由TAB分隔，并且用户脚本的标准输出将被视为TAB分隔的字符串列。用户脚本可以将调试信息输出为标准错误，这将显示在hadoop的任务详细信息页面上。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM (</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM pv_users</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">MAP pv_users.userid, pv_users.date</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'map_script'</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">AS dt, uid</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">CLUSTER BY dt) map_output</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;</code><code class="java plain">INSERT OVERWRITE TABLE pv_users_reduced</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">REDUCE map_output.dt, map_output.uid</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'reduce_script'</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">AS date, count;</code></div></div></td></tr></tbody></table>
+
+<p>样例地图脚本（weekday_mapper.py）</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java keyword">import</code> <code class="java plain">sys</code></div><div class="line number2 index1 alt1"><code class="java keyword">import</code> <code class="java plain">datetime</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="java keyword">for</code> <code class="java plain">line in sys.stdin:</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">line = line.strip()</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">userid, unixtime = line.split(</code><code class="java string">'\t'</code><code class="java plain">)</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">weekday = datetime.datetime.fromtimestamp(</code><code class="java keyword">float</code><code class="java plain">(unixtime)).isoweekday()</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">print </code><code class="java string">','</code><code class="java plain">.join([userid, str(weekday)])</code></div></div></td></tr></tbody></table>
+
+<p>当然，对于更一般的选择转换，MAP和REDUCE都是“语法糖”。内部查询也可以这样编写：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">SELECT TRANSFORM(pv_users.userid, pv_users.date) USING </code><code class="java string">'map_script'</code> <code class="java plain">AS dt, uid CLUSTER BY dt FROM pv_users;</code></div></div></td></tr></tbody></table>
+
+<p>无模式映射&#x2F;减少：如果在“ USING map_script”之后没有“ AS”子句，则Hive假定脚本的输出包含两部分：key在第一个选项卡之前，value则在第一个选项卡之后。请注意，这与指定“ AS键，值”不同，因为在这种情况下，如果存在多个选项卡，则值将仅包含第一个选项卡和第二个选项卡之间的部分。</p>
+<p>这样，我们允许用户迁移旧的map &#x2F; reduce脚本，而无需了解地图输出的架构。用户仍然需要知道reduce输出模式，因为它必须与我们要插入的表中的内容匹配。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM (</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM pv_users</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">MAP pv_users.userid, pv_users.date</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'map_script'</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">CLUSTER BY key) map_output</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_users_reduced</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">REDUCE map_output.dt, map_output.uid</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'reduce_script'</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">AS date, count;</code></div></div></td></tr></tbody></table>
+
+<p>分发方式和排序方式：用户可以指定“分发方式”和“排序方式”，而不是指定“群集方式”，因此分区列和排序列可以不同。通常的情况是分区列是排序列的前缀，但这不是必需的。</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM (</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM pv_users</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">MAP pv_users.userid, pv_users.date</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'map_script'</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">AS c1, c2, c3</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">DISTRIBUTE BY c2</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SORT BY c2, c1) map_output</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="java plain">INSERT OVERWRITE TABLE pv_users_reduced</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">REDUCE map_output.c1, map_output.c2, map_output.c3</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">USING </code><code class="java string">'reduce_script'</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">AS date, count;</code></div></div></td></tr></tbody></table>
+
+<h3 id="联合团体"><a href="#联合团体" class="headerlink" title="联合团体"></a>联合团体</h3><p>在使用map &#x2F; reduce的用户社区中，共同分组是一种相当常见的操作，其中将来自多个表的数据发送到自定义的约简器，以便按表中某些列的值对行进行分组。使用UNION ALL运算符和CLUSTER BY规范，可以通过以下方式在Hive查询语言中实现。假设我们想将uid列上的actions_video和action_comments表中的行进行分组，并将它们发送到’reduce_script’自定义reducer，则用户可以使用以下语法：</p>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="提示：双击以选择代码"><div class="line number1 index0 alt2"><code class="java plain">FROM (</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM (</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM action_video av</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT av.uid AS uid, av.id AS id, av.date AS date</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">UNION ALL</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">FROM action_comment ac</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT ac.uid AS uid, ac.id AS id, ac.date AS date</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">) union_actions</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT union_actions.uid, union_actions.id, union_actions.date</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">CLUSTER BY union_actions.uid) map</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;</code><code class="java plain">INSERT OVERWRITE TABLE actions_reduced</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">SELECT TRANSFORM(map.uid, map.id, map.date) USING </code><code class="java string">'reduce_script'</code> <code class="java plain">AS (uid, id, reduced_val);</code></div></div></td></tr></tbody></table>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/')">Hive官方文档翻译——Hive Tutorial</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Hive官方文档翻译——Hive Tutorial&amp;url=https://tushu.info/archives/Hive-guan-fang-wen-dang-fan-yi-Hive/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/hive/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>hive<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/JNDI-zhu-ru-yuan-li-ji-li-yong/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JNDI注入原理及利用</div></div></a></div><div class="next-post pull-right"><a href="/archives/Hystrix-shi-yong-shuo-ming-pei-zhi-can/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hystrix使用说明，配置参数说明</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHive"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Hive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hive%E4%B8%8D%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">Hive不是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E9%97%A8"><span class="toc-number">1.3.</span> <span class="toc-text">入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%95%E4%BD%8D"><span class="toc-number">1.4.</span> <span class="toc-text">数据单位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.5.</span> <span class="toc-text">类型系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">基本类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">复杂类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-number">1.5.3.</span> <span class="toc-text">时间戳</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3%EF%BC%88%E2%80%9C-LocalDateTime%E2%80%9D%E8%AF%AD%E4%B9%89%EF%BC%89"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">时间戳（“ LocalDateTime”语义）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E6%9C%89%E6%9C%AC%E5%9C%B0%E6%97%B6%E5%8C%BA%E7%9A%84%E6%97%B6%E9%97%B4%E6%88%B3%EF%BC%88%E2%80%9C%E5%8D%B3%E6%97%B6%E2%80%9D%E8%AF%AD%E4%B9%89%EF%BC%89"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">具有本地时区的时间戳（“即时”语义）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">1.5.3.3.</span> <span class="toc-text">与其他工具的比较</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E5%8A%9F%E8%83%BD"><span class="toc-number">1.6.</span> <span class="toc-text">内置的运算符和功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.6.1.</span> <span class="toc-text">内置运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%8A%9F%E8%83%BD"><span class="toc-number">1.6.2.</span> <span class="toc-text">内置功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E8%83%BD%E5%8A%9B"><span class="toc-number">1.7.</span> <span class="toc-text">语言能力</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E4%B8%8E%E8%8C%83%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">用法与范例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%EF%BC%8C%E6%98%BE%E7%A4%BA%EF%BC%8C%E6%9B%B4%E6%94%B9%E5%92%8C%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-number">2.1.</span> <span class="toc-text">创建，显示，更改和删除表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.1.1.</span> <span class="toc-text">建立表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E8%A1%A8%E5%92%8C%E5%88%86%E5%8C%BA"><span class="toc-number">2.1.2.</span> <span class="toc-text">浏览表和分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8"><span class="toc-number">2.1.3.</span> <span class="toc-text">修改表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E5%92%8C%E5%88%86%E5%8C%BA"><span class="toc-number">2.1.4.</span> <span class="toc-text">删除表和分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E4%B8%AD"><span class="toc-number">2.2.</span> <span class="toc-text">加载数据中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%92%8C%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.</span> <span class="toc-text">查询和插入数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.3.1.</span> <span class="toc-text">简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%88%86%E5%8C%BA%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.3.2.</span> <span class="toc-text">基于分区的查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5"><span class="toc-number">2.3.3.</span> <span class="toc-text">加入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E4%BD%93"><span class="toc-number">2.3.4.</span> <span class="toc-text">集合体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8-%E6%96%87%E4%BB%B6%E6%8F%92%E5%85%A5"><span class="toc-number">2.3.5.</span> <span class="toc-text">多表&#x2F;文件插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E6%8F%92%E5%85%A5"><span class="toc-number">2.3.6.</span> <span class="toc-text">动态分区插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">插入本地文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E6%A0%B7"><span class="toc-number">2.3.8.</span> <span class="toc-text">采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88%E6%89%80%E6%9C%89"><span class="toc-number">2.3.9.</span> <span class="toc-text">联合所有</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B5%E5%88%97%E8%BF%90%E7%AE%97"><span class="toc-number">2.3.10.</span> <span class="toc-text">阵列运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%A0%E5%B0%84%EF%BC%88%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="toc-number">2.3.11.</span> <span class="toc-text">映射（关联数组）操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%98%A0%E5%B0%84-%E5%87%8F%E5%B0%91%E8%84%9A%E6%9C%AC"><span class="toc-number">2.3.12.</span> <span class="toc-text">自定义映射&#x2F;减少脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88%E5%9B%A2%E4%BD%93"><span class="toc-number">2.3.13.</span> <span class="toc-text">联合团体</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>构建的可伸缩性和达到的性能：一个虚拟座谈会 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="构建的可伸缩性和达到的性能：一个虚拟座谈会"><meta name="application-name" content="构建的可伸缩性和达到的性能：一个虚拟座谈会"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="构建的可伸缩性和达到的性能：一个虚拟座谈会"><meta property="og:url" content="https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="实现伸缩性和性能调优的经验所保有的价值容易被低估。两者都是“晚些时候”或“我们真正流行起来时”所面临的难题。早期创业公司确实不应该立即花这份钱，而大公司通常不能做出足够快速的反应以实现所需的改变。再加上这需要一个多学科的团队，它立刻就变成了一个需要解决的政治上和工程上的难题。 但是它从来不会从我们的"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="实现伸缩性和性能调优的经验所保有的价值容易被低估。两者都是“晚些时候”或“我们真正流行起来时”所面临的难题。早期创业公司确实不应该立即花这份钱，而大公司通常不能做出足够快速的反应以实现所需的改变。再加上这需要一个多学科的团队，它立刻就变成了一个需要解决的政治上和工程上的难题。 但是它从来不会从我们的"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '构建的可伸缩性和达到的性能：一个虚拟座谈会',
+  postAI: '',
+  pageFillDescription: '实现伸缩性和性能调优的经验所保有的价值容易被低估两者都是晚些时候或我们真正流行起来时所面临的难题早期创业公司确实不应该立即花这份钱而大公司通常不能做出足够快速的反应以实现所需的改变再加上这需要一个多学科的团队它立刻就变成了一个需要解决的政治上和工程上的难题但是它从来不会从我们的视线中消失在过去的少数几个会议上你始终感到惊讶的架构专题被淹没了正因为如此我们渴望学习大人物们如何去做这些事情的技巧和诀窍在这次的虚拟座谈会上我们从几个最大的公司和项目中邀请了几个在实现可伸缩性和性能方面的专家让我们进入他们取得了成果而我们却依然梦想的神秘世界吧座谈会的参与者包括有的前任架构师他领导开发者进行了消息队列的开发在如何让和伸缩自如的会谈中发出了积极的声音在这一领域有非常多的经验他是被加入的是市场架构小组的一个分布式架构师从年起他一直是搜索基础架构的主要架构师而则是的首席技术专家在超过年的时间里他引领了许多的技术架构最近他又与的高级技术小组转向一个更长期的高级项目包括了技术及其他技术的策略研究和特殊项目为了让与会者来源更多样我们请专业开发性能工具的也参加进来他们派了整个工程团队用了一个下午来商讨其答案简直可以另外开一个座谈会了问题许多人把性能和技术混为一谈你们怎么回应这种误解呢我同意独立于任何特定语言或框架来讨论伸缩性问题确实很有价值不管实现策略如何模式都是一样的可是首先让我们确保自己已经把性能和可伸缩性区分开了性能是服务于一个单独请求时的资源使用问题可伸缩性是当要服务更多或更大请求时资源消费量如何随之增长的问题它们是相关的但是不是同一件事情幸运的是许多改善其中一个问题的方法通常也会改善另一个问题但是速度非常快的系统可能并不是最具伸缩性的系统反之亦然我们关心性能可伸缩性可用性的对比我们把性能定义为一个操作或一些操作如何快速地完成比如响应时间每秒事件处理的数量等等而可伸缩性就是应用怎样很好地按比例扩大规模以应对更大的使用需求比如用户数请求速度数据容量问题当你碰到性能瓶颈时你如何开始调查是什么导致了这一问题每个问题都是不同的但是我想这通常是一个搜集观测资料即与许多人进行交谈并缩小问题范围的过程通过检查什么仍在继续执行你可以分离出不再执行的东西有两个重要的事情要谨记在心确保它确实是问题的瓶颈所在例如忧虑处理器使用效率低下的问题与一个受束缚的应用可能没什么关系从产品环境去进行观测非常重要不要在阶段环境或开发环境亦或是其他环境上进行观测试图在假的环境里再现问题并收集信息将只能产生假的结果直觉快速但不可靠而且容易产生错误和监测需要预先的工作但是这能让你随心所欲地分析问题人们经常谈论测试驱动开发但是可伸缩性需要测量驱动开发像和这样的工具可以让你模拟负载但是接受任何事情都要有所保留如果你有很长的时间到底多长时间取决于你的流程和构建测试的人去构建非常周到的测试你可以获得更好的一手资料但是不可能做到和真正的流量一样逼真通常我们会从注意到问题的地方开始然后向前追溯在应用栈的所有层次所进行的监测勘测得越多就越容易这样做它还可以帮助有各种学科专长团队里的人们来检查这个问题问题当处理应用的问题时你发现什么工具最有用在浏览器层是我们所选的工具因为它提供了对用户执行单页面的感觉的一些深入观察我们还喜欢它给我们提供了一些自动化的负载测试因此对比于我们从中获得页面级的计时使用这个工具可以获得会话级的计时我们混合使用成品工具和定制工具成品工具是非常好的但是成品意味着它们是通用的它们没有你应用程序中非常重要的特定标准的知识例如在的应用上下文里这可能与请求频度和含有相应业务事件就像足球比赛中的射门进球的特殊页面类型相关通用工具没有足球比赛选项是非常优秀的同时或举个例子将告诉你何时资料遭到破坏使用少量加工你就能够让给你提供任何东西对于帮了大忙使用微妙级日志补丁来察看所有查询中哪些查询的时间在毫秒到秒之间我非常同意使用日志我们可以支配的最有用的工具是我们的监测框架我们的应用服务器使用它来记录我们所做的各个操作的调用事务发生时间整个的执行情况嵌套的数据库访问嵌套的服务调用等等这就让我们能够远程诊断大多数产品问题而不需要在任何地方都配备调试器我们还保留了这些日志的可查询历史我们可以用之比较以前和当前的性能以及随时间推移的趋势问题当你有一个堆栈或核心问题需要诊断时什么工具可以提供帮助和是用于的基础架构或是个颇有价值的工具对于我们使用了和各种调试器它们组成了基础架构的主要部分可是调试器不应当是你用的第一个工具它应该是你用的最后一个工具产品代码需要用足够多的仪器来远程诊断问题我们有许多魔法我们使用各种工具来重现问题并调试它们包括栈的问题以及许多定制的东西为我们的架构所构建的东西问题你认为像性能前十名等等这样的文章有用吗领域或应用的可伸缩是个问题吗这两者的答案都是肯定从某点上讲伸缩性已经从领域问题即如果你不使用内存缓存或者一个等价的分布式哈希表和基于内存的缓存转移了而你仍然处于领域范围一些应用充分地理解了这一点当今静态内容的可伸缩性已不那么重要了那只是花钱的问题并需要公司有好的社会组织的问题我们认为像性能文章这样的资源是有用的我们认为把应用架构与问题领域进行匹配是非常关键的实际上我们对问题领域的所有假设都定义了软件系统质量方面的约束换句话说我们都期望问题领域可以定义针对性能伸缩性可用性等等的预期当然需要在这些或其它质量之间进行权衡比如功能性和上市时间它们将能显著地改变问题领域当然所有有用的素材都在这些文章中了虽说这样完成一个高质量性能系统是相对的我从未看到关于如何维护品质一个好的建议这是治理部分的内容看上去系统似乎注定一开始很鲜亮然后衰退最终消亡接着再全部重新构建一遍连确保它们至少偶尔有一个漂亮的外观都很难问题实现可伸缩性和性能调优通常被看作是一种救火措施目标是是立刻修正问题你们在一个成熟的代码库上是如何跟踪性能衰退的在所有项目都经过了严格的负载和性能测试阶段在将项目发布到网站之前我们使用这一阶段来检测并解决潜在的性能问题我们经过的是一个不同的过程我认为这些都是在应用程序运行的时候才能检测到的要确保一个应用被有效地划分并部署到真实环境的服务器上如果一切正常再把它部署到另一个服务器上然后再是另一个等等确保在早期初次公开展示过程中你投入了有效的监测和管理基础架构以捕获性能问题不要试图在部署之前就捕获性能问题你不可能重建真实环境中的条件因此你不可能得到真实可靠的测量结果是的监测非常仔细的监测我提到的是监测吗监视迟缓现象当你看到一个衰退时回去检查一下你的改变记录应该很容易定位因为你通常所做的是增量部署不是吗我们得补充一下适当地建立一个基线是很重要的一个已知的好的性能表现并且试图梳理出任何交织于最终用户功能瑕疵的性能问题有时这些瑕疵看起来只和功能有关但实际上也包含了性能问题问题那么捕获问题的真正重要的衡量标准是什么衡量标准就是那些影响你业务例如页面负担用户响应时间的衡量标准以及使你受限例如内存网络带宽等的衡量标准正如你可能想象的基础架构的一些部分是受限制的另一些是受内存限制的还有一些则是受限制的当然墨菲法则一种幽默的规则它认为任何可能出错的事终将出错确保了你没有严密跟踪的衡量标准就是那个对你不利的标准取决于你的应用任何事都有响应时间找到你认为花了最长时间的地方对它们进行计时如果结果随你所测量的比特位数的多少而非常不同找到它们页面装载时间在高于时都是很重要的问题在这个响应时间之内用户通常都看不出差别而任何优化例如针对都是性能和成本的优化了解集群的当前状态如果是超出了集群的处理能力那就去增加处理能力句号没什么好说的去买更多的机器就是了不要再阅读本文了去买更多的机器吧如果处理能力是一个影响因素而且你的应用并没有大的问题无明显性能问题你已经调优了等等去买机器吧你可以让它运行得更快并节约了后面的花费但同时购买机器意味着你将减轻很多压力并给自己一个喘息机会以对应用正确实现可伸缩性确保它与你的业务相关确保你所采取的测量是有意义的除非你知道当时正在执行什么业务功能否则一个测量是无意义的我们全体都同意最终的衡量标准是捕获了客户期望响应的那一个通过响应我们真正把整个系统中的其它元素汇集到了一起例如比其它邮件服务递送邮件更加迅速因为它的响应例如从邮件被发送到在中看到邮件之间所花的时间满足了用户的预期其它技术上的标准是无关紧要的问题性能对应用程序的总体健康能起什么作用性能是一个重要的部分但仅仅是部分虽然旧了一点但依然是建立有关测量系统的衡量标准的很好入手点健康是个很有意思的概念在医学里身体里每个细胞的性能不能够被测量但是大量细胞汇集在一起就有了生命信号如脉搏温度血压和呼吸都是可以测量的大系统应该以类似的方法进行测量单个服务器的内存使用与整个系统在线用户数相比起来没什么用处每个大系统需要一些关键的生命信号性能绝对是基础差的性能直接反映了底层基础架构的花销以及用户的体验这两者都是底线一个性能低于预期的应用不是完成了的应用一个缺乏必须功能的应用同样是没有完成的通常我们都同意把性能不佳看做是一个大而当作一个大我们还得关注存在大的地方这可能是另外一个大因此我们认为健康是依赖于用户所有者体验的一种东西可是也有反例例如针对很小一部分受众的一个意在提供一些新颖功能的应用其可伸缩性问题不被计入到应用的健康范畴如果是一个工业级应用比如它一向有性能或伸缩性或可用性问题那么其可伸缩性就给应用健康的带来了消极影响有时一个应用就是慢因为它要处理很复杂的事情加快速度是不可能的这变成了一个交互和负载容量问题有时应用慢是因为代码太烂当负载增加时所有事情都慢下来了尤其与触发锁的代码有关例如锁或所或任何种类的分布式锁问题真正的性能和感知的性能之间的存在概念差异对修复来说哪个更重要感知的性能是最终用户感觉得到的因此最应该修正可是我认为感知的性能是很难测量的即它是依赖于上下文的作为观察者我们不能总是访问同一个上下文环境而且我们不可能控制组成上下文的所有东西掩饰感知的性能更重要使用后台队列卸载工作显示用户所期望的东西并且断定是怎么泄露到应用的其它方面的使用轮询廉价的请求而不是集中到一个单一的昂贵请求在请求开始的时候将开销大的事情拆成并行的在请求结束的时候再把结果收集起来我不同意真实更重要与其假装成某种情况不如真的变成那种情况这两者都重要感知的性能影响了用户体验而所谓的真实性能会影响成本这最终就是一个业务决策此刻最大的痛苦是什么因此要看哪个相对更优先问题几乎每个星期总有些人发布一个新的或应用服务器或数据库层软件怎么看待这种情况这是好事情还是让调优更加困难了我使用它有其缺点但是工作良好我使用它也有其缺点但是工作良好没有应用可以解决你所有的问题它们有些是让事情更容易理解或修正有些的确更好但是有些使得调试和修正更加困难至于数据库拥有并不能使你获得索引你需要一个分布式索引只是你还不知道和相关开源项目都不是分布式的索引不是分布式的索引查明你的分布式索引是怎样的自己构建它吧这很好但是可以更好大多数同类产品都是大同小异的能看到持续创新挺好但是如果能看到每一类工具的数量少一些而完全不同类型工具的数量和差异多一些那就更好了作为这种产品的制造者我们对这个问题特别感兴趣我们认为它是好事它鼓励创新并给我们带来新的思路但是我们专注于使用最好的工具组合新的不见得就是好的有选择是好事情这取决于你怎么去选择追赶潮流此刻不再比顽固坚持不能工作的东西更有生产效率我要说的是在一个像这样都要运转的站点我们在使用经证明是好的技术时需要非常小心这是我们对公司的责任在我们考虑引入任何新东西的时候在我们考虑将其应用到站点之前都要经过非常广泛的评估问题那么在这一领域还有哪些内容经常被曲解嗯我觉得让人有点失望的是当一个好思想被商业化或者更通用化时这个思想的质量就变差了比如数据存储很难建立一个既快速又可存储大量数据的软件很明显为了商业化即有大量潜在客户两者都可实现当然最好了但是这就意味着最终是一个妥协的产物既不快也不大不管厂商怎么宣传不是说这就是普遍现象或者总会是这样你只能通过使用软件实现伸缩性语言是不能伸缩的框架是不能伸缩的而架构是可以伸缩的伸缩性是一个社会问题协调你的业务操作和工程师们是极其关键的如果你在这方面不成功你实现伸缩性的努力也会失败如果你的公司不理解需要多方协调以培育成功那么你也会失败正是通过正确的处理这一社会问题实现了伸缩性他们购买服务器有一个好的投资计划有足够的带宽他们选择一件事情把它做好以组织的方式决策伸缩性在天才工程师们的努力下伸缩性如魔术般被实现了你可能会失败快速吸取教训然后成功没问题不要构建开箱即可伸缩的服务因为你或许会发现你的交互设计是错误的你必须回过头重新来一遍在这期间那些没有构建伸缩性的人可能正确设计了交互因而足足领先了你个月的时间性能改进伸缩性提升是一件容易的事情修正性能或伸缩性问题不总是像外界看得那么简单很容易因此受到指责且很难真正解决所有给定的约束以我们的经验修正性能和伸缩性问题需要对技术和问题领域两方面都有深入了解和经验经常被曲解的是性能和可伸缩性这两者间的区别粗体',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-09-01 21:32:35',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" itemprop="url">系统架构</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">构建的可伸缩性和达到的性能：一个虚拟座谈会</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:41.000Z" title="发表于 2024-10-31 22:01:41">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:35.952Z" title="更新于 2025-09-01 21:32:35">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/"><header><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" itemprop="url">系统架构</a><h1 id="CrawlerTitle" itemprop="name headline">构建的可伸缩性和达到的性能：一个虚拟座谈会</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:41.000Z" title="发表于 2024-10-31 22:01:41">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:35.952Z" title="更新于 2025-09-01 21:32:35">2025-09-01</time></header><p>实现伸缩性和性能调优的经验所保有的价值容易被低估。两者都是“晚些时候”或“我们真正流行起来时”所面临的难题。早期创业公司确实不应该立即花这份钱，而大公司通常不能做出足够快速的反应以实现所需的改变。再加上这需要一个多学科的团队，它立刻就变成了一个需要解决的政治上和工程上的难题。</p>
+<p>但是它从来不会从我们的视线中消失——在过去的少数几个 Qcon 会议上，“Architectures You’ve Always Wondered About（你始终感到惊讶的架构）”专题被淹没了，正因为如此，我们渴望学习“大人物”们如何去做这些事情的技巧和诀窍。</p>
+<p>在这次 InfoQ.com 的虚拟座谈会上，我们从几个最大的公司和项目中邀请了几个在实现可伸缩性和性能方面的专家，让我们进入他们取得了成果而我们却依然梦想的神秘世界吧。</p>
+<p>座谈会的参与者包括有 Blaine Cook，Twitter 的前任架构师，他领导开发者进行了 Starling 消息队列 ruby gem 的开发。Blaine 在“如何让 Ruby 和 Rails 伸缩自如”的会谈中发出了积极的声音，在这一领域有非常多的经验。</p>
+<p>他是被 Randy Shoup 加入的，Randy Shoup 是 eBay 市场架构小组的一个分布式架构师。从 2004 年起，他一直是 eBay 搜索基础架构的主要架构师。而 Matt Youill，则是 Betfair 的首席技术专家。在超过 6 年的时间里，他引领了许多 Betfair 的技术架构。最近他又与 Betfair 的高级技术小组转向一个更长期的高级项目——包括了 Flywheel 技术及其他技术的策略、研究和特殊项目。</p>
+<p>为了让与会者来源更多样，我们请专业开发 Rails 性能工具的 FiveRuns 也参加进来。他们派了整个工程团队用了一个下午来商讨其答案——简直可以另外开一个座谈会了。</p>
+<p><strong>问题 1：许多人把性能和技术混为一谈。你们怎么回应这种误解呢？</strong></p>
+<p><strong>Randy：</strong> 我同意独立于任何特定语言或框架来讨论伸缩性问题确实很有价值——不管实现策略如何，模式都是一样的。可是，首先让我们确保自己已经把性能和可伸缩性区分开了。性能是服务于一个单独请求时的资源使用问题。可伸缩性是当要服务更多（或更大）请求时资源消费量如何随之增长的问题。</p>
+<p>它们是相关的，但是不是同一件事情:-)。幸运的是，许多改善其中一个问题的方法通常也会改善另一个问题。但是，速度非常快的系统可能并不是最具伸缩性的系统，反之亦然。</p>
+<p><strong>FiveRuns：</strong> 我们关心性能、可伸缩性、可用性的对比。我们把性能定义为一个操作（或一些操作）如何快速地完成，比如，响应时间、每秒事件处理的数量等等；而可伸缩性——就是应用怎样很好地按比例扩大规模以应对更大的使用需求（比如，用户数、请求速度、数据容量）。</p>
+<p><strong>问题 2：当你碰到性能瓶颈时，你如何开始调查是什么导致了这一问题？</strong></p>
+<p><strong>Matt：</strong> 每个问题都是不同的，但是我想这通常是一个搜集观测资料（即，与许多人进行交谈）并缩小问题范围的过程——通过检查什么仍在继续执行，你可以分离出不再执行的东西。</p>
+<p>有两个重要的事情要谨记在心。确保它确实是问题的瓶颈所在。例如，忧虑处理器使用效率低下的问题与一个受 IO 束缚的应用可能没什么关系。从产品环境去进行观测非常重要，不要在阶段环境或开发环境亦或是其他环境上进行观测。试图在“假”的环境里再现问题并收集信息将只能产生“ 假”的结果。</p>
+<p><strong>Blaine：</strong> 直觉（快速但不可靠，而且容易产生错误）和监测（需要预先的工作，但是这能让你随心所欲地分析问题）。人们经常谈论测试驱动开发，但是可伸缩性需要测量驱动（metric-driven）开发。</p>
+<p>像 JMeter 和 Tsung 这样的工具，可以让你模拟负载，但是接受任何事情都要有所保留。如果你有很长的时间（到底多长时间取决于你的流程和构建测试的人）去构建非常周到的测试，你可以获得更好的一手资料。但是，不可能做到和真正的流量一样逼真。</p>
+<p><strong>Randy：</strong> 通常我们会从注意到问题的地方开始，然后向前追溯。在应用栈的所有层次所进行的监测 &#x2F; 勘测得越多，就越容易这样做。它还可以帮助有各种学科专长团队里的人们来检查这个问题。</p>
+<p><strong>问题 3：当处理 Web 应用的问题时，你发现什么工具最有用？</strong></p>
+<p><strong>FiveRuns：</strong> 在浏览器层，firebug 是我们所选的工具，因为它提供了对用户执行单页面的感觉的一些深入观察。我们还喜欢 ab &amp; httperf，它给我们提供了一些自动化的负载测试，因此对比于我们从 firebug 中获得页面级的计时，使用这个工具可以获得会话级的计时。</p>
+<p><strong>Matt：</strong> 我们混合使用成品工具和定制工具。成品工具是非常好的，但是成品意味着它们是通用的。它们没有你应用程序中非常重要的特定标准的知识。例如，在 Betfair 的 Web 应用上下文里，这可能与请求频度和含有相应业务事件（就像足球比赛中的射门、进球）的特殊页面类型相关。通用工具没有“足球比赛”选项。</p>
+<p><strong>Blaine：</strong> Ganglia 是非常优秀的。同时 Nagios 或 Zabbix（举个例子）将告诉你何时资料遭到破坏，使用少量加工你就能够让 ganglia 给你提供任何东西。对于 MySQL，Innotop + slow query log 帮了大忙。使用 mysql 微妙级日志补丁来察看所有查询中哪些查询的时间在 1 毫秒到 1 秒之间。</p>
+<p><strong>Randy：</strong> 我非常同意使用日志——我们可以支配的最有用的工具是我们的监测框架，我们的应用服务器使用它来记录我们所做的各个操作的调用 &#x2F; 事务发生时间——整个 URL 的执行情况、嵌套的数据库访问、嵌套的服务调用等等。这就让我们能够远程诊断大多数产品问题，而不需要在任何地方都配备调试器。我们还保留了这些日志的可查询历史，我们可以用之比较以前和当前的性能，以及随时间推移的趋势。</p>
+<p><strong>问题 4：当你有一个堆栈（或核心）问题需要诊断时，什么工具可以提供帮助？</strong></p>
+<p><strong>Randy：</strong> GDB 和 DTrace 是用于 C++ 的基础架构。core 或 pstack 是个颇有价值的工具。对于 Java，我们使用了 tracing 和各种 Java 调试器，它们组成了 eBay 基础架构的主要部分。可是，调试器不应当是你用的第一个工具；它应该是你用的最后一个工具。产品代码需要用足够多的仪器来远程诊断问题。</p>
+<p><strong>Matt：</strong> 我们有许多魔法！我们使用各种工具来重现问题并调试它们（包括栈的问题）——Visual Studio、 Eclipse、WinDbg、cdb、Purify、Fortify、dtrace 以及许多定制的东西，为我们的架构所构建的东西。</p>
+<p><strong>问题 5：你认为像 Yahoo! 性能前十名等等这样的文章有用吗？领域或应用的可伸缩是个问题吗？</strong></p>
+<p><strong>Blaine：</strong> 这两者的答案都是肯定。从某点上讲，伸缩性已经从领域问题（即，如果你不使用内存缓存或者一个等价的分布式哈希表和基于内存的缓存）转移了，而你仍然处于“领域”范围。一些应用充分地理解了这一点。当今静态内容的可伸缩性已不那么重要了，那只是花钱的问题并需要公司有好的社会组织的问题。</p>
+<p><strong>FiveRuns：</strong> 我们认为像 Yahoo! 性能文章这样的资源是有用的。我们认为把应用架构与问题领域进行匹配是非常关键的——实际上，我们对问题领域的所有假设都定义了软件系统质量方面的约束。</p>
+<p>换句话说，我们都期望问题领域可以定义针对性能、伸缩性、可用性等等的预期。当然，需要在这些（或其它）质量之间进行权衡，比如，功能性和上市时间，它们将能显著地改变问题领域。</p>
+<p><strong>Matt：</strong> 当然，所有有用的素材都在这些文章中了。虽说这样，完成一个高质量（性能）系统是相对的——我从未看到关于如何维护品质一个好的建议——这是治理部分的内容。看上去 IT 系统似乎注定一开始很鲜亮、然后衰退、最终消亡，接着再全部重新构建一遍。连确保它们至少偶尔有一个漂亮的外观都很难。</p>
+<p><strong>问题 6：实现可伸缩性和性能调优通常被看作是一种“救火”措施；目标是是立刻修正问题。你们在一个成熟的代码库上是如何跟踪性能衰退的？</strong></p>
+<p><strong>Randy：</strong> 在 eBay，所有项目都经过了严格的负载和性能测试阶段。在将项目发布到网站之前，我们使用这一阶段来检测并解决潜在的性能问题。</p>
+<p><strong>Matt：</strong> 我们经过的是一个不同的过程——我认为这些都是在应用程序运行的时候才能检测到的。要确保一个应用被有效地划分并部署到真实环境的服务器上。如果一切正常，再把它部署到另一个服务器上，然后再是另一个，等等。确保在早期初次公开展示过程中，你投入了有效的监测和管理基础架构以捕获性能问题。</p>
+<p>不要试图在部署之前就捕获性能问题。你不可能重建真实环境中的条件，因此你不可能得到真实可靠的测量结果。</p>
+<p><strong>Blaine：</strong> 是的，监测。非常仔细的监测。我提到的是监测吗？监视迟缓现象。当你看到一个衰退时，回去检查一下你的改变记录。应该很容易定位，因为你通常所做的是增量部署，不是吗？</p>
+<p><strong>FiveRuns：</strong> 我们得补充一下，适当地建立一个基线是很重要的：一个已知的好的性能表现。并且试图梳理出任何交织于最终用户功能瑕疵的性能问题——有时这些瑕疵看起来只和功能有关，但实际上也包含了性能问题。</p>
+<p><strong>问题 7：那么捕获问题的真正重要的衡量标准是什么？</strong></p>
+<p><strong>Randy：</strong> 衡量标准就是那些影响你业务（例如，页面负担、用户响应时间）的衡量标准，以及使你受限（例如，内存、CPU、网络带宽等）的衡量标准。正如你可能想象的，eBay 基础架构的一些部分是受 CPU 限制的，另一些是受内存限制的，还有一些则是受 IO 限制的。当然，墨菲法则（一种幽默的规则，它认为任何可能出错的事终将出错）确保了你没有严密跟踪的衡量标准就是那个对你不利的标准！</p>
+<p><strong>Blaine：</strong> 取决于你的应用。任何事都有响应时间。找到你认为花了最长时间的地方，对它们进行计时，如果结果随你所测量的比特位数的多少而非常不同，找到它们。页面装载时间在高于 250ms 时都是很重要的问题。在这个响应时间之内，用户（通常）都看不出差别，而任何优化（例如，针对 API）都是性能和成本的优化。</p>
+<p>了解集群的当前状态；如果是超出了集群的处理能力，那就去增加处理能力，句号。没什么好说的，去买更多的机器就是了。不要再阅读本文了，去买更多的机器吧。如果处理能力是一个影响因素，而且你的应用并没有大的问题（无明显性能问题，你已经调优了 mysql 等等），去买机器吧。你可以让它运行得更快并节约了后面的花费，但同时，购买机器意味着你将减轻很多压力并给自己一个喘息机会以对应用正确实现可伸缩性。</p>
+<p><strong>Matt：</strong> 确保它与你的业务相关，确保你所采取的测量是有意义的。除非你知道当时正在执行什么业务功能，否则一个 CPU 测量是无意义的。</p>
+<p><strong>FiveRuns：</strong> 我们全体都同意最终的衡量标准是捕获了客户期望响应的那一个。通过响应，我们真正把整个系统中的其它元素汇集到了一起。例如，gmail 比其它邮件服务递送邮件更加迅速；因为它的“响应”（例如，从邮件被发送到在 gmail 中看到邮件之间所花的时间）满足了用户的预期，其它技术上的标准是无关紧要的。</p>
+<p><strong>问题 8：性能对应用程序的总体“健康”能起什么作用？</strong></p>
+<p><strong>Matt：</strong> 性能是一个重要的部分，但仅仅是部分。虽然旧了一点，但 ISO 9126 依然是建立有关测量系统的衡量标准的很好入手点。</p>
+<p>“健康”是个很有意思的概念。在医学里，身体里每个细胞的性能不能够被测量，但是大量细胞汇集在一起就有了“生命信号”，如脉搏、温度、血压和呼吸都是可以测量的。大系统应该以类似的方法进行测量——单个服务器的内存使用与整个系统在线用户数相比起来没什么用处。每个大系统需要一些关键的生命信号。</p>
+<p><strong>Randy：</strong> 性能绝对是基础。差的性能直接反映了底层基础架构的花销，以及用户的体验。这两者都是底线。一个性能低于预期的应用不是“完成”了的应用，一个缺乏必须功能的应用同样是没有完成的。</p>
+<p><strong>FiveRuns：</strong> 通常，我们都同意把性能不佳看做是一个大 bug，而当作一个大 bug，我们还得关注存在大 bug 的地方，这可能是另外一个大 bug。因此，我们认为健康是依赖于用户 &#x2F; 所有者体验的一种东西。</p>
+<p>可是，也有反例。例如，针对很小一部分受众的一个意在提供一些新颖功能的 Web 应用，其可伸缩性问题不被计入到应用的“健康”范畴。如果是一个工业级应用，比如 gmail，它一向有性能（或伸缩性或可用性）问题，那么其可伸缩性就给应用“健康”的带来了消极影响。</p>
+<p><strong>Blaine：</strong> 有时一个应用就是慢，因为它要处理很复杂的事情，加快速度是不可能的。这变成了一个交互和负载容量问题。有时应用慢是因为代码太烂，当负载增加时所有事情都慢下来了（尤其与触发锁的代码有关，例如，sql 锁或 nfs 所或任何种类的分布式锁）。</p>
+<p><strong>问题 9：真正的性能和感知的性能之间的存在概念差异。对修复来说哪个更重要？</strong></p>
+<p><strong>FiveRuns：</strong> 感知的性能是最终用户感觉得到的，因此最应该修正。可是我认为感知的性能是很难测量的——即，它是依赖于上下文的，作为观察者，我们不能总是访问同一个上下文环境，而且我们不可能控制组成上下文的所有东西。</p>
+<p><strong>Blaine：</strong> 掩饰。感知的性能更重要。使用后台队列卸载工作，显示用户所期望的东西并且断定是怎么泄露到应用的其它方面的。使用 Javascript 轮询廉价的请求而不是集中到一个单一的昂贵请求。在请求开始的时候将开销大的事情拆成并行的，在请求结束的时候再把结果收集起来。</p>
+<p><strong>Matt：</strong> 我不同意——真实更重要。与其假装成某种情况，不如真的变成那种情况。</p>
+<p><strong>Randy：</strong> 这两者都重要:-)。感知的性能影响了用户体验，而所谓的真实性能会影响成本。这最终就是一个业务决策：此刻最大的痛苦是什么，因此要看哪个相对更优先。</p>
+<p><strong>问题 10：几乎每个星期，总有些人发布一个新的 Web 或应用服务器或数据库 &#x2F;ORM 层软件。怎么看待这种情况？这是好事情——还是让 Job 调优更加困难了？</strong></p>
+<p><strong>Blaine：</strong> 我使用 apache。它有其缺点，但是工作良好。我使用 MySQL，它也有其缺点，但是工作良好。没有应用可以解决你所有的问题；它们有些是让事情更容易理解或修正，有些的确更好，但是有些使得调试和修正更加困难。</p>
+<p>至于数据库，拥有 DHT 并不能使你获得索引（index）。你需要一个分布式索引，只是你还不知道。BigTable 和相关开源项目都不是分布式的索引。MapReduce 不是分布式的索引。查明你的分布式索引是怎样的，自己构建它吧。</p>
+<p><strong>Matt：</strong> 这很好，但是可以更好。大多数同类产品都是大同小异的。能看到持续创新挺好，但是如果能看到每一类工具的数量少一些而完全不同类型工具的数量和差异多一些，那就更好了。</p>
+<p><strong>FiveRuns：</strong> 作为这种产品的制造者，我们对这个问题特别感兴趣！我们认为它是好事——它鼓励创新并给我们带来新的思路。但是我们专注于使用最好的工具组合——新的不见得就是好的。<br>s<br><strong>Randy：</strong> 有选择是好事情。这取决于你怎么去选择。追赶潮流此刻不再比顽固坚持不能工作的东西更有生产效率。我要说的是在一个像 eBay 这样 24x7 都要运转的站点，我们在使用经证明是好的技术时需要非常小心。这是我们对公司的责任。在我们考虑引入任何新东西的时候，在我们考虑将其应用到站点之前都要经过非常广泛的评估。</p>
+<p><strong>问题 11：那么在这一领域还有哪些内容经常被曲解？</strong></p>
+<p><strong>Matt：</strong> 嗯，我觉得让人有点失望的是，当一个好思想被商业化或者更通用化时，这个思想的质量就变差了。比如数据存储——很难建立一个既快速又可存储大量数据的软件。很明显，为了商业化（即，有大量潜在客户）两者都可实现当然最好了，但是这就意味着最终是一个妥协的产物，既不快也不大——不管厂商怎么宣传！</p>
+<p>不是说这就是普遍现象或者总会是这样。</p>
+<p><strong>Blaine：</strong> 你只能通过使用软件实现伸缩性。“语言是不能伸缩的。框架是不能伸缩的。而架构是可以伸缩的。”</p>
+<p>伸缩性是一个社会问题。协调你的业务、操作和工程师们是极其关键的，如果你在这方面不成功，你实现伸缩性的努力也会失败。如果你的公司不理解需要多方协调以培育成功，那么你也会失败。YouTube 正是通过正确的处理这一社会问题实现了伸缩性。他们购买服务器、有一个好的投资计划、有足够的带宽。他们选择一件事情，把它做好，以组织的方式决策伸缩性，在天才工程师们的努力下，伸缩性如魔术般被实现了。</p>
+<p>你可能会失败。快速吸取教训，然后成功。没问题。不要构建开箱即可伸缩的服务，因为你或许会发现你的交互设计是错误的，你必须回过头重新来一遍。在这期间，那些没有构建伸缩性的人可能正确设计了交互，因而足足领先了你 6 个月的时间。</p>
+<p><strong>FiveRuns：</strong> 性能改进 &#x2F; 伸缩性提升是一件“容易”的事情——修正性能或伸缩性问题不总是像外界看得那么简单——很容易因此受到指责且很难真正解决“所有”给定的约束。以我们的经验，修正性能和伸缩性问题需要对技术和问题领域两方面都有深入了解和经验。</p>
+<p><strong>Randy：</strong> 经常被曲解的是性能和可伸缩性这两者间的区别 ;-)<br><strong>粗体</strong></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/')">构建的可伸缩性和达到的性能：一个虚拟座谈会</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=构建的可伸缩性和达到的性能：一个虚拟座谈会&amp;url=https://tushu.info/archives/gou-jian-de-ke-shen-suo-xing-he-da-dao/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/java-zhong-bing-fa-bao-jian-yao-fen-xi/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">java中并发包简要分析01</div></div></a></div><div class="next-post pull-right"><a href="/archives/fei-zu-sai-suan-fa-zai-bing-fa-rong-qi/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">非阻塞算法在并发容器中的实现</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

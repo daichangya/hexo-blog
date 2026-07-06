@@ -1,0 +1,473 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>一堂如何提高代码质量的培训课 | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="一堂如何提高代码质量的培训课"><meta name="application-name" content="一堂如何提高代码质量的培训课"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="一堂如何提高代码质量的培训课"><meta property="og:url" content="https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="今天这堂培训课讲什么呢？我既不讲Spring，也不讲Hibernate，更不讲Ext，我不讲任何一个具体的技术。我们抛开任何具体的技术，来谈谈如何提高代码质量。如何提高代码质量，相信不仅是在座所有人苦恼的事情，也是所有软件项目苦恼的事情。如何提高代码质量呢，我认为我们首先要理解什么是高质量的代码"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="今天这堂培训课讲什么呢？我既不讲Spring，也不讲Hibernate，更不讲Ext，我不讲任何一个具体的技术。我们抛开任何具体的技术，来谈谈如何提高代码质量。如何提高代码质量，相信不仅是在座所有人苦恼的事情，也是所有软件项目苦恼的事情。如何提高代码质量呢，我认为我们首先要理解什么是高质量的代码"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '一堂如何提高代码质量的培训课',
+  postAI: '',
+  pageFillDescription: '今天这堂培训课讲什么呢我既不讲也不讲更不讲我不讲任何一个具体的技术我们抛开任何具体的技术来谈谈如何提高代码质量如何提高代码质量相信不仅是在座所有人苦恼的事情也是所有软件项目苦恼的事情如何提高代码质量呢我认为我们首先要理解什么是高质量的代码高质量代码的三要素我们评价高质量代码有三要素可读性可维护性可变更性我们的代码要一个都不能少地达到了这三要素的要求才能算高质量的代码可读性强一提到可读性似乎有一些老生常谈的味道但令人沮丧的是虽然大家一而再再而三地强调可读性但我们的代码在可读性方面依然做得非常糟糕由于工作的需要我常常需要去阅读他人的代码维护他人设计的模块每当我看到大段大段密密麻麻的代码而且还没有任何的注释时常常感慨不已深深体会到了这项工作的重要由于分工的需要我们写的代码难免需要别人去阅读和维护的而对于许多程序员来说他们很少去阅读和维护别人的代码正因为如此他们很少关注代码的可读性也对如何提高代码的可读性缺乏切身体会有时即使为代码编写了注释也常常是注释语言晦涩难懂形同天书令阅读者反复斟酌依然不明其意针对以上问题我给大家以下建议不要编写大段的代码如果你有阅读他人代码的经验当你看到别人写的大段大段的代码而且还不怎么带注释你是怎样的感觉是不是嗡地一声头大各种各样的功能纠缠在一个方法中各种变量来回调用相信任何人多不会认为它是高质量的代码但却频繁地出现在我们编写的程序了如果现在你再回顾自己写过的代码你会发现稍微编写一个复杂的功能几百行的代码就出去了一些比较好的办法就是分段将大段的代码经过整理分为功能相对独立的一段又一段并且在每段的前端编写一段注释这样的编写比前面那些杂乱无章的大段代码确实进步了不少但它们在功能独立性可复用性可维护性方面依然不尽人意从另一个比较专业的评价标准来说它没有实现低耦合高内聚我给大家的建议是将这些相对独立的段落另外封装成一个又一个的函数许多大师在自己的经典书籍中都鼓励我们在编写代码的过程中应当养成不断重构的习惯我们在编写代码的过程中常常要编写一些复杂的功能起初是写在一个类的一个函数中随着功能的逐渐展开我们开始对复杂功能进行归纳整理整理出了一个又一个的独立功能这些独立功能有它与其它功能相互交流的输入输出数据当我们分析到此处时我们会非常自然地要将这些功能从原函数中分离出来形成一个又一个独立的函数供原函数调用在编写这些函数时我们应当仔细思考一下为它们取一个释义名称并为它们编写注释后面还将详细讨论这个问题另一个需要思考的问题是这些函数应当放到什么地方这些函数可能放在原类中也可能放到其它相应职责的类中其遵循的原则应当是职责驱动设计后面也将详细描述下面是我编写的一个从文件中读取数据将其生成工厂的一个类这个类最主要的一段程序就是初始化工厂该功能归纳起来就是三部分功能用各种方式尝试读取文件以的方式解析数据流生成工厂而这些功能被我归纳整理后封装在一个不同的函数中并且为其取了释义名称和编写了注释代码初始化工厂根据路径读取文件将文件中的数据装载到工厂中的路径初始化工厂根据路径列表依次读取文件将文件中的数据装载到工厂中路径列表重新初始化工厂初始化所需的参数为上一次初始化工厂所用的参数采用的方式试图查找一个文件并调用进行解析文件的路径是否成功采用的方式试图查找一个目录中的所有文件并调用进行解析文件的路径是否成功用的方式试图查找文件并调用解析文件的路径是否成功读取并解析一个的文件输入流以的形式获取的根然后调用构建工厂文件输入流用从一个的文件中读取的数据构建工厂从一个的文件中读取的数据的根在编写代码的过程中通常有两种不同的方式一种是从下往上编写也就是按照顺序每分出去一个函数都要将这个函数编写完才回到主程序继续往下编写而一些更有经验的程序员会采用另外一种从上往下的编写方式当他们在编写程序的时候每个被分出去的程序可以暂时只写一个空程序而不去具体实现功能当主程序完成以后再一个个实现它的所有子程序采用这样的编写方式可以使复杂程序有更好的规划避免只见树木不见森林的弊病有多少代码就算大段代码每个人有自己的理解我编写代码每当达到行的时候我就开始考虑是否需要重构代码同理一个类也不应当有太多的函数当函数达到一定程度的时候就应该考虑分为多个类了一个包也不应当有太多的类释义名称与注释我们在命名变量函数属性类以及包的时候应当仔细想想使名称更加符合相应的功能我们常常在说设计一个系统时应当有一个或多个系统分析师对整个系统的包类以及相关的函数和属性进行规划但在通常的项目中这都非常难于做到对它们的命名更多的还是程序员来完成但是在一个项目开始的时候应当对项目的命名出台一个规范譬如在我的项目中规定新增记录用或开头更新记录用或开头删除用开头查询用或开头使用最乱的就是因此我规定开头的函数仅仅用于获取类属性注释是每个项目组都在不断强调的可是依然有许多的代码没有任何的注释为什么呢因为每个项目在开发过程中往往时间都是非常紧的在紧张的代码开发过程中注释往往就渐渐地被忽略了利用开发工具的代码编写模板也许可以解决这个问题用我们常用的为例在菜单中可以简单的修改一下代表的是我们每新建一个文件可能是类也可能是接口时编写的注释我通常设定为代码代表的是我们新建的接口或类前的注释我通常设定为代码第一行为一个空行是用于你写该类的注释如果你采用职责驱动设计这里首先应当描述的是该类的职责如果需要你可以写该类一些重要的方法及其用法该类的属性及其中文含义等代表的是你在中登陆的用户名如果这个用户名不是你的名称你可以直接写死为你自己的名称其它我通常都保持为默认值通过以上设定你在创建类或接口的时候系统将自动为你编写好注释然后你可以在这个基础上进行修改大大提高注释编写的效率同时如果你在代码中新增了一个函数时通过快捷键可以按照模板快速添加注释在编写代码时如果你编写的是一个接口或抽象类我还建议你在后面增加注释将该接口或抽象类的所有实现类列出来因为阅读者在阅读的时候寻找接口或抽象类的实现类比较困难代码抽象的单表数组查询实现类仅用于单表查询范钢可维护性软件的可维护性有几层意思首先的意思就是能够适应软件在部署和使用中的各种情况从这个角度上来说它对我们的软件提出的要求就是不能将代码写死代码不能写死我曾经见我的同事将系统要读取的一个日志文件指定在盘的一个固定目录下如果系统部署时没有这个目录以及这个文件就会出错如果他将这个决定路径下的目录改为相对路径或者通过一个属性文件可以修改代码岂不就写活了一般来说我在设计中需要使用日志文件属性文件配置文件通常都是以下几个方式将文件放到与类相同的目录使用来读取将文件放到目录下用的相对路径来读取使用或另一个属性文件来制定读取路径我也曾见另一家公司的软件要求在部署的时候必须在目录下如果换成其它目录则不能正常运行这样的设定常常为软件部署时带来许多的麻烦如果服务器在该目录下已经没有多余空间或者已经有其它软件将是很挠头的事情预测可能发生的变化除此之外在设计的时候如果将一些关键参数放到配置文件中可以为软件部署和使用带来更多的灵活性要做到这一点要求我们在软件设计时应当有更多的意识考虑到软件应用中可能发生的变化比如有一次我在设计财务软件的时候考虑到一些单据在制作时的前置条件在不同企业使用的时候可能要求不一样有些企业可能要求严格些而有些要求松散些考虑到这种可能的变化我将前置条件设计为可配置的就可能方便部署人员在实际部署中进行灵活变化然而这样的配置必要的注释说明是非常必要的软件可维护性的另一层意思就是软件的设计便于日后的变更这一层意思与软件的可变更性是重合的所有的软件设计理论的发展都是从软件的可变更性这一要求逐渐展开的它成为了软件设计理论的核心可变更性前面我提到了软件的变更性是所有软件理论的核心那么什么是软件的可变更性呢按照现在的软件理论客户对软件的需求时时刻刻在发生着变化当软件设计好以后为应对客户需求的变更而进行的代码修改其所需要付出的代价就是软件设计的可变更性由于软件合理的设计修改所付出的代价越小则软件的可变更性越好即代码设计的质量越高一种非常理想的状态是无论客户需求怎样变化软件只需进行适当的修改就能够适应但这之所以称之为理想状态因为客户需求变化是有大有小的如果客户需求变化非常大即使再好的设计也无法应付甚至重新开发然而客户需求的适当变化一个合理的设计可以使得变更代价最小化延续我们设计的软件的生命力通过提高代码复用提高可维护性我曾经遇到过这样一件事我要维护的一个系统因为应用范围的扩大它对机关级次的计算方式需要改变一种策略如果这个项目统一采用一段公用方法来计算机关级次这样一个修改实在太简单了就是修改这个公用方法即可但是事实却不一样对机关级次计算的代码遍布整个项目甚至有些还写入到了那些复杂的语句中在这样一种情况下这样一个需求的修改无异于需要遍历这个项目代码这样一个实例显示了一个项目代码复用的重要然而不幸的是代码无法很好复用的情况遍布我们所有的项目代码复用的道理十分简单但要具体运作起来非常复杂它除了需要很好的代码规划还需要持续地代码重构对整个系统的整体分析与合理规划可以根本地保证代码复用系统分析师通过用例模型领域模型分析模型的一步一步分析最后通过正向工程生成系统需要设计的各种类及其各自的属性和方法采用这种方法功能被合理地划分到这个类中可以很好地保证代码复用采用以上方法虽然好但技术难度较高需要有高深的系统分析师并不是所有项目都能普遍采用的特别是时间比较紧张的项目通过开发人员在设计过程中的重构也许更加实用当某个开发人员在开发一段代码时发现该功能与前面已经开发功能相同或者部分相同这时这个开发人员可以对前面已经开发的功能进行重构将可以通用的代码提取出来进行相应的改造使其具有一定的通用性便于各个地方可以使用一些比较成功的项目组会指定一个专门管理通用代码的人负责收集和整理项目组中各个成员编写的可以通用的代码这个负责人同时也应当具有一定的代码编写功力因为将专用代码提升为通用代码或者以前使用该通用代码的某个功能由于业务变更而对这个通用代码的变更要求都对这个负责人提出了很高的能力要求虽然后一种方式非常实用但是它有些亡羊补牢的味道不能从整体上对项目代码进行有效规划正因为两种方法各有利弊因此在项目中应当配合使用利用设计模式提高可变更性对于初学者软件设计理论常常感觉晦涩难懂一个快速提高软件质量的捷径就是利用设计模式这里说的设计模式不仅仅指经典的个模式是一切前人总结的我们可以利用的更加广泛的设计模式这个我也不知道叫什么名字最早是哪位大师总结的它出现在的与模式应用也出现在出现在的敏捷软件开发它是这样描述的当你发现你必须要设计这样的代码时你应当想到你的代码应当重构一下了我们先看看这样的代码有怎样的特点代码这样的代码很常见也非常平常我们大家都写过但正是这样平常才隐藏着我们永远没有注意的问题问题就在于如果某一天这个选项不再仅仅是而是增加了新的选项会怎样呢你也许会说那没有关系我把代码改改就行然而事实上并非如此在大型软件研发与维护中有一个原则每次的变更尽量不要去修改原有的代码如果我们重构一下能保证不修改原有代码仅仅增加新的代码就能应付选项的增加这就增加了这段代码的可维护性和可变更性提高了代码质量那么我们应当如何去做呢经过深入分析你会发现这里存在一个对应关系即对应对应如果将与原有代码解耦问题就解决了如何解耦呢设计一个接口以及它的实现每个类都包含一个方法并且将的代码放到中将的代码放到中经过以上的重构代码还是这些代码效果却完全不一样了我们只需要这样写代码这样就可以实现以上的功能了我们看到这里有一个工厂放着所有的并且与它们的对应起来并且写在配置文件中如果出现新的选项时通过修改配置文件就可以无限制的增加下去这个模式虽然有效提高了代码质量但是不能滥用并非只要出现就需要使用由于它使用了工厂一定程度上增加了代码复杂度因此仅仅在选项较多并且增加选项的可能性很大的情况下才可以使用另外要使用这个模式继承我在附件中提供的抽象类就可以快速建立一个工厂如果你的项目放在或其它可配置框架中也可以快速建立工厂设计一个静态属性并使其为这些这个工厂就建立起来了策略模式也许你看过策略模式的相关资料但没有留下太多的印象一个简单的例子可以让你快速理解它如果一个员工系统中员工被分为临时工和正式工并且在不同的地方相应的行为不一样在设计它们的时候你肯定设计一个抽象的员工类并且设计两个继承类临时工和正式工这样通过下溯类型可以在不同的地方表现出临时工和正式工的各自行为在另一个系统中员工被分为了销售人员技术人员管理人员并且也在不同的地方相应的行为不一样同样我们在设计时也是设计一个抽象的员工类并且设计数个继承类销售人员技术人员管理人员现在我们要把这两个系统合并起来也就是说在新的系统中员工既被分为临时工和正式工又被分为了销售人员技术人员管理人员这时候如何设计如果我们还是使用以往的设计我们将不得不设计很多继承类销售临时工销售正式工技术临时工技术正式工如此的设计在随着划分的类型以及每种类型的选项的增多呈笛卡尔增长通过以上一个系统的设计我们不得不发现我们以往学习的关于继承的设计遇到了挑战解决继承出现的问题有一个最好的办法就是采用策略模式在这个应用中员工之所以要分为临时工和正式工无非是因为它们的一些行为不一样比如发工资时的计算方式不同如果我们在设计时不将员工类分为临时工类和正式工类而仅仅只有员工类只是在类中增加工资发放策略当我们创建员工对象时根据员工的类型将工资发放策略设定为临时工策略或正式工策略在计算工资时只需要调用策略类中的计算工资方法其行为的表现也设计临时工类和正式工类是一样的同样的设计可以放到销售人员策略技术人员策略管理人员策略中一个通常的设计是我们将某一个影响更大的或者选项更少的属性设计成继承类而将其它属性设计成策略类就可以很好的解决以上问题使用策略模式你同样把代码写活了因为你可以无限制地增加策略但是使用策略模式你同样需要设计一个工厂策略工厂以上实例中你需要设计一个发放工资策略工厂并且在工厂中将临时工与临时工策略对应起来将正式工与正式工策略对应起来适配器模式我的笔记本是港货它的插头与我们常用的插座不一样所有我出差的时候我必须带一个适配器才能使用不同地方的插座这是一个对适配器模式最经典的描述当我们设计的系统要与其它系统交互或者我们设计的模块要与其它模块交互时这种交互可能是调用一个接口或者交换一段数据接受方常常因发送方对协议的变更而频繁变更这种变更可能是接受方来源的变更比如原来是系统现在变成系统了也可能是接受方自身的代码变更如原来的接口现在增加了一个参数由于发送方的变更常常导致接受方代码的不稳定即频繁跟着修改为接受方的维护带来困难遇到这样的问题一个有经验的程序员马上想到的就是采用适配器模式在设计时我方的接口按照某个协议编写并且保持固定不变然后在与真正对方接口时在前段设计一个适配器类一旦对方协议发生变更我可以换个适配器将新协议转换成原协议问题就解决了适配器模式应当包含一个接口和它的实现类接口应当包含一个本系统要调用的方法而它的实现类分别是与系统接口的适配器与系统接口的适配器我曾经在一个项目中需要与另一个系统接口起初那个系统通过一个数据集的方式为我提供数据我写了一个接收数据集的适配器后来改为用一个数据流的形式我又写了一个接收的适配器虽然为我提供数据的方式不同但是经过适配器转换后输出的数据是一样的通过在中的配置我可以灵活地切换到底是使用哪个适配器模板模式个经典模式中的模板模式对开发者的代码规划能力提出了更高的要求它要求开发者对自己开发的所有代码有一个相互联系和从中抽象的能力从各个不同的模块和各个不同的功能中抽象出其过程比较一致的通用流程最终形成模板譬如说读取并形成工厂是许多模块常常要使用的功能它们虽然有各自的不同但是总体流程都是一样的读取文件解析数据流形成工厂正因为有这样的特征它们可以使用共同的模板那么什么是模板模式呢模板模式通常有一个抽象类在这个抽象类中通常有一个主函数按照一定地顺序去调用其它函数而其它函数往往是某这个连续过程中的各个步骤如以上实例中的读取文件解析数据流形成工厂等步骤由于这是一个抽象类这些步骤函数可以是抽象函数抽象类仅仅定义了整个过程的执行顺序以及一些可以通用的步骤如读取文件和解析数据流而另一些比较个性的步骤则由它的继承类自己去完成如上例中的形成工厂由于各个工厂各不一样因此由各自的继承类自己去决定它的工厂是怎样形成的各个继承类可以根据自己的需要通过重载重新定义各个步骤函数但是模板模式要求不能重载主函数因此正规的模板模式其主函数应当是虽然我们常常不这么写另外模板模式还允许你定义的这个步骤中有些步骤是可选步骤对与可选步骤我们通常称为钩子它在编写时在抽象类中并不是一个抽象函数但却是一个什么都不写的空函数继承类在编写时如果需要这个步骤则重载这个函数否则就什么也不写进而在执行的时候也如同什么都没有执行通过以上对模板模式的描述可以发现模板模式可以大大地提高我们的代码复用程度以上一些常用设计模式都能使我们快速提高代码质量还是那句话设计模式不是什么高深的东西恰恰相反它是初学者快速提高的捷径然而如果说提高代码复用是提高代码质量的初阶使用设计模式也只能是提高代码质量的中阶那么什么是高阶呢我认为是那些分析设计理论更具体地说就是职责驱动设计和领域驱动设计职责驱动设计和领域驱动设计前面我提到当我们尝试写一些复杂功能的时候我们把功能分解成一个个相对独立的函数但是应当将这些函数分配到哪个类中呢也就是系统中的所有类都应当拥有哪些函数呢或者说应当表现出哪些行为呢答案就在这里以职责为中心根据职责分配行为我们在分析系统时首先是根据客户需求进行用例分析然后根据用例绘制领域模式和分析模型整个系统最主要的类就形成了通过以上分析形成的类往往和现实世界的对象是对应的正因为如此软件世界的这些类也具有了与现实世界的对象相对应的职责以及在这些职责范围内的行为职责驱动设计是在他的经典著作和模式应用中提出的职责驱动设计的核心思想就是我们在对一个系统进行分析设计的时候应当以职责为中心根据职责分配行为这种思想首先要求我们设计的所有软件世界的对象应当与现实世界尽量保持一致他称之为低表示差异有了低表示差异一方面提高了代码的可读性另一方面当业务发生变更的时候也可以根据实际情况快速应对变更在提出职责驱动设计理论的同时还提出了设计模式来丰富这个理论在设计模式中我认为低耦合高内聚信息专家模式最有用继提出的职责驱动设计数年之后另一位大师提出了领域驱动设计领域驱动设计是在他的同名著作领域驱动设计中提出的在之前的设计理论中领域模型是从用例模型到分析模型之间的一种中间模型也就是从需求分析到软件开发之间的一种中间模型这么一个中间模型既不是需求阶段的重要产物在开发阶段也不以它作为标准进行开发仅仅是作为参考甚至给人感觉有一些多余但是在领域驱动设计中将它放到了一个无比重要的位置按照领域驱动设计的理论在需求分析阶段需求分析人员使用领域模型与客户进行沟通在设计开发阶段开发人员使用领域模型指导设计开发在运行维护和二次开发阶段维护和二次开发人员使用领域模型理解和熟悉系统并指导他们进行维护和二次开发总之在整个软件开发的生命周期中领域模型都成为了最核心的内容领域驱动设计继承了职责驱动设计在领域驱动设计中强调的依然是低表示差异以及职责的分配但是如何做到低表示差异呢如何完成职责分配呢领域驱动设计给了我们完美的答案那就是建立领域模型领域驱动设计改变了我们的设计方式在需求分析阶段用例模型已不再是这个阶段的核心而是建立领域模型在开发和二次开发阶段开发人员也不再是一埋头地猛扎进程序堆里开始编程而是首先细致地进行领域模型分析领域驱动设计强调持续精化使领域模型不再是一旦完成分析就扔在一边不再理会的图纸而是在不断理解业务的基础上不断修改和精化领域模型进而驱动我们代码的精化领域驱动设计强调的不再是一次软件开发过程中我们要做的工作它看得更加长远它强调的是一套软件在相当长一段时间内持续升级的过程中我们应当做的工作我认为领域驱动设计是提高代码质量的最高等级当时使用领域驱动设计进行软件开发是一场相当巨大的改革它颠覆了我们过去的所有开发模式我们必须脚踏实地地一步一步去实践和改变职责驱动设计随着软件业的不断发展随着软件需求的不断扩大软件所管理的范围也在不断拓宽过去一个软件仅仅管理一台电脑的一个小小的功能而现在被扩展到了一个企业一个行业一个产业链过去我们开发一套软件只有少量的二次开发当它使用到一定时候我们就抛弃掉重新又开发一套现在随着用户对软件依赖程度的不断加大我们很难说抛弃一套软件重新开发了更多的是在一套软件中持续改进使这套软件的生命周期持续数年以及数个版本正是因为软件业面临着如此巨大的压力我们的代码质量我们开发的软件拥有的可变更性和持续改进的能力成为软件制胜的关键因素令我们不能不反思代码质量评价的关键指标低耦合高内聚耦合就是对某元素与其它元素之间的连接感知和依赖的量度耦合包括元素是元素的属性或者元素引用了元素的实例这包括元素调用的某个方法其参数中包含元素元素调用了元素的方法元素直接或间接成为元素的子类元素是接口的实现如果一个元素过于依赖其它元素一旦它所依赖的元素不存在或者发生变更则该元素将不能再正常运行或者不得不相应地进行变更因此耦合将大大影响代码的通用性和可变更性内聚更为专业的说法叫功能内聚是对软件系统中元素职责相关性和集中度的度量如果元素具有高度相关的职责除了这些职责内的任务没有其它过多的工作那么该元素就具有高内聚性反之则为低内聚性内聚就像一个专横的管理者它只做自己职责范围内的事而将其它与它相关的事情分配给别人去做高质量的代码要求我们的代码保持低耦合高内聚但是这个要求是如此的抽象与模糊如何才能做到这些呢软件大师们告诉我们了许多方法其中之一就是的职责驱动设计职责驱动设计是在他的经典著作和模式应用中提出的要理解职责驱动设计我们首先要理解低表示差异低表示差异我们开发的应用软件实际上是对现实世界的模拟因此软件世界与现实世界存在着必然的联系当我们在进行需求分析的时候需求分析员实际上是从客户那里在了解现实世界事物的规则工作的流程如果我们在软件分析和设计的过程中将软件世界与现实世界紧密地联系到一起我们的软件将更加本色地还原事物最本质的规律这样的设计就称之为低表示差异采用低表示差异进行软件设计现实世界有什么事物就映射为软件世界的各种对象类现实世界的事物拥有什么样的职责在软件世界里的对象就拥有什么样的职责在现实世界中的事物因为它的职责而产生的行为在软件世界中就反映为对象所拥有的函数低表示差异使分析设计者对软件的分析和设计更加简单思路更加清晰使代码更加可读阅读者更加易于理解更重要的是当需求发生变更或者业务产生扩展时设计者只需要遵循事物本来的面貌去思考和修改软件使软件更加易于变更和扩展角色职责协作理解了低表示差异现在我们来看看我们应当如何运用职责驱动设计进行分析和设计首先我们通过与客户的沟通和对业务需求的了解从中提取出现实世界中的关键事物以及相互之间的关系这个过程我们通常通过建立领域模型来完成领域模型建立起来以后通过诸如这样的设计软件的正向工程生成了我们在软件系统中最初始的软件类这些软件类由于每个都扮演着现实世界中的一个具体的角色因而赋予了各自的职责前面我已经提到如果你的系统采用职责驱动设计的思想进行设计开发作为一个好的习惯你应当在每一个软件类的注释首行清楚地描述该软件类的职责当我们完成了系统中软件类的制订分配好了各自的职责我们就应该开始根据软件需求编写各个软件类的功能在前面我给大家提出了一个建议就是不要在一个函数中编写大段的代码编写大段的代码通常会降低代码的内聚度因为这些代码中将包含不是该软件类应当完成的工作作为一个有经验的开发人员在编写一个功能时首先应当对功能进行分解一段稍微复杂的功能通常都可以被分解成一个个相对独立的步骤步骤与步骤之间存在着交互那就是数据的输入输出通过以上的分解每一个步骤将形成一个独立的函数并且使用一个可以表明这个步骤意图的释义函数名接下来我们应当考虑的就是应当将这些函数交给谁它们有可能交给原软件类也有可能交给其它软件类其分配的原则是什么呢答案是否清楚那就是职责每个软件类代表现实世界的一个事物或者说一个角色在现实世界中这个任务应当由谁来完成那么在软件世界中这个函数就应当分配给相应的那个软件类通过以上步骤的分解一个功能就分配给了多个软件类相互协作地完成这个功能这样的分析和设计其代码一定是高内聚的和高可读性的同时当需求发生变更的时候设计者通过对现实世界的理解可以非常轻松地找到那个需要修改的软件类而不会影响其它类因而也就变得易维护易变更和低耦合了说了这么多举一个实例也许更能帮助理解拿一个员工工资系统来说吧当人力资源在发放一个月工资的时候以及离职的员工肯定不能再发放工资了在系统设计的期初开发人员商量好在员工信息中设定一个离职标志字段编写工资发放的开发人员通过查询将离职标志为的员工查询出来并为他们计算和发放工资但是随着这个系统的不断使用编写员工管理的开发人员发现离职标志字段已经不能满足客户的需求因而将离职标志字段废弃并增加了一个离职时间字段来管理离职的员工然而编写工资发放的开发人员并不知道这样的变更依然使用着离职标志字段显然这样的结果就是软件系统开始对离职员工发放工资了仔细分析这个问题的原因我们不难发现确认员工是否离职并不是发放工资软件类应当完成的工作而应当是员工管理软件类应当完成的如果将获取非离职员工的任务交给员工管理软件类而发放工资软件类仅仅只是去调用那么离职功能由离职标志字段改为了离职时间字段其实就与发放工资软件类毫无关系而作为员工管理的开发人员一旦发生这样的变更他当然知道去修改自己相应的获取非离职员工函数这样就不会发生以上问题通过这样一个实例也许你能够理解职责驱动设计的精要与作用了吧职责分配与信息专家通过以上对职责驱动设计的讲述我们不难发现职责驱动设计的精要就是职责分配但是在纷繁复杂的软件设计中如何进行职责分配常常令我们迷惑幸运的是大师清楚地认识到了这一点在他的著作中信息专家模式为我们提供了帮助信息专家模式又称为专家模式告诉我们在分析设计中应当将职责分配给软件系统中的这样一个软件类它拥有实现这个职责所必须的信息我们称这个软件类叫信息专家用更加简短的话说就是将职责分配给信息专家为什么我们要将职责分配给信息专家呢我们用上面的例子来说明吧当发放工资软件类需要获取非离职员工时员工管理软件类就是获取非离职员工任务的信息专家因为它掌握着所有员工的信息假设我们不将获取非离职员工的任务交给员工管理软件类而是另一个软件类那么为了获取员工信息软件类不得不访问员工管理软件类从而使发放工资与耦合又与员工管理耦合这样的设计不如直接将获取非离职员工的任务交给员工管理软件类使得发放工资仅仅与员工管理耦合从而有效地降低了系统的整体耦合度总之采用职责驱动设计的思路为我们提高软件开发质量可读性可维护性以及保持软件的持续发展提供了一个广阔的空间',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-09-01 21:32:36',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/" itemprop="url">软件设计</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">一堂如何提高代码质量的培训课</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:47.000Z" title="发表于 2024-10-31 22:01:47">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.791Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/"><header><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1/" itemprop="url">软件设计</a><h1 id="CrawlerTitle" itemprop="name headline">一堂如何提高代码质量的培训课</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:47.000Z" title="发表于 2024-10-31 22:01:47">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.791Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></header><p>　　今天这堂培训课讲什么呢？我既不讲Spring，也不讲Hibernate，更不讲Ext，我不讲任何一个具体的技术。我们抛开任何具体的技术，来谈谈如何提高代码质量。如何提高代码质量，相信不仅是在座所有人苦恼的事情，也是所有软件项目苦恼的事情。如何提高代码质量呢，我认为我们首先要理解什么是高质量的代码。</p>
+<p>　　高质量代码的三要素</p>
+<p>　　我们评价高质量代码有三要素：可读性、可维护性、可变更性。我们的代码要一个都不能少地达到了这三要素的要求才能算高质量的代码。</p>
+<p>　　1. 可读性强</p>
+<p>　　一提到可读性似乎有一些老生常谈的味道，但令人沮丧的是，虽然大家一而再，再而三地强调可读性，但我们的代码在可读性方面依然做得非常糟糕。由于工作的需要，我常常需要去阅读他人的代码，维护他人设计的模块。每当我看到大段大段、密密麻麻的代码，而且还没有任何的注释时常常感慨不已，深深体会到了这项工作的重要。由于分工的需要，我们写的代码难免需要别人去阅读和维护的。而对于许多程序员来说，他们很少去阅读和维护别人的代码。正因为如此，他们很少关注代码的可读性，也对如何提高代码的可读性缺乏切身体会。有时即使为代码编写了注释，也常常是注释语言晦涩难懂形同天书，令阅读者反复斟酌依然不明其意。针对以上问题，我给大家以下建议：</p>
+<p>　　1）不要编写大段的代码</p>
+<p>　　如果你有阅读他人代码的经验，当你看到别人写的大段大段的代码，而且还不怎么带注释，你是怎样的感觉，是不是“嗡”地一声头大。各种各样的功能纠缠在一个方法中，各种变量来回调用，相信任何人多不会认为它是高质量的代码，但却频繁地出现在我们编写的程序了。如果现在你再回顾自己写过的代码，你会发现，稍微编写一个复杂的功能，几百行的代码就出去了。一些比较好的办法就是分段。将大段的代码经过整理，分为功能相对独立的一段又一段，并且在每段的前端编写一段注释。这样的编写，比前面那些杂乱无章的大段代码确实进步了不少，但它们在功能独立性、可复用性、可维护性方面依然不尽人意。从另一个比较专业的评价标准来说，它没有实现低耦合、高内聚。我给大家的建议是，将这些相对独立的段落另外封装成一个又一个的函数。</p>
+<p>　　许多大师在自己的经典书籍中，都鼓励我们在编写代码的过程中应当养成不断重构的习惯。我们在编写代码的过程中常常要编写一些复杂的功能，起初是写在一个类的一个函数中。随着功能的逐渐展开，我们开始对复杂功能进行归纳整理，整理出了一个又一个的独立功能。这些独立功能有它与其它功能相互交流的输入输出数据。当我们分析到此处时，我们会非常自然地要将这些功能从原函数中分离出来，形成一个又一个独立的函数，供原函数调用。在编写这些函数时，我们应当仔细思考一下，为它们取一个释义名称，并为它们编写注释（后面还将详细讨论这个问题）。另一个需要思考的问题是，这些函数应当放到什么地方。这些函数可能放在原类中，也可能放到其它相应职责的类中，其遵循的原则应当是“职责驱动设计”（后面也将详细描述）。</p>
+<p>　　下面是我编写的一个从XML文件中读取数据，将其生成工厂的一个类。这个类最主要的一段程序就是初始化工厂，该功能归纳起来就是三部分功能：用各种方式尝试读取文件、以DOM的方式解析XML数据流、生成工厂。而这些功能被我归纳整理后封装在一个不同的函数中，并且为其取了释义名称和编写了注释：</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 初始化工厂。根据路径读取XML文件，将XML文件中的数据装载到工厂中</span><br><span class="line">  * @param path XML的路径</span><br><span class="line">  */</span><br><span class="line">public void initFactory(String path)&#123;</span><br><span class="line">    if(findOnlyOneFileByClassPath(path))&#123;return;&#125;</span><br><span class="line">    if(findResourcesByUrl(path))&#123;return;&#125;</span><br><span class="line">    if(findResourcesByFile(path))&#123;return;&#125;</span><br><span class="line">    this.paths = new String[]&#123;path&#125;;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 初始化工厂。根据路径列表依次读取XML文件，将XML文件中的数据装载到工厂中</span><br><span class="line">* @param paths 路径列表</span><br><span class="line">*/</span><br><span class="line">public void initFactory(String[] paths)&#123;</span><br><span class="line">    for(int i=0; i&lt;paths.length; i++)&#123;</span><br><span class="line">        initFactory(paths[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    this.paths = paths;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 重新初始化工厂，初始化所需的参数，为上一次初始化工厂所用的参数。</span><br><span class="line">*/</span><br><span class="line">public void reloadFactory()&#123;</span><br><span class="line">initFactory(this.paths);</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 采用ClassLoader的方式试图查找一个文件，并调用&lt;code&gt;readXmlStream()&lt;/code&gt;进行解析</span><br><span class="line">* @param path XML文件的路径</span><br><span class="line">* @return 是否成功</span><br><span class="line">*/</span><br><span class="line">protected boolean findOnlyOneFileByClassPath(String path)&#123;</span><br><span class="line">    boolean success = false;</span><br><span class="line">    try &#123;</span><br><span class="line">        Resource resource = new ClassPathResource(path, this.getClass());</span><br><span class="line">        resource.setFilter(this.getFilter());</span><br><span class="line">        InputStream is = resource.getInputStream();</span><br><span class="line">        if(is==null)&#123;return false;&#125;</span><br><span class="line">        readXmlStream(is);</span><br><span class="line">        success = true;</span><br><span class="line">    &#125; catch (SAXException e) &#123;</span><br><span class="line">        log.debug(&quot;Error when findOnlyOneFileByClassPath:&quot;+path,e);</span><br><span class="line">   &#125; catch (IOException e) &#123;</span><br><span class="line">        log.debug(&quot;Error when findOnlyOneFileByClassPath:&quot;+path,e);</span><br><span class="line">    &#125; catch (ParserConfigurationException e) &#123;</span><br><span class="line">        log.debug(&quot;Error when findOnlyOneFileByClassPath:&quot;+path,e);</span><br><span class="line">    &#125;</span><br><span class="line">    return success;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 采用URL的方式试图查找一个目录中的所有XML文件，并调用&lt;code&gt;readXmlStream()&lt;/code&gt;进行解析</span><br><span class="line">* @param path XML文件的路径</span><br><span class="line">* @return 是否成功</span><br><span class="line">*/</span><br><span class="line">protected boolean findResourcesByUrl(String path)&#123;</span><br><span class="line">    boolean success = false;</span><br><span class="line">    try &#123;</span><br><span class="line">        ResourcePath resourcePath = new PathMatchResource(path, this.getClass());</span><br><span class="line">        resourcePath.setFilter(this.getFilter());</span><br><span class="line">        Resource[] loaders = resourcePath.getResources();</span><br><span class="line">        for(int i=0; i&lt;loaders.length; i++)&#123;</span><br><span class="line">            InputStream is = loaders[i].getInputStream();</span><br><span class="line">            if(is!=null)&#123;</span><br><span class="line">                readXmlStream(is);</span><br><span class="line">                success = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (SAXException e) &#123;</span><br><span class="line">        log.debug(&quot;Error when findResourcesByUrl:&quot;+path,e);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">       log.debug(&quot;Error when findResourcesByUrl:&quot;+path,e);</span><br><span class="line">    &#125; catch (ParserConfigurationException e) &#123;</span><br><span class="line">        log.debug(&quot;Error when findResourcesByUrl:&quot;+path,e);</span><br><span class="line">    &#125;</span><br><span class="line">    return success;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 用File的方式试图查找文件，并调用&lt;code&gt;readXmlStream()&lt;/code&gt;解析</span><br><span class="line">* @param path XML文件的路径</span><br><span class="line">* @return 是否成功</span><br><span class="line">*/</span><br><span class="line">protected boolean findResourcesByFile(String path)&#123;</span><br><span class="line">    boolean success = false;</span><br><span class="line">    FileResource loader = new FileResource(new File(path));</span><br><span class="line">    loader.setFilter(this.getFilter());</span><br><span class="line">    try &#123;</span><br><span class="line">        Resource[] loaders = loader.getResources();</span><br><span class="line">        if(loaders==null)&#123;return false;&#125;</span><br><span class="line">    for(int i=0; i&lt;loaders.length; i++)&#123;</span><br><span class="line">        InputStream is = loaders[i].getInputStream();</span><br><span class="line">        if(is!=null)&#123;</span><br><span class="line">            readXmlStream(is);</span><br><span class="line">            success = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    log.debug(&quot;Error when findResourcesByFile:&quot;+path,e);</span><br><span class="line">&#125; catch (SAXException e) &#123;</span><br><span class="line">    log.debug(&quot;Error when findResourcesByFile:&quot;+path,e);</span><br><span class="line">&#125; catch (ParserConfigurationException e) &#123;</span><br><span class="line">    log.debug(&quot;Error when findResourcesByFile:&quot;+path,e);</span><br><span class="line">&#125;</span><br><span class="line">  return success;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 读取并解析一个XML的文件输入流，以Element的形式获取XML的根，</span><br><span class="line">* 然后调用&lt;code&gt;buildFactory(Element)&lt;/code&gt;构建工厂</span><br><span class="line">* @param inputStream 文件输入流</span><br><span class="line">* @throws SAXException</span><br><span class="line">* @throws IOException</span><br><span class="line">* @throws ParserConfigurationException</span><br><span class="line">*/</span><br><span class="line">protected void readXmlStream(InputStream inputStream) throws SAXException, IOException, ParserConfigurationException&#123;</span><br><span class="line">    if(inputStream==null)&#123;</span><br><span class="line">        throw new ParserConfigurationException(&quot;Cann&#x27;t parse source because of InputStream is null!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">    factory.setValidating(this.isValidating());</span><br><span class="line">    factory.setNamespaceAware(this.isNamespaceAware());</span><br><span class="line">    DocumentBuilder build = factory.newDocumentBuilder();</span><br><span class="line">    Document doc = build.parse(new InputSource(inputStream));</span><br><span class="line">    Element root = doc.getDocumentElement();</span><br><span class="line">    buildFactory(root);</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line">* 用从一个XML的文件中读取的数据构建工厂</span><br><span class="line">* @param root 从一个XML的文件中读取的数据的根</span><br><span class="line">*/</span><br><span class="line">protected abstract void buildFactory(Element root);  </span><br></pre></td></tr></table></figure>
+
+<p>　　在编写代码的过程中，通常有两种不同的方式。一种是从下往上编写，也就是按照顺序，每分出去一个函数，都要将这个函数编写完，才回到主程序，继续往下编写。而一些更有经验的程序员会采用另外一种从上往下的编写方式。当他们在编写程序的时候，每个被分出去的程序，可以暂时只写一个空程序而不去具体实现功能。当主程序完成以后，再一个个实现它的所有子程序。采用这样的编写方式，可以使复杂程序有更好的规划，避免只见树木不见森林的弊病。</p>
+<p>　　有多少代码就算大段代码，每个人有自己的理解。我编写代码，每当达到15~20行的时候，我就开始考虑是否需要重构代码。同理，一个类也不应当有太多的函数，当函数达到一定程度的时候就应该考虑分为多个类了；一个包也不应当有太多的类······</p>
+<p>　　２）释义名称与注释</p>
+<p>　　我们在命名变量、函数、属性、类以及包的时候，应当仔细想想，使名称更加符合相应的功能。我们常常在说，设计一个系统时应当有一个或多个系统分析师对整个系统的包、类以及相关的函数和属性进行规划，但在通常的项目中这都非常难于做到。对它们的命名更多的还是程序员来完成。但是，在一个项目开始的时候，应当对项目的命名出台一个规范。譬如，在我的项目中规定，新增记录用new或add开头，更新记录用edit或mod开头，删除用del开头，查询用find或query开头。使用最乱的就是get，因此我规定，get开头的函数仅仅用于获取类属性。</p>
+<p>　　注释是每个项目组都在不断强调的，可是依然有许多的代码没有任何的注释。为什么呢？因为每个项目在开发过程中往往时间都是非常紧的。在紧张的代码开发过程中，注释往往就渐渐地被忽略了。利用开发工具的代码编写模板也许可以解决这个问题。</p>
+<p>　　用我们常用的MyEclipse为例，在菜单“window&gt;&gt;Preferences&gt;&gt;Java&gt;&gt;Code Style&gt;&gt;Code Templates&gt;&gt;Comments”中，可以简单的修改一下。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://pic001.cnblogs.com/images/2012/24634/2012101718130073.png"></p>
+<p>　　“Files”代表的是我们每新建一个文件（可能是类也可能是接口）时编写的注释，我通常设定为：</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* created on $&#123;date&#125;</span><br><span class="line">*/  </span><br></pre></td></tr></table></figure>
+
+<p>　　“Types”代表的是我们新建的接口或类前的注释，我通常设定为：</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">*</span><br><span class="line">* @author $&#123;user&#125;</span><br><span class="line">*/  </span><br></pre></td></tr></table></figure>
+
+<p>　　第一行为一个空行，是用于你写该类的注释。如果你采用“职责驱动设计”，这里首先应当描述的是该类的职责。如果需要，你可以写该类一些重要的方法及其用法、该类的属性及其中文含义等。</p>
+<p>　　${user}代表的是你在windows中登陆的用户名。如果这个用户名不是你的名称，你可以直接写死为你自己的名称。</p>
+<p>　　其它我通常都保持为默认值。通过以上设定，你在创建类或接口的时候，系统将自动为你编写好注释，然后你可以在这个基础上进行修改，大大提高注释编写的效率。</p>
+<p>　　同时，如果你在代码中新增了一个函数时，通过Alt+Shift+J快捷键，可以按照模板快速添加注释。</p>
+<p>　　在编写代码时如果你编写的是一个接口或抽象类，我还建议你在@author后面增加@see注释，将该接口或抽象类的所有实现类列出来，因为阅读者在阅读的时候，寻找接口或抽象类的实现类比较困难。</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 抽象的单表数组查询实现类，仅用于单表查询</span><br><span class="line">* @author 范钢</span><br><span class="line">* @see com.htxx.support.query.DefaultArrayQuery</span><br><span class="line">* @see com.htxx.support.query.DwrQuery</span><br><span class="line">*/</span><br><span class="line">public abstract class ArrayQuery implements ISingleQuery &#123;</span><br><span class="line">...  </span><br></pre></td></tr></table></figure>
+
+<p>　　2. 可维护性</p>
+<p>　　软件的可维护性有几层意思，首先的意思就是能够适应软件在部署和使用中的各种情况。从这个角度上来说，它对我们的软件提出的要求就是不能将代码写死。</p>
+<p>　　１）代码不能写死</p>
+<p>　　我曾经见我的同事将系统要读取的一个日志文件指定在C盘的一个固定目录下，如果系统部署时没有这个目录以及这个文件就会出错。如果他将这个决定路径下的目录改为相对路径，或者通过一个属性文件可以修改，代码岂不就写活了。一般来说，我在设计中需要使用日志文件、属性文件、配置文件，通常都是以下几个方式：将文件放到与类相同的目录，使用ClassLoader.getResource()来读取；将文件放到classpath目录下，用File的相对路径来读取；使用web.xml或另一个属性文件来制定读取路径。</p>
+<p>　　我也曾见另一家公司的软件要求，在部署的时候必须在C:&#x2F;bea目录下，如果换成其它目录则不能正常运行。这样的设定常常为软件部署时带来许多的麻烦。如果服务器在该目录下已经没有多余空间，或者已经有其它软件，将是很挠头的事情。</p>
+<p>　　２）预测可能发生的变化</p>
+<p>　　除此之外，在设计的时候，如果将一些关键参数放到配置文件中，可以为软件部署和使用带来更多的灵活性。要做到这一点，要求我们在软件设计时，应当有更多的意识，考虑到软件应用中可能发生的变化。比如，有一次我在设计财务软件的时候，考虑到一些单据在制作时的前置条件，在不同企业使用的时候，可能要求不一样，有些企业可能要求严格些而有些要求松散些。考虑到这种可能的变化，我将前置条件设计为可配置的，就可能方便部署人员在实际部署中进行灵活变化。然而这样的配置，必要的注释说明是非常必要的。</p>
+<p>　　软件可维护性的另一层意思就是软件的设计便于日后的变更。这一层意思与软件的可变更性是重合的。所有的软件设计理论的发展，都是从软件的可变更性这一要求逐渐展开的，它成为了软件设计理论的核心。</p>
+<p>　　3. 可变更性</p>
+<p>　　前面我提到了，软件的变更性是所有软件理论的核心，那么什么是软件的可变更性呢？按照现在的软件理论，客户对软件的需求时时刻刻在发生着变化。当软件设计好以后，为应对客户需求的变更而进行的代码修改，其所需要付出的代价，就是软件设计的可变更性。由于软件合理的设计，修改所付出的代价越小，则软件的可变更性越好，即代码设计的质量越高。一种非常理想的状态是，无论客户需求怎样变化，软件只需进行适当的修改就能够适应。但这之所以称之为理想状态，因为客户需求变化是有大有小的。如果客户需求变化非常大，即使再好的设计也无法应付，甚至重新开发。然而，客户需求的适当变化，一个合理的设计可以使得变更代价最小化，延续我们设计的软件的生命力。</p>
+<p>　　1）通过提高代码复用提高可维护性</p>
+<p>　　我曾经遇到过这样一件事，我要维护的一个系统因为应用范围的扩大，它对机关级次的计算方式需要改变一种策略。如果这个项目统一采用一段公用方法来计算机关级次，这样一个修改实在太简单了，就是修改这个公用方法即可。但是，事实却不一样，对机关级次计算的代码遍布整个项目，甚至有些还写入到了那些复杂的SQL语句中。在这样一种情况下，这样一个需求的修改无异于需要遍历这个项目代码。这样一个实例显示了一个项目代码复用的重要，然而不幸的是，代码无法很好复用的情况遍布我们所有的项目。代码复用的道理十分简单，但要具体运作起来非常复杂，它除了需要很好的代码规划，还需要持续地代码重构。</p>
+<p>　　对整个系统的整体分析与合理规划可以根本地保证代码复用。系统分析师通过用例模型、领域模型、分析模型的一步一步分析，最后通过正向工程，生成系统需要设计的各种类及其各自的属性和方法。采用这种方法，功能被合理地划分到这个类中，可以很好地保证代码复用。</p>
+<p>　　采用以上方法虽然好，但技术难度较高，需要有高深的系统分析师，并不是所有项目都能普遍采用的，特别是时间比较紧张的项目。通过开发人员在设计过程中的重构，也许更加实用。当某个开发人员在开发一段代码时，发现该功能与前面已经开发功能相同，或者部分相同。这时，这个开发人员可以对前面已经开发的功能进行重构，将可以通用的代码提取出来，进行相应的改造，使其具有一定的通用性，便于各个地方可以使用。</p>
+<p>　　一些比较成功的项目组会指定一个专门管理通用代码的人，负责收集和整理项目组中各个成员编写的、可以通用的代码。这个负责人同时也应当具有一定的代码编写功力，因为将专用代码提升为通用代码，或者以前使用该通用代码的某个功能，由于业务变更，而对这个通用代码的变更要求，都对这个负责人提出了很高的能力要求。</p>
+<p>　　虽然后一种方式非常实用，但是它有些亡羊补牢的味道，不能从整体上对项目代码进行有效规划。正因为两种方法各有利弊，因此在项目中应当配合使用。</p>
+<p>　　2）利用设计模式提高可变更性</p>
+<p>　　对于初学者，软件设计理论常常感觉晦涩难懂。一个快速提高软件质量的捷径就是利用设计模式。这里说的设计模式，不仅仅指经典的32个模式，是一切前人总结的，我们可以利用的、更加广泛的设计模式。</p>
+<p>　　a. if…else…</p>
+<p>　　这个我也不知道叫什么名字，最早是哪位大师总结的，它出现在Larman的《UML与模式应用》，也出现在出现在Mardin的《敏捷软件开发》。它是这样描述的：当你发现你必须要设计这样的代码：“if…elseif…elseif…else…”时，你应当想到你的代码应当重构一下了。我们先看看这样的代码有怎样的特点。</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(var.equals(&quot;A&quot;))&#123; doA(); &#125;</span><br><span class="line">else if(var.equals(&quot;B&quot;))&#123; doB(); &#125;</span><br><span class="line">else if(var.equals(&quot;C&quot;))&#123; doC(); &#125;</span><br><span class="line">else&#123; doD(); &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>　　这样的代码很常见，也非常平常，我们大家都写过。但正是这样平常才隐藏着我们永远没有注意的问题。问题就在于，如果某一天这个选项不再仅仅是A、B、C，而是增加了新的选项，会怎样呢？你也许会说，那没有关系，我把代码改改就行。然而事实上并非如此，在大型软件研发与维护中有一个原则，每次的变更尽量不要去修改原有的代码。如果我们重构一下，能保证不修改原有代码，仅仅增加新的代码就能应付选项的增加，这就增加了这段代码的可维护性和可变更性，提高了代码质量。那么，我们应当如何去做呢？</p>
+<p>　　经过深入分析你会发现，这里存在一个对应关系，即A对应doA()，B对应doB()．．．如果将doA()、doB()、doC()．．．与原有代码解耦，问题就解决了。如何解耦呢？设计一个接口X以及它的实现A、B、C．．．每个类都包含一个方法doX()，并且将doA()的代码放到A.doX()中，将doB()的代码放到B.doX()中．．．经过以上的重构，代码还是这些代码，效果却完全不一样了。我们只需要这样写：</p>
+<p>　　Java代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X x = factory.getBean(var); x.doX();  </span><br></pre></td></tr></table></figure>
+
+<p>　　这样就可以实现以上的功能了。我们看到这里有一个工厂，放着所有的A、B、C．．．并且与它们的key对应起来，并且写在配置文件中。如果出现新的选项时，通过修改配置文件就可以无限制的增加下去。</p>
+<p>　　这个模式虽然有效提高了代码质量，但是不能滥用，并非只要出现if…else…就需要使用。由于它使用了工厂，一定程度上增加了代码复杂度，因此仅仅在选项较多，并且增加选项的可能性很大的情况下才可以使用。另外，要使用这个模式，继承我在附件中提供的抽象类XmlBuildFactoryFacade就可以快速建立一个工厂。如果你的项目放在spring或其它可配置框架中，也可以快速建立工厂。设计一个Map静态属性并使其V为这些A、B、C．．．这个工厂就建立起来了。</p>
+<p>　　b. 策略模式</p>
+<p>　　也许你看过策略模式（strategy model）的相关资料但没有留下太多的印象。一个简单的例子可以让你快速理解它。如果一个员工系统中，员工被分为临时工和正式工并且在不同的地方相应的行为不一样。在设计它们的时候，你肯定设计一个抽象的员工类，并且设计两个继承类：临时工和正式工。这样，通过下溯类型，可以在不同的地方表现出临时工和正式工的各自行为。在另一个系统中，员工被分为了销售人员、技术人员、管理人员并且也在不同的地方相应的行为不一样。同样，我们在设计时也是设计一个抽象的员工类，并且设计数个继承类：销售人员、技术人员、管理人员。现在，我们要把这两个系统合并起来，也就是说，在新的系统中，员工既被分为临时工和正式工，又被分为了销售人员、技术人员、管理人员，这时候如何设计。如果我们还是使用以往的设计，我们将不得不设计很多继承类：销售临时工、销售正式工、技术临时工、技术正式工。。。如此的设计，在随着划分的类型，以及每种类型的选项的增多，呈笛卡尔增长。通过以上一个系统的设计，我们不得不发现，我们以往学习的关于继承的设计遇到了挑战。</p>
+<p>　　解决继承出现的问题，有一个最好的办法，就是采用策略模式。在这个应用中，员工之所以要分为临时工和正式工，无非是因为它们的一些行为不一样，比如，发工资时的计算方式不同。如果我们在设计时不将员工类分为临时工类和正式工类，而仅仅只有员工类，只是在类中增加“工资发放策略”。当我们创建员工对象时，根据员工的类型，将“工资发放策略”设定为“临时工策略”或“正式工策略”，在计算工资时，只需要调用策略类中的“计算工资”方法，其行为的表现，也设计临时工类和正式工类是一样的。同样的设计可以放到销售人员策略、技术人员策略、管理人员策略中。一个通常的设计是，我们将某一个影响更大的、或者选项更少的属性设计成继承类，而将其它属性设计成策略类，就可以很好的解决以上问题。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://pic001.cnblogs.com/images/2012/24634/2012101718131282.jpg"></p>
+<p>　　使用策略模式，你同样把代码写活了，因为你可以无限制地增加策略。但是，使用策略模式你同样需要设计一个工厂——策略工厂。以上实例中，你需要设计一个发放工资策略工厂，并且在工厂中将“临时工”与“临时工策略”对应起来，将“正式工”与“正式工策略”对应起来。</p>
+<p>　　c. 适配器模式</p>
+<p>　　我的笔记本是港货，它的插头与我们常用的插座不一样，所有我出差的时候我必须带一个适配器，才能使用不同地方的插座。这是一个对适配器模式最经典的描述。当我们设计的系统要与其它系统交互，或者我们设计的模块要与其它模块交互时，这种交互可能是调用一个接口，或者交换一段数据，接受方常常因发送方对协议的变更而频繁变更。这种变更，可能是接受方来源的变更，比如原来是A系统，现在变成B系统了；也可能是接受方自身的代码变更，如原来的接口现在增加了一个参数。由于发送方的变更常常导致接受方代码的不稳定，即频繁跟着修改，为接受方的维护带来困难。</p>
+<p>　　遇到这样的问题，一个有经验的程序员马上想到的就是采用适配器模式。在设计时，我方的接口按照某个协议编写，并且保持固定不变。然后，在与真正对方接口时，在前段设计一个适配器类，一旦对方协议发生变更，我可以换个适配器，将新协议转换成原协议，问题就解决了。适配器模式应当包含一个接口和它的实现类。接口应当包含一个本系统要调用的方法，而它的实现类分别是与A系统接口的适配器、与B系统接口的适配器．．．</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://pic001.cnblogs.com/images/2012/24634/2012101718131898.jpg"></p>
+<p>　　我曾经在一个项目中需要与另一个系统接口，起初那个系统通过一个数据集的方式为我提供数据，我写了一个接收数据集的适配器；后来改为用一个XML数据流的形式，我又写了一个接收XML的适配器。虽然为我提供数据的方式不同，但是经过适配器转换后，输出的数据是一样的。通过在spring中的配置，我可以灵活地切换到底是使用哪个适配器。</p>
+<p>　　d. 模板模式</p>
+<p>　　32个经典模式中的模板模式，对开发者的代码规划能力提出了更高的要求，它要求开发者对自己开发的所有代码有一个相互联系和从中抽象的能力，从各个不同的模块和各个不同的功能中，抽象出其过程比较一致的通用流程，最终形成模板。譬如说，读取XML并形成工厂，是许多模块常常要使用的功能。它们虽然有各自的不同，但是总体流程都是一样的：读取XML文件、解析XML数据流、形成工厂。正因为有这样的特征，它们可以使用共同的模板，那么，什么是模板模式呢？</p>
+<p>　　模板模式（Template Model）通常有一个抽象类。在这个抽象类中，通常有一个主函数，按照一定地顺序去调用其它函数。而其它函数往往是某这个连续过程中的各个步骤，如以上实例中的读取XML文件、解析XML数据流、形成工厂等步骤。由于这是一个抽象类，这些步骤函数可以是抽象函数。抽象类仅仅定义了整个过程的执行顺序，以及一些可以通用的步骤（如读取XML文件和解析XML数据流），而另一些比较个性的步骤，则由它的继承类自己去完成（如上例中的“形成工厂”，由于各个工厂各不一样，因此由各自的继承类自己去决定它的工厂是怎样形成的）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://pic001.cnblogs.com/images/2012/24634/2012101718132592.jpg"></p>
+<p>　　各个继承类可以根据自己的需要，通过重载重新定义各个步骤函数。但是，模板模式要求不能重载主函数，因此正规的模板模式其主函数应当是final（虽然我们常常不这么写）。另外，模板模式还允许你定义的这个步骤中，有些步骤是可选步骤。对与可选步骤，我们通常称为“钩子（hood）”。它在编写时，在抽象类中并不是一个抽象函数，但却是一个什么都不写的空函数。继承类在编写时，如果需要这个步骤则重载这个函数，否则就什么也不写，进而在执行的时候也如同什么都没有执行。</p>
+<p>　　通过以上对模板模式的描述可以发现，模板模式可以大大地提高我们的代码复用程度。</p>
+<p>　　以上一些常用设计模式，都能使我们快速提高代码质量。还是那句话，设计模式不是什么高深的东西，恰恰相反，它是初学者快速提高的捷径。然而，如果说提高代码复用是提高代码质量的初阶，使用设计模式也只能是提高代码质量的中阶。那么，什么是高阶呢？我认为是那些分析设计理论，更具体地说，就是职责驱动设计和领域驱动设计。</p>
+<p>　　3）职责驱动设计和领域驱动设计</p>
+<p>　　前面我提到，当我们尝试写一些复杂功能的时候，我们把功能分解成一个个相对独立的函数。但是，应当将这些函数分配到哪个类中呢？也就是系统中的所有类都应当拥有哪些函数呢？或者说应当表现出哪些行为呢？答案就在这里：以职责为中心，根据职责分配行为。我们在分析系统时，首先是根据客户需求进行用例分析，然后根据用例绘制领域模式和分析模型，整个系统最主要的类就形成了。通过以上分析形成的类，往往和现实世界的对象是对应的。正因为如此，软件世界的这些类也具有了与现实世界的对象相对应的职责，以及在这些职责范围内的行为。</p>
+<p>　　职责驱动设计（Responsibility Drive Design，RDD）是Craig Larman在他的经典著作《UML和模式应用》中提出的。职责驱动设计的核心思想，就是我们在对一个系统进行分析设计的时候，应当以职责为中心，根据职责分配行为。这种思想首先要求我们设计的所有软件世界的对象，应当与现实世界尽量保持一致，他称之为“低表示差异”。有了低表示差异，一方面提高了代码的可读性，另一方面，当业务发生变更的时候，也可以根据实际情况快速应对变更。</p>
+<p>　　Craig Larman在提出职责驱动设计理论的同时，还提出了GRASP设计模式，来丰富这个理论。在GRASP设计模式中，我认为，低耦合、高内聚、信息专家模式最有用。</p>
+<p>　　继Craig Larman提出的职责驱动设计数年之后，另一位大师提出了领域驱动设计。领域驱动设计（Domain Drive Design，DDD）是Eric Evans在他的同名著作《领域驱动设计》中提出的。在之前的设计理论中，领域模型是从用例模型到分析模型之间的一种中间模型，也就是从需求分析到软件开发之间的一种中间模型。这么一个中间模型，既不是需求阶段的重要产物，在开发阶段也不以它作为标准进行开发，仅仅是作为参考，甚至给人感觉有一些多余。但是，Evans在领域驱动设计中，将它放到了一个无比重要的位置。按照领域驱动设计的理论，在需求分析阶段，需求分析人员使用领域模型与客户进行沟通；在设计开发阶段，开发人员使用领域模型指导设计开发；在运行维护和二次开发阶段，维护和二次开发人员使用领域模型理解和熟悉系统，并指导他们进行维护和二次开发。总之，在整个软件开发的生命周期中，领域模型都成为了最核心的内容。</p>
+<p>　　领域驱动设计继承了职责驱动设计。在领域驱动设计中强调的，依然是低表示差异，以及职责的分配。但是，如何做到低表示差异呢？如何完成职责分配呢？领域驱动设计给了我们完美的答案，那就是建立领域模型。领域驱动设计改变了我们的设计方式。在需求分析阶段，用例模型已不再是这个阶段的核心，而是建立领域模型。在开发和二次开发阶段，开发人员也不再是一埋头地猛扎进程序堆里开始编程，而是首先细致地进行领域模型分析。领域驱动设计强调持续精化，使领域模型不再是一旦完成分析就扔在一边不再理会的图纸，而是在不断理解业务的基础上不断修改和精化领域模型，进而驱动我们代码的精化。领域驱动设计强调的不再是一次软件开发过程中我们要做的工作，它看得更加长远，它强调的是一套软件在相当长一段时间内持续升级的过程中我们应当做的工作。我认为，领域驱动设计是提高代码质量的最高等级。当时，使用领域驱动设计进行软件开发是一场相当巨大的改革，它颠覆了我们过去的所有开发模式，我们必须脚踏实地地一步一步去实践和改变。</p>
+<p>　　职责驱动设计</p>
+<p>　　随着软件业的不断发展，随着软件需求的不断扩大，软件所管理的范围也在不断拓宽。过去一个软件仅仅管理一台电脑的一个小小的功能，而现在被扩展到了一个企业、一个行业、一个产业链。过去我们开发一套软件，只有少量的二次开发，当它使用到一定时候我们就抛弃掉重新又开发一套。现在，随着用户对软件依赖程度的不断加大，我们很难说抛弃一套软件重新开发了，更多的是在一套软件中持续改进，使这套软件的生命周期持续数年以及数个版本。正是因为软件业面临着如此巨大的压力，我们的代码质量，我们开发的软件拥有的可变更性和持续改进的能力，成为软件制胜的关键因素，令我们不能不反思。</p>
+<p>　　代码质量评价的关键指标：低耦合，高内聚</p>
+<p>　　耦合就是对某元素与其它元素之间的连接、感知和依赖的量度。耦合包括：</p>
+<p>　　1．元素B是元素A的属性，或者元素A引用了元素B的实例（这包括元素A调用的某个方法，其参数中包含元素B）。</p>
+<p>　　2．元素A调用了元素B的方法。</p>
+<p>　　3．元素A直接或间接成为元素B的子类。</p>
+<p>　　4．元素A是接口B的实现。</p>
+<p>　　如果一个元素过于依赖其它元素，一旦它所依赖的元素不存在，或者发生变更，则该元素将不能再正常运行，或者不得不相应地进行变更。因此，耦合将大大影响代码的通用性和可变更性。</p>
+<p>　　内聚，更为专业的说法叫功能内聚，是对软件系统中元素职责相关性和集中度的度量。如果元素具有高度相关的职责，除了这些职责内的任务，没有其它过多的工作，那么该元素就具有高内聚性，反之则为低内聚性。内聚就像一个专横的管理者，它只做自己职责范围内的事，而将其它与它相关的事情，分配给别人去做。</p>
+<p>　　高质量的代码要求我们的代码保持低耦合、高内聚。但是，这个要求是如此的抽象与模糊，如何才能做到这些呢？软件大师们告诉我们了许多方法，其中之一就是Craig Larman的职责驱动设计。</p>
+<p>　　职责驱动设计（Responsibility Drive Design，RDD）是Craig Larman在他的经典著作《UML和模式应用》中提出的。要理解职责驱动设计，我们首先要理解“低表示差异”。</p>
+<p>　　低表示差异</p>
+<p>　　我们开发的应用软件实际上是对现实世界的模拟，因此，软件世界与现实世界存在着必然的联系。当我们在进行需求分析的时候，需求分析员实际上是从客户那里在了解现实世界事物的规则、工作的流程。如果我们在软件分析和设计的过程中，将软件世界与现实世界紧密地联系到一起，我们的软件将更加本色地还原事物最本质的规律。这样的设计，就称之为“低表示差异”。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://pic001.cnblogs.com/images/2012/24634/2012101718133149.png"></p>
+<p>　　采用“低表示差异”进行软件设计，现实世界有什么事物，就映射为软件世界的各种对象（类）；现实世界的事物拥有什么样的职责，在软件世界里的对象就拥有什么样的职责；在现实世界中的事物，因为它的职责而产生的行为，在软件世界中就反映为对象所拥有的函数。</p>
+<p>　　低表示差异，使分析设计者对软件的分析和设计更加简单，思路更加清晰；使代码更加可读，阅读者更加易于理解；更重要的是，当需求发生变更，或者业务产生扩展时，设计者只需要遵循事物本来的面貌去思考和修改软件，使软件更加易于变更和扩展。</p>
+<p>　　角色、职责、协作</p>
+<p>　　理解了“低表示差异”，现在我们来看看我们应当如何运用职责驱动设计进行分析和设计。首先，我们通过与客户的沟通和对业务需求的了解，从中提取出现实世界中的关键事物以及相互之间的关系。这个过程我们通常通过建立领域模型来完成。领域模型建立起来以后，通过诸如Rational Rose这样的设计软件的正向工程，生成了我们在软件系统中最初始的软件类。这些软件类，由于每个都扮演着现实世界中的一个具体的角色，因而赋予了各自的职责。前面我已经提到，如果你的系统采用职责驱动设计的思想进行设计开发，作为一个好的习惯，你应当在每一个软件类的注释首行，清楚地描述该软件类的职责。</p>
+<p>　　当我们完成了系统中软件类的制订，分配好了各自的职责，我们就应该开始根据软件需求，编写各个软件类的功能。在前面我给大家提出了一个建议，就是不要在一个函数中编写大段的代码。编写大段的代码，通常会降低代码的内聚度，因为这些代码中将包含不是该软件类应当完成的工作。作为一个有经验的开发人员，在编写一个功能时，首先应当对功能进行分解。一段稍微复杂的功能，通常都可以被分解成一个个相对独立的步骤。步骤与步骤之间存在着交互，那就是数据的输入输出。通过以上的分解，每一个步骤将形成一个独立的函数，并且使用一个可以表明这个步骤意图的释义函数名。接下来，我们应当考虑的，就是应当将这些函数交给谁。它们有可能交给原软件类，也有可能交给其它软件类，其分配的原则是什么呢？答案是否清楚，那就是职责。每个软件类代表现实世界的一个事物，或者说一个角色。在现实世界中这个任务应当由谁来完成，那么在软件世界中，这个函数就应当分配给相应的那个软件类。</p>
+<p>　　通过以上步骤的分解，一个功能就分配给了多个软件类，相互协作地完成这个功能。这样的分析和设计，其代码一定是高内聚的和高可读性的。同时，当需求发生变更的时候，设计者通过对现实世界的理解，可以非常轻松地找到那个需要修改的软件类，而不会影响其它类，因而也就变得易维护、易变更和低耦合了。</p>
+<p>　　说了这么多，举一个实例也许更能帮助理解。拿一个员工工资系统来说吧。当人力资源在发放一个月工资的时候，以及离职的员工肯定不能再发放工资了。在系统设计的期初，开发人员商量好，在员工信息中设定一个“离职标志”字段。编写工资发放的开发人员通过查询，将“离职标志”为false的员工查询出来，并为他们计算和发放工资。但是，随着这个系统的不断使用，编写员工管理的开发人员发现，“离职标志”字段已经不能满足客户的需求，因而将“离职标志”字段废弃，并增加了一个“离职时间”字段来管理离职的员工。然而，编写工资发放的开发人员并不知道这样的变更，依然使用着“离职标志”字段。显然，这样的结果就是，软件系统开始对离职员工发放工资了。仔细分析这个问题的原因，我们不难发现，确认员工是否离职，并不是“发放工资”软件类应当完成的工作，而应当是“员工管理”软件类应当完成的。如果将“获取非离职员工”的任务交给“员工管理”软件类，而“发放工资”软件类仅仅只是去调用，那么离职功能由“离职标志”字段改为了“离职时间”字段，其实就与“发放工资”软件类毫无关系。而作为“员工管理”的开发人员，一旦发生这样的变更，他当然知道去修改自己相应的“获取非离职员工”函数，这样就不会发生以上问题。通过这样一个实例，也许你能够理解“职责驱动设计”的精要与作用了吧。</p>
+<p>　　职责分配与信息专家</p>
+<p>　　通过以上对职责驱动设计的讲述，我们不难发现，职责驱动设计的精要就是职责分配。但是，在纷繁复杂的软件设计中，如何进行职责分配常常令我们迷惑。幸运的是，Larman大师清楚地认识到了这一点。在他的著作中，信息专家模式为我们提供了帮助。</p>
+<p>　　信息专家模式（又称为专家模式）告诉我们，在分析设计中，应当将职责分配给软件系统中的这样一个软件类，它拥有实现这个职责所必须的信息。我们称这个软件类，叫“信息专家”。用更加简短的话说，就是将职责分配给信息专家。</p>
+<p>　　为什么我们要将职责分配给信息专家呢？我们用上面的例子来说明吧。当“发放工资”软件类需要获取非离职员工时，“员工管理”软件类就是“获取非离职员工”任务的信息专家，因为它掌握着所有员工的信息。假设我们不将“获取非离职员工”的任务交给“员工管理”软件类，而是另一个软件类X，那么，为了获取员工信息，软件类X不得不访问“员工管理”软件类，从而使“发放工资”与X耦合，X又与“员工管理”耦合。这样的设计，不如直接将“获取非离职员工”的任务交给“员工管理”软件类，使得“发放工资”仅仅与“员工管理”耦合，从而有效地降低了系统的整体耦合度。</p>
+<p>　　总之，采用“职责驱动设计”的思路，为我们提高软件开发质量、可读性、可维护性，以及保持软件的持续发展，提供了一个广阔的空间。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/')">一堂如何提高代码质量的培训课</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=一堂如何提高代码质量的培训课&amp;url=https://tushu.info/archives/yi-tang-ru-he-ti-gao-dai-ma-zhi-liang/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/yi-zhong-ke-kuo-zhan-de-biao-da-shi-jie/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">一种可扩展的表达式解析及计算方法</div></div></a></div><div class="next-post pull-right"><a href="/archives/xin-lang-wei-bo-ji-shu-jia-gou-fen-xi/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">新浪微博技术架构分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

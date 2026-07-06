@@ -1,0 +1,1030 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Selenium IDE使用指南六（指令列表） | 代老师的博客</title><meta name="keywords" content="技术博客, 编程, 开发, 学习笔记"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Selenium IDE使用指南六（指令列表）"><meta name="application-name" content="Selenium IDE使用指南六（指令列表）"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Selenium IDE使用指南六（指令列表）"><meta property="og:url" content="https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="Selenium IDE使用指南一（爬虫脚本录制器） Selenium IDE使用指南二（命令行运行器） Selenium IDE使用指南三（控制流） Selenium IDE使用指南四（代码导出） Selenium IDE使用指南五（常见问题） Selenium IDE使用指南六（指令列表） S"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="Selenium IDE使用指南一（爬虫脚本录制器） Selenium IDE使用指南二（命令行运行器） Selenium IDE使用指南三（控制流） Selenium IDE使用指南四（代码导出） Selenium IDE使用指南五（常见问题） Selenium IDE使用指南六（指令列表） S"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: 'Selenium IDE使用指南六（指令列表）',
+  postAI: '',
+  pageFillDescription: 'add selection, answer on next prompt, assert, assert alert, assert checked, assert confirmation, assert editable, assert element present, assert element not present, assert not checked, assert not editable, assert not selected value, assert not text, assert prompt, assert selected value, assert selected label, assert text, assert title, assert value, check, choose cancel on next confirmation, choose cancel on next prompt, choose ok on next confirmation, click, click at, close, debugger, do, double click, double click at, drag and drop to object, echo, edit content, else, else if, end, execute script, execute async script, for each, if, mouse down, mouse down at, mouse move at, mouse out, mouse over, mouse up, mouse up at, open, pause, remove selection, repeat if, run, run script, select, select frame, select window, send keys, set speed, set window size, store, store attribute, store json, store text, store title, store value, store window handle, store xpath count, submit, times, type, uncheck, verify, verify checked, verify editable, verify element present, verify element not present, verify not checked, verify not editable, verify not selected value, verify not text, verify selected label, verify selected value, verify text, verify title, verify value, wait for element editable, wait for element not editable, wait for element not present, wait for element not visible, wait for element present, wait for element visible, webdriver answer on visible prompt, webdriver choose cancel on visible confirmation, webdriver choose cancel on visible prompt, webdriver choose ok on visible confirmation, while使用指南一爬虫脚本录制器使用指南二命令行运行器使用指南三控制流使用指南四代码导出使用指南五常见问题使用指南六指令列表使用指南七参数定义将选择添加到多选元素中的选项集论点元素定位器要输入的值影响下一个警报提示此命令将向其发送指定的答案字符串如果警报已存在请改用可见提示时的回答论点答案提示弹出窗口时给出的答案检查变量是否为期望值变量的值将转换为字符串以进行比较如果断言失败则测试将停止论点变量名不带括号的变量名期望值您期望变量包含的结果例如或其他某个值确认已使用提供的文本呈现警报如果断言失败则测试将停止论点提示文字要检查的文字确认目标元素已被检查如果断言失败则测试将停止论点元素定位器确认已提交确认如果断言失败则测试将停止论点要使用的文本确认目标元素是可编辑的如果断言失败则测试将停止论点元素定位器确认目标元素存在于页面上的某处如果断言失败则测试将停止论点元素定位器确认目标元素不在页面上任何地方如果断言失败则测试将停止论点元素定位器确认尚未检查目标元素如果断言失败则测试将停止论点元素定位器确认目标元素不可编辑如果断言失败则测试将停止论点元素定位器确认下拉元素中所选选项的属性不包含提供的值如果断言失败则测试将停止论点标识下拉菜单的元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见确认元素的文本不包含提供的值如果断言失败则测试将停止论点元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见确认已呈现提示如果断言失败则测试将停止论点要使用的文本确认下拉元素中所选选项的属性包含提供的值如果断言失败则测试将停止论点标识下拉菜单的元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见确认下拉菜单中所选选项的标签包含提供的值如果断言失败则测试将停止论点标识下拉菜单的元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见确认元素的文本包含提供的值如果断言失败则测试将停止论点元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见确认当前页面的标题包含提供的文本如果断言失败则测试将停止论点完全匹配的字符串正在支持模式匹配有关详细信息请参见确认输入字段的空白修饰值或其他带有参数的值对于复选框单选元素根据是否选中该元素其值为或如果断言失败则测试将停止论点元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见检查一个切换按钮复选框单选论点元素定位器影响下一个确认警报此命令将取消它如果警报已经存在则使用选择在可见确认时取消影响下一个警报提示此命令将取消它如果警报已经存在则使用在可见的提示下选择取消影响下一个确认警报此命令将接受它如果警报已经存在请改用在可见确认中选择确定单击目标元素例如链接按钮复选框或单选按钮论点元素定位器单击目标元素例如链接按钮复选框或单选按钮坐标是相对于目标元素的例如是元素的左上角并且主要用于检查在其上传递的效果例如材料波纹效果论点元素定位器坐标字符串指定鼠标事件相对于从定位器找到的元素的位置例如关闭当前窗口无需关闭初始窗口会重新使用它关闭它可能会导致测试性能下降中断执行并进入调试器创建一个至少执行一次执行命令的循环使用命令终止分支双击元素例如链接按钮复选框或单选按钮论点元素定位器双击目标元素例如链接按钮复选框或单选按钮坐标是相对于目标元素的例如是元素的左上角并且主要用于检查在其上传递的效果例如材料波纹效果论点元素定位器坐标字符串指定鼠标事件相对于从定位器找到的元素的位置例如拖动一个元素并将其拖放到另一个元素上论点要拖动的对象的定位器要拖动的元素的定位器拖动目标对象的定位器放置元素其位置例如其中的最中心像素将成为要拖动的对象的定位器的点的定位器将指定的消息打印到表中的第三个表单元格中对于调试很有用论点要打印的消息设置内容可编辑元素的值就像您在其中键入一样论点元素定位器要输入的值块的一部分如果不满足和或条件请在此分支中执行命令使用命令终止分支块的一部分如果不满足条件请在此分支中执行命令使用命令终止分支论点条件表达式表达式它返回布尔值以用于控制流命令终止控制流块是否为时为时和为时间在当前选定的框架或窗口的上下文中执行一段脚本片段将作为匿名函数的主体执行要存储返回值请使用关键字并在值输入字段中提供一个变量名称论点要运行的代码段变量名不带括号的变量名在当前选定的框架或窗口的上下文中执行的异步代码段该脚本片段将作为匿名函数的主体执行并且必须返回如果您使用关键字则结果将保存在变量中论点要运行的代码段变量名不带括号的变量名创建一个循环为给定集合中的每个项目执行执行命令论点数组变量名称包含数组的变量的名称迭代器变量名称在循环控制流命令中迭代集合时使用的变量名称例如每个变量在测试中创建一个条件分支使用命令终止分支论点条件表达式表达式它返回布尔值以用于控制流命令模拟用户按下鼠标左键尚未释放它论点元素定位器模拟用户在指定位置按下鼠标左键尚未释放它论点元素定位器坐标字符串指定鼠标事件相对于从定位器找到的元素的位置例如模拟用户在指定元素上按下鼠标按钮尚未释放它论点元素定位器坐标字符串指定鼠标事件相对于从定位器找到的元素的位置例如模拟用户将鼠标指针从指定元素移开论点元素定位器模拟用户将鼠标悬停在指定元素上论点元素定位器模拟当用户释放鼠标按钮时发生的事件例如停止按住按钮论点元素定位器模拟当用户在指定位置释放鼠标按钮例如停止按住按钮时时发生的事件论点元素定位器坐标字符串指定鼠标事件相对于从定位器找到的元素的位置例如打开然后等待页面加载然后继续这既接受相对也接受绝对论点要打开的可以是相对的或绝对的等待指定的时间论点等待时间等待时间以毫秒为单位使用选项定位器从多选元素中的一组选定选项中删除一个选择论点元素定位器一个选项定位器通常只是一个选项标签例如有条件地终止执行控制流分支如果提供的条件表达式的结果为则它将开始循环否则它将结束循环论点条件表达式表达式它返回布尔值以用于控制流命令从当前项目运行测试用例论点测试用例项目中的测试用例名称在当前测试窗口的主体中创建一个新的标记并将指定的文本添加到命令主体中请注意这些脚本标记中引发的异常不是由管理的因此如果脚本有可能引发异常则应该将脚本包装在块中论点要运行的代码段使用选项定位器从下拉菜单中选择一个元素选项定位符提供了指定选择元素的不同方法例如如果未提供选项定位符前缀则将尝试在标签上进行匹配论点标识下拉菜单的元素定位器一个选项定位器通常只是一个选项标签例如在当前窗口中选择一个框架您可以通过从开始的索引号来选择帧例如选择的第一帧或的第三帧对于嵌套框架您将需要多次调用此命令对树中的每个框架都必须调用一次直到到达所需的框架为止您可以使用选择父框架要返回页面顶部请使用论点元素定位器使用窗口定位器选择弹出窗口选择弹出窗口后所有命令都将转到该窗口窗口定位器使用手柄选择窗口论点窗口句柄代表特定页面选项卡或窗口的句柄模拟指定元素上的击键事件就像您按键键入值一样这模拟真实用户在指定字符串中键入每个字符它也受到实际用户的限制例如不能键入不可见或只读元素这对于需要显式键事件的动态小部件如自动完成组合框很有用与简单的类型命令直接将指定的值强制进入页面不同该命令不会替换现有内容论点元素定位器按键序列可以键入的按键序列可用于发送按键例如设置执行速度例如设置每次操作之后的延迟的毫秒长度默认情况下不存在此类延迟例如延迟为毫秒此设置是全局设置将影响所有测试运行直到更改论点等待时间等待时间以毫秒为单位设置浏览器的窗口大小包括浏览器的界面论点使用指定窗口分辨率例如将目标字符串另存为变量以方便重用论点要使用的文本变量名不带括号的变量名获取元素属性的值在不同的浏览器中属性的值可能有所不同例如样式属性就是这种情况论点属性定位符元素定位符后跟符号然后是属性名称例如变量名不带括号的变量名未定义论点对象的字符串表示形式变量名不带括号的变量名获取元素的文本并将其存储以备后用这适用于任何包含文本的元素论点元素定位器变量名不带括号的变量名获取当前页面的标题论点要使用的文本变量名不带括号的变量名获取的值并将其存储以供以后使用这适用于任何输入类型元素论点元素定位器变量名不带括号的变量名获取当前页面的句柄论点窗口句柄代表特定页面选项卡或窗口的句柄获取与指定匹配的节点数例如将给出表数论点要评估的表达式变量名不带括号的变量名提交指定的表格这对于没有提交按钮的表单特别有用例如单输入搜索表单论点表单定位器您要提交的表单的元素定位器创建一个循环执行次执行命令论点控制流循环将执行其块内命令的尝试次数循环限制一个可选参数指定循环控制流命令可以执行的最大次数这样可以防止无限循环默认值设置为设置输入字段的值就像您在其中键入一样也可以用于设置组合框复选框等的值在这种情况下应该是所选选项的值而不是可见的文本仅限如果给出了文件路径它将被上传到输入对于注意不支持定位器论点元素定位器要输入的值取消选中切换按钮复选框单选论点元素定位器软断言变量是期望值变量的值将转换为字符串以进行比较即使验证失败测试也将继续论点变量名不带括号的变量名期望值您期望变量包含的结果例如或其他某个值软断言已选中切换按钮复选框单选即使验证失败测试也将继续论点元素定位器软断言指定的输入元素是否可编辑例如尚未禁用即使验证失败测试也将继续论点元素定位器软断言指定的元素在页面上的某处即使验证失败测试也将继续论点元素定位器软断言指定的元素不在页面上即使验证失败测试也将继续论点元素定位器软断言未选中切换按钮复选框单选即使验证失败测试也将继续论点元素定位器软断言指定的输入元素是否不可编辑例如尚未禁用即使验证失败测试也将继续论点元素定位器软断言所期望的元素尚未在其选择属性的选择菜单中选择即使验证失败测试也将继续论点标识下拉菜单的元素定位器一个选项定位器通常只是一个选项标签例如软断言元素的文本不存在即使验证失败测试也将继续论点元素定位器要使用的文本对指定的元素中的选定选项进行软断言即使验证失败测试也将继续论点标识下拉菜单的元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见软断言所期望的元素已通过其选项属性在选择菜单中选择即使验证失败测试也将继续论点标识下拉菜单的元素定位器一个选项定位器通常只是一个选项标签例如软断言元素的文本存在即使验证失败测试也将继续论点元素定位器要使用的文本软断言当前页面的标题包含提供的文本即使验证失败测试也将继续论点要使用的文本软断言输入字段的经空白修饰的值或带有参数的其他任何值对于复选框单选元素根据是否选中该元素其值为或即使验证失败测试也将继续论点元素定位器完全匹配的字符串正在支持模式匹配有关详细信息请参见等待元素可编辑论点元素定位器等待时间等待时间以毫秒为单位等待元素不可编辑论点元素定位器等待时间等待时间以毫秒为单位等待目标元素不出现在页面上论点元素定位器等待时间等待时间以毫秒为单位等待目标元素在页面上不可见论点元素定位器等待时间等待时间以毫秒为单位等待目标元素出现在页面上论点元素定位器等待时间等待时间以毫秒为单位等待目标元素在页面上可见论点元素定位器等待时间等待时间以毫秒为单位影响当前显示的警报提示此命令指示为它提供指定的答案如果尚未出现警报请改用在下一个提示时回答论点答案提示弹出窗口时给出的答案影响当前显示的确认警报此命令指示取消它如果警报尚未出现请改用在下次确认时选择取消影响当前显示的警报提示此命令指示取消它如果警报尚未出现请改用在下一个提示时选择取消影响当前显示的确认警报此命令指示接受它如果警报尚未出现请改用在下次确认时选择确定只要提供的条件表达式为就创建一个循环重复执行执行命令的循环论点条件表达式表达式它返回布尔值以用于控制流命令循环限制一个可选参数指定循环控制流命令可以执行的最大次数这样可以防止无限循环默认值设置为',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-03 14:52:01',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/selenium-ide/" itemprop="url">selenium-ide</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">Selenium IDE使用指南六（指令列表）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:54.000Z" title="发表于 2024-10-31 22:01:54">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.306Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/"><header><a class="post-meta-categories" href="/categories/selenium-ide/" itemprop="url">selenium-ide</a><h1 id="CrawlerTitle" itemprop="name headline">Selenium IDE使用指南六（指令列表）</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:01:54.000Z" title="发表于 2024-10-31 22:01:54">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2026-07-03T06:52:01.306Z" title="更新于 2026-07-03 14:52:01">2026-07-03</time></header><ol>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-yi-pa">Selenium IDE使用指南一（爬虫脚本录制器）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-er-ming">Selenium IDE使用指南二（命令行运行器）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-san-kong">Selenium IDE使用指南三（控制流）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-si-dai-ma">Selenium IDE使用指南四（代码导出）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang">Selenium IDE使用指南五（常见问题）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang">Selenium IDE使用指南六（指令列表）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-wu-chang">Selenium IDE使用指南七（参数定义）</a></li>
+</ol>
+<h2 id="add-selection"><a href="#add-selection" class="headerlink" title="add selection"></a><a href="#add-selection"></a><code>add selection</code></h2><p>将选择添加到多选元素中的选项集。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#value">value</a>：要输入的值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="answer-on-next-prompt"><a href="#answer-on-next-prompt" class="headerlink" title="answer on next prompt"></a><a href="#answer-on-next-prompt"></a><code>answer on next prompt</code></h2><p>影响下一个警报提示。此命令将向其发送指定的答案字符串。如果警报已存在，请改用“可见提示时的webdriver回答”。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#answer">答案</a>：提示弹出窗口时给出的答案。</li>
+</ul>
+<hr>
+<h2 id="assert"><a href="#assert" class="headerlink" title="assert"></a><a href="#assert"></a><code>assert</code></h2><p>检查变量是否为期望值。变量的值将转换为字符串以进行比较。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#expectedvalue">期望值</a>：您期望变量包含的结果（例如，true，false或其他某个值）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-alert"><a href="#assert-alert" class="headerlink" title="assert alert"></a><a href="#assert-alert"></a><code>assert alert</code></h2><p>确认已使用提供的文本呈现警报。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#alerttext">提示文字</a>：要检查的文字</li>
+</ul>
+<hr>
+<h2 id="assert-checked"><a href="#assert-checked" class="headerlink" title="assert checked"></a><a href="#assert-checked"></a><code>assert checked</code></h2><p>确认目标元素已被检查。如果断言失败，则测试将停止。<br><separator></separator><br><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-confirmation"><a href="#assert-confirmation" class="headerlink" title="assert confirmation"></a><a href="#assert-confirmation"></a><code>assert confirmation</code></h2><p>确认已提交确认。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</li>
+</ul>
+<hr>
+<h2 id="assert-editable"><a href="#assert-editable" class="headerlink" title="assert editable"></a><a href="#assert-editable"></a><code>assert editable</code></h2><p>确认目标元素是可编辑的。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-element-present"><a href="#assert-element-present" class="headerlink" title="assert element present"></a><a href="#assert-element-present"></a><code>assert element present</code></h2><p>确认目标元素存在于页面上的某处。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-element-not-present"><a href="#assert-element-not-present" class="headerlink" title="assert element not present"></a><a href="#assert-element-not-present"></a><code>assert element not present</code></h2><p>确认目标元素不在页面上任何地方。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-not-checked"><a href="#assert-not-checked" class="headerlink" title="assert not checked"></a><a href="#assert-not-checked"></a><code>assert not checked</code></h2><p>确认尚未检查目标元素。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-not-editable"><a href="#assert-not-editable" class="headerlink" title="assert not editable"></a><a href="#assert-not-editable"></a><code>assert not editable</code></h2><p>确认目标元素不可编辑。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="assert-not-selected-value"><a href="#assert-not-selected-value" class="headerlink" title="assert not selected value"></a><a href="#assert-not-selected-value"></a><code>assert not selected value</code></h2><p>确认下拉元素中所选选项的value属性不包含提供的值。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-not-text"><a href="#assert-not-text" class="headerlink" title="assert not text"></a><a href="#assert-not-text"></a><code>assert not text</code></h2><p>确认元素的文本不包含提供的值。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-prompt"><a href="#assert-prompt" class="headerlink" title="assert prompt"></a><a href="#assert-prompt"></a><code>assert prompt</code></h2><p>确认已呈现JavaScript提示。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</li>
+</ul>
+<hr>
+<h2 id="assert-selected-value"><a href="#assert-selected-value" class="headerlink" title="assert selected value"></a><a href="#assert-selected-value"></a><code>assert selected value</code></h2><p>确认下拉元素中所选选项的value属性包含提供的值。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-selected-label"><a href="#assert-selected-label" class="headerlink" title="assert selected label"></a><a href="#assert-selected-label"></a><code>assert selected label</code></h2><p>确认下拉菜单中所选选项的标签包含提供的值。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-text"><a href="#assert-text" class="headerlink" title="assert text"></a><a href="#assert-text"></a><code>assert text</code></h2><p>确认元素的文本包含提供的值。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="assert-title"><a href="#assert-title" class="headerlink" title="assert title"></a><a href="#assert-title"></a><code>assert title</code></h2><p>确认当前页面的标题包含提供的文本。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</li>
+</ul>
+<hr>
+<h2 id="assert-value"><a href="#assert-value" class="headerlink" title="assert value"></a><a href="#assert-value"></a><code>assert value</code></h2><p>确认输入字段的（空白修饰）值（或其他带有value参数的值）。对于复选框&#x2F;单选元素，根据是否选中该元素，其值为“ on”或“ off”。如果断言失败，则测试将停止。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="check"><a href="#check" class="headerlink" title="check"></a><a href="#check"></a><code>check</code></h2><p>检查一个切换按钮（复选框&#x2F;单选）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="choose-cancel-on-next-confirmation"><a href="#choose-cancel-on-next-confirmation" class="headerlink" title="choose cancel on next confirmation"></a><a href="#choose-cancel-on-next-confirmation"></a><code>choose cancel on next confirmation</code></h2><p>影响下一个确认警报。此命令将取消它。如果警报已经存在，则使用“ webdriver选择在可见确认时取消”。</p>
+<hr>
+<h2 id="choose-cancel-on-next-prompt"><a href="#choose-cancel-on-next-prompt" class="headerlink" title="choose cancel on next prompt"></a><a href="#choose-cancel-on-next-prompt"></a><code>choose cancel on next prompt</code></h2><p>影响下一个警报提示。此命令将取消它。如果警报已经存在，则使用“ webdriver在可见的提示下选择取消”。</p>
+<hr>
+<h2 id="choose-ok-on-next-confirmation"><a href="#choose-ok-on-next-confirmation" class="headerlink" title="choose ok on next confirmation"></a><a href="#choose-ok-on-next-confirmation"></a><code>choose ok on next confirmation</code></h2><p>影响下一个确认警报。此命令将接受它。如果警报已经存在，请改用“ Webdriver在可见确认中选择确定”。</p>
+<hr>
+<h2 id="click"><a href="#click" class="headerlink" title="click"></a><a href="#click"></a><code>click</code></h2><p>单击目标元素（例如，链接，按钮，复选框或单选按钮）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="click-at"><a href="#click-at" class="headerlink" title="click at"></a><a href="#click-at"></a><code>click at</code></h2><p>单击目标元素（例如，链接，按钮，复选框或单选按钮）。坐标是相对于目标元素的（例如，0,0是元素的左上角），并且主要用于检查在其上传递的效果，例如材料波纹效果。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#coordstring">坐标字符串</a>：指定鼠标事件相对于从定位器找到的元素的x，y位置（例如-10,20）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="close"><a href="#close" class="headerlink" title="close"></a><a href="#close"></a><code>close</code></h2><p>关闭当前窗口。无需关闭初始窗口，IDE会重新使用它；关闭它可能会导致测试性能下降。</p>
+<hr>
+<h2 id="debugger"><a href="#debugger" class="headerlink" title="debugger"></a><a href="#debugger"></a><code>debugger</code></h2><p>中断执行并进入调试器</p>
+<hr>
+<h2 id="do"><a href="#do" class="headerlink" title="do"></a><a href="#do"></a><code>do</code></h2><p>创建一个至少执行一次执行命令的循环。使用repeat if命令终止分支。</p>
+<hr>
+<h2 id="double-click"><a href="#double-click" class="headerlink" title="double click"></a><a href="#double-click"></a><code>double click</code></h2><p>双击元素（例如，链接，按钮，复选框或单选按钮）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="double-click-at"><a href="#double-click-at" class="headerlink" title="double click at"></a><a href="#double-click-at"></a><code>double click at</code></h2><p>双击目标元素（例如，链接，按钮，复选框或单选按钮）。坐标是相对于目标元素的（例如，0,0是元素的左上角），并且主要用于检查在其上传递的效果，例如材料波纹效果。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#coordstring">坐标字符串</a>：指定鼠标事件相对于从定位器找到的元素的x，y位置（例如-10,20）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="drag-and-drop-to-object"><a href="#drag-and-drop-to-object" class="headerlink" title="drag and drop to object"></a><a href="#drag-and-drop-to-object"></a><code>drag and drop to object</code></h2><p>拖动一个元素并将其拖放到另一个元素上。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locatorofobjecttobedragged">要拖动的对象</a>的定位器：<a href="/archives/selenium-ide-arguments#locatorofobjecttobedragged">要拖动</a>的元素的定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#locatorofdragdestinationobject">拖动目标对象</a>的定位器：放置元素（其位置（例如，其中的最中心像素）将成为要拖动的对象的定位器）的点的定位器。</p>
+</li>
+</ul>
+<hr>
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a><a href="#echo"></a><code>echo</code></h2><p>将指定的消息打印到Selenese表中的第三个表单元格中。对于调试很有用。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#message">message</a>：要打印的消息。</li>
+</ul>
+<hr>
+<h2 id="edit-content"><a href="#edit-content" class="headerlink" title="edit content"></a><a href="#edit-content"></a><code>edit content</code></h2><p>设置内容可编辑元素的值，就像您在其中键入一样。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#value">value</a>：要输入的值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="else"><a href="#else" class="headerlink" title="else"></a><a href="#else"></a><code>else</code></h2><p>if块的一部分。如果不满足if和&#x2F;或else if条件，请在此分支中执行命令。使用end命令终止分支。</p>
+<hr>
+<h2 id="else-if"><a href="#else-if" class="headerlink" title="else if"></a><a href="#else-if"></a><code>else if</code></h2><p>if块的一部分。如果不满足if条件，请在此分支中执行命令。使用end命令终止分支。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#conditionalexpression">条件表达式</a>：JavaScript表达式，它返回布尔值以用于控制流命令。</li>
+</ul>
+<hr>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a><a href="#end"></a><code>end</code></h2><p>终止控制流块是否为时，为时和为时间。</p>
+<hr>
+<h2 id="execute-script"><a href="#execute-script" class="headerlink" title="execute script"></a><a href="#execute-script"></a><code>execute script</code></h2><p>在当前选定的框架或窗口的上下文中执行一段JavaScript。脚本片段将作为匿名函数的主体执行。要存储返回值，请使用“ return”关键字，并在值输入字段中提供一个变量名称。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#script">script</a>：要运行的JavaScript代码段。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="execute-async-script"><a href="#execute-async-script" class="headerlink" title="execute async script"></a><a href="#execute-async-script"></a><code>execute async script</code></h2><p>在当前选定的框架或窗口的上下文中执行JavaScript的异步代码段。该脚本片段将作为匿名函数的主体执行，并且必须返回Promise。如果您使用’return’关键字，则Promise结果将保存在变量中。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#script">script</a>：要运行的JavaScript代码段。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="for-each"><a href="#for-each" class="headerlink" title="for each"></a><a href="#for-each"></a><code>for each</code></h2><p>创建一个循环，为给定集合中的每个项目执行执行命令。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#arrayvariablename">数组变量名称</a>：包含JavaScript数组的变量的名称。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#iteratorvariablename">迭代器变量名称</a>：在循环控制流命令中迭代集合时使用的<a href="/archives/selenium-ide-arguments#iteratorvariablename">变量名称</a>（例如，每个变量）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a><a href="#if"></a><code>if</code></h2><p>在测试中创建一个条件分支。使用end命令终止分支。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#conditionalexpression">条件表达式</a>：JavaScript表达式，它返回布尔值以用于控制流命令。</li>
+</ul>
+<hr>
+<h2 id="mouse-down"><a href="#mouse-down" class="headerlink" title="mouse down"></a><a href="#mouse-down"></a><code>mouse down</code></h2><p>模拟用户按下鼠标左键（尚未释放它）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="mouse-down-at"><a href="#mouse-down-at" class="headerlink" title="mouse down at"></a><a href="#mouse-down-at"></a><code>mouse down at</code></h2><p>模拟用户在指定位置按下鼠标左键（尚未释放它）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#coordstring">坐标字符串</a>：指定鼠标事件相对于从定位器找到的元素的x，y位置（例如-10,20）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="mouse-move-at"><a href="#mouse-move-at" class="headerlink" title="mouse move at"></a><a href="#mouse-move-at"></a><code>mouse move at</code></h2><p>模拟用户在指定元素上按下鼠标按钮（尚未释放它）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#coordstring">坐标字符串</a>：指定鼠标事件相对于从定位器找到的元素的x，y位置（例如-10,20）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="mouse-out"><a href="#mouse-out" class="headerlink" title="mouse out"></a><a href="#mouse-out"></a><code>mouse out</code></h2><p>模拟用户将鼠标指针从指定元素移开。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="mouse-over"><a href="#mouse-over" class="headerlink" title="mouse over"></a><a href="#mouse-over"></a><code>mouse over</code></h2><p>模拟用户将鼠标悬停在指定元素上。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="mouse-up"><a href="#mouse-up" class="headerlink" title="mouse up"></a><a href="#mouse-up"></a><code>mouse up</code></h2><p>模拟当用户释放鼠标按钮时发生的事件（例如，停止按住按钮）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="mouse-up-at"><a href="#mouse-up-at" class="headerlink" title="mouse up at"></a><a href="#mouse-up-at"></a><code>mouse up at</code></h2><p>模拟当用户在指定位置释放鼠标按钮（例如，停止按住按钮时）时发生的事件。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#coordstring">坐标字符串</a>：指定鼠标事件相对于从定位器找到的元素的x，y位置（例如-10,20）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="open"><a href="#open" class="headerlink" title="open"></a><a href="#open"></a><code>open</code></h2><p>打开URL，然后等待页面加载，然后继续。这既接受相对URL，也接受绝对URL。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#url">url</a>：要打开的URL（可以是相对的或绝对的）。</li>
+</ul>
+<hr>
+<h2 id="pause"><a href="#pause" class="headerlink" title="pause"></a><a href="#pause"></a><code>pause</code></h2><p>等待指定的时间。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</li>
+</ul>
+<hr>
+<h2 id="remove-selection"><a href="#remove-selection" class="headerlink" title="remove selection"></a><a href="#remove-selection"></a><code>remove selection</code></h2><p>使用选项定位器从多选元素中的一组选定选项中删除一个选择。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#option">option</a>：一个选项定位器，通常只是一个选项标签（例如“ John Smith”）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="repeat-if"><a href="#repeat-if" class="headerlink" title="repeat if"></a><a href="#repeat-if"></a><code>repeat if</code></h2><p>有条件地终止“执行”控制流分支。如果提供的条件表达式的结果为true，则它将开始do循环。否则，它将结束循环。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#conditionalexpression">条件表达式</a>：JavaScript表达式，它返回布尔值以用于控制流命令。</li>
+</ul>
+<hr>
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a><a href="#run"></a><code>run</code></h2><p>从当前项目运行测试用例。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#testcase">测试用例</a>：项目中的测试用例名称。</li>
+</ul>
+<hr>
+<h2 id="run-script"><a href="#run-script" class="headerlink" title="run script"></a><a href="#run-script"></a><code>run script</code></h2><p>在当前测试窗口的主体中创建一个新的“ script”标记，并将指定的文本添加到命令主体中。请注意，这些脚本标记中引发的JS异常不是由Selenium管理的，因此，如果脚本有可能引发异常，则应该将脚本包装在try &#x2F; catch块中。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#script">script</a>：要运行的JavaScript代码段。</li>
+</ul>
+<hr>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a><a href="#select"></a><code>select</code></h2><p>使用选项定位器从下拉菜单中选择一个元素。选项定位符提供了指定选择元素的不同方法（例如，label &#x3D;，value &#x3D;，id &#x3D;，index &#x3D;）。如果未提供选项定位符前缀，则将尝试在标签上进行匹配。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#option">option</a>：一个选项定位器，通常只是一个选项标签（例如“ John Smith”）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="select-frame"><a href="#select-frame" class="headerlink" title="select frame"></a><a href="#select-frame"></a><code>select frame</code></h2><p>在当前窗口中选择一个框架。您可以通过从0开始的索引号来选择帧（例如，选择“ index &#x3D; 0”的第一帧或“ index &#x3D; 2”的第三帧）。对于嵌套框架，您将需要多次调用此命令（对树中的每个框架都必须调用一次，直到到达所需的框架为止）。您可以使用“ relative &#x3D; parent”选择父框架。要返回页面顶部，请使用“ relative &#x3D; top”。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="select-window"><a href="#select-window" class="headerlink" title="select window"></a><a href="#select-window"></a><code>select window</code></h2><p>使用窗口定位器选择弹出窗口。选择弹出窗口后，所有命令都将转到该窗口。窗口定位器使用手柄选择窗口。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#windowhandle">窗口句柄</a>：代表特定页面（选项卡或窗口）的句柄。</li>
+</ul>
+<hr>
+<h2 id="send-keys"><a href="#send-keys" class="headerlink" title="send keys"></a><a href="#send-keys"></a><code>send keys</code></h2><p>模拟指定元素上的击键事件，就像您按键键入值一样。这模拟真实用户在指定字符串中键入每个字符；它也受到实际用户的限制，例如不能键入不可见或只读元素。这对于需要显式键事件的动态UI小部件（如自动完成组合框）很有用。与简单的“类型”命令直接将指定的值强制进入页面不同，该命令不会替换现有内容。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#keysequence">按键序列</a>：可以键入的按键序列可用于发送按键（例如$ {KEY_ENTER}）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="set-speed"><a href="#set-speed" class="headerlink" title="set speed"></a><a href="#set-speed"></a><code>set speed</code></h2><p>设置执行速度（例如，设置每次Selenium操作之后的延迟的毫秒长度）。默认情况下，不存在此类延迟，例如，延迟为0毫秒。此设置是全局设置，将影响所有测试运行，直到更改。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</li>
+</ul>
+<hr>
+<h2 id="set-window-size"><a href="#set-window-size" class="headerlink" title="set window size"></a><a href="#set-window-size"></a><code>set window size</code></h2><p>设置浏览器的窗口大小，包括浏览器的界面。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#resolution">resolution</a>：使用WidthxHeight指定窗口分辨率。（例如1280x800）。</li>
+</ul>
+<hr>
+<h2 id="store"><a href="#store" class="headerlink" title="store"></a><a href="#store"></a><code>store</code></h2><p>将目标字符串另存为变量，以方便重用。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-attribute"><a href="#store-attribute" class="headerlink" title="store attribute"></a><a href="#store-attribute"></a><code>store attribute</code></h2><p>获取元素属性的值。在不同的浏览器中，属性的值可能有所不同（例如，“样式”属性就是这种情况）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#attributelocator">属性定位符</a>：元素定位符，后跟@符号，然后是属性名称，例如“ foo @ bar”。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-json"><a href="#store-json" class="headerlink" title="store json"></a><a href="#store-json"></a><code>store json</code></h2><p>未定义</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#json">json</a>：JavaScript对象的字符串表示形式。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-text"><a href="#store-text" class="headerlink" title="store text"></a><a href="#store-text"></a><code>store text</code></h2><p>获取元素的文本并将其存储以备后用。这适用于任何包含文本的元素。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-title"><a href="#store-title" class="headerlink" title="store title"></a><a href="#store-title"></a><code>store title</code></h2><p>获取当前页面的标题。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-value"><a href="#store-value" class="headerlink" title="store value"></a><a href="#store-value"></a><code>store value</code></h2><p>获取element的值并将其存储以供以后使用。这适用于任何输入类型元素。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="store-window-handle"><a href="#store-window-handle" class="headerlink" title="store window handle"></a><a href="#store-window-handle"></a><code>store window handle</code></h2><p>获取当前页面的句柄。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#windowhandle">窗口句柄</a>：代表特定页面（选项卡或窗口）的句柄。</li>
+</ul>
+<hr>
+<h2 id="store-xpath-count"><a href="#store-xpath-count" class="headerlink" title="store xpath count"></a><a href="#store-xpath-count"></a><code>store xpath count</code></h2><p>获取与指定xpath匹配的节点数（例如，“ &#x2F;&#x2F; table”将给出表数）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#xpath">xpath</a>：要评估的xpath表达式。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="submit"><a href="#submit" class="headerlink" title="submit"></a><a href="#submit"></a><code>submit</code></h2><p>提交指定的表格。这对于没有提交按钮的表单特别有用，例如单输入“搜索”表单。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#formlocator">表单定位器</a>：您要提交的表单的元素定位器。</li>
+</ul>
+<hr>
+<h2 id="times"><a href="#times" class="headerlink" title="times"></a><a href="#times"></a><code>times</code></h2><p>创建一个循环执行n次执行命令。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#times">times</a>：控制流循环将执行其块内命令的尝试次数。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#looplimit">循环限制</a>：一个可选参数，指定循环控制流命令可以执行的最大次数。这样可以防止无限循环。默认值设置为1000。</p>
+</li>
+</ul>
+<hr>
+<h2 id="type"><a href="#type" class="headerlink" title="type"></a><a href="#type"></a><code>type</code></h2><p>设置输入字段的值，就像您在其中键入一样。也可以用于设置组合框，复选框等的值。在这种情况下，value应该是所选选项的值，而不是可见的文本。仅限Chrome：如果给出了文件路径，它将被上传到输入（对于type &#x3D; file），注意：不支持XPath定位器。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#value">value</a>：要输入的值。</p>
+</li>
+</ul>
+<hr>
+<h2 id="uncheck"><a href="#uncheck" class="headerlink" title="uncheck"></a><a href="#uncheck"></a><code>uncheck</code></h2><p>取消选中切换按钮（复选框&#x2F;单选）。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify"><a href="#verify" class="headerlink" title="verify"></a><a href="#verify"></a><code>verify</code></h2><p>软断言变量是期望值。变量的值将转换为字符串以进行比较。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#variablename">变量名</a>：不带括号的<a href="/archives/selenium-ide-arguments#variablename">变量名</a>。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#expectedvalue">期望值</a>：您期望变量包含的结果（例如，true，false或其他某个值）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-checked"><a href="#verify-checked" class="headerlink" title="verify checked"></a><a href="#verify-checked"></a><code>verify checked</code></h2><p>软断言已选中切换按钮（复选框&#x2F;单选）。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-editable"><a href="#verify-editable" class="headerlink" title="verify editable"></a><a href="#verify-editable"></a><code>verify editable</code></h2><p>软断言指定的输入元素是否可编辑（例如，尚未禁用）。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-element-present"><a href="#verify-element-present" class="headerlink" title="verify element present"></a><a href="#verify-element-present"></a><code>verify element present</code></h2><p>软断言指定的元素在页面上的某处。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-element-not-present"><a href="#verify-element-not-present" class="headerlink" title="verify element not present"></a><a href="#verify-element-not-present"></a><code>verify element not present</code></h2><p>软断言指定的元素不在页面上。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-not-checked"><a href="#verify-not-checked" class="headerlink" title="verify not checked"></a><a href="#verify-not-checked"></a><code>verify not checked</code></h2><p>软断言未选中切换按钮（复选框&#x2F;单选）。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-not-editable"><a href="#verify-not-editable" class="headerlink" title="verify not editable"></a><a href="#verify-not-editable"></a><code>verify not editable</code></h2><p>软断言指定的输入元素是否不可编辑（例如，尚未禁用）。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</li>
+</ul>
+<hr>
+<h2 id="verify-not-selected-value"><a href="#verify-not-selected-value" class="headerlink" title="verify not selected value"></a><a href="#verify-not-selected-value"></a><code>verify not selected value</code></h2><p>软断言所期望的元素尚未在其选择属性的选择菜单中选择。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#option">option</a>：一个选项定位器，通常只是一个选项标签（例如“ John Smith”）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-not-text"><a href="#verify-not-text" class="headerlink" title="verify not text"></a><a href="#verify-not-text"></a><code>verify not text</code></h2><p>软断言元素的文本不存在。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-selected-label"><a href="#verify-selected-label" class="headerlink" title="verify selected label"></a><a href="#verify-selected-label"></a><code>verify selected label</code></h2><p>对指定的select元素中的选定选项进行软断言。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-selected-value"><a href="#verify-selected-value" class="headerlink" title="verify selected value"></a><a href="#verify-selected-value"></a><code>verify selected value</code></h2><p>软断言所期望的元素已通过其选项属性在选择菜单中选择。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#selectlocator">select locator</a>：标识下拉菜单的元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#option">option</a>：一个选项定位器，通常只是一个选项标签（例如“ John Smith”）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-text"><a href="#verify-text" class="headerlink" title="verify text"></a><a href="#verify-text"></a><code>verify text</code></h2><p>软断言元素的文本存在。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</p>
+</li>
+</ul>
+<hr>
+<h2 id="verify-title"><a href="#verify-title" class="headerlink" title="verify title"></a><a href="#verify-title"></a><code>verify title</code></h2><p>软断言当前页面的标题包含提供的文本。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#text">text</a>：要使用的文本。</li>
+</ul>
+<hr>
+<h2 id="verify-value"><a href="#verify-value" class="headerlink" title="verify value"></a><a href="#verify-value"></a><code>verify value</code></h2><p>软断言输入字段的（经空白修饰的）值（或带有value参数的其他任何值）。对于复选框&#x2F;单选元素，根据是否选中该元素，其值为“ on”或“ off”。即使验证失败，测试也将继续。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#text">text</a>：完全匹配的字符串。正在支持模式匹配。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium-ide/issues/141">https://github.com/SeleniumHQ/selenium-ide/issues/141</a>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-editable"><a href="#wait-for-element-editable" class="headerlink" title="wait for element editable"></a><a href="#wait-for-element-editable"></a><code>wait for element editable</code></h2><p>等待元素可编辑。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-not-editable"><a href="#wait-for-element-not-editable" class="headerlink" title="wait for element not editable"></a><a href="#wait-for-element-not-editable"></a><code>wait for element not editable</code></h2><p>等待元素不可编辑。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-not-present"><a href="#wait-for-element-not-present" class="headerlink" title="wait for element not present"></a><a href="#wait-for-element-not-present"></a><code>wait for element not present</code></h2><p>等待目标元素不出现在页面上。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-not-visible"><a href="#wait-for-element-not-visible" class="headerlink" title="wait for element not visible"></a><a href="#wait-for-element-not-visible"></a><code>wait for element not visible</code></h2><p>等待目标元素在页面上不可见。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-present"><a href="#wait-for-element-present" class="headerlink" title="wait for element present"></a><a href="#wait-for-element-present"></a><code>wait for element present</code></h2><p>等待目标元素出现在页面上。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="wait-for-element-visible"><a href="#wait-for-element-visible" class="headerlink" title="wait for element visible"></a><a href="#wait-for-element-visible"></a><code>wait for element visible</code></h2><p>等待目标元素在页面上可见。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#locator">locator</a>：元素定位器。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#waittime">等待时间</a>：<a href="/archives/selenium-ide-arguments#waittime">等待时间</a>（以毫秒为单位）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="webdriver-answer-on-visible-prompt"><a href="#webdriver-answer-on-visible-prompt" class="headerlink" title="webdriver answer on visible prompt"></a><a href="#webdriver-answer-on-visible-prompt"></a><code>webdriver answer on visible prompt</code></h2><p>影响当前显示的警报提示。此命令指示Selenium为它提供指定的答案。如果尚未出现警报，请改用“在下一个提示时回答”。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><a href="/archives/selenium-ide-arguments#answer">答案</a>：提示弹出窗口时给出的答案。</li>
+</ul>
+<hr>
+<h2 id="webdriver-choose-cancel-on-visible-confirmation"><a href="#webdriver-choose-cancel-on-visible-confirmation" class="headerlink" title="webdriver choose cancel on visible confirmation"></a><a href="#webdriver-choose-cancel-on-visible-confirmation"></a><code>webdriver choose cancel on visible confirmation</code></h2><p>影响当前显示的确认警报。此命令指示Selenium取消它。如果警报尚未出现，请改用“在下次确认时选择取消”。</p>
+<hr>
+<h2 id="webdriver-choose-cancel-on-visible-prompt"><a href="#webdriver-choose-cancel-on-visible-prompt" class="headerlink" title="webdriver choose cancel on visible prompt"></a><a href="#webdriver-choose-cancel-on-visible-prompt"></a><code>webdriver choose cancel on visible prompt</code></h2><p>影响当前显示的警报提示。此命令指示Selenium取消它。如果警报尚未出现，请改用“在下一个提示时选择取消”。</p>
+<hr>
+<h2 id="webdriver-choose-ok-on-visible-confirmation"><a href="#webdriver-choose-ok-on-visible-confirmation" class="headerlink" title="webdriver choose ok on visible confirmation"></a><a href="#webdriver-choose-ok-on-visible-confirmation"></a><code>webdriver choose ok on visible confirmation</code></h2><p>影响当前显示的确认警报。此命令指示Selenium接受它。如果警报尚未出现，请改用“在下次确认时选择确定”。</p>
+<hr>
+<h2 id="while"><a href="#while" class="headerlink" title="while"></a><a href="#while"></a><code>while</code></h2><p>只要提供的条件表达式为true，就创建一个循环重复执行执行命令的循环。</p>
+<p><strong>论点</strong></p>
+<ul>
+<li><p><a href="/archives/selenium-ide-arguments#conditionalexpression">条件表达式</a>：JavaScript表达式，它返回布尔值以用于控制流命令。</p>
+</li>
+<li><p><a href="/archives/selenium-ide-arguments#looplimit">循环限制</a>：一个可选参数，指定循环控制流命令可以执行的最大次数。这样可以防止无限循环。默认值设置为1000。</p>
+</li>
+</ul>
+<hr>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/')">Selenium IDE使用指南六（指令列表）</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=Selenium IDE使用指南六（指令列表）&amp;url=https://tushu.info/archives/Selenium-IDE-shi-yong-zhi-nan-liu-zhi/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/Selenium-IDE-shi-yong-zhi-nan-qi-can/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Selenium IDE使用指南七（参数定义）</div></div></a></div><div class="next-post pull-right"><a href="/archives/Kubernetes-er-tong-cha-tu-zhi-nan/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Kubernetes 儿童插图指南</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#add-selection"><span class="toc-number">1.</span> <span class="toc-text">add selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#answer-on-next-prompt"><span class="toc-number">2.</span> <span class="toc-text">answer on next prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert"><span class="toc-number">3.</span> <span class="toc-text">assert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-alert"><span class="toc-number">4.</span> <span class="toc-text">assert alert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-checked"><span class="toc-number">5.</span> <span class="toc-text">assert checked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-confirmation"><span class="toc-number">6.</span> <span class="toc-text">assert confirmation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-editable"><span class="toc-number">7.</span> <span class="toc-text">assert editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-element-present"><span class="toc-number">8.</span> <span class="toc-text">assert element present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-element-not-present"><span class="toc-number">9.</span> <span class="toc-text">assert element not present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-not-checked"><span class="toc-number">10.</span> <span class="toc-text">assert not checked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-not-editable"><span class="toc-number">11.</span> <span class="toc-text">assert not editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-not-selected-value"><span class="toc-number">12.</span> <span class="toc-text">assert not selected value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-not-text"><span class="toc-number">13.</span> <span class="toc-text">assert not text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-prompt"><span class="toc-number">14.</span> <span class="toc-text">assert prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-selected-value"><span class="toc-number">15.</span> <span class="toc-text">assert selected value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-selected-label"><span class="toc-number">16.</span> <span class="toc-text">assert selected label</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-text"><span class="toc-number">17.</span> <span class="toc-text">assert text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-title"><span class="toc-number">18.</span> <span class="toc-text">assert title</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert-value"><span class="toc-number">19.</span> <span class="toc-text">assert value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#check"><span class="toc-number">20.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choose-cancel-on-next-confirmation"><span class="toc-number">21.</span> <span class="toc-text">choose cancel on next confirmation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choose-cancel-on-next-prompt"><span class="toc-number">22.</span> <span class="toc-text">choose cancel on next prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choose-ok-on-next-confirmation"><span class="toc-number">23.</span> <span class="toc-text">choose ok on next confirmation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#click"><span class="toc-number">24.</span> <span class="toc-text">click</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#click-at"><span class="toc-number">25.</span> <span class="toc-text">click at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#close"><span class="toc-number">26.</span> <span class="toc-text">close</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugger"><span class="toc-number">27.</span> <span class="toc-text">debugger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#do"><span class="toc-number">28.</span> <span class="toc-text">do</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#double-click"><span class="toc-number">29.</span> <span class="toc-text">double click</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#double-click-at"><span class="toc-number">30.</span> <span class="toc-text">double click at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#drag-and-drop-to-object"><span class="toc-number">31.</span> <span class="toc-text">drag and drop to object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#echo"><span class="toc-number">32.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#edit-content"><span class="toc-number">33.</span> <span class="toc-text">edit content</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#else"><span class="toc-number">34.</span> <span class="toc-text">else</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#else-if"><span class="toc-number">35.</span> <span class="toc-text">else if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#end"><span class="toc-number">36.</span> <span class="toc-text">end</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#execute-script"><span class="toc-number">37.</span> <span class="toc-text">execute script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#execute-async-script"><span class="toc-number">38.</span> <span class="toc-text">execute async script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-each"><span class="toc-number">39.</span> <span class="toc-text">for each</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if"><span class="toc-number">40.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-down"><span class="toc-number">41.</span> <span class="toc-text">mouse down</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-down-at"><span class="toc-number">42.</span> <span class="toc-text">mouse down at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-move-at"><span class="toc-number">43.</span> <span class="toc-text">mouse move at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-out"><span class="toc-number">44.</span> <span class="toc-text">mouse out</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-over"><span class="toc-number">45.</span> <span class="toc-text">mouse over</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-up"><span class="toc-number">46.</span> <span class="toc-text">mouse up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouse-up-at"><span class="toc-number">47.</span> <span class="toc-text">mouse up at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#open"><span class="toc-number">48.</span> <span class="toc-text">open</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pause"><span class="toc-number">49.</span> <span class="toc-text">pause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#remove-selection"><span class="toc-number">50.</span> <span class="toc-text">remove selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repeat-if"><span class="toc-number">51.</span> <span class="toc-text">repeat if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#run"><span class="toc-number">52.</span> <span class="toc-text">run</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#run-script"><span class="toc-number">53.</span> <span class="toc-text">run script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-number">54.</span> <span class="toc-text">select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select-frame"><span class="toc-number">55.</span> <span class="toc-text">select frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select-window"><span class="toc-number">56.</span> <span class="toc-text">select window</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#send-keys"><span class="toc-number">57.</span> <span class="toc-text">send keys</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-speed"><span class="toc-number">58.</span> <span class="toc-text">set speed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-window-size"><span class="toc-number">59.</span> <span class="toc-text">set window size</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store"><span class="toc-number">60.</span> <span class="toc-text">store</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-attribute"><span class="toc-number">61.</span> <span class="toc-text">store attribute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-json"><span class="toc-number">62.</span> <span class="toc-text">store json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-text"><span class="toc-number">63.</span> <span class="toc-text">store text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-title"><span class="toc-number">64.</span> <span class="toc-text">store title</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-value"><span class="toc-number">65.</span> <span class="toc-text">store value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-window-handle"><span class="toc-number">66.</span> <span class="toc-text">store window handle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#store-xpath-count"><span class="toc-number">67.</span> <span class="toc-text">store xpath count</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#submit"><span class="toc-number">68.</span> <span class="toc-text">submit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#times"><span class="toc-number">69.</span> <span class="toc-text">times</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#type"><span class="toc-number">70.</span> <span class="toc-text">type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uncheck"><span class="toc-number">71.</span> <span class="toc-text">uncheck</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify"><span class="toc-number">72.</span> <span class="toc-text">verify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-checked"><span class="toc-number">73.</span> <span class="toc-text">verify checked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-editable"><span class="toc-number">74.</span> <span class="toc-text">verify editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-element-present"><span class="toc-number">75.</span> <span class="toc-text">verify element present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-element-not-present"><span class="toc-number">76.</span> <span class="toc-text">verify element not present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-not-checked"><span class="toc-number">77.</span> <span class="toc-text">verify not checked</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-not-editable"><span class="toc-number">78.</span> <span class="toc-text">verify not editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-not-selected-value"><span class="toc-number">79.</span> <span class="toc-text">verify not selected value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-not-text"><span class="toc-number">80.</span> <span class="toc-text">verify not text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-selected-label"><span class="toc-number">81.</span> <span class="toc-text">verify selected label</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-selected-value"><span class="toc-number">82.</span> <span class="toc-text">verify selected value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-text"><span class="toc-number">83.</span> <span class="toc-text">verify text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-title"><span class="toc-number">84.</span> <span class="toc-text">verify title</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#verify-value"><span class="toc-number">85.</span> <span class="toc-text">verify value</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-editable"><span class="toc-number">86.</span> <span class="toc-text">wait for element editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-not-editable"><span class="toc-number">87.</span> <span class="toc-text">wait for element not editable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-not-present"><span class="toc-number">88.</span> <span class="toc-text">wait for element not present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-not-visible"><span class="toc-number">89.</span> <span class="toc-text">wait for element not visible</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-present"><span class="toc-number">90.</span> <span class="toc-text">wait for element present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-for-element-visible"><span class="toc-number">91.</span> <span class="toc-text">wait for element visible</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webdriver-answer-on-visible-prompt"><span class="toc-number">92.</span> <span class="toc-text">webdriver answer on visible prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webdriver-choose-cancel-on-visible-confirmation"><span class="toc-number">93.</span> <span class="toc-text">webdriver choose cancel on visible confirmation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webdriver-choose-cancel-on-visible-prompt"><span class="toc-number">94.</span> <span class="toc-text">webdriver choose cancel on visible prompt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webdriver-choose-ok-on-visible-confirmation"><span class="toc-number">95.</span> <span class="toc-text">webdriver choose ok on visible confirmation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#while"><span class="toc-number">96.</span> <span class="toc-text">while</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

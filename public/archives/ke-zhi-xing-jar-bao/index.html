@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>可执行jar包 | 代老师的博客</title><meta name="keywords" content="springboot"><meta name="author" content="代长亚"><meta name="copyright" content="代长亚"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="可执行jar包"><meta name="application-name" content="可执行jar包"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="可执行jar包"><meta property="og:url" content="https://tushu.info/archives/ke-zhi-xing-jar-bao/index.html"><meta property="og:site_name" content="代老师的博客"><meta property="og:description" content="我们在平时的工作中，不管是对于一个普通的Java工程还是一个SpringBoot工程，都会将这些工程打包成一个可执行的jar包，然后就可以利用java -jar xxx.jar命令来运行可执行jar包。 本文是对如何生成一个可执行jar包、以及可执行jar包背后原理的一个学习探索和整理。 java"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://tushu.info/img/default_cover.jpg"><meta property="article:author" content="代长亚"><meta property="article:tag" content="技术博客, 编程, 开发, 学习笔记"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://tushu.info/img/default_cover.jpg"><meta name="description" content="我们在平时的工作中，不管是对于一个普通的Java工程还是一个SpringBoot工程，都会将这些工程打包成一个可执行的jar包，然后就可以利用java -jar xxx.jar命令来运行可执行jar包。 本文是对如何生成一个可执行jar包、以及可执行jar包背后原理的一个学习探索和整理。 java"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://tushu.info/archives/ke-zhi-xing-jar-bao/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4bdc02239b6fe6f4e90583308d9ed3cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 代长亚","link":"链接: ","source":"来源: 代老师的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '代老师的博客',
+  title: '可执行jar包',
+  postAI: '',
+  pageFillDescription: 'java -jar xxx.jar命令的原理, 手动创建一个可执行jar包, maven生成普通的可执行jar包, 使用maven-jar-plugin和maven-dependency-plugin插件, 使用maven-assembly-plugin插件, 使用maven-shade-plugin插件, maven生成SpringBoot项目的可执行jar包, JarLauncher的执行原理, 处理自定义URL的jar协议, 类加载器, 执行main方法我们在平时的工作中不管是对于一个普通的工程还是一个工程都会将这些工程打包成一个可执行的包然后就可以利用命令来运行可执行包本文是对如何生成一个可执行包以及可执行包背后原理的一个学习探索和整理命令的原理当我们在命令行执行命令时虚拟机会加载我们的包虚拟机中的类加载器会获取包中的文件该文件中列出了该可执行包的入口程序依赖的包版本号等手动创建一个可执行包知道了这个原理我们可以手动创建一个可执行包首先创建一个简单的类为了测试可执行包对第三方包的依赖我们这个类依赖库使用命令编译该文件其中目录中存放的包接下来创建一个文件内容如下各字段的含义如下清单文件的版本默认为程序的入口即函数所在的类可执行包依赖的包的路径此时目录结构如下最后使用命令来生成可执行包是自带的命令各个参数的含义如下创建新档案在标准输出中输出详细信息指定档案文件名指定清单文件也就是指定我们的如果没有这个参数会生成一个默认的文件指定生成包的名称指定清单文件指定要打包的文件最后输出一个可执行包这样就可以运行这个可执行包解压来查看目录结构发现命令根据文件的描述将我们自己的类第三方依赖类都打包进了这个可执行包并且新建了一个目录来存放文件生成普通的可执行包日常开发中我们不会手动维护依赖包更不会手动编写描述文件而是会使用这样的工具来维护我们的整个工程使用来生成可以执行的包原理上和上文所说的手动创建一个可执行包是一样的需要一个文件来指定入口函数以及依赖包的位置能够在指定依赖包的位置找到依赖包如果直接使用命令来对项目进行打包是无法生成一个可执行包的原因就是这样生成的包文件中没有指定以及因此虚拟机在加载包后找不到入口函数以及依赖的包我们需要使用插件来生成可执行的包有以下几种方法使用和插件在中配置插件用于生成文件的部分内容指定中的会在加上项并配置依赖包指定依赖包所在的目录下面就是我的工程生成的文件内容只生成文件还不够插件用于将依赖包拷贝到指定的位置即目录下配置完成后使用命令会在目录下生成可执行的包并将依赖包拷贝到目录下目录结构如下可以看到所以依赖的包包括以及本身依赖的包都被拷贝到了目录下有了入口函数以及依赖包我们就可以通过命令来运行包了这种方式生成的包有个缺点就是依赖包是单独存放的这样不便于管理使用插件在中配置配置后可以使用命令来生成可执行包命令执行后会在目录下生成两个包一个是普通的另一个是文件这个文件不但包含了自己项目中的代码和资源还包含了所有依赖包的内容所以可以直接通过命令来运行它的文件内容如下可以看到文件指定了并没有指定原因我们查看包的目录结构可知可以看到插件并不是打包依赖的第三方包而是将所有依赖的文件打包进这个单一的包加上以下配置就可以直接使用来打包无需使用其中表示在执行打包时执行使用插件在中配置配置后可以使用命令来生成可执行包命令执行后会在目录下生成两个包一个是普通的另一个是文件其中是不包含依赖的原始文件是包含了依赖以及程序入口的可执行包插件与插件一样也是将第三方依赖的文件打包进这个独立的包中所以这个包可以独立运行生成项目的可执行包项目与普通的项目是不一样的它无法使用前面说的这几种插件来生成可执行包而是需要引入插件来打包打包之后可执行包的目录结构如下其中内容如下我们发现与普通工程不一样的是生成的可执行包指定的并不是我们在程序中函数所在类而是名为的类当我们使用执行包时调用的是类的方法类位于的中这个在打包时由插件追加进包是提供的一个工具用于执行打包出来的包的执行原理设计了多个用于启动不同类型的程序分别是用于加载并执行包用于加载并执行包可以通过配置去加载外部的包以当前程序使用的的为例其执行的主流程如下注册一个处理自定义的协议为执行指定的类加载器调用中指定类中的方法处理自定义的协议为什么需要自定义包的处理协议在里面资源的分隔符是但是中只支持一个这无法满足的需求因此扩展了即它支持多个表示文件嵌套文件文件嵌套目录文件的如下所示这是因为重新扩展了文件的协议因此需要自定义一个文件协议的处理器通过将包名追加到系统属性中来定义文件的处理器还定义了一个类来定义资源统一访问的接口比如方法获取资源的获取资源的文件方法获取内部的嵌套资源还在内部定义了一个接口用于表示内部的子资源有两个实现分别表示文件文件目录类加载器自定义了一个类加载器这是为什么我们知道中的类加载器遵循双亲委派机制从上到下依次为启动类加载器扩展类加载器应用程序类加载器以及自定义的类加载器如果一个类加载器收到了类加载的请求它首先不会自己去尝试加载这个类而是把这个请求委派给父类加载器去完成每一个层次的类加载器都是如此因此所有的加载请求最终都应该传送到顶层的启动类加载器中只有当父加载器反馈自己无法完成这个加载请求它的搜索范围中没有找到所需的类时子加载器才会尝试自己去加载但是因为打出的包依赖的各个第三方文件并不在自己的下它们存放在包的目录下如果采用双亲委派机制的话获取不到这些依赖因此需要破坏双亲委派机制使用自定义的类加载器在创建之前会先调用方法获得所有依赖资源来组成资源过滤遵循以下规则即位于和的文件以及包资源的加载按照中指定的文件提供的顺序比如依赖的加载顺序由根据短路优先原则和先声明优先原则来确定确保不会有相互冲突的依赖接着将这个资源列表传递给使用这个自定义的类加载器来执行后续的程序当需要加载新的类时就能找到指定的位置去加载类重写了方法因此会调用该方法来加载类的执行主要分成两步第一步调用方法来定义指定类所在的方法的关键代码如下遍历中保存的所有目录以及包这些资源是前面调用方法获取得来的如果发现这些资源中有存在指定的类则调用方法保存与资源的对应关系确保包与相应的相关联第二步调用方法来加载指定的类这一步是正常的双亲委派机制的流程类加载器首先调用上层类加载器的方法来尝试加载类按的顺序依次调用上层的类加载器无法加载到包中的资源于是从上往下按的顺序调用下层方法直到调用父类的方法主要代码如下第一步将类名解析成路径并加上后缀第二步根据之前注册的资源列表找到指定类所在的资源关键代码是是实例里面保存了之前注册的资源列表遍历该列表并找到指定类所对应的资源比如类对应的资源为第三步最终根据类名以及对应的资源调用方法完成类的加载并返回执行方法执行的方法就相对简单流程如下根据文件中的找到指定的启动类利用反射加载并启动指定类中的方法这里用到了前面自定义的类加载器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-01 21:32:36',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">代老师的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 1.05rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 1.05rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 1.05rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 1.05rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 1.05rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 1.05rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 1.05rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 1.05rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 1.05rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 1.05rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 1.05rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 1.05rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 1.05rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 1.05rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 1.05rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 1.05rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 1.05rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 1.05rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 1.05rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 1.05rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 1.05rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 1.05rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 1.05rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 1.05rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 1.05rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 1.05rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 1.05rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1.05rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 1.05rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 1.05rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.05rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.05rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 1.05rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/08/"><span class="card-archive-list-date">八月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/springboot/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>springboot</span></a></span></div></div><h1 class="post-title" itemprop="name headline">可执行jar包</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:02.000Z" title="发表于 2024-10-31 22:02:02">2024-10-31</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.812Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为北京"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>北京</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_cover.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://tushu.info/archives/ke-zhi-xing-jar-bao/"><header><a href="/tags/springboot/" tabindex="-1" itemprop="url">springboot</a><h1 id="CrawlerTitle" itemprop="name headline">可执行jar包</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">代长亚</span><time itemprop="dateCreated datePublished" datetime="2024-10-31T14:02:02.000Z" title="发表于 2024-10-31 22:02:02">2024-10-31</time><time itemprop="dateCreated datePublished" datetime="2025-09-01T13:32:36.812Z" title="更新于 2025-09-01 21:32:36">2025-09-01</time></header><p>我们在平时的工作中，不管是对于一个普通的Java工程还是一个SpringBoot工程，都会将这些工程打包成一个可执行的jar包，然后就可以利用<code>java -jar xxx.jar</code>命令来运行可执行jar包。</p>
+<p>本文是对如何生成一个可执行jar包、以及可执行jar包背后原理的一个学习探索和整理。</p>
+<h1 id="java-jar-xxx-jar命令的原理"><a href="#java-jar-xxx-jar命令的原理" class="headerlink" title="java -jar xxx.jar命令的原理"></a><a href="#java-jar-xxx-jar%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8E%9F%E7%90%86" title="java -jar xxx.jar命令的原理"></a><code>java -jar xxx.jar</code>命令的原理</h1><p>当我们在命令行执行<code>java -jar xxx.jar</code>命令时，Java虚拟机会加载我们的jar包，虚拟机中的app类加载器会获取jar包中的<code>META-INF/MANIFEST.MF</code>文件，该文件中列出了该可执行jar包的入口程序、依赖的jar包、版本号等。</p>
+<h2 id="手动创建一个可执行jar包"><a href="#手动创建一个可执行jar包" class="headerlink" title="手动创建一个可执行jar包"></a><a href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85" title="手动创建一个可执行jar包"></a>手动创建一个可执行jar包</h2><p>知道了这个原理，我们可以手动创建一个可执行jar包。</p>
+<p>首先创建一个简单的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package guava.list.test;</span><br><span class="line"></span><br><span class="line">import com.google.common.collect.Lists;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class ListTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = Lists.newArrayList(1, 2, 3);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了测试可执行jar包对第三方jar包的依赖，我们这个类依赖<code>guava</code>库。使用<code>javac</code>命令编译该文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -cp libs/* guava/list/test/ListTest.java</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>libs</code>目录中存放guava的jar包。</p>
+<p>接下来创建一个<code>MANIFEST.MF</code>文件，内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: guava.list.test.ListTest</span><br><span class="line">Class-Path: libs/guava-28.2-jre.jar</span><br></pre></td></tr></table></figure>
+<p>各字段的含义如下：</p>
+<ul>
+<li><code>Manifest-Version</code>：清单文件的版本，默认为<code>1.0</code></li>
+<li><code>Main-Class</code>：程序的入口，即main函数所在的类</li>
+<li><code>Class-Path</code>：可执行jar包依赖的包的路径</li>
+</ul>
+<p>此时目录结构如下：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.wangqi.love/articles/Java/media/jartest.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://blog.wangqi.love/articles/Java/media/jartest.png" alt="jartest"></a></p>
+<p>最后使用<code>jar</code>命令来生成可执行jar包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar -cvfm jartest.jar MANIFEST.MF guava libs</span><br></pre></td></tr></table></figure>
+
+<p><code>jar</code>是jdk自带的命令，各个参数的含义如下：</p>
+<ul>
+<li><code>c</code>：创建新档案</li>
+<li><code>v</code>：在标准输出中输出详细信息</li>
+<li><code>f</code>：指定档案文件名</li>
+<li><code>m</code>：指定清单文件，也就是指定我们的<code>MANIFEST.MF</code>。如果没有这个参数，会生成一个默认的<code>MANIFEST.MF</code>文件。</li>
+<li><code>jartest.jar</code>：指定生成jar包的名称</li>
+<li><code>MANIFEST.MF</code>：指定清单文件</li>
+<li><code>guava libs</code>：指定要打包的文件</li>
+</ul>
+<p>最后输出一个可执行jar包：<code>jartest.jar</code>。</p>
+<p>这样就可以运行这个可执行jar包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; java -jar jartest.jar</span><br><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
+
+<p>解压<code>jartest.jar</code>来查看目录结构:</p>
+<p><a target="_blank" rel="noopener" href="https://blog.wangqi.love/articles/Java/media/jartest2.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://blog.wangqi.love/articles/Java/media/jartest2.png" alt="jartest2"></a></p>
+<p>发现jar命令根据<code>MANIFEST.MF</code>文件的描述，将我们自己的类、第三方依赖类都打包进了这个可执行jar包，并且新建了一个<code>META-INF</code>目录来存放<code>MANIFEST.MF</code>文件。</p>
+<h1 id="maven生成普通的可执行jar包"><a href="#maven生成普通的可执行jar包" class="headerlink" title="maven生成普通的可执行jar包"></a><a href="#maven%E7%94%9F%E6%88%90%E6%99%AE%E9%80%9A%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85" title="maven生成普通的可执行jar包"></a>maven生成普通的可执行jar包</h1><p>日常开发中，我们不会手动维护依赖包更不会手动编写<code>MANIFEST.MF</code>描述文件，而是会使用maven这样的工具来维护我们的整个工程。</p>
+<p>使用maven来生成可以执行的jar包原理上和上文所说的手动创建一个可执行jar包是一样的：</p>
+<ol>
+<li>需要一个<code>META-INF/MANIFEST.MF</code>文件来指定入口函数，以及依赖包的位置</li>
+<li>能够在指定依赖包的位置找到依赖包</li>
+</ol>
+<p>如果直接使用<code>mvn package</code>命令来对项目进行打包，是无法生成一个可执行jar包的。原因就是这样生成的jar包，<code>META-INF/MANIFEST.MF</code>文件中没有指定<code>Main-Class</code>以及<code>Class-Path</code>，因此java虚拟机在加载jar包后找不到入口函数以及依赖的包。</p>
+<p>我们需要使用maven插件来生成可执行的jar包。有以下几种方法：</p>
+<h2 id="使用maven-jar-plugin和maven-dependency-plugin插件"><a href="#使用maven-jar-plugin和maven-dependency-plugin插件" class="headerlink" title="使用maven-jar-plugin和maven-dependency-plugin插件"></a><a href="#%E4%BD%BF%E7%94%A8maven-jar-plugin%E5%92%8Cmaven-dependency-plugin%E6%8F%92%E4%BB%B6" title="使用maven-jar-plugin和maven-dependency-plugin插件"></a>使用maven-jar-plugin和maven-dependency-plugin插件</h2><p>在<code>pom.xml</code>中配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.2&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;addClasspath&gt;true&lt;/addClasspath&gt;</span><br><span class="line">            &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt;</span><br><span class="line">            &lt;mainClass&gt;love.wangqi.ListTest&lt;/mainClass&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;copy-dependencies&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;copy-dependencies&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">          &lt;configuration&gt;</span><br><span class="line">            &lt;outputDirectory&gt;$&#123;project.build.directory&#125;/lib&lt;/outputDirectory&gt;</span><br><span class="line">          &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>maven-jar-plugin</code>插件用于生成<code>META-INF/MANIFEST.MF</code>文件的部分内容。<code>&lt;mainClass&gt;love.wangqi.ListTest&lt;/mainClass&gt;</code>指定<code>MANIFEST.MF</code>中的<code>Main-Class</code>，<code>&lt;addClasspath&gt;true&lt;/addClasspath&gt;</code>会在<code>MANIFEST.MF</code>加上<code>Class-Path</code>项并配置依赖包，<code>&lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt;</code>指定依赖包所在的目录。</p>
+<p>下面就是我的工程生成的<code>MANIFEST.MF</code>文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Class-Path: lib/guava-28.2-jre.jar lib/failureaccess-1.0.1.jar lib/lis</span><br><span class="line"> tenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar lib/jsr30</span><br><span class="line"> 5-3.0.2.jar lib/checker-qual-2.10.0.jar lib/error_prone_annotations-2</span><br><span class="line"> .3.4.jar lib/j2objc-annotations-1.3.jar</span><br><span class="line">Build-Jdk-Spec: 1.8</span><br><span class="line">Created-By: Maven Archiver 3.4.0</span><br><span class="line">Main-Class: love.wangqi.ListTest</span><br></pre></td></tr></table></figure>
+
+<p>只生成<code>MANIFEST.MF</code>文件还不够，<code>maven-dependency-plugin</code>插件用于将依赖包拷贝到<code>&lt;outputDirectory&gt;$&#123;project.build.directory&#125;/lib&lt;/outputDirectory&gt;</code>指定的位置，即<code>lib</code>目录下。</p>
+<p>配置完成后，使用<code>mvn package</code>命令会在<code>target</code>目录下生成可执行的jar包，并将依赖包拷贝到<code>target/lib</code>目录下，目录结构如下：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.wangqi.love/articles/Java/media/maven-jar-test-1.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://blog.wangqi.love/articles/Java/media/maven-jar-test-1.png" alt="maven-jar-test-1"></a></p>
+<p>可以看到，所以依赖的包（包括<code>guava</code>以及<code>guava</code>本身依赖的包）都被拷贝到了<code>lib</code>目录下。有了入口函数以及依赖包，我们就可以通过<code>java -jar xxx.jar</code>命令来运行jar包了。</p>
+<p>这种方式生成的jar包有个缺点，就是依赖包是单独存放的，这样不便于管理。</p>
+<h2 id="使用maven-assembly-plugin插件"><a href="#使用maven-assembly-plugin插件" class="headerlink" title="使用maven-assembly-plugin插件"></a><a href="#%E4%BD%BF%E7%94%A8maven-assembly-plugin%E6%8F%92%E4%BB%B6" title="使用maven-assembly-plugin插件"></a>使用maven-assembly-plugin插件</h2><p>在<code>pom.xml</code>中配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;love.wangqi.ListTest&lt;/mainClass&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">        &lt;descriptorRefs&gt;</span><br><span class="line">          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;</span><br><span class="line">        &lt;/descriptorRefs&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>配置后可以使用<code>mvn package assembly:single</code>命令来生成可执行jar包。</p>
+<p>命令执行后，会在<code>target</code>目录下生成两个jar包：一个是普通的<code>xxx.jar</code>，另一个是<code>xxx-jar-with-dependencies.jar</code>文件，这个文件不但包含了自己项目中的代码和资源，还包含了所有依赖包的内容。所以可以直接通过<code>java -jar</code>命令来运行。</p>
+<p>它的<code>MANIFEST.MF</code>文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Built-By: wangqi</span><br><span class="line">Created-By: Apache Maven 3.6.3</span><br><span class="line">Build-Jdk: 1.8.0_211</span><br><span class="line">Main-Class: love.wangqi.ListTest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>MANIFEST.MF</code>文件指定了<code>Main-Class</code>，并没有指定<code>Class-Path</code>。原因我们查看jar包的目录结构可知：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.wangqi.love/articles/Java/media/maven-jar-test-2.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://blog.wangqi.love/articles/Java/media/maven-jar-test-2.png" alt="maven-jar-test-2"></a></p>
+<p>可以看到，<code>maven-assembly-plugin</code>插件并不是打包依赖的第三方jar包，而是将所有依赖的class文件打包进这个单一的jar包。</p>
+<p>加上以下配置，就可以直接使用<code>mvn package</code>来打包，无需使用<code>assembly:single</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;love.wangqi.ListTest&lt;/mainClass&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">        &lt;descriptorRefs&gt;</span><br><span class="line">          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;</span><br><span class="line">        &lt;/descriptorRefs&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;make-assembly&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>&lt;phase&gt;package&lt;/phase&gt;</code>、<code>&lt;goal&gt;single&lt;/goal&gt;</code>表示在执行<code>package</code>打包时，执行<code>assembly:single</code>。</p>
+<h2 id="使用maven-shade-plugin插件"><a href="#使用maven-shade-plugin插件" class="headerlink" title="使用maven-shade-plugin插件"></a><a href="#%E4%BD%BF%E7%94%A8maven-shade-plugin%E6%8F%92%E4%BB%B6" title="使用maven-shade-plugin插件"></a>使用maven-shade-plugin插件</h2><p>在<code>pom.xml</code>中配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.4.1&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">          &lt;configuration&gt;</span><br><span class="line">            &lt;transformers&gt;</span><br><span class="line">              &lt;transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;</span><br><span class="line">                &lt;mainClass&gt;love.wangqi.ListTest&lt;/mainClass&gt;</span><br><span class="line">              &lt;/transformer&gt;</span><br><span class="line">            &lt;/transformers&gt;</span><br><span class="line">          &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>配置后可以使用<code>mvn package</code>命令来生成可执行jar包。</p>
+<p>命令执行后，会在<code>target</code>目录下生成两个jar包：一个是普通的<code>original-xxx.jar</code>，另一个是<code>xxx.jar</code>文件。其中<code>original-xxx.jar</code>是不包含依赖的原始文件，<code>xxx.jar</code>是包含了依赖以及程序入口的可执行jar包。</p>
+<p><code>maven-shade-plugin</code>插件与<code>maven-assembly-plugin</code>插件一样，也是将第三方依赖的class文件打包进这个独立的jar包中，所以这个jar包可以独立运行。</p>
+<h1 id="maven生成SpringBoot项目的可执行jar包"><a href="#maven生成SpringBoot项目的可执行jar包" class="headerlink" title="maven生成SpringBoot项目的可执行jar包"></a><a href="#maven%E7%94%9F%E6%88%90SpringBoot%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85" title="maven生成SpringBoot项目的可执行jar包"></a>maven生成SpringBoot项目的可执行jar包</h1><p>SpringBoot项目与普通的java项目是不一样的，它无法使用前面说的这几种maven插件来生成可执行jar包，而是需要引入<code>spring-boot-maven-plugin</code>插件来打包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>打包之后可执行jar包的目录结构如下：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.wangqi.love/articles/Java/media/springboot-jar-test.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://blog.wangqi.love/articles/Java/media/springboot-jar-test.png" alt="springboot-jar-test"></a></p>
+<p>其中<code>MANIFEST.MF</code>内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Spring-Boot-Classpath-Index: BOOT-INF/classpath.idx</span><br><span class="line">Implementation-Title: springboot-jar-test</span><br><span class="line">Implementation-Version: 0.0.1-SNAPSHOT</span><br><span class="line">Start-Class: love.wangqi.SpringbootJarTestApplication</span><br><span class="line">Spring-Boot-Classes: BOOT-INF/classes/</span><br><span class="line">Spring-Boot-Lib: BOOT-INF/lib/</span><br><span class="line">Build-Jdk-Spec: 1.8</span><br><span class="line">Spring-Boot-Version: 2.3.3.RELEASE</span><br><span class="line">Created-By: Maven Jar Plugin 3.2.0</span><br><span class="line">Main-Class: org.springframework.boot.loader.JarLauncher</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们发现与普通Java工程不一样的是，SpringBoot生成的可执行jar包指定的<code>Main-Class</code>并不是我们在程序中<code>main</code>函数所在类，而是名为<code>org.springframework.boot.loader.JarLauncher</code>的类。当我们使用<code>java -jar</code>执行jar包时，调用的是<code>JarLauncher</code>类的main方法。</p>
+<p><code>JarLauncher</code>类位于<code>org.springframework.boot.loader</code>的package中，这个package在打包时由<code>spring-boot-maven-plugin</code>插件追加进jar包。Spring Boot Loader是SpringBoot提供的一个工具，用于执行SpringBoot打包出来的jar包。</p>
+<h2 id="JarLauncher的执行原理"><a href="#JarLauncher的执行原理" class="headerlink" title="JarLauncher的执行原理"></a><a href="#JarLauncher%E7%9A%84%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86" title="JarLauncher的执行原理"></a>JarLauncher的执行原理</h2><p>Springboot设计了多个<code>Launcher</code>用于启动不同类型的程序，分别是：</p>
+<ul>
+<li>JarLauncher：用于加载并执行jar包</li>
+<li>WarLauncher：用于加载并执行war包</li>
+<li>PropertiesLauncher：PropertiesLauncher可以通过配置<code>loader.path</code>去加载外部的jar包</li>
+</ul>
+<p>以当前程序使用的JarLauncher的为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">protected void launch(String[] args) throws Exception &#123;</span><br><span class="line">    JarFile.registerUrlProtocolHandler();</span><br><span class="line">    ClassLoader classLoader = createClassLoader(getClassPathArchives());</span><br><span class="line">    launch(args, getMainClass(), classLoader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其执行的主流程如下：</p>
+<ol>
+<li>注册一个处理自定义URL的jar协议</li>
+<li>为执行指定<code>archive</code>的类加载器</li>
+<li>调用<code>Start-Classs</code>中指定类中的<code>main</code>方法</li>
+</ol>
+<h3 id="处理自定义URL的jar协议"><a href="#处理自定义URL的jar协议" class="headerlink" title="处理自定义URL的jar协议"></a><a href="#%E5%A4%84%E7%90%86%E8%87%AA%E5%AE%9A%E4%B9%89URL%E7%9A%84jar%E5%8D%8F%E8%AE%AE" title="处理自定义URL的jar协议"></a>处理自定义URL的jar协议</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void registerUrlProtocolHandler() &#123;</span><br><span class="line">    String handlers = System.getProperty(PROTOCOL_HANDLER, &quot;&quot;);</span><br><span class="line">    System.setProperty(PROTOCOL_HANDLER,</span><br><span class="line">            (&quot;&quot;.equals(handlers) ? HANDLERS_PACKAGE : handlers + &quot;|&quot; + HANDLERS_PACKAGE));</span><br><span class="line">    resetCachedUrlHandlers();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么Springboot需要自定义jar包的处理协议？</p>
+<p>在JDK里面，jar资源的分隔符是<code>!/</code>，但是JDK中只支持一个<code>!/</code>，这无法满足Springboot的需求。因此Springboot扩展了<code>java.util.jar.JarFile</code>即<code>org.springframework.boot.loader.jar.JarFile</code>，它支持多个<code>!/</code>，表示jar文件嵌套jar文件、jar文件嵌套目录。文件的url如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/</span><br><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-starter-web-2.3.3.RELEASE.jar!/</span><br><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-starter-2.3.3.RELEASE.jar!/</span><br><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-2.3.3.RELEASE.jar!/</span><br><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-autoconfigure-2.3.3.RELEASE.jar!/</span><br><span class="line">jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-starter-logging-2.3.3.RELEASE.jar!/</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>这是因为Springboot重新扩展了jar文件的协议，因此需要自定义一个jar文件协议的处理器。</p>
+<p>通过将包名<code>org.springframework.boot.loader</code>追加到系统属性<code>java.protocol.handler.pkgs</code>中，来定义jar文件的处理器：<code>org.springframework.boot.loader.jar.Handler</code>。</p>
+<p>Springboot还定义了一个<code>org.springframework.boot.loader.archive.Archive</code>类来定义资源统一访问的接口。比如<code>getUrl</code>方法获取资源的url，<code>getManifest</code>获取资源的MANIFEST文件，<code>getNestedArchives</code>方法获取内部的嵌套资源。还在<code>Archive</code>内部定义了一个<code>Entry</code>接口，用于表示<code>Archive</code>内部的子资源。</p>
+<p><code>Archive</code>有两个实现：<code>JarFileArchive</code>、<code>ExplodedArchive</code>，分别表示jar文件，文件目录。</p>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a><a href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8" title="类加载器"></a>类加载器</h3><p>Springboot自定义了一个类加载器：<code>LaunchedURLClassLoader</code>，这是为什么？</p>
+<p>我们知道，java中的类加载器遵循双亲委派机制，从上到下依次为<code>Bootstrap ClassLoader</code>（启动类加载器）、<code>Extension ClassLoader</code>（扩展类加载器）、<code>Application ClassLoader</code>（应用程序类加载器）以及自定义的类加载器。如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求（它的搜索范围中没有找到所需的类）时，子加载器才会尝试自己去加载。</p>
+<p>但是因为Springboot打出的jar包依赖的各个第三方jar文件，并不在自己的<code>classpath</code>下，它们存放在jar包的<code>BOOT-INF/lib</code>目录下，如果采用双亲委派机制的话，获取不到这些依赖。因此需要破坏双亲委派机制，使用自定义的类加载器。</p>
+<p>在<code>LaunchedURLClassLoader</code>创建之前，会先调用<code>getClassPathArchives</code>方法获得所有依赖资源来组成<code>classpath</code>。资源过滤遵循以下规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">protected boolean isNestedArchive(Archive.Entry entry) &#123;</span><br><span class="line">    if (entry.isDirectory()) &#123;</span><br><span class="line">        return entry.getName().equals(BOOT_INF_CLASSES);</span><br><span class="line">    &#125;</span><br><span class="line">    return entry.getName().startsWith(BOOT_INF_LIB);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即位于<code>BOOT-INF/classes/</code>和<code>BOOT-INF/lib/</code>的class文件以及jar包。</p>
+<p>资源的加载按照<code>Spring-Boot-Classpath-Index</code>中指定的<code>BOOT-INF/classpath.idx</code>文件提供的顺序，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- &quot;spring-boot-starter-web-2.3.3.RELEASE.jar&quot;</span><br><span class="line">- &quot;spring-boot-starter-2.3.3.RELEASE.jar&quot;</span><br><span class="line">- &quot;spring-boot-2.3.3.RELEASE.jar&quot;</span><br><span class="line">- &quot;spring-boot-autoconfigure-2.3.3.RELEASE.jar&quot;</span><br><span class="line">- &quot;spring-boot-starter-logging-2.3.3.RELEASE.jar&quot;</span><br><span class="line">- &quot;logback-classic-1.2.3.jar&quot;</span><br><span class="line">- &quot;logback-core-1.2.3.jar&quot;</span><br><span class="line">- &quot;slf4j-api-1.7.30.jar&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>依赖的加载顺序由maven根据<strong>短路优先原则</strong>和<strong>先声明优先原则</strong>来确定，确保不会有相互冲突的依赖。</p>
+<p>接着将这个资源列表传递给<code>LaunchedURLClassLoader</code>。</p>
+<p>Springboot使用这个自定义的<code>LaunchedURLClassLoader</code>类加载器来执行后续的程序。当需要加载新的类时，<code>LaunchedURLClassLoader</code>就能找到指定的位置去加载类。</p>
+<p><code>LaunchedURLClassLoader</code>重写了<code>loadClass</code>方法，因此jvm会调用该方法来加载类。<code>loadClass</code>的执行主要分成两步：</p>
+<p>第一步，调用<code>definePackageIfNecessary(String className)</code>方法来定义指定类所在的package。<code>definePackageIfNecessary</code>方法的关键代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">String packageEntryName = packageName.replace(&#x27;.&#x27;, &#x27;/&#x27;) + &quot;/&quot;;</span><br><span class="line">String classEntryName = className.replace(&#x27;.&#x27;, &#x27;/&#x27;) + &quot;.class&quot;;</span><br><span class="line">for (URL url : getURLs()) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        URLConnection connection = url.openConnection();</span><br><span class="line">        if (connection instanceof JarURLConnection) &#123;</span><br><span class="line">            JarFile jarFile = ((JarURLConnection) connection).getJarFile();</span><br><span class="line">            if (jarFile.getEntry(classEntryName) != null &amp;&amp; jarFile.getEntry(packageEntryName) != null</span><br><span class="line">                    &amp;&amp; jarFile.getManifest() != null) &#123;</span><br><span class="line">                definePackage(packageName, jarFile.getManifest(), url);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (IOException ex) &#123;</span><br><span class="line">        // Ignore</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遍历<code>LaunchedURLClassLoader</code>中保存的所有目录以及jar包，这些资源是前面调用<code>getClassPathArchives</code>方法获取得来的，如果发现这些资源中有存在指定的类，则调用<code>definePackage</code>方法保存<code>packageName</code>与资源<code>url</code>的对应关系，确保jar包与相应的package相关联。</p>
+<p>第二步，调用<code>super.loadClass()</code>方法来加载指定的类。</p>
+<p>这一步是正常的双亲委派机制的流程。类加载器首先调用上层类加载器的<code>loadClass</code>方法来尝试加载类，按<code>LaunchedURLClassLoader</code>-&gt;<code>AppClassLoader</code>-&gt;<code>ExtClassLoader</code>-&gt;<code>BootstrapClassLoader</code>的顺序依次调用。</p>
+<p>上层的类加载器无法加载到jar包中的资源，于是从上往下按<code>BootstrapClassLoader</code>-&gt;<code>ExtClassLoader</code>-&gt;<code>AppClassLoader</code>-&gt;<code>LaunchedURLClassLoader</code>的顺序调用下层<code>findClass</code>方法。</p>
+<p>直到调用<code>LaunchedURLClassLoader</code>父类<code>URLClassLoader</code>的<code>findClass</code>方法，主要代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String path = name.replace(&#x27;.&#x27;, &#x27;/&#x27;).concat(&quot;.class&quot;);</span><br><span class="line">Resource res = ucp.getResource(path, false);</span><br><span class="line">if (res != null) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        return defineClass(name, res);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        throw new ClassNotFoundException(name, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一步，将类名解析成路径并加上<code>.class</code>后缀。</p>
+<p>第二步，根据之前注册的资源列表找到指定类所在的资源。关键代码是<code>Resource res = ucp.getResource(path, false);</code>。<code>ucp</code>是<code>URLClassPath</code>实例，里面保存了之前注册的资源列表，遍历该列表并找到指定类所对应的资源url。比如类<code>org/springframework/boot/SpringApplication.class</code>对应的资源url为<code>jar:file:/Users/wangqi/IdeaProjects/springboot-jar-test/target/springboot-jar-test-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-boot-2.3.3.RELEASE.jar!/org/springframework/boot/SpringApplication.class</code>。</p>
+<p>第三步，最终根据类名以及对应的资源url调用<code>defineClass</code>方法完成类的加载并返回。</p>
+<h3 id="执行main方法"><a href="#执行main方法" class="headerlink" title="执行main方法"></a><a href="#%E6%89%A7%E8%A1%8Cmain%E6%96%B9%E6%B3%95" title="执行main方法"></a>执行main方法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">protected String getMainClass() throws Exception &#123;</span><br><span class="line">    Manifest manifest = this.archive.getManifest();</span><br><span class="line">    String mainClass = null;</span><br><span class="line">    if (manifest != null) &#123;</span><br><span class="line">        mainClass = manifest.getMainAttributes().getValue(&quot;Start-Class&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (mainClass == null) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;No &#x27;Start-Class&#x27; manifest entry specified in &quot; + this);</span><br><span class="line">    &#125;</span><br><span class="line">    return mainClass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected void launch(String[] args, String mainClass, ClassLoader classLoader) throws Exception &#123;</span><br><span class="line">    Thread.currentThread().setContextClassLoader(classLoader);</span><br><span class="line">    createMainMethodRunner(mainClass, args, classLoader).run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public MainMethodRunner(String mainClass, String[] args) &#123;</span><br><span class="line">    this.mainClassName = mainClass;</span><br><span class="line">    this.args = (args != null) ? args.clone() : null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void run() throws Exception &#123;</span><br><span class="line">    Class&lt;?&gt; mainClass = Thread.currentThread().getContextClassLoader().loadClass(this.mainClassName);</span><br><span class="line">    Method mainMethod = mainClass.getDeclaredMethod(&quot;main&quot;, String[].class);</span><br><span class="line">    mainMethod.invoke(null, new Object[] &#123; this.args &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行main的方法就相对简单，流程如下：</p>
+<ol>
+<li>根据<code>MANIFEST</code>文件中的<code>Start-Class</code>找到指定的启动类。</li>
+<li>利用反射加载并启动<code>Start-Class</code>指定类中的main方法，这里用到了前面自定义的<code>LaunchedURLClassLoader</code>类加载器。</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/thinwonton/blog/877493">https://my.oschina.net/thinwonton/blog/877493</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e32e4c1595a4">https://www.jianshu.com/p/e32e4c1595a4</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiao__gui/article/details/47341385">https://blog.csdn.net/xiao__gui&#x2F;article&#x2F;details&#x2F;47341385</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904181304672270">https://juejin.im/post/6844904181304672270</a><br><a target="_blank" rel="noopener" href="https://fangjian0423.github.io/2017/05/31/springboot-executable-jar/">https://fangjian0423.github.io/2017/05/31/springboot-executable-jar/</a><br><a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/765f324659d44a5e1eae1ee0c">https://xie.infoq.cn/article/765f324659d44a5e1eae1ee0c</a><br><a target="_blank" rel="noopener" href="https://www.codenong.com/cs106676979/">https://www.codenong.com/cs106676979/</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/BryantLmm/article/details/86305047">https://blog.csdn.net/BryantLmm/article/details/86305047</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904194319745037">https://juejin.im/post/6844904194319745037</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">代长亚</div><div class="post-copyright__author_desc">记录技术与生活</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://tushu.info/archives/ke-zhi-xing-jar-bao/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://tushu.info/archives/ke-zhi-xing-jar-bao/')">可执行jar包</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/qrcode-weichat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/425237894_1588896897344.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://tushu.info/archives/ke-zhi-xing-jar-bao/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=可执行jar包&amp;url=https://tushu.info/archives/ke-zhi-xing-jar-bao/&amp;pic=/img/default_cover.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tushu.info" target="_blank">代老师的博客</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/springboot/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>springboot<span class="tagsPageCount">4</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/shen-me-shi-MVEL/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">什么是MVEL?</div></div></a></div><div class="next-post pull-right"><a href="/archives/ji-yu-Spring-de-an-quan-guan-li-kuang/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于Spring的安全管理框架Spring Security</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/archives/2025-Mac-dian-nao-Jdk-Maven-Idea-de-an/" title="2025 Mac电脑Jdk,Maven,Idea的安装与配置,Spring boot项目创建"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-11-05</div><div class="title">2025 Mac电脑Jdk,Maven,Idea的安装与配置,Spring boot项目创建</div></div></a></div><div><a href="/archives/Spring-Boot-Actuator/" title="Spring Boot Actuator"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">Spring Boot Actuator</div></div></a></div><div><a href="/archives/spring-boot-nei-qian-tomcat-fang-wen-ri/" title="spring boot内嵌tomcat访问日志常用配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-31</div><div class="title">spring boot内嵌tomcat访问日志常用配置</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">代老师的个人技术博客，分享编程、技术和生活感悟</div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(/img/qrcode.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-jar-xxx-jar%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">java -jar xxx.jar命令的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text">手动创建一个可执行jar包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#maven%E7%94%9F%E6%88%90%E6%99%AE%E9%80%9A%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">maven生成普通的可执行jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8maven-jar-plugin%E5%92%8Cmaven-dependency-plugin%E6%8F%92%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">使用maven-jar-plugin和maven-dependency-plugin插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8maven-assembly-plugin%E6%8F%92%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">使用maven-assembly-plugin插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8maven-shade-plugin%E6%8F%92%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">使用maven-shade-plugin插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#maven%E7%94%9F%E6%88%90SpringBoot%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">maven生成SpringBoot项目的可执行jar包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JarLauncher%E7%9A%84%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">JarLauncher的执行原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E8%87%AA%E5%AE%9A%E4%B9%89URL%E7%9A%84jar%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.1.</span> <span class="toc-text">处理自定义URL的jar协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">3.1.2.</span> <span class="toc-text">类加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cmain%E6%96%B9%E6%B3%95"><span class="toc-number">3.1.3.</span> <span class="toc-text">执行main方法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenClaw架构解析：AI工程师的实战学习范本"/></a><div class="content"><a class="title" href="/archives/OpenClaw-jia-gou-jie-xi-AI-gong-cheng-shi-de-shi-zhan-xue-xi-fan-ben/" title="OpenClaw架构解析：AI工程师的实战学习范本">OpenClaw架构解析：AI工程师的实战学习范本</a><time datetime="2026-07-06T03:31:00.000Z" title="发表于 2026-07-06 11:31:00">2026-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DClaw 的第一天：从诞生到拥有自己的邮箱"/></a><div class="content"><a class="title" href="/2026/03/11/dclaw-first-day/" title="DClaw 的第一天：从诞生到拥有自己的邮箱">DClaw 的第一天：从诞生到拥有自己的邮箱</a><time datetime="2026-03-11T06:30:00.000Z" title="发表于 2026-03-11 14:30:00">2026-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录"/></a><div class="content"><a class="title" href="/2026/03/06/ai-tuan-dui-xu-jia-hui-bao-feng-bo/" title="AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录">AI 团队协作中的&quot;虚假汇报&quot;风波：一次信任危机的处理实录</a><time datetime="2026-03-06T01:50:00.000Z" title="发表于 2026-03-06 09:50:00">2026-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队"/></a><div class="content"><a class="title" href="/2026/03/05/hiclaw-duo-dai-li-xie-zuo-kai-fa-shi-zhan/" title="HiClaw 多代理协作开发实战：用 AI 管理 AI 团队">HiClaw 多代理协作开发实战：用 AI 管理 AI 团队</a><time datetime="2026-03-05T15:30:00.000Z" title="发表于 2026-03-05 23:30:00">2026-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo 全面介绍：静态博客框架的核心与实践"/></a><div class="content"><a class="title" href="/archives/Hexo-quan-mian-jie-shao-jing-tai-bo-ke/" title="Hexo 全面介绍：静态博客框架的核心与实践">Hexo 全面介绍：静态博客框架的核心与实践</a><time datetime="2025-08-31T14:01:41.000Z" title="发表于 2025-08-31 22:01:41">2025-08-31</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="代长亚" target="_blank">代长亚</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/daichangya" title="GitHub">GitHub</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">736</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">117</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">64</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://tushu.info/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://mdanimage.oss-cn-shenzhen.aliyuncs.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/aop/" style="font-size: 0.88rem;">aop<sup>4</sup></a><a href="/tags/btrace/" style="font-size: 0.88rem;">btrace<sup>1</sup></a><a href="/tags/c/" style="font-size: 0.88rem;">c<sup>4</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/csv/" style="font-size: 0.88rem;">csv<sup>1</sup></a><a href="/tags/db/" style="font-size: 0.88rem;">db<sup>1</sup></a><a href="/tags/dubbo/" style="font-size: 0.88rem;">dubbo<sup>1</sup></a><a href="/tags/eclipse/" style="font-size: 0.88rem;">eclipse<sup>3</sup></a><a href="/tags/elasticsearch/" style="font-size: 0.88rem;">elasticsearch<sup>2</sup></a><a href="/tags/hadoop/" style="font-size: 0.88rem;">hadoop<sup>2</sup></a><a href="/tags/hive/" style="font-size: 0.88rem;">hive<sup>1</sup></a><a href="/tags/hystrix/" style="font-size: 0.88rem;">hystrix<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem;">java8<sup>1</sup></a><a href="/tags/jdbc/" style="font-size: 0.88rem;">jdbc<sup>10</sup></a><a href="/tags/jetty/" style="font-size: 0.88rem;">jetty<sup>1</sup></a><a href="/tags/jndi/" style="font-size: 0.88rem;">jndi<sup>1</sup></a><a href="/tags/jta/" style="font-size: 0.88rem;">jta<sup>1</sup></a><a href="/tags/kubernetes/" style="font-size: 0.88rem;">kubernetes<sup>1</sup></a><a href="/tags/linux/" style="font-size: 0.88rem;">linux<sup>13</sup></a><a href="/tags/lucene/" style="font-size: 0.88rem;">lucene<sup>1</sup></a><a href="/tags/mybatis/" style="font-size: 0.88rem;">mybatis<sup>5</sup></a><a href="/tags/mysql/" style="font-size: 0.88rem;">mysql<sup>13</sup></a><a href="/tags/netty/" style="font-size: 0.88rem;">netty<sup>4</sup></a><a href="/tags/spring/" style="font-size: 0.88rem;">spring<sup>1</sup></a><a href="/tags/springboot/" style="font-size: 0.88rem;">springboot<sup>4</sup></a><a href="/tags/tomcat/" style="font-size: 0.88rem;">tomcat<sup>14</sup></a><a href="/tags/uml/" style="font-size: 0.88rem;">uml<sup>3</sup></a><a href="/tags/%E4%BA%8B%E5%8A%A1/" style="font-size: 0.88rem;">事务<sup>3</sup></a><a href="/tags/%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">优化<sup>5</sup></a><a href="/tags/%E6%9C%80%E6%96%B0%E6%96%87%E7%AB%A0/" style="font-size: 0.88rem;">最新文章<sup>2</sup></a><a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.88rem;">正则表达式<sup>1</sup></a><a href="/tags/%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">测试<sup>7</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>17</sup></a><a href="/tags/%E7%B4%A2%E5%BC%95/" style="font-size: 0.88rem;">索引<sup>1</sup></a><a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 0.88rem;">缓存<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 0.88rem;">网络<sup>1</sup></a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 0.88rem;">设计模式<sup>13</sup></a><a href="/tags/%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" style="font-size: 0.88rem;">链路追踪<sup>1</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 代长亚 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
