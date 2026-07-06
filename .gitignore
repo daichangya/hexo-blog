@@ -4,5 +4,6 @@ db.json
 *.log
 node_modules/
 source/public/
+public/
 .deploy*/
 _multiconfig.yml
